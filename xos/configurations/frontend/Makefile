@@ -12,10 +12,10 @@ prereqs:
 	sudo make -f ../common/Makefile.prereqs
 
 download_services:
-	sudo make -f ../common/Makefile.services
+	make -f ../common/Makefile.services
 
 update_services:
-	sudo make -f ../common/Makefile.services update
+	make -f ../common/Makefile.services update
 
 bootstrap:
 	echo "[BOOTSTRAP]"
