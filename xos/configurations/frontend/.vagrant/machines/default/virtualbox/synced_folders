@@ -1,0 +1,1 @@
+{"virtualbox":{"/opt/xos":{"guestpath":"/opt/xos","hostpath":"/Users/teone/Sites/xos","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/teone/Sites/xos/xos/configurations/frontend","disabled":false,"__vagrantfile":true}}}
