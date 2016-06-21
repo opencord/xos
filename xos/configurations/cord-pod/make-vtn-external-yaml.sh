@@ -104,6 +104,7 @@ cat >> $FN <<EOF
               node: service#vtn
               relationship: tosca.relationships.UsedByService
       properties:
-          dependencies: org.onosproject.drivers, org.onosproject.drivers.ovsdb, org.onosproject.openflow-base, org.onosproject.ovsdb-base, org.onosproject.dhcp, org.onosproject.cordvtn, org.onosproject.olt, org.onosproject.igmp, org.onosproject.cordmcast
+          install_dependencies: http://new-host:8080/repository/org/opencord/cord-config/1.0-SNAPSHOT/cord-config-1.0-SNAPSHOT.oar,http://new-host:8080/repository/org/opencord/xosclient/1.0-SNAPSHOT/xosclient-1.0-SNAPSHOT.oar,http://new-host:8080/repository/org/opencord/vtn/1.0-SNAPSHOT/vtn-1.0-SNAPSHOT.oar
+          dependencies: org.onosproject.drivers, org.onosproject.drivers.ovsdb, org.onosproject.openflow-base, org.onosproject.ovsdb-base, org.onosproject.dhcp, org.opencord.vtn,
           autogenerate: vtn-network-cfg
 EOF
