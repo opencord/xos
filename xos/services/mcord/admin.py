@@ -113,6 +113,7 @@ class VBBUComponentForm(forms.ModelForm):
 
     class Meta:
         model = VBBUComponent
+        fields = '__all__'
 
 # Class to represent the form to add and edit tenants.
 # We need to define this instead of just using an admin like we did for the
