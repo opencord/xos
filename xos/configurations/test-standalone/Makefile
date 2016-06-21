@@ -25,7 +25,7 @@ prepare: xos
 	sudo docker exec -i teststandalone_xos_ui_1 bash -c "cd /opt/xos/tests/api; npm install --production"
 	sudo docker exec teststandalone_xos_ui_1 pip install dredd_hooks
 
-xos: prereqs bootstrap download_services onboarding
+xos: prereqs download_services bootstrap onboarding
 
 prereqs:
 	sudo make -f ../common/Makefile.prereqs

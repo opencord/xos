@@ -6,16 +6,16 @@ DOCKER_PROJECT=frontend
 XOS_BOOTSTRAP_PORT=9998
 XOS_UI_PORT=9999
 
-frontend: prereqs bootstrap download_services onboarding frontendconfig
+frontend: prereqs download_services bootstrap onboarding frontendconfig
 
 prereqs:
 	sudo make -f ../common/Makefile.prereqs
 
 download_services:
-	sudo make -f ../common/Makefile.services
+	make -f ../common/Makefile.services
 
 update_services:
-	sudo make -f ../common/Makefile.services update
+	make -f ../common/Makefile.services update
 
 bootstrap:
 	echo "[BOOTSTRAP]"

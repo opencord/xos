@@ -1,5 +1,4 @@
-#SERVICE_DIR=../../../xos_services
-SERVICE_DIR=/opt/xos_services
+SERVICE_DIR=../../../../xos_services
 
 services: $(SERVICE_DIR) \
           $(SERVICE_DIR)/exampleservice \
