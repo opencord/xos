@@ -25,10 +25,15 @@ prepare: xos
 	sudo docker exec -i teststandalone_xos_ui_1 bash -c "cd /opt/xos/tests/api; npm install --production"
 	sudo docker exec teststandalone_xos_ui_1 pip install dredd_hooks
 
-xos: prereqs bootstrap download_services onboarding
+xos: prereqs dirs bootstrap download_services onboarding
 
 prereqs:
 	sudo make -f ../common/Makefile.prereqs
+
+dirs:
+	# if this directory doesn't exist, then docker-compose will create it with root permission
+	mkdir -p key_import
+	mkdir -p onboarding-docker-compose
 
 bootstrap:
 	echo "[BOOTSTRAP]"
