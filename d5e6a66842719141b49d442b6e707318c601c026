@@ -22,6 +22,30 @@
       "revId": "d5e6a66842719141b49d442b6e707318c601c026",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_20178453",
+        "filename": "xos/configurations/frontend/Vagrantfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-06-23T19:10:50Z",
+      "side": 1,
+      "message": "Good point. I guess that we can remove the \"echo\" part, vagrant look to be clear enough when it\u0027s ready.",
+      "parentUuid": "5af74547_804ad881",
+      "range": {
+        "startLine": 7,
+        "startChar": 86,
+        "endLine": 7,
+        "endChar": 89
+      },
+      "revId": "d5e6a66842719141b49d442b6e707318c601c026",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
