@@ -145,7 +145,7 @@ angular.module('xos.tenant', [
     bindToController: true,
     controllerAs: 'cs',
     templateUrl: 'templates/createslice.html',
-    controller: function(Slices, SlicesPlus, Sites, Images, $stateParams, $http, $state, $q){
+    controller: function(Slices, SlicesPlus, Sites, Images, $stateParams, $http, $state, $q, XosUserPrefs){
       this.config = {
         exclude: ['site', 'password', 'last_login', 'mount_data_sets', 'default_flavor', 'creator', 'exposed_ports', 'networks', 'omf_friendly', 'omf_friendly', 'no_sync', 'no_policy', 'lazy_blocked', 'write_protect', 'deleted', 'backend_status', 'backend_register', 'policed', 'enacted', 'updated', 'created', 'validators', 'humanReadableName'],
         formName: 'SliceDetails',
@@ -352,17 +352,14 @@ angular.module('xos.tenant', [
 
 
         this.model = {};
-        $http.get('/xoslib/tenantview/').
-        success((data) => {
-          this.userList = data;
-          this.model['creator'] = this.userList.current_user_id;
-
-        });
-
-
-
-
-
+        XosUserPrefs.getUserDetailsCookie().$promise
+            .then((userdata)=>{
+          this.model['creator'] =userdata.current_user_id;
+        })
+        .catch ((e) => {
+        //console.log(e);
+        throw new Error(e);
+      });
 
         Sites.query().$promise
       .then((users) => {
