@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5af74547_f1f5f0cb",
+        "filename": "views/ngXosLib/xosHelpers/src/services/helpers/user-prefs.service.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-06-29T17:59:11Z",
+      "side": 1,
+      "message": "What about indenting the code? Now it is not so readable...",
+      "range": {
+        "startLine": 122,
+        "startChar": 6,
+        "endLine": 133,
+        "endChar": 9
+      },
+      "revId": "ba04ed93170ceead764503c15e731fb2f833233f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_11f97cc8",
+        "filename": "views/ngXosLib/xosHelpers/src/services/rest/Me.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-06-29T17:59:11Z",
+      "side": 1,
+      "message": "tecnically this is not a $resource",
+      "range": {
+        "startLine": 8,
+        "startChar": 17,
+        "endLine": 8,
+        "endChar": 33
+      },
+      "revId": "ba04ed93170ceead764503c15e731fb2f833233f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_d102f4b3",
+        "filename": "views/ngXosViews/tenant/src/js/main.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 362,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-06-29T17:59:11Z",
+      "side": 1,
+      "message": "What about indenting the code? Now it is not so readable...",
+      "range": {
+        "startLine": 355,
+        "startChar": 8,
+        "endLine": 362,
+        "endChar": 9
+      },
+      "revId": "ba04ed93170ceead764503c15e731fb2f833233f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
