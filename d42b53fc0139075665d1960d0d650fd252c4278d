@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5af74547_5720149b",
+        "filename": "views/ngXosLib/xosHelpers/src/services/rest/Me.js",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-07T01:08:01Z",
+      "side": 1,
+      "message": "It\u0027s common practice when we catch errors to call them \"err\" or \"e\"",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 29
+      },
+      "revId": "d42b53fc0139075665d1960d0d650fd252c4278d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_b73078e9",
+        "filename": "views/ngXosViews/tenant/src/js/main.js",
+        "patchSetId": 9
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-07T01:08:01Z",
+      "side": 1,
+      "message": "this file is too big, split component in separate files",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 30
+      },
+      "revId": "d42b53fc0139075665d1960d0d650fd252c4278d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_974d7c75",
+        "filename": "views/ngXosViews/tenant/src/js/main.js",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-07T01:08:01Z",
+      "side": 1,
+      "message": "This is not a user list, please rename accordingly",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "d42b53fc0139075665d1960d0d650fd252c4278d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_f73600e7",
+        "filename": "views/ngXosViews/tenant/src/js/main.js",
+        "patchSetId": 9
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-07T01:08:01Z",
+      "side": 1,
+      "message": "indent 2 space more",
+      "range": {
+        "startLine": 369,
+        "startChar": 6,
+        "endLine": 371,
+        "endChar": 9
+      },
+      "revId": "d42b53fc0139075665d1960d0d650fd252c4278d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
