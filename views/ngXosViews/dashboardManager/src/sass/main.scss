@@ -1,0 +1,32 @@
+@import '../../../../style/sass/lib/_variables.scss';
+
+#xosDashboardManager {
+  ul[dnd-list] {
+    min-height: 42px;
+    border: 1px dashed $brand-primary;
+    padding: 10px;
+    margin-bottom: 0;
+
+    li {
+      list-style: none;
+      display: block;
+      border: 1px solid $brand-primary;
+      padding: 10px;
+      a {
+        float: right;
+      }
+    }
+
+    li:not(:last-child){
+      margin-bottom: 10px;
+    }
+
+    li:hover{
+      cursor: pointer;
+    }
+
+    li.dndDraggingSource {
+      display: none;
+    }
+  }
+}

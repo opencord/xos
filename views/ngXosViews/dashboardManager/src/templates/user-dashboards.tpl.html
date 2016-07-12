@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-xs-10">
+    <h1>Manage Your Dashboards</h1>
+  </div>
+  <div class="col-xs-2">
+    <a href="/core/dashboardview/add/" class="btn btn-success">Add</a>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          Available Dashboards
+        </h3>
+      </div>
+      <div class="panel-body">
+        <ul dnd-list="vm.list.disabled"
+          dnd-drop="vm.addedToList(event, index, item, external, 'disabled')">
+          <li ng-repeat="item in vm.list.disabled"
+            dnd-moved="vm.removeFromList('disabled', item.id)"
+            dnd-draggable="item">
+            {{item.name}}
+            <a href="/admin/core/dashboardview/{{item.id}}/"><i class="glyphicon glyphicon-pencil"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          Enabled Dashboards
+        </h3>
+      </div>
+      <div class="panel-body">
+        <ul dnd-list="vm.list.enabled"
+          dnd-drop="vm.addedToList(event, index, item, external, 'enabled')">
+          <li ng-repeat="item in vm.list.enabled | orderBy : 'order'"
+            dnd-moved="vm.removeFromList('enabled', item.id)"
+            dnd-draggable="item">
+            {{item.name}}
+            <a href="/admin/core/dashboardview/{{item.id}}/"><i class="glyphicon glyphicon-pencil"></i></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
