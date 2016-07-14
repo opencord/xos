@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5af74547_c919247b",
+        "filename": "xos/api/utility/dashboards.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000027
+      },
+      "writtenOn": "2016-07-14T07:24:18Z",
+      "side": 1,
+      "message": "I am just giving suggestions,\n\nCan we move d.save() out of for loop, Saving data in loop is not recommended, but if it is required as per login then it is okay.",
+      "revId": "c7dc9f4bab1a428b3e19de15a6a761a1fdaeb579",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_a926d8b8",
+        "filename": "xos/api/utility/dashboards.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000027
+      },
+      "writtenOn": "2016-07-14T07:24:18Z",
+      "side": 1,
+      "message": "Not sure if we need to return this, Or we can leave it here",
+      "revId": "c7dc9f4bab1a428b3e19de15a6a761a1fdaeb579",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
