@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5af74547_89a0bcf5",
+        "filename": "xos/api/utility/dashboards.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-14T17:59:14Z",
+      "side": 1,
+      "message": "No we can\u0027t move outside the loop, we have to update all the models in that connection, if you have any suggestion on better ways to do that, happy to change!",
+      "parentUuid": "5af74547_c919247b",
+      "revId": "c7dc9f4bab1a428b3e19de15a6a761a1fdaeb579",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5af74547_a926d8b8",
         "filename": "xos/api/utility/dashboards.py",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-14T07:24:18Z",
       "side": 1,
       "message": "Not sure if we need to return this, Or we can leave it here",
+      "revId": "c7dc9f4bab1a428b3e19de15a6a761a1fdaeb579",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_69a57003",
+        "filename": "xos/api/utility/dashboards.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-14T17:59:14Z",
+      "side": 1,
+      "message": "Not used for now, but shouldn\u0027t cause problems",
+      "parentUuid": "5af74547_a926d8b8",
       "revId": "c7dc9f4bab1a428b3e19de15a6a761a1fdaeb579",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
