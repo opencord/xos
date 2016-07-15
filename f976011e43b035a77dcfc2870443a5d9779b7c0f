@@ -45,6 +45,30 @@
       "revId": "f976011e43b035a77dcfc2870443a5d9779b7c0f",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_c94a44ac",
+        "filename": "xos/core/xoslib/static/css/xosTenant.css",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000027
+      },
+      "writtenOn": "2016-07-15T21:50:39Z",
+      "side": 1,
+      "message": "So I made the changes main.scss and submitted that change in the following request: https://gerrit.opencord.org/#/c/508/\n\nThis file is some generated from this main file, really not sure.",
+      "parentUuid": "5af74547_09514c62",
+      "range": {
+        "startLine": 1,
+        "startChar": 12,
+        "endLine": 1,
+        "endChar": 73
+      },
+      "revId": "f976011e43b035a77dcfc2870443a5d9779b7c0f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
