@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5af74547_295e4846",
+        "filename": "views/ngXosViews/tenant/src/js/createslice.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-16T00:37:22Z",
+      "side": 1,
+      "message": "this var is used only to search, can\u0027t we use directly \"this.config.fields.site.options\"?",
+      "range": {
+        "startLine": 71,
+        "startChar": 22,
+        "endLine": 71,
+        "endChar": 34
+      },
+      "revId": "89d8dc6bbf2e3e4cf4afe86b793fa3106b5ddeb2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_095b8c55",
+        "filename": "views/ngXosViews/tenant/src/js/createslice.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-16T00:37:22Z",
+      "side": 1,
+      "message": "Indentation 2 spaces",
+      "range": {
+        "startLine": 74,
+        "startChar": 24,
+        "endLine": 74,
+        "endChar": 30
+      },
+      "revId": "89d8dc6bbf2e3e4cf4afe86b793fa3106b5ddeb2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_894f9c92",
+        "filename": "views/ngXosViews/tenant/src/js/createslice.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-16T00:37:22Z",
+      "side": 1,
+      "message": "You can use \"value\" (it\u0027s the input values) instead of \"this.model.name\", but they are equivalent.",
+      "range": {
+        "startLine": 74,
+        "startChar": 32,
+        "endLine": 74,
+        "endChar": 47
+      },
+      "revId": "89d8dc6bbf2e3e4cf4afe86b793fa3106b5ddeb2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5af74547_69445074",
+        "filename": "views/ngXosViews/tenant/src/js/createslice.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-16T00:37:22Z",
+      "side": 1,
+      "message": "Since the if is already returning you can skip the else and just return false, but again it is just styling, look at https://gist.github.com/teone/1d1dd67ab0f754f0522326713158dae3",
+      "range": {
+        "startLine": 76,
+        "startChar": 18,
+        "endLine": 78,
+        "endChar": 19
+      },
+      "revId": "89d8dc6bbf2e3e4cf4afe86b793fa3106b5ddeb2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
