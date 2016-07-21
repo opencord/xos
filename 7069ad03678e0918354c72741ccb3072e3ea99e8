@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a014df3_9bb5ab33",
+        "filename": "views/ngXosLib/generator-xos/app/templates/src/icons/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-21T16:58:10Z",
+      "side": 1,
+      "message": "can we add an example?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 46
+      },
+      "revId": "7069ad03678e0918354c72741ccb3072e3ea99e8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a014df3_7b82df53",
+        "filename": "views/ngXosViews/tenant/gulp/build.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-21T16:58:10Z",
+      "side": 1,
+      "message": "We can\u0027t delete all the images. Doing this we\u0027ll remove any icon that is there, we should clean only this view icons.",
+      "range": {
+        "startLine": 45,
+        "startChar": 7,
+        "endLine": 45,
+        "endChar": 35
+      },
+      "revId": "7069ad03678e0918354c72741ccb3072e3ea99e8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a014df3_5b872362",
+        "filename": "xos/templates/admin/tags/dashboard_list.html",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-21T16:58:10Z",
+      "side": 1,
+      "message": "indent.",
+      "range": {
+        "startLine": 9,
+        "startChar": 15,
+        "endLine": 14,
+        "endChar": 40
+      },
+      "revId": "7069ad03678e0918354c72741ccb3072e3ea99e8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
