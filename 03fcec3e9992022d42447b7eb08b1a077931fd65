@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a014df3_9b680b89",
+        "filename": "views/ngXosViews/dashboardManager/src/index.html",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-07-22T00:35:33Z",
+      "side": 1,
+      "message": "I believe that this will file, an angular module is loaded before than angular itself",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 89
+      },
+      "revId": "03fcec3e9992022d42447b7eb08b1a077931fd65",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
