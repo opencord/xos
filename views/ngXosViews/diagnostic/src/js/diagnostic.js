@@ -6,7 +6,7 @@
       restrict: 'E',
       templateUrl: 'templates/diagnostic.tpl.html',
       controllerAs: 'vm',
-      controller: function(ChartData, Subscribers, ServiceRelation, $rootScope, $log){
+      controller: function(ChartData, Subscribers, ServiceRelation, $rootScope){
 
         this.loader = true;
         this.error = false;

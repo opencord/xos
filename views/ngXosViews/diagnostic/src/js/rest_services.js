@@ -123,12 +123,6 @@
       return deferred.promise;
     }
   })
-  .service('Slice', function($resource){
-    return $resource('/api/core/slices', {id: '@id'});
-  })
-  .service('Instances', function($resource){
-    return $resource('/api/core/instances/:id', {id: '@id'});
-  })
   .service('Node', function($resource, $q, Instances){
     return $resource('/api/core/nodes', {id: '@id'}, {
       queryWithInstances: {
@@ -163,82 +157,7 @@
       }
     });
   })
-  .service('Subscribers', function($resource, $q, SubscriberDevice){
-    return $resource('/xoslib/cordsubscriber/:id', {id: '@id'}, {
-      update: {
-        method: 'PUT',
-        isArray: false
-      },
-      queryWithDevices: {
-        method: 'GET',
-        isArray: true,
-        interceptor: {
-          response: function(res){
-
-            /**
-            * For each subscriber retrieve devices and append them
-            */
-
-            let deferred = $q.defer();
-
-            let requests = [];
-
-            angular.forEach(res.data, (subscriber) => {
-              requests.push(SubscriberDevice.query({id: subscriber.id}).$promise);
-            })
-
-            $q.all(requests)
-            .then((list) => {
-
-              // adding devices
-
-              res.data.map((subscriber, i) => {
-                subscriber.devices = list[i];
-                subscriber.type = 'subscriber';
-
-                subscriber.devices.map(d => d.type = 'device')
-
-                return subscriber;
-              });
-
-              // faking to have 2 subscriber
-              // res.data.push(angular.copy(res.data[0]));
-
-              deferred.resolve(res.data);
-            })
-
-            return deferred.promise;
-          }
-        }
-      },
-      getWithDevices: {
-        method: 'GET',
-        isArray: false,
-        interceptor: {
-          response: (res) => {
-            let d = $q.defer();
-
-            SubscriberDevice.query({id: res.data.id}).$promise
-            .then(devices => {
-              devices.map(d => d.type = 'device');
-              res.data.devices = devices;
-              res.data.type = 'subscriber';
-              d.resolve(res.data);
-            })
-            .catch(err => {
-              d.reject(err);
-            });
-
-            return d.promise;
-          }
-        }
-      }
-    });
-  })
-  .service('SubscriberDevice', function($resource){
-    return $resource('/xoslib/rs/subscriber/:id/users/', {id: '@id'});
-  })
-  .service('ServiceRelation', function($q, _, Services, Tenant, Slice, Instances){
+  .service('ServiceRelation', function($q, _, Services, Tenant, Instances){
 
     // count the mas depth of an object
     const depthOf = (obj) => {
