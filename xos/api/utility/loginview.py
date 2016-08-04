@@ -5,8 +5,6 @@ from rest_framework import serializers
 from rest_framework import generics
 from rest_framework.views import APIView
 from core.models import *
-from services.hpc.models import *
-from services.requestrouter.models import *
 from django.forms import widgets
 from django.core.exceptions import PermissionDenied
 from django.contrib.contenttypes.models import ContentType
