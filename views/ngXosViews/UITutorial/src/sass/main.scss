@@ -28,9 +28,14 @@ $green:   #859900;
       background: $background;
       padding: 10px;
       overflow: scroll;
+      color: $emph;
 
       .prompt {
         color: $magenta;
+      }
+
+      .input {
+        color: $blue;
       }
 
       .cursor {
@@ -42,7 +47,6 @@ $green:   #859900;
       }
 
       #shell-view {
-        color: $emph;
 
         >div>div{
           color: $blue;
