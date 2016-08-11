@@ -88,10 +88,17 @@
 
         Resource[method](params).$promise
         .then(res => {
-          return ResponseHandler.parse(res, done);
+          const jsCode = `${resourceName}.${method}(${Object.keys(params).length > 0 ? JSON.stringify(params): ''})`;
+          return ResponseHandler.parse(res, jsCode, done);
+        })
+        .catch(e => {
+          if(e.status === 404){
+            return ErrorHandler.print(`${resourceName} with ${JSON.stringify(params)} ${e.data.detail}`, done);
+          }
         });
       }
       catch(e){
+        console.log(e);
         return ErrorHandler.print(`Failed to inject resource "${resourceName}"`, done);
       }
     };

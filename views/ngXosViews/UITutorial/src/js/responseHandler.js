@@ -1,8 +1,8 @@
 (function () {
   'use strict';
   angular.module('xos.UITutorial')
-  .service('ResponseHandler', function(){
-    this.parse = (res, done) => {
+  .service('ResponseHandler', function(TemplateHandler){
+    this.parse = (res, jsCode, done) => {
       // TODO @Arpit format res (it can be an array or an object),
       // it is better if the output is a valid JSON (that we can copy and paste)
       // TODO handle 204/No-Content response
@@ -15,7 +15,10 @@
         res = JSON.stringify(res, ['id', 'name', 'max_instances'], 2);
       }
 
-      done(res);
+      done(TemplateHandler.resourcesResponse({
+        jsCode: jsCode,
+        res: res
+      }));
     };
   });
 })();
