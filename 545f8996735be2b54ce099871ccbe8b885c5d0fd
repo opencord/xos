@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a014df3_1595e43f",
+        "filename": "views/ngXosViews/dashboardManager/src/templates/user-dashboards.tpl.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-11T00:35:37Z",
+      "side": 1,
+      "message": "indent",
+      "range": {
+        "startLine": 23,
+        "startChar": 33,
+        "endLine": 25,
+        "endChar": 58
+      },
+      "revId": "545f8996735be2b54ce099871ccbe8b885c5d0fd",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a014df3_f5915853",
+        "filename": "views/ngXosViews/dashboardManager/src/templates/user-dashboards.tpl.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-11T00:35:37Z",
+      "side": 1,
+      "message": "indent",
+      "range": {
+        "startLine": 44,
+        "startChar": 9,
+        "endLine": 45,
+        "endChar": 71
+      },
+      "revId": "545f8996735be2b54ce099871ccbe8b885c5d0fd",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a014df3_d59e5c63",
+        "filename": "views/ngXosViews/dashboardManager/src/templates/user-dashboards.tpl.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-11T00:35:37Z",
+      "side": 1,
+      "message": "indent",
+      "range": {
+        "startLine": 59,
+        "startChar": 7,
+        "endLine": 61,
+        "endChar": 56
+      },
+      "revId": "545f8996735be2b54ce099871ccbe8b885c5d0fd",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
