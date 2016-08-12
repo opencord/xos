@@ -35,8 +35,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
 # Install python packages with pip
 RUN pip install \
     ansible \
-    ca-certs-locater \
     cryptography \
+    ca-certs-locater \
     "django>=1.8,<1.8.99" \
     django-bitfield \
     django-crispy-forms \
@@ -75,7 +75,7 @@ RUN pip install \
 # Required for Ansible 2.x OpenStack os_* modules
 RUN pip install --upgrade pbr && \
     pip install --upgrade six && \
-    pip install shade
+    pip install shade==1.9.0
 
 # Copy over ansible hosts
 COPY ansible-hosts /etc/ansible/hosts
