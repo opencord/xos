@@ -15,7 +15,7 @@ class Backend:
     def run(self):
         update_diag(sync_start=time.time(), backend_status="0 - Synchronizer Start")
 
-        # start the openstack observer
+        # start the observer
         observer = XOSObserver()
         observer_thread = threading.Thread(target=observer.run,name='synchronizer')
         observer_thread.start()
