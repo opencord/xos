@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a014df3_5035ba44",
+        "filename": "views/ngXosViews/UITutorial/src/js/learnCmd.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-16T20:17:17Z",
+      "side": 1,
+      "message": "We are not using $injector",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 41
+      },
+      "revId": "08d7b965e40103b1fe3e3574dbfc98dee6a337fc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a014df3_f03ba636",
+        "filename": "views/ngXosViews/UITutorial/src/js/learnCmd.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-16T20:17:17Z",
+      "side": 1,
+      "message": "spaces after comma, check with \"npm run lint\"",
+      "range": {
+        "startLine": 4,
+        "startChar": 72,
+        "endLine": 4,
+        "endChar": 92
+      },
+      "revId": "08d7b965e40103b1fe3e3574dbfc98dee6a337fc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a014df3_303a2e37",
+        "filename": "views/ngXosViews/UITutorial/src/js/learnCmd.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-16T20:17:17Z",
+      "side": 1,
+      "message": "We are not using ResponseHandler",
+      "range": {
+        "startLine": 4,
+        "startChar": 43,
+        "endLine": 4,
+        "endChar": 58
+      },
+      "revId": "08d7b965e40103b1fe3e3574dbfc98dee6a337fc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a014df3_103f3227",
+        "filename": "views/ngXosViews/UITutorial/src/js/learnCmd.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-16T20:17:17Z",
+      "side": 1,
+      "message": "We are not using ErrorHandler",
+      "range": {
+        "startLine": 4,
+        "startChar": 60,
+        "endLine": 4,
+        "endChar": 72
+      },
+      "revId": "08d7b965e40103b1fe3e3574dbfc98dee6a337fc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a014df3_d048aace",
+        "filename": "views/ngXosViews/UITutorial/src/js/learnCmd.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-16T20:17:17Z",
+      "side": 1,
+      "message": "This is used 2 times. What about setting it in a function? It will help when we replace this with the \"ME\" service",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 96
+      },
+      "revId": "08d7b965e40103b1fe3e3574dbfc98dee6a337fc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a014df3_7030b656",
+        "filename": "views/ngXosViews/UITutorial/src/js/main.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-16T20:17:17Z",
+      "side": 1,
+      "message": "done is not used in the setup function",
+      "range": {
+        "startLine": 50,
+        "startChar": 35,
+        "endLine": 50,
+        "endChar": 40
+      },
+      "revId": "08d7b965e40103b1fe3e3574dbfc98dee6a337fc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
