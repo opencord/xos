@@ -31,4 +31,5 @@ from .reservation import Reservation
 from .network import Network, NetworkParameterType, NetworkParameter, Port, NetworkTemplate, Router, NetworkSlice, ControllerNetwork, AddressPool
 from .billing import Account, Invoice, Charge, UsableObject, Payment
 from .program import Program
+from .netw import NetworkInterLink, NetworkMultipointConnection, NetworkPointToPointConnection, NetworkEdgeToEdgePointConnection, NetworkPort, NetworkEdgePort, NetworkDevice
 
