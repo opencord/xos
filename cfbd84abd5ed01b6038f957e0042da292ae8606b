@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a014df3_c4ba2f0a",
+        "filename": "containers/xos/Dockerfile",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2016-08-18T14:35:44Z",
+      "side": 1,
+      "message": "Should this be `opencord` instead?",
+      "range": {
+        "startLine": 8,
+        "startChar": 36,
+        "endLine": 8,
+        "endChar": 46
+      },
+      "revId": "cfbd84abd5ed01b6038f957e0042da292ae8606b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a014df3_a43723b0",
+        "filename": "containers/xos/Makefile",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2016-08-18T14:35:44Z",
+      "side": 1,
+      "message": "same, `opencord`",
+      "range": {
+        "startLine": 20,
+        "startChar": 41,
+        "endLine": 20,
+        "endChar": 51
+      },
+      "revId": "cfbd84abd5ed01b6038f957e0042da292ae8606b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
