@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a014df3_442bbf30",
+        "filename": "views/ngXosViews/ecordTopology/spec/sample.test.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-18T20:20:54Z",
+      "side": 1,
+      "message": "This is the test that is failing. Replace \"it\" with \"xit\" to skip it, I\u0027ll pass over this to write meaningful test when it gets merged. This test is created by the \"yo xos\" command as a guideline.",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 35,
+        "endChar": 5
+      },
+      "revId": "613ab278ec99b18f0d3565fd57a97b4ab92f5576",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
