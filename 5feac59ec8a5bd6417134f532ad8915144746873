@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a014df3_c730f1ea",
+        "filename": "views/ngXosViews/UITutorial/src/js/codeToString.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-08-19T23:13:30Z",
+      "side": 1,
+      "message": "clean this up",
+      "range": {
+        "startLine": 40,
+        "startChar": 5,
+        "endLine": 62,
+        "endChar": 18
+      },
+      "revId": "5feac59ec8a5bd6417134f532ad8915144746873",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
