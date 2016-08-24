@@ -2,7 +2,7 @@ import os
 import socket
 import sys
 from django.db import models, transaction
-from core.models import PlCoreBase, Site, Slice, Instance, Controller, Service
+from core.models import PlCoreBase, Site, Slice, Instance, Controller, Service, ModelLink
 from core.models import ControllerLinkManager,ControllerLinkDeletionManager
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -208,6 +208,7 @@ class ControllerNetwork(PlCoreBase):
     subnet = models.CharField(max_length=32, blank=True)
     start_ip = models.CharField(max_length=32, blank=True)
     stop_ip = models.CharField(max_length=32, blank=True)
+    xos_links = [ModelLink(Controller,via='controller'),ModelLink(Network,via='network')]
 
     class Meta:
         unique_together = ('network', 'controller')
@@ -237,6 +238,8 @@ class NetworkSlice(PlCoreBase):
 
     network = models.ForeignKey(Network,related_name='networkslices')
     slice = models.ForeignKey(Slice,related_name='networkslices')
+
+    xos_links = [ModelLink(Network,via='network'),ModelLink(Slice,via='slice')]
 
     class Meta:
         unique_together = ('network', 'slice')
@@ -274,6 +277,8 @@ class Port(PlCoreBase, ParameterMixin):
     port_id = models.CharField(null=True, blank=True, max_length=256, help_text="Neutron port id")
     mac = models.CharField(null=True, blank=True, max_length=256, help_text="MAC address associated with this port")
     xos_created = models.BooleanField(default=False) # True if XOS created this port in Neutron, False if port created by Neutron and observed by XOS
+
+    xos_links = [ModelLink(Network,via='network'), ModelLink('Instance',via='instance')]
 
     class Meta:
         unique_together = ('network', 'instance')
