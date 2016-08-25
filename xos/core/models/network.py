@@ -208,6 +208,8 @@ class ControllerNetwork(PlCoreBase):
     subnet = models.CharField(max_length=32, blank=True)
     start_ip = models.CharField(max_length=32, blank=True)
     stop_ip = models.CharField(max_length=32, blank=True)
+    gateway = models.CharField(max_length=32, blank=True, null=True)
+    segmentation_id = models.CharField(max_length=32, blank=True, null=True)
 
     class Meta:
         unique_together = ('network', 'controller')
