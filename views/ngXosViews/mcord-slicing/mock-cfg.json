@@ -1,0 +1,19 @@
+{
+  "endpoints": [
+    {
+      "url": "slicing",
+      "base": "api/services/mcord/",
+      "methods": ["GET"]
+    },
+    {
+      "url": "slicing/nodes",
+      "base": "api/services/mcord/",
+      "methods": ["POST"]
+    },
+    {
+      "url": "slicing/links",
+      "base": "api/services/mcord/",
+      "methods": ["POST"]
+    }
+  ]
+}
