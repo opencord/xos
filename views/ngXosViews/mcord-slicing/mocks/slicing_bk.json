@@ -1,0 +1,33 @@
+{
+    "nodes": [
+        {"id": 1, "name": "web", "type": "upstream", "model_id": 1, "plane": "data"},
+        {"id": 2, "name": "ue-1", "type": "ue", "model_id": 1, "plane": "data"},
+        {"id": 3, "name": "profile-1", "type": "profile", "model_id": 1, "plane": "data"},
+        {"id": 4, "name": "ran-ru-1", "type": "ran-ru", "model_id": 1, "plane": "data"},
+        {"id": 5, "name": "ran-ru-1", "type": "ran-ru", "model_id": 1, "plane": "control"},
+        {"id": 6, "name": "ran-cu-1", "type": "ran-cu", "model_id": 1, "plane": "data"},
+        {"id": 7, "name": "ran-cu-1", "type": "ran-cu", "model_id": 1, "plane": "control"},
+        {"id": 8, "name": "sgw-1", "type": "sgw", "model_id": 1, "plane": "data"},
+        {"id": 9, "name": "pgw-1", "type": "pgw", "model_id": 1, "plane": "data"},
+        {"id": 10, "name": "sgw-1", "type": "sgw", "model_id": 1, "plane": "control"},
+        {"id": 11, "name": "pgw-1", "type": "pgw", "model_id": 1, "plane": "control"},
+        {"id": 12, "name": "mme-1", "type": "mme", "model_id": 1, "plane": "control"}
+    ],
+    "links": [
+        {"id": 1, "source": 2, "target": 3, "plane": "data"},
+        {"id": 2, "source": 3, "target": 4, "plane": "data"},
+        {"id": 3, "source": 4, "target": 6, "plane": "data"},
+        {"id": 4, "source": 6, "target": 8, "plane": "data"},
+        {"id": 5, "source": 8, "target": 9, "plane": "data"},
+        {"id": 6, "source": 9, "target": 1, "plane": "data"},
+
+        {"id": 7, "source": 4, "target": 5, "plane": "control"},
+        {"id": 8, "source": 5, "target": 7, "plane": "control"},
+        {"id": 8, "source": 6, "target": 7, "plane": "control"},
+        {"id": 8, "source": 7, "target": 12, "plane": "control"},
+        {"id": 8, "source": 12, "target": 10, "plane": "control"},
+        {"id": 8, "source": 8, "target": 10, "plane": "control"},
+        {"id": 8, "source": 10, "target": 11, "plane": "control"},
+        {"id": 8, "source": 9, "target": 11, "plane": "control"}
+    ]
+}
