@@ -1,0 +1,27 @@
+#xosMcord-slicing,
+#xosMcord-slicing > [ui-view],
+slicing-topo {
+  width: 100%;
+  height: 100%; }
+
+slicing-topo {
+  display: block; }
+
+#xosMcord-slicing .node {
+  stroke: #337ab7;
+  fill: white; }
+
+#xosMcord-slicing .node.slices {
+  cursor: pointer; }
+
+#xosMcord-slicing .node.control {
+  stroke-dasharray: 5;
+  stroke: #d9534f; }
+
+#xosMcord-slicing .link {
+  stroke: #286090;
+  stroke-width: 2px; }
+
+#xosMcord-slicing .link.control {
+  stroke-dasharray: 5;
+  stroke: #c9302c; }
