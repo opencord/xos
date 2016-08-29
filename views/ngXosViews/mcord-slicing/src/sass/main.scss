@@ -1,0 +1,28 @@
+@import '../../../../style/sass/lib/_variables.scss';
+
+#xosMcord-slicing,
+#xosMcord-slicing > [ui-view],
+slicing-topo {
+  width: 100%;
+  height: 100%;
+}
+
+slicing-topo {
+  display: block;
+}
+
+#xosMcord-slicing {
+  .node {
+    stroke: $brand-primary;
+    fill: white;
+  }
+
+  .node.xos {
+    fill: $brand-danger;
+  }
+
+  .link {
+    stroke: darken($brand-primary, 10);
+    stroke-width: 2px;
+  }
+}
