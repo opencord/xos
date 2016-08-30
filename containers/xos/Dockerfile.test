@@ -16,3 +16,5 @@ RUN pip install selenium
 
 RUN npm install -g phantomjs
 
+RUN npm install -g bower
+
