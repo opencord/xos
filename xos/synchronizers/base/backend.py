@@ -3,6 +3,7 @@ import sys
 import threading
 import time
 from synchronizers.base.event_loop import XOSObserver
+from synchronizers.base.watchers import XOSWatcher
 from xos.logger import Logger, logging
 from xos.config import Config
 from django.utils import timezone
@@ -19,6 +20,14 @@ class Backend:
         observer = XOSObserver()
         observer_thread = threading.Thread(target=observer.run,name='synchronizer')
         observer_thread.start()
+
+        # start the watcher thread
+        watchers_enabled = getattr(Config(), "observer_enable_watchers", None)
+
+        if (watchers_enabled):
+            watcher = XOSWatcher()
+            watcher_thread = threading.Thread(target=watcher.run,name='watcher')
+            watcher_thread.start()
 
         # start model policies thread
         policies_dir = getattr(Config(), "observer_model_policies_dir", None)
