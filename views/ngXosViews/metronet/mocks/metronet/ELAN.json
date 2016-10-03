@@ -1,0 +1,51 @@
+[
+  {
+    "humanReadableName": 2,
+    "sid": "MultipointToMultipointConnectivity_1",
+    "id": 2,
+    "type": "ethernet",
+    "eps": [
+      {
+        "humanReadableName": 3,
+        "pid": "TestCORDNet.of:000000001/3",
+        "id": 3,
+        "element": "TestCORDNet",
+        "bwpCfgCbs": 1000000,
+        "bwpCfgEbs": 1000000,
+        "bwpCfgCir": 1000000,
+        "bwpCfgEir": 1000000,
+        "name": "Central Office 3",
+        "location": "Palo Alto",
+        "latlng": "[-122.143019, 37.441883]"
+      },
+      {
+        "humanReadableName": 4,
+        "pid": "TestCORDNet.of:000000001/4",
+        "id": 4,
+        "element": "TestCORDNet",
+        "bwpCfgCbs": 1000000,
+        "bwpCfgEbs": 1000000,
+        "bwpCfgCir": 1000000,
+        "bwpCfgEir": 1000000,
+        "name": "Central Office 4",
+        "location": "Oakland",
+        "latlng": "[-122.271114, 37.804364]"
+      },
+      {
+        "humanReadableName": 5,
+        "pid": "TestCORDNet.of:000000001/5",
+        "id": 5,
+        "element": "TestCORDNet",
+        "bwpCfgCbs": 1000000,
+        "bwpCfgEbs": 1000000,
+        "bwpCfgCir": 1000000,
+        "bwpCfgEir": 1000000,
+        "name": "Central Office 5",
+        "location": "San Rafael",
+        "latlng": "[-122.531087, 37.973535]"
+      }
+    ],
+    "operstate": "active",
+    "adminstate": "enabled"
+  }
+]
