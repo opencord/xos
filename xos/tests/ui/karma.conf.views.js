@@ -18,6 +18,11 @@ let vendorFiles = fs.readdirSync(vendorDir);
 viewFiles = viewFiles.filter(f => f.indexOf('js') >= 0).filter(f => f.match(/^xos[A-Z]+[a-z]+/)).map(f => `${viewDir}${f}`);
 vendorFiles = vendorFiles.filter(f => f.indexOf('js') >= 0).filter(f => f.match(/^xos[A-Z]+[a-z]+/)).map(f => `${vendorDir}${f}`);
 
+// remove metronet until we found out how to test using gmap
+viewFiles = vendorFiles.filter(f => f.indexOf('Metronet') === -1);
+
+console.log(viewFiles);
+
 /*eslint-disable*/
 
 var files = [

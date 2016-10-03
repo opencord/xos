@@ -19,10 +19,13 @@
   "devDependencies": {
     "jquery": "~3.1.0",
     "jasmine-jquery": "~2.1.1",
-    "ng-xos-lib": "opencord/ng-xos-lib",
+    "ng-xos-lib": "opencord/ng-xos-lib#1.1.0",
     "angular-mocks": "~1.5.8"
   },
   "resolutions": {
-    "angular": "1.4.7"
+    "angular": "1.4.7",
+    "angular-resource": "~1.5.8",
+    "angular-cookies": "~1.5.8",
+    "angular-animate": "~1.5.8"
   }
 }
