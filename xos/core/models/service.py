@@ -17,9 +17,8 @@ def get_xos():
     else:
        return None
 
-
-class AttributeMixin(object):
-    # helper for extracting things from a json-encoded
+class AttributeMixin(object):
+    # helper for extracting things from a json-encoded
     # service_specific_attribute
 
     def get_attribute(self, name, default=None):
@@ -69,6 +68,13 @@ class ServiceController(PlCoreBase):
     xos = models.ForeignKey(XOS, related_name='service_controllers', help_text="Pointer to XOS", default=get_xos)
     name = StrippedCharField(max_length=30, help_text="Service Name")
     base_url = StrippedCharField(max_length=1024, help_text="Base URL, allows use of relative URLs for resources", null=True, blank=True)
+
+    version = StrippedCharField(blank=True, null=True,
+        max_length=30, help_text="Version of Service Controller", default = "1.0.0")
+    provides = StrippedCharField(blank=True, null=True,
+        max_length=254, help_text="Comma-separated list of things provided")
+    requires = StrippedCharField(blank=True, null=True,
+        max_length=254, help_text="Comma-separated list of required Service Controllers")
 
     synchronizer_run = StrippedCharField(max_length=1024, help_text="synchronizer run command", null=True, blank=True)
     synchronizer_config = StrippedCharField(max_length=1024, help_text="synchronizer config file", null=True, blank=True)
@@ -122,6 +128,60 @@ class ServiceControllerResource(PlCoreBase):
         else:
             return self.url
 
+    def get_provides_list(self):
+        prov_list = []
+        for prov in self.provides.split(","):
+            prov=prov.strip()
+            if "=" in prov:
+                (name, version) = prov.split("=",1)
+                name = name.strip()
+                version = version.strip()
+            else:
+                name = prov
+                version = "1.0.0"
+            prov_list.append( {"name": name, "version": version} )
+
+        # every controller provides itself
+        prov_list.append( {"name": self.name, "version": self.version} )
+
+        return prov_list
+
+
+    @classmethod
+    def dependency_check(cls, dep_list):
+        missing = []
+        satisfied = []
+        operators = {">=": operator.ge,
+                     "<=": operator.le,
+                     ">": operator.gt,
+                     "<": operator.lt,
+                     "!=": operator.ne,
+                     "=": operator.eq]
+        for dep in dep_list:
+            dep = dep.strip()
+            name = dep
+            version = None
+            operator = None
+            for op in operators.keys():
+                if op in dep:
+                    (name, version) = dep.split(op,1)
+                    name = name.strip()
+                    version = version.strip()
+                    operator = operators[op]
+                    break
+            scs = ServiceController.objects.filter(name = name)
+            for sc in scs:
+                for provide in sc.get_provides_list():
+                    if not operator:
+                        satisfied.append(sc)
+                        break
+                    elif operator.relate(LooseVersion(prov["version"], LooseVersion(version)):
+                        satisfied.append(sc)
+                        break
+
+        return (satisfied, missing)
+
+
 class Service(PlCoreBase, AttributeMixin):
     # when subclassing a service, redefine KIND to describe the new service
     KIND = "generic"
@@ -133,7 +193,7 @@ class Service(PlCoreBase, AttributeMixin):
         max_length=30, help_text="Kind of service", default=KIND)
     name = StrippedCharField(max_length=30, help_text="Service Name")
     versionNumber = StrippedCharField(blank=True, null=True,
-        max_length=30, help_text="Version of Service Definition")
+        max_length=30, help_text="Version of Service Definition")   # deprecated
     published = models.BooleanField(default=True)
     view_url = StrippedCharField(blank=True, null=True, max_length=1024)
     icon_url = StrippedCharField(blank=True, null=True, max_length=1024)
