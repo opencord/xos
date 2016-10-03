@@ -12,7 +12,7 @@ from xosresource import XOSResource
 class XOSServiceController(XOSResource):
     provides = "tosca.nodes.ServiceController"
     xos_model = ServiceController
-    copyin_props = ["base_url", "synchronizer_run", "synchronizer_config"]
+    copyin_props = ["version", "provides", "requires", "base_url", "synchronizer_run", "synchronizer_config"]
 
     def postprocess_resource_prop(self, obj, kind, format):
         values = self.get_property(kind)
@@ -65,4 +65,12 @@ class XOSServiceController(XOSResource):
         self.postprocess_resource_prop(obj, "public_key", "raw")
         self.postprocess_resource_prop(obj, "rest_service", "python")
         self.postprocess_resource_prop(obj, "rest_tenant", "python")
+
+    def save_created_obj(self, xos_obj):
+        (satisfied, missing) = ServiceController.dependency_check(self.requires.split(","))
+        if missing:
+            raise Exception("missing dependencies for ServiceController %s: %s" % (xos_obj.name, ", ".join(missing)))
+
+        super(XOSServiceController, self).save_created_boj(xos_obj)
+
 
