@@ -1,0 +1,34 @@
+#xosMetronet [ui-view], #xosMetronet {
+  width: 100%;
+  height: 100%; }
+
+#xosMetronet metronet-map {
+  display: block;
+  width: 100%;
+  height: 100%; }
+
+#xosMetronet ng-map {
+  display: block;
+  width: 100%;
+  height: 100%; }
+
+#xosMetronet ng-map img {
+  animation: none; }
+
+#xosMetronet canvas[width^="3"] {
+  background: #fff;
+  padding: 5px;
+  border: 1px solid #777777;
+  border-radius: 3px; }
+
+#xosMetronet .metronet-side-panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -400px;
+  width: 400px;
+  background: #fff;
+  z-index: 2000;
+  transition: all .5s ease-in-out; }
+  #xosMetronet .metronet-side-panel.active {
+    right: 0; }
