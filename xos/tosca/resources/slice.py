@@ -2,11 +2,9 @@ import os
 import pdb
 import sys
 import tempfile
-sys.path.append("/opt/tosca")
-from translator.toscalib.tosca_template import ToscaTemplate
 
+from toscaparser.tosca_template import ToscaTemplate
 from core.models import Slice,User,Site,Network,NetworkSlice,SliceRole,SlicePrivilege,Service,Image,Flavor,Node
-
 from xosresource import XOSResource
 
 class XOSSlice(XOSResource):

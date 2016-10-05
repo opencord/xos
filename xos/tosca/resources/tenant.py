@@ -3,12 +3,9 @@ import os
 import pdb
 import sys
 import tempfile
-sys.path.append("/opt/tosca")
-from translator.toscalib.tosca_template import ToscaTemplate
-import pdb
 
+from toscaparser.tosca_template import ToscaTemplate
 from core.models import Tenant, Service
-
 from xosresource import XOSResource
 
 class XOSTenant(XOSResource):
