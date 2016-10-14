@@ -112,11 +112,11 @@ RUN git clone $HT_REPO_URL /tmp/heat-translator && \
 
 # Install custom Ansible
 RUN \
-    git clone -b release1.8.2 git://github.com/ansible/ansible.git /opt/ansible && \
-    git clone -b release1.8.2 git://github.com/ansible/ansible-modules-extras.git /opt/ansible/lib/ansible/modules/extras && \
-    git clone -b release1.8.2 git://github.com/ansible/ansible-modules-extras.git /opt/ansible/v2/ansible/modules/extras && \
-    git clone git://github.com/sb98052/ansible-modules-core.git /opt/ansible/lib/ansible/modules/core && \
-    git clone git://github.com/sb98052/ansible-modules-core.git /opt/ansible/v2/ansible/modules/core && \
+    git clone -b release1.8.2 https://github.com/ansible/ansible.git /opt/ansible && \
+    git clone -b release1.8.2 https://github.com/ansible/ansible-modules-extras.git /opt/ansible/lib/ansible/modules/extras && \
+    git clone -b release1.8.2 https://github.com/ansible/ansible-modules-extras.git /opt/ansible/v2/ansible/modules/extras && \
+    git clone https://github.com/sb98052/ansible-modules-core.git /opt/ansible/lib/ansible/modules/core && \
+    git clone https://github.com/sb98052/ansible-modules-core.git /opt/ansible/v2/ansible/modules/core && \
     # git clone uses cached copy, doesn't pick up latest
     git -C /opt/ansible pull && \
     git -C /opt/ansible/lib/ansible/modules/core pull && \
