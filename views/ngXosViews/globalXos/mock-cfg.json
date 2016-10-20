@@ -1,0 +1,9 @@
+{
+  "endpoints": [
+    {
+      "url": "controllers",
+      "base": "api/core/",
+      "methods": ["GET"]
+    }
+  ]
+}
