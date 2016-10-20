@@ -1,0 +1,7 @@
+<nav class="navbar navbar-default">
+  <div class="">
+    <ul class="nav navbar-nav">
+      <li ng-repeat="action in vm.config.actions" ng-class="{active:vm.active==action.label}"><a href="{{action.link}}">{{action.label}} </a></li>
+    </ul>
+  </div>
+</nav>
