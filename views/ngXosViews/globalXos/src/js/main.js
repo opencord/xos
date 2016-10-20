@@ -1,0 +1,216 @@
+'use strict';
+
+angular.module('xos.globalXos', [
+  'ngResource',
+  'ngCookies',
+  'ui.router',
+  'xos.helpers',
+  'ui.bootstrap.modal',
+  'ui.bootstrap.tpls'
+])
+.config(($stateProvider) => {
+  $stateProvider
+  .state('xos-list', {
+    url: '/',
+    template: '<xos-list></xos-list>'
+  });
+})
+.config(function($httpProvider){
+  $httpProvider.interceptors.push('NoHyperlinks');
+})
+.value('LXOS', [])
+.directive('xosList', function(){
+  return {
+    restrict: 'E',
+    scope: {},
+    bindToController: true,
+    controllerAs: 'vm',
+    templateUrl: 'templates/xos-list.tpl.html',
+    controller: function($window, $q, _, Controllers, LXOS, LocalAuth, LocalSlices, LocalUsers, $uibModal){
+
+      Controllers.query({backend_type: 'XOS'}).$promise
+      .then(res => {
+        this.xoss = res;
+      });
+
+      this.openLocally = (itemKind) => {
+        return (item) => {
+          $window.open(`${item.xos.auth_url}admin/core/${itemKind}/${item.id}`, '_blank');
+        }
+      }
+
+      this.sliceTableCfg = {
+        columns: [
+          {
+            label: 'Name',
+            prop: 'name',
+          },
+          {
+            label: 'Max Instances',
+            prop: 'max_instances'
+          },
+          {
+            label: 'Default Isolation',
+            prop: 'default_isolation'
+          },
+          {
+            label: 'Mount Data Sets',
+            prop: 'mount_data_sets'
+          },
+          {
+            label: 'L-XOS',
+            type: 'custom',
+            formatter: item => item.xos.name
+          }
+        ],
+        actions: [
+          {
+            label: 'open locally',
+            icon: 'open',
+            cb: this.openLocally('slice')
+          },
+          {
+            label: 'Add Instance',
+            icon: 'plus',
+            cb: (item) => {
+              $uibModal.open({
+                animation: true,
+                size: 'lg',
+                templateUrl: 'addInstance.html',
+                controller: function($uibModalInstance, slice, LocalInstances){
+                  this.slice = slice;
+
+                  this.model = {};
+
+                  LocalInstances.getLocalInfo(slice.xos)
+                  .then((res) => {
+                    [this.config.fields['deployment'].options, this.config.fields['image'].options] = res;
+                  })
+
+                  this.config = {
+                    formName: 'instanceForm',
+                    actions: [
+                      {
+                        label: 'Save',
+                        icon: 'ok',
+                        cb: (instance) => {
+                          console.log('save instance');
+                          $uibModalInstance.close();
+                        },
+                        class: 'success'
+                      },
+                      {
+                        label: 'Cancel',
+                        icon: 'remove',
+                        cb: () => {
+                          $uibModalInstance.dismiss('cancel');
+                        },
+                        class: 'warning'
+                      }
+                    ],
+                    fields: {
+                      deployment: {
+                        type: 'select',
+                        validators: {
+                          required: true
+                        }
+                      },
+                      image: {
+                        type: 'select',
+                        validators: {
+                          required: true,
+                        }
+                      },
+                      isolation: {
+                        type: 'select',
+                        options: [
+                          {id: 'vm', label: 'VM'},
+                          {id: 'container', label: 'Container'},
+                          {id: 'container_vm', label: 'Container in VM'}
+                        ],
+                        validators: {
+                          required: true,
+                        }
+                      },
+                    }
+                  };
+                },
+                controllerAs: 'vm',
+                resolve: {
+                  slice: function () {
+                    return item;
+                  }
+                }
+              });
+            }
+          }
+        ],
+        filter: 'field',
+        order: true
+      };
+
+      this.usersTableCfg = {
+        columns: [
+          {
+            label: 'Name',
+            type: 'custom',
+            formatter: item => `${item.firstname} ${item.lastname}`
+          },
+          {
+            label: 'E-Mail',
+            prop: 'email'
+          },
+          {
+            label: 'User Name',
+            prop: 'username'
+          },
+          {
+            label: 'Time Zone',
+            prop: 'timezone'
+          },
+          {
+            label: 'L-XOS',
+            type: 'custom',
+            formatter: item => item.xos.name
+          }
+        ],
+        actions: [
+          {
+            label: 'open locally',
+            icon: 'open',
+            cb: this.openLocally('user')
+          }
+        ],
+        filter: 'field',
+        order: true
+      };
+
+      this.toggleXos = (xos) => {
+        if(_.findIndex(LXOS, {id: xos.id}) > -1){
+          xos.active = false;
+          _.remove(LXOS, {id: xos.id});
+        }
+        else{
+          xos.active = true;
+          LXOS.push(xos);
+        }
+
+        // authenticate on L-XOS
+        LocalAuth.login()
+        .then(() => {
+          // fetch slices
+          return $q.all([
+            LocalSlices.query().$promise,
+            LocalUsers.query().$promise,
+          ]);
+        })
+        .then(res => {
+          [this.localSlices, this.localUsers] = res;
+        })
+        .catch(e => {
+          console.log(e);
+        });
+      }
+    }
+  };
+});
