@@ -1,0 +1,8 @@
+@import '../../../../style/sass/lib/_variables.scss';
+
+#xosGlobalXos {
+  ui-view,
+  xos-list{
+    display: block;
+  }
+}

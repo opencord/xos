@@ -1,0 +1,38 @@
+xos-field {
+  display: block;
+
+  .panel-heading {
+    font-weight: bold;
+  }
+
+  .draggable {
+    position: relative;
+    border: 1px dashed #aaa;
+    min-height: 20px;
+    list-style: none;
+    padding: 10px;
+
+    li {
+      width: 25%;
+      float: left;
+    }
+
+    .well {
+      margin: 10px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  
+  
+
+  .dndPlaceholder {
+    background-color: #ddd !important;
+    height: 40px;
+    /*width: 50px;*/
+    display: block;
+    margin: 10px 0;
+  }
+}

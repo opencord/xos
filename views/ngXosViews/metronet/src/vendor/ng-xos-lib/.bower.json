@@ -1,0 +1,57 @@
+{
+  "name": "ng-xos-lib",
+  "authors": [
+    "Open Networking Laboratory"
+  ],
+  "description": "A collection of API $resources, Heplers Services and UI Component to work on the XOS UI",
+  "license": "Apache 2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "./bower_components"
+  ],
+  "dependencies": {
+    "angular": "~1.5.8",
+    "angular-ui-router": "0.2.15",
+    "angular-resource": "~1.5.8",
+    "angular-cookies": "~1.5.8",
+    "angular-animate": "~1.5.8",
+    "lodash": "~4.11.1",
+    "angular-chart.js": "~0.10.2",
+    "d3": "~3.5.17",
+    "angular-recursion": "~1.0.5",
+    "angular-drag-and-drop-lists": "~1.4.0"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.5.8",
+    "jasmine-jquery": "~2.1.1",
+    "jquery": "~3.0.0",
+    "bootstrap-sass": "~3.3.6"
+  },
+  "resolutions": {
+    "angular": "~1.5.8"
+  },
+  "main": [
+    "./dist/xosUiComponent.js"
+  ],
+  "moduleType": [],
+  "keywords": [
+    "XOS",
+    "CORD",
+    "OPENCORD",
+    "ANGULARJS",
+    "UI-COMPONENTS"
+  ],
+  "homepage": "http://ngxoslib.wiki.opencord.org/#/ngXosLib",
+  "_release": "9422c38b21",
+  "_resolution": {
+    "type": "commit",
+    "commit": "9422c38b214229fa6afdf0eea7862ccb6ff53dd7"
+  },
+  "_source": "git://github.com/opencord/ng-xos-lib.git",
+  "_target": "9422c38b214229fa6afdf0eea7862ccb6ff53dd7",
+  "_originalSource": "opencord/ng-xos-lib"
+}
