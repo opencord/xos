@@ -1,0 +1,51 @@
+[
+  {
+    "humanReadableName": 3,
+    "sid": "EdgeToMultipointConnectivity_1",
+    "id": 3,
+    "type": "ethernet",
+    "root": {
+      "humanReadableName": 1,
+      "pid": "TestCORDNet.of:000000001/1",
+      "id": 1,
+      "element": "TestCORDNet",
+      "bwpCfgCbs": 1000000,
+      "bwpCfgEbs": 1000000,
+      "bwpCfgCir": 1000000,
+      "bwpCfgEir": 1000000,
+      "name": "Port 1",
+      "location": "San Francisco",
+      "latlng": "[-122.419416, 37.774929]"
+    },
+    "eps": [
+      {
+        "humanReadableName": 6,
+        "pid": "TestCORDNet.of:000000001/6",
+        "id": 6,
+        "element": "TestCORDNet",
+        "bwpCfgCbs": 1000000,
+        "bwpCfgEbs": 1000000,
+        "bwpCfgCir": 1000000,
+        "bwpCfgEir": 1000000,
+        "name": "Central Office 6",
+        "location": "San Mateo",
+        "latlng": "[-122.325525, 37.562992]"
+      },
+      {
+        "humanReadableName": 8,
+        "pid": "TestCORDNet.of:000000001/8",
+        "id": 8,
+        "element": "TestCORDNet",
+        "bwpCfgCbs": 1000000,
+        "bwpCfgEbs": 1000000,
+        "bwpCfgCir": 1000000,
+        "bwpCfgEir": 1000000,
+        "name": "Central Office 8",
+        "location": "Fremont",
+        "latlng": "[-121.988572, 37.548270]"
+      }
+    ],
+    "operstate": "active",
+    "adminstate": "enabled"
+  }
+]

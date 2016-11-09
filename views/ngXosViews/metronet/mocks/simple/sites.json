@@ -1,0 +1,16 @@
+[
+  {
+    "humanReadableName":"San Francisco",
+    "id":1,
+    "name":"San Francisco",
+    "longitude":-122.419416,
+    "latitude":37.774929
+  },
+  {
+    "humanReadableName":"Palo Alto",
+    "id":2,
+    "name":"Palo Alto",
+    "longitude":-122.143019,
+    "latitude":37.441883
+  }
+]
