@@ -1,0 +1,51 @@
+[
+  {
+    "humanReadableName": 2,
+    "sid": "ELAN 1",
+    "id": 2,
+    "type": "ethernet",
+    "eps": [
+      {
+        "humanReadableName": 4,
+        "pid": "TestCORDNet.of:000000001/4",
+        "id": 4,
+        "element": "TestCORDNet",
+        "bwpCfgCbs": 1000000,
+        "bwpCfgEbs": 1000000,
+        "bwpCfgCir": 1000000,
+        "bwpCfgEir": 1000000,
+        "name": "Central Office 4",
+        "location": "San Jose",
+        "latlng": "[-121.886329, 37.338208]"
+      },
+      {
+        "humanReadableName": 9,
+        "pid": "TestCORDNet.of:000000001/9",
+        "id": 9,
+        "element": "TestCORDNet",
+        "bwpCfgCbs": 1000000,
+        "bwpCfgEbs": 1000000,
+        "bwpCfgCir": 1000000,
+        "bwpCfgEir": 1000000,
+        "name": "Central Office 9",
+        "location": "Stockton",
+        "latlng": "[-121.290780, 37.957702]"
+      },
+      {
+        "humanReadableName": 10,
+        "pid": "TestCORDNet.of:000000001/10",
+        "id": 10,
+        "element": "TestCORDNet",
+        "bwpCfgCbs": 1000000,
+        "bwpCfgEbs": 1000000,
+        "bwpCfgCir": 1000000,
+        "bwpCfgEir": 1000000,
+        "name": "Central Office 10",
+        "location": "San Francisco",
+        "latlng": "[-122.419416, 37.774929]"
+      }
+    ],
+    "operstate": "active",
+    "adminstate": "enabled"
+  }
+]

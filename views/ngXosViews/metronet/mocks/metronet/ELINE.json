@@ -1,0 +1,70 @@
+[
+  {
+    "humanReadableName": 1,
+    "sid": "EdgeToEdgePointConnectivity_1",
+    "id": 1,
+    "type": "direct",
+    "uni1": {
+      "humanReadableName": 2,
+      "pid": "TestCORDNet.of:000000001/2",
+      "id": 2,
+      "element": "TestCORDNet",
+      "bwpCfgCbs": 1000000,
+      "bwpCfgEbs": 1000000,
+      "bwpCfgCir": 1000000,
+      "bwpCfgEir": 1000000,
+      "name": "Port 2",
+      "location": "San Francisco",
+      "latlng": "[-122.419416, 37.774929]"
+    },
+    "uni2": {
+      "humanReadableName": 7,
+      "pid": "TestCORDNet.of:000000001/7",
+      "id": 7,
+      "element": "TestCORDNet",
+      "bwpCfgCbs": 1000000,
+      "bwpCfgEbs": 1000000,
+      "bwpCfgCir": 1000000,
+      "bwpCfgEir": 1000000,
+      "name": "Central Office 7",
+      "location": "Palo Alto",
+      "latlng": "[-122.143019, 37.441883]"
+    },
+    "operstate": "active",
+    "adminstate": "enabled"
+  },
+  {
+    "humanReadableName": 2,
+    "sid": "EdgeToEdgePointConnectivity_2",
+    "id": 2,
+    "type": "direct",
+    "uni1": {
+      "humanReadableName": 3,
+      "pid": "TestCORDNet.of:000000001/3",
+      "id": 3,
+      "element": "TestCORDNet",
+      "bwpCfgCbs": 1000000,
+      "bwpCfgEbs": 1000000,
+      "bwpCfgCir": 1000000,
+      "bwpCfgEir": 1000000,
+      "name": "Port 3",
+      "location": "San Francisco",
+      "latlng": "[-122.419416, 37.774929]"
+    },
+    "uni2": {
+      "humanReadableName": 5,
+      "pid": "TestCORDNet.of:000000001/5",
+      "id": 5,
+      "element": "TestCORDNet",
+      "bwpCfgCbs": 1000000,
+      "bwpCfgEbs": 1000000,
+      "bwpCfgCir": 1000000,
+      "bwpCfgEir": 1000000,
+      "name": "Central Office 5",
+      "location": "Palo Alto",
+      "latlng": "[-122.143019, 37.441883]"
+    },
+    "operstate": "active",
+    "adminstate": "enabled"
+  }
+]
