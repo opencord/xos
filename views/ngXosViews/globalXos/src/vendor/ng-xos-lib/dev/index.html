@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ngXosLib development environment</title>
+  <!-- bower:css -->
+  <link rel="stylesheet" href="../bower_components/angular-chart.js/dist/angular-chart.css" />
+  <!-- endbower -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="/xosNgLib.css">
+  <!-- endinject -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+</head>
+<body style="padding-top: 50px">
+  <div ng-app="ngXosLib" class="container">
+    <div class="row" ng-controller="testCtrl as vm">
+      <div class="col-xs-12">
+        <xos-table config="vm.config" data="vm.data"></xos-table>
+      </div>
+    </div>
+  </div>
+  <!-- bower:js -->
+  <script src="../bower_components/angular/angular.js"></script>
+  <script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="../bower_components/angular-resource/angular-resource.js"></script>
+  <script src="../bower_components/angular-cookies/angular-cookies.js"></script>
+  <script src="../bower_components/angular-animate/angular-animate.js"></script>
+  <script src="../bower_components/lodash/lodash.js"></script>
+  <script src="../bower_components/Chart.js/Chart.js"></script>
+  <script src="../bower_components/angular-chart.js/dist/angular-chart.js"></script>
+  <script src="../bower_components/d3/d3.js"></script>
+  <script src="../bower_components/angular-recursion/angular-recursion.js"></script>
+  <!-- endbower -->
+  <!-- inject:js -->
+  <script src="/ui_components/ui-components.module.js"></script>
+  <script src="/ui_components/smartComponents/smartPie/smartPie.component.js"></script>
+  <script src="/ui_components/smartComponents/smartTable/smartTable.component.js"></script>
+  <script src="/ui_components/dumbComponents/table/table.component.js"></script>
+  <script src="/ui_components/dumbComponents/validation/validation.component.js"></script>
+  <script src="/ui_components/dumbComponents/pagination/pagination.component.js"></script>
+  <script src="/ui_components/dumbComponents/form/form.component.js"></script>
+  <script src="/ui_components/dumbComponents/field/field.component.js"></script>
+  <script src="/ui_components/dumbComponents/alert/alert.component.js"></script>
+  <script src="/services/helpers/ui/label_formatter.service.js"></script>
+  <script src="/services/helpers/ui/form.helpers.js"></script>
+  <script src="/services/helpers/ui/comparator.service.js"></script>
+  <script src="/xosHelpers.module.js"></script>
+  <script src="/services/rest/vSG.js"></script>
+  <script src="/services/rest/vOLT.js"></script>
+  <script src="/services/rest/Utility.js"></script>
+  <script src="/services/rest/Users.js"></script>
+  <script src="/services/rest/Truckroll.js"></script>
+  <script src="/services/rest/Tenant.js"></script>
+  <script src="/services/rest/Subscribers.js"></script>
+  <script src="/services/rest/Slices_plus.js"></script>
+  <script src="/services/rest/Slices.js"></script>
+  <script src="/services/rest/Sites.js"></script>
+  <script src="/services/rest/Services.js"></script>
+  <script src="/services/rest/ONOS-Services.js"></script>
+  <script src="/services/rest/ONOS-Apps.js"></script>
+  <script src="/services/rest/Nodes.js"></script>
+  <script src="/services/rest/Networkstemplates.js"></script>
+  <script src="/services/rest/Networks.js"></script>
+  <script src="/services/rest/Me.js"></script>
+  <script src="/services/rest/Instances.js"></script>
+  <script src="/services/rest/Images.js"></script>
+  <script src="/services/rest/Flavors.js"></script>
+  <script src="/services/rest/Example.js"></script>
+  <script src="/services/rest/Deployments.js"></script>
+  <script src="/services/rest/Dashboards.js"></script>
+  <script src="/services/helpers/user-prefs.service.js"></script>
+  <script src="/services/service_graph.service.js"></script>
+  <script src="/services/notification.service.js"></script>
+  <script src="/services/noHyperlinks.interceptor.js"></script>
+  <script src="/services/log.decorator.js"></script>
+  <script src="/services/csrfToken.interceptor.js"></script>
+  <script src="/index.ngdoc.js"></script>
+  <!-- endinject -->
+  <script src="main.js"></script>
+</body>
+</html>
