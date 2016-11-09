@@ -1,0 +1,50 @@
+#xosMetronet [ui-view], #xosMetronet {
+  width: 100%;
+  height: 100%; }
+
+#xosMetronet metronet-map,
+#xosMetronet ng-map {
+  display: block;
+  width: 100%;
+  height: 100%; }
+  #xosMetronet metronet-map img,
+  #xosMetronet ng-map img {
+    animation: none; }
+
+#xosMetronet .topo-container {
+  position: absolute;
+  margin: 0 auto;
+  /*width: 100%;*/ }
+  #xosMetronet .topo-container svg {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    position: absolute; }
+
+#xosMetronet .node.co .icon {
+  fill: #960000;
+  transform: translate(-8px, -8px) scale(0.15); }
+
+#xosMetronet .node.co rect {
+  stroke: #960000; }
+
+#xosMetronet .node.uni .icon {
+  fill: #337ab7;
+  transform: translate(-8px, -7px) scale(0.3); }
+
+#xosMetronet .node.uni rect {
+  stroke: #337ab7; }
+
+#xosMetronet .node rect {
+  fill: #fff;
+  stroke-width: 1px; }
+
+#xosMetronet .node:hover {
+  cursor: pointer; }
+
+#xosMetronet .link {
+  stroke: #960000;
+  stroke-width: 2px; }
+  #xosMetronet .link.local {
+    stroke: #000;
+    stroke-width: 1px; }
