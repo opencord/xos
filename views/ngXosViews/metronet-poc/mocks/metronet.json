@@ -1,0 +1,27 @@
+{
+  "endpoints": [
+    {
+      "url": "UNI",
+      "base": "api/service/metronetworkservice/",
+      "methods": ["GET"]
+    },
+    {
+      "url": "ELINE",
+      "base": "api/service/metronetworkservice/",
+      "methods": ["GET", "POST", "DELETE"],
+      "param": "id"
+    },
+    {
+      "url": "ETREE",
+      "base": "api/service/metronetworkservice/",
+      "methods": ["GET", "POST", "DELETE"],
+      "param": "id"
+    },
+    {
+      "url": "ELAN",
+      "base": "api/service/metronetworkservice/",
+      "methods": ["GET", "POST", "DELETE"],
+      "param": "id"
+    }
+  ]
+}
