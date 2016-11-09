@@ -1,0 +1,121 @@
+@import '../../../../style/sass/lib/_variables.scss';
+
+#xosMetronet {
+  [ui-view],
+  & {
+    width: 100%;
+    height: 100%;
+  }
+
+  metronet-map,
+  ng-map {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    img {
+      animation: none;
+    }
+  }
+
+  .topo-container {
+    position: absolute;
+    margin: 0 auto;
+    /*width: 100%;*/
+
+    svg {
+      width: 100%;
+      height: 100%;
+      /*background: rgba(0,0,0, 0.4);*/
+      position: absolute;
+    }
+  }
+
+  .node {
+
+    &.sw {
+      .icon {
+        fill: darken($brand-warning, 40);
+        transform: translate(-12px, -12px) scale(0.25)
+      }
+      rect {
+        stroke: darken($brand-warning, 40);
+        fill: $brand-warning;
+      }
+    }
+
+    &.co {
+      .icon {
+        fill: #960000;
+        transform: translate(-16px, -16px) scale(0.30)
+      }
+      rect {
+        stroke: #960000;
+      }
+    }
+
+    &.uni {
+      .icon {
+        fill: $brand-primary;
+        transform: translate(-8px, -7px) scale(0.3)
+      }
+      rect {
+        stroke: $brand-primary;
+      }
+
+      &.selected {
+        .icon, text {
+          fill: #fff;
+        }
+
+        rect {
+          fill: $brand-primary;
+        }
+      }
+    }
+
+    rect {
+      fill: #fff;
+      stroke-width: 1px;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .link {
+      stroke: #960000;
+      stroke-width: 2px;
+    &.local {
+      stroke: #000;
+      stroke-width: 1px;
+    }
+    &.ethernet {
+      stroke: $brand-info;
+    }
+    &.elan {
+      stroke: $brand-warning;
+    }
+  }
+  
+  .metronet-panel {
+    position: absolute;
+    z-index: 2000;
+    background: rgba(0,0,0,0.7);
+    width: 400px;
+    display: block;
+    margin-left: -200px;
+    left: 50%;
+    bottom: 100px;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    transform: rotateX(90deg);
+    transition: transform .5s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &.rotated {
+      transform: rotateX(0deg);
+    }
+  }
+}

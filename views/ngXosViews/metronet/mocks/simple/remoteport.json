@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "humanReadableName": "CORDPOD1:Port1",
+        "name": "CORDPOD1:Port1",
+        "remoteportsite": 1,
+        "edgeport": 1
+    },
+    {
+        "id": 2,
+        "humanReadableName": "CORDPOD2:Port1",
+        "name": "CORDPOD2:Port1",
+        "remoteportsite": 2,
+        "edgeport": 2
+    }
+]

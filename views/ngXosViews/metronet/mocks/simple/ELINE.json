@@ -1,0 +1,36 @@
+[
+  {
+    "humanReadableName": 1,
+    "sid": "EdgeToEdgePointConnectivity_1",
+    "id": 1,
+    "type": "direct",
+    "uni1": {
+      "humanReadableName": 1,
+      "pid": "TestCORDNet.of:000000001/1",
+      "id": 1,
+      "element": "TestCORDNet",
+      "bwpCfgCbs": 1000000,
+      "bwpCfgEbs": 1000000,
+      "bwpCfgCir": 1000000,
+      "bwpCfgEir": 1000000,
+      "name": "Port 1",
+      "location": "San Francisco",
+      "latlng": "[-122.419416, 37.774929]"
+    },
+    "uni2": {
+      "humanReadableName": 7,
+      "pid": "TestCORDNet.of:000000001/7",
+      "id": 7,
+      "element": "TestCORDNet",
+      "bwpCfgCbs": 1000000,
+      "bwpCfgEbs": 1000000,
+      "bwpCfgCir": 1000000,
+      "bwpCfgEir": 1000000,
+      "name": "Central Office 7",
+      "location": "Palo Alto",
+      "latlng": "[-122.143019, 37.441883]"
+    },
+    "operstate": "active",
+    "adminstate": "enabled"
+  }
+]
