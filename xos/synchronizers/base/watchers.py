@@ -28,6 +28,8 @@ from django.utils import timezone
 from diag import update_diag
 import redis
 
+logger = Logger(level=logging.INFO)
+
 class XOSWatcher:
     def load_sync_step_modules(self, step_dir=None):
         if step_dir is None:
@@ -61,16 +63,17 @@ class XOSWatcher:
                     except:
                         self.watch_map[w.dest.__name__]=[w]
 
-    def __init__(self):
+    def __init__(self,sync_steps):
         self.watch_map = {}
-        self.sync_steps = []
-        self.load_sync_step_modules()
+        self.sync_steps = sync_steps
+        #self.load_sync_step_modules()
         self.load_sync_steps()
         r = redis.Redis("redis")
         channels = self.watch_map.keys()
         self.redis = r
         self.pubsub = self.redis.pubsub()
         self.pubsub.subscribe(channels)
+        logger.info("XOS watcher initialized")
 
     def run(self):
         for item in self.pubsub.listen():
@@ -87,5 +90,6 @@ class XOSWatcher:
                             o = w.dest.objects.get(pk=data['pk'])
                             step = w.source()
                             step.handle_watched_object(o)
-            except:
+            except Exception as e:
+                logger.warn("XOS watcher: exception %s while processing object: %s" % (type(e),e))
                 pass
