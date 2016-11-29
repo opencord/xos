@@ -80,7 +80,7 @@ class XOSWatcher:
                 data = json.loads(item['data'])
                 pk = data['pk']
                 changed_fields = data['changed_fields']
-                pdb.set_trace()
+                #pdb.set_trace()
                 for w in entry:
                     if w.into in changed_fields or not w.into:
                         if (hasattr(w.source, 'handle_watched_object')):
