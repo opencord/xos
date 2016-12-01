@@ -319,6 +319,8 @@ class XOSBuilder(object):
         else:
             extra_hosts = []
 
+        networks = [ "xos" ] # docker networks used by XOS, parameterize in the future
+
         containers = {}
 
 #         containers["xos_db"] = \
@@ -334,6 +336,7 @@ class XOSBuilder(object):
         containers["xos_ui"] = {
             "image": "xosproject/xos-ui",
             "command": "python /opt/xos/manage.py runserver 0.0.0.0:%d --insecure --makemigrations" % xos.ui_port,
+            "networks": networks,
             "ports": {"%d" % xos.ui_port: "%d" % xos.ui_port},
             # "links": ["xos_db"],
             # "external_links": ["%s:%s" % (xos.db_container_name, "xos_db")],
@@ -374,6 +377,7 @@ class XOSBuilder(object):
             containers[c.name] = {
                 "image": c.image,
                 "command": c.command,
+                "networks": networks,
                 "ports": {
                     port[0]: port[1]
                 },
@@ -397,7 +401,12 @@ class XOSBuilder(object):
                     containers["xos_synchronizer_%s" % c.name] = {
                         "image": "xosproject/xos-synchronizer-%s" % c.name,
                         "command": command,
+<<<<<<< HEAD
                         "external_links": external_links,
+=======
+                        "networks": networks,
+                        "external_links": ["%s:%s" % (xos.db_container_name, "xos_db")],
+>>>>>>> 9ff7f7b... don't run anything by default in xos container, create directories
                         "extra_hosts": extra_hosts,
                         "volumes": volume_list
                     }
@@ -405,7 +414,7 @@ class XOSBuilder(object):
                     if c.no_start:
                         containers["xos_synchronizer_%s" % c.name]["command"] = "sleep 864000"
 
-        vars = {"containers": containers}
+        vars = {"containers": containers, "networks": networks }
 
         template_loader = jinja2.FileSystemLoader("/opt/xos/synchronizers/onboarding/templates/")
         template_env = jinja2.Environment(loader=template_loader)
