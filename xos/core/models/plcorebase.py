@@ -8,7 +8,6 @@ from django.db import models
 from django.db import transaction
 from django.forms.models import model_to_dict
 from django.core.urlresolvers import reverse
-from django.forms.models import model_to_dict
 from django.utils import timezone
 from django.core.exceptions import PermissionDenied
 from model_autodeletion import ephemeral_models
@@ -17,6 +16,10 @@ from journal import journal_object
 
 import redis
 from redis import ConnectionError
+
+
+def date_handler(obj):
+    return obj.isoformat() if hasattr(obj, 'isoformat') else obj
 
 try:
     # This is a no-op if observer_disabled is set to 1 in the config file
@@ -347,7 +350,7 @@ class PlCoreBase(models.Model, PlModelMixIn):
 
         try:
             r = redis.Redis("redis")
-            payload = json.dumps({'pk':self.pk,'changed_fields':changed_fields})
+            payload = json.dumps({'pk': self.pk, 'changed_fields': changed_fields, 'object': model_to_dict(self)}, default=date_handler)
             r.publish(self.__class__.__name__, payload)
         except ConnectionError:
             # Redis not running.
