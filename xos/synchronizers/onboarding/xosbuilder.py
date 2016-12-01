@@ -319,6 +319,8 @@ class XOSBuilder(object):
         else:
             extra_hosts = []
 
+        networks = [ "xos" ] # docker networks used by XOS, parameterize in the future
+
         containers = {}
 
 #         containers["xos_db"] = \
@@ -374,6 +376,7 @@ class XOSBuilder(object):
             containers[c.name] = {
                 "image": c.image,
                 "command": c.command,
+                "networks": networks,
                 "ports": {
                     port[0]: port[1]
                 },
@@ -405,7 +408,7 @@ class XOSBuilder(object):
                     if c.no_start:
                         containers["xos_synchronizer_%s" % c.name]["command"] = "sleep 864000"
 
-        vars = {"containers": containers}
+        vars = {"containers": containers, "networks": networks }
 
         template_loader = jinja2.FileSystemLoader("/opt/xos/synchronizers/onboarding/templates/")
         template_env = jinja2.Environment(loader=template_loader)
