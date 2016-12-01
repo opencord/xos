@@ -20,6 +20,11 @@ class XOS(PlCoreBase):
     extra_hosts = StrippedCharField(max_length=1024, help_text="list of hostname mappings that will be passed to docker-compose", null=True, blank=True)
     no_start = models.BooleanField(help_text="Do not start the XOS UI inside of the UI docker container", default=False)
 
+    # NOTE flags to onboard the xos-rest-gateway container and the xos-gui container
+    # TODO Could this be extracted in something that let us onboard custom containers?
+    xos_rest_gw_name = StrippedCharField(max_length=200, help_text="rest gateway container name")
+    xos_gui_name = StrippedCharField(max_length=200, help_text="gui container name")
+
     def __unicode__(self):  return u'%s' % (self.name)
 
     def __init__(self, *args, **kwargs):

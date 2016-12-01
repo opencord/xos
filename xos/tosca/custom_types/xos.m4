@@ -43,6 +43,14 @@ node_types:
                 type: string
                 required: false
                 description: List of extra_hosts to pass to docker compose
+            xos_rest_gw_name:
+                type: string
+                required: false
+                description: Name of the gateway container
+            xos_gui_name:
+                type: string
+                required: false
+                description: Name of the GUI container
 
 
     tosca.nodes.XOSVolume:
