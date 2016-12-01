@@ -37,6 +37,7 @@ django-suit==0.3a3
 django-timezones==0.2
 djangorestframework==3.3.3
 dnslib==0.9.6
+docker-compose==1.9.0
 dogpile.cache==0.6.2
 enum34==1.1.6
 eventlet==0.19.0
