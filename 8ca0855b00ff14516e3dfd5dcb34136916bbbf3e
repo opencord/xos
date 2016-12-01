@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a014df3_acb6d888",
+        "filename": "xos/synchronizers/onboarding/xosbuilder.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-12-01T01:06:28Z",
+      "side": 1,
+      "message": "@scott\n\nAny hint on how to put this behind a flag? It will broke everything if you don\u0027t have the \"xos_nb_rest\" image in the docker registry\n\nIt also looks to me that this resource will be more similar to XOS than to ServiceController or SharedLibrary ecc...",
+      "range": {
+        "startLine": 337,
+        "startChar": 8,
+        "endLine": 355,
+        "endChar": 14
+      },
+      "revId": "8ca0855b00ff14516e3dfd5dcb34136916bbbf3e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
