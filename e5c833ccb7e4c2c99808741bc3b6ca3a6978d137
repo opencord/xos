@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a014df3_ccc124e6",
+        "filename": "xos/core/models/plcorebase.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2016-12-01T23:40:37Z",
+      "side": 1,
+      "message": "@sapan\n\nI\u0027m augmenting redis event to propagate meaningful information to the UI. For instance on any synchronizer event we need to parse the backend_status field.\n\nI\u0027m open to suggestion here, we can probably categorize the events by type, but we need to give the model info to the UI since the http server that receive such event is not (at the moment) authenticated to use the XOS APIs to retrieve that informations",
+      "range": {
+        "startLine": 300,
+        "startChar": 83,
+        "endLine": 300,
+        "endChar": 113
+      },
+      "revId": "e5c833ccb7e4c2c99808741bc3b6ca3a6978d137",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
