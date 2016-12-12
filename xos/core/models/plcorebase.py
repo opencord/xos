@@ -5,6 +5,7 @@ import sys
 import threading
 from django import db
 from django.db import models
+from django.db import transaction
 from django.forms.models import model_to_dict
 from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
@@ -194,6 +195,14 @@ class PlModelMixIn(object):
                 return
         raise Exception("Field value %s is not in %s" % (field, str(choices)))
 
+# For cascading deletes, we need a Collector that doesn't do fastdelete,
+# so we get a full list of models.
+from django.db.models.deletion import Collector
+from django.db import router
+class XOSCollector(Collector):
+  def can_fast_delete(self, *args, **kwargs):
+    return False
+
 class PlCoreBase(models.Model, PlModelMixIn):
     objects = PlCoreBaseManager()
     deleted_objects = PlCoreBaseDeletionManager()
@@ -250,12 +259,25 @@ class PlCoreBase(models.Model, PlModelMixIn):
         if (purge):
             super(PlCoreBase, self).delete(*args, **kwds)
         else:
-            if (not self.write_protect):
+            if (not self.write_protect ):
                 self.deleted = True
                 self.enacted=None
                 self.policed=None
                 self.save(update_fields=['enacted','deleted','policed'], silent=silent)
 
+                collector = XOSCollector(using=router.db_for_write(self.__class__, instance=self))
+                collector.collect([self])
+                with transaction.atomic():
+                    for (k, models) in collector.data.items():
+                        for model in models:
+                            if model.deleted:
+                                # in case it's already been deleted, don't delete again
+                                continue
+                            print "DDD softdelete %s %s %s" % (model.__class__.__name__, model, model.id)
+                            model.deleted = True
+                            model.enacted=None
+                            model.policed=None
+                            model.save(update_fields=['enacted','deleted','policed'], silent=silent)
 
     def save(self, *args, **kwargs):
         # let the user specify silence as either a kwarg or an instance varible

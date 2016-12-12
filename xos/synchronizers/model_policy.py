@@ -144,6 +144,21 @@ def run_policy():
         if (time.time()-start<1):
             time.sleep(1)
 
+from core.models.plcorebase import XOSCollector
+from django.db import router
+def has_deleted_dependencies(m):
+    # Check to see if 'm' would cascade to any objects that have the 'deleted'
+    # field set in them.
+    collector = XOSCollector(using=router.db_for_write(m.__class__, instance=m))
+    collector.collect([m])
+    deps=[]
+    for (k, models) in collector.data.items():
+        for model in models:
+            if model==m:
+                continue
+            deps.append(model)
+    return deps
+
 def run_policy_once():
         from core.models import Instance,Slice,Controller,Network,User,SlicePrivilege,Site,SitePrivilege,Image,ControllerSlice,ControllerUser,ControllerSite
         models = [Controller, Site, SitePrivilege, Image, ControllerSlice, ControllerSite, ControllerUser, User, Slice, Network, Instance, SlicePrivilege]
@@ -167,11 +182,15 @@ def run_policy_once():
             execute_model_policy(o, True)
 
         # Reap non-sync'd models here
-        reaped = [Slice]
+        reaped = [Slice,Network,NetworkSlice]
 
         for m in reaped:
             dobjs = m.deleted_objects.all()
             for d in dobjs:
+                deleted_deps = has_deleted_dependencies(d)
+                if deleted_deps:
+                    print 'Cannot purge object %r because it has deleted dependencies: %s' % (d, ",".join([str(m) for m in deleted_deps]))
+                    continue
                 deps = walk_inv_deps(noop, d)
                 if (not deps):
                     print 'Purging object %r'%d
