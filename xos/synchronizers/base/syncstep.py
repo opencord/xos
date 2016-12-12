@@ -234,6 +234,11 @@ class SyncStep(object):
                         except AttributeError:
                             run_always = False
 
+                        # mark this as an object that will require delete
+                        if not (o.backend_needs_delete):
+                            o.backend_needs_delete = True
+                            o.save(updated_fields=['backend_needs_delete'])
+
                         self.sync_record(o)
 
 #                         if (not run_always):
