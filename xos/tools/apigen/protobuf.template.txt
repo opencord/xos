@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package xos;
 
+import "google/protobuf/empty.proto";
+
 {% for object in generator.all() %}
 
 message {{ object.camel() }} {
@@ -30,5 +32,15 @@ message {{ object.camel() }} {
   {%- endfor %}
 }
 
+message {{ object.camel() }}s {
+    repeated {{ object.camel() }} items = 1;
+}
+
 {% endfor %}
+
+service xos {
+{% for object in generator.all() %}
+  rpc List{{ object.camel() }}(google.protobuf.Empty) returns ({{ object.camel() }}s) {}
+{% endfor %}
+}
 
