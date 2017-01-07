@@ -5,18 +5,19 @@ import sys
 import threading
 from django import db
 from django.db import models
-from django.db import transaction
 from django.forms.models import model_to_dict
 from django.core.urlresolvers import reverse
-from django.forms.models import model_to_dict
 from django.utils import timezone
 from django.core.exceptions import PermissionDenied
 from model_autodeletion import ephemeral_models
 from cgi import escape as html_escape
-from journal import journal_object
 
 import redis
 from redis import ConnectionError
+
+
+def date_handler(obj):
+    return obj.isoformat() if hasattr(obj, 'isoformat') else obj
 
 try:
     # This is a no-op if observer_disabled is set to 1 in the config file
@@ -196,14 +197,6 @@ class PlModelMixIn(object):
                 return
         raise Exception("Field value %s is not in %s" % (field, str(choices)))
 
-# For cascading deletes, we need a Collector that doesn't do fastdelete,
-# so we get a full list of models.
-from django.db.models.deletion import Collector
-from django.db import router
-class XOSCollector(Collector):
-  def can_fast_delete(self, *args, **kwargs):
-    return False
-
 class PlCoreBase(models.Model, PlModelMixIn):
     objects = PlCoreBaseManager()
     deleted_objects = PlCoreBaseDeletionManager()
@@ -218,22 +211,6 @@ class PlCoreBase(models.Model, PlModelMixIn):
     # This is a scratchpad used by the Observer
     backend_register = models.CharField(max_length=1024,
                                       default="{}", null=True)
-
-    # backend_need_delete and backend_need_reap are used by the synchronizer to
-    # handle deleting and reaping objects.
-    #
-    # backend_need_delete is set by a syncstep when it starts to work on an
-    # object. It indicates that the syncstep will, in the future, want an
-    # opportunity to delete the object. This bit prevents the reaper from
-    # auto-deleting the object.
-    #
-    # backend_need_reap is set when a syncstep has successfully enacted a delete
-    # and is ready for it to be permanently deleted. The reaper will, assuming
-    # the object has no cascades to other objects that need deleting, permanently
-    # delete the object.
-
-    backend_need_delete = models.BooleanField(default=False)
-    backend_need_reap = models.BooleanField(default=False)
 
     backend_status = models.CharField(max_length=1024,
                                       default="0 - Provisioning in progress")
@@ -274,41 +251,20 @@ class PlCoreBase(models.Model, PlModelMixIn):
             pass
 
         if (purge):
-            journal_object(self, "delete.purge")
             super(PlCoreBase, self).delete(*args, **kwds)
         else:
-            if (not self.write_protect ):
+            if (not self.write_protect):
                 self.deleted = True
                 self.enacted=None
                 self.policed=None
-                journal_object(self, "delete.mark_deleted")
                 self.save(update_fields=['enacted','deleted','policed'], silent=silent)
 
-                collector = XOSCollector(using=router.db_for_write(self.__class__, instance=self))
-                collector.collect([self])
-                with transaction.atomic():
-                    for (k, models) in collector.data.items():
-                        for model in models:
-                            if model.deleted:
-                                # in case it's already been deleted, don't delete again
-                                continue
-                            model.deleted = True
-                            model.enacted=None
-                            model.policed=None
-                            journal_object(model, "delete.cascade.mark_deleted", msg="root = %r" % self)
-                            model.save(update_fields=['enacted','deleted','policed'], silent=silent)
 
     def save(self, *args, **kwargs):
-        journal_object(self, "plcorebase.save")
-
         # let the user specify silence as either a kwarg or an instance varible
         silent = self.silent
         if "silent" in kwargs:
             silent=silent or kwargs.pop("silent")
-
-        always_update_timestamp = False
-        if "always_update_timestamp" in kwargs:
-            always_update_timestamp = always_update_timestamp or kwargs.pop("always_update_timestamp")
 
         # SMBAKER: if an object is trying to delete itself, or if the observer
         # is updating an object's backend_* fields, then let it slip past the
@@ -320,7 +276,7 @@ class PlCoreBase(models.Model, PlModelMixIn):
                 if not (field in ["backend_register", "backend_status", "deleted", "enacted", "updated"]):
                     ignore_composite_key_check=False
 
-        if ('synchronizer' not in threading.current_thread().name) or always_update_timestamp:
+        if 'synchronizer' not in threading.current_thread().name:
             self.updated = timezone.now()
 
         # Transmit update via Redis
@@ -339,19 +295,15 @@ class PlCoreBase(models.Model, PlModelMixIn):
             except:
                 changed_fields.append('__lookup_error')
 
-        journal_object(self, "plcorebase.save.super_save")
-
-        super(PlCoreBase, self).save(*args, **kwargs)
-
-        journal_object(self, "plcorebase.save.super_save_returned")
-
         try:
             r = redis.Redis("redis")
-            payload = json.dumps({'pk':self.pk,'changed_fields':changed_fields})
+            payload = json.dumps({'pk': self.pk, 'changed_fields': changed_fields, 'object': model_to_dict(self)}, default=date_handler)
             r.publish(self.__class__.__name__, payload)
         except ConnectionError:
             # Redis not running.
             pass
+
+        super(PlCoreBase, self).save(*args, **kwargs)
 
         # This is a no-op if observer_disabled is set
         # if not silent:
