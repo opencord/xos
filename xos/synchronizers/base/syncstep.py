@@ -8,7 +8,7 @@ from synchronizers.base.steps import *
 from django.db.models import F, Q
 from core.models import *
 from django.db import reset_queries
-from synchronizers.base.ansible import *
+from synchronizers.base.ansible_helper import *
 from generate.dependency_walker import *
 from diag import update_diag
 
@@ -141,7 +141,6 @@ class SyncStep(object):
 
 
     def sync_record(self, o):
-        logger.info("Sync_record called for %s %s" % (o.__class__.__name__, str(o)))
 
         try:
             controller = o.get_controller()
@@ -160,10 +159,12 @@ class SyncStep(object):
             main_objs=main_objs[0]
 
         path = ''.join(main_objs.__name__).lower()
-        res = run_template(self.playbook,tenant_fields,path=path)
+        res = run_template(self.playbook,tenant_fields,path=path, object=o)
 
         if hasattr(self, "map_sync_outputs"):
             self.map_sync_outputs(o,res)
+        logger.info("Sync'd record %s %s" % (o.__class__.__name__, str(o)),extra=o.tologdict())
+        
 
     def delete_record(self, o):
         try:
@@ -184,7 +185,7 @@ class SyncStep(object):
         path = ''.join(main_objs.__name__).lower()
 
         tenant_fields['delete']=True
-        res = run_template(self.playbook,tenant_fields,path=path)
+        res = run_template(self.playbook,tenant_fields,path=path, object=o)
         try:
                 self.map_delete_outputs(o,res)
         except AttributeError:
