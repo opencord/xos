@@ -5,8 +5,7 @@ package xos;
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "common.proto";
-
-// Note: all fields are wrapped in a "oneof". This causes proto3 to always send
+import "xosoptions.proto";// Note: all fields are wrapped in a "oneof". This causes proto3 to always send
 // fields that are set by the caller, regardless if they are set to a default
 // value. XOS uses this to know when to apply a default value.
 
@@ -29,7 +28,7 @@ message ServiceControllerResource {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -38,7 +37,7 @@ message ServiceControllerResource {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -56,22 +55,22 @@ message ServiceControllerResource {
       bool no_policy = 14;
     }
     oneof loadable_module_present {
-      int32 loadable_module_id = 15;
+      int32 loadable_module_id = 15 [(val).nonNull= true,(foreignKey).modelName = "LoadableModule"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof subdirectory_present {
-      string subdirectory = 17;
+      string subdirectory = 17 [(val).maxLength = 1024];
     }
     oneof kind_present {
-      string kind = 18;
+      string kind = 18 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof format_present {
-      string format = 19;
+      string format = 19 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof url_present {
-      string url = 20;
+      string url = 20 [(val).maxLength = 1024];
     }
 }
 
@@ -98,7 +97,7 @@ message XOSVolume {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -107,7 +106,7 @@ message XOSVolume {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -125,13 +124,13 @@ message XOSVolume {
       bool no_policy = 14;
     }
     oneof xos_present {
-      int32 xos_id = 15;
+      int32 xos_id = 15 [(val).nonNull= true,(foreignKey).modelName = "XOS"];
     }
     oneof container_path_present {
-      string container_path = 16;
+      string container_path = 16 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof host_path_present {
-      string host_path = 17;
+      string host_path = 17 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof read_only_present {
       bool read_only = 18;
@@ -161,7 +160,7 @@ message ServiceAttribute {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -170,7 +169,7 @@ message ServiceAttribute {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -188,13 +187,13 @@ message ServiceAttribute {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 128,(val).nonNull= true];
     }
     oneof value_present {
-      string value = 16;
+      string value = 16 [(val).nonNull= true];
     }
     oneof service_present {
-      int32 service_id = 17;
+      int32 service_id = 17 [(val).nonNull= true,(foreignKey).modelName = "Service"];
     }
 }
 
@@ -221,7 +220,7 @@ message ControllerImages {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -230,7 +229,7 @@ message ControllerImages {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -248,13 +247,13 @@ message ControllerImages {
       bool no_policy = 14;
     }
     oneof image_present {
-      int32 image_id = 15;
+      int32 image_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Image"];
     }
     oneof controller_present {
-      int32 controller_id = 16;
+      int32 controller_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Controller"];
     }
     oneof glance_image_id_present {
-      string glance_image_id = 17;
+      string glance_image_id = 17 [(val).maxLength = 200];
     }
 }
 
@@ -281,7 +280,7 @@ message ControllerSitePrivilege {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -290,7 +289,7 @@ message ControllerSitePrivilege {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -308,13 +307,13 @@ message ControllerSitePrivilege {
       bool no_policy = 14;
     }
     oneof controller_present {
-      int32 controller_id = 15;
+      int32 controller_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Controller"];
     }
     oneof site_privilege_present {
-      int32 site_privilege_id = 16;
+      int32 site_privilege_id = 16 [(val).nonNull= true,(foreignKey).modelName = "SitePrivilege"];
     }
     oneof role_id_present {
-      string role_id = 17;
+      string role_id = 17 [(val).maxLength = 200];
     }
 }
 
@@ -341,7 +340,7 @@ message Image {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -350,7 +349,7 @@ message Image {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -368,22 +367,22 @@ message Image {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 256,(val).nonNull= true];
     }
     oneof kind_present {
-      string kind = 16;
+      string kind = 16 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof disk_format_present {
-      string disk_format = 17;
+      string disk_format = 17 [(val).maxLength = 256,(val).nonNull= true];
     }
     oneof container_format_present {
-      string container_format = 18;
+      string container_format = 18 [(val).maxLength = 256,(val).nonNull= true];
     }
     oneof path_present {
-      string path = 19;
+      string path = 19 [(val).maxLength = 256];
     }
     oneof tag_present {
-      string tag = 20;
+      string tag = 20 [(val).maxLength = 256];
     }
 }
 
@@ -410,7 +409,7 @@ message ControllerNetwork {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -419,7 +418,7 @@ message ControllerNetwork {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -437,34 +436,34 @@ message ControllerNetwork {
       bool no_policy = 14;
     }
     oneof network_present {
-      int32 network_id = 15;
+      int32 network_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Network"];
     }
     oneof controller_present {
-      int32 controller_id = 16;
+      int32 controller_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Controller"];
     }
     oneof subnet_present {
-      string subnet = 17;
+      string subnet = 17 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof start_ip_present {
-      string start_ip = 18;
+      string start_ip = 18 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof stop_ip_present {
-      string stop_ip = 19;
+      string stop_ip = 19 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof net_id_present {
-      string net_id = 20;
+      string net_id = 20 [(val).maxLength = 256];
     }
     oneof router_id_present {
-      string router_id = 21;
+      string router_id = 21 [(val).maxLength = 256];
     }
     oneof subnet_id_present {
-      string subnet_id = 22;
+      string subnet_id = 22 [(val).maxLength = 256];
     }
     oneof gateway_present {
-      string gateway = 23;
+      string gateway = 23 [(val).maxLength = 32];
     }
     oneof segmentation_id_present {
-      string segmentation_id = 24;
+      string segmentation_id = 24 [(val).maxLength = 32];
     }
 }
 
@@ -491,7 +490,7 @@ message Site {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -500,7 +499,7 @@ message Site {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -518,10 +517,10 @@ message Site {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof site_url_present {
-      string site_url = 16;
+      string site_url = 16 [(val).maxLength = 512];
     }
     oneof enabled_present {
       bool enabled = 17;
@@ -539,13 +538,13 @@ message Site {
       float latitude = 21;
     }
     oneof login_base_present {
-      string login_base = 22;
+      string login_base = 22 [(val).maxLength = 50,(val).nonNull= true];
     }
     oneof is_public_present {
       bool is_public = 23;
     }
     oneof abbreviated_name_present {
-      string abbreviated_name = 24;
+      string abbreviated_name = 24 [(val).maxLength = 80,(val).nonNull= true];
     }
 }
 
@@ -572,7 +571,7 @@ message Library {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -581,7 +580,7 @@ message Library {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -599,22 +598,22 @@ message Library {
       bool no_policy = 14;
     }
     oneof xos_present {
-      int32 xos_id = 15;
+      int32 xos_id = 15 [(val).nonNull= true,(foreignKey).modelName = "XOS"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof base_url_present {
-      string base_url = 17;
+      string base_url = 17 [(val).maxLength = 1024];
     }
     oneof version_present {
-      string version = 18;
+      string version = 18 [(val).maxLength = 30];
     }
     oneof provides_present {
-      string provides = 19;
+      string provides = 19 [(val).maxLength = 254];
     }
     oneof requires_present {
-      string requires = 20;
+      string requires = 20 [(val).maxLength = 254];
     }
 }
 
@@ -641,7 +640,7 @@ message SliceRole {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -650,7 +649,7 @@ message SliceRole {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -668,7 +667,7 @@ message SliceRole {
       bool no_policy = 14;
     }
     oneof role_present {
-      string role = 15;
+      string role = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
 }
 
@@ -695,7 +694,7 @@ message SiteDeployment {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -704,7 +703,7 @@ message SiteDeployment {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -722,16 +721,16 @@ message SiteDeployment {
       bool no_policy = 14;
     }
     oneof site_present {
-      int32 site_id = 15;
+      int32 site_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Site"];
     }
     oneof deployment_present {
-      int32 deployment_id = 16;
+      int32 deployment_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Deployment"];
     }
     oneof controller_present {
-      int32 controller_id = 17;
+      int32 controller_id = 17 [(foreignKey).modelName = "Controller"];
     }
     oneof availability_zone_present {
-      string availability_zone = 18;
+      string availability_zone = 18 [(val).maxLength = 200];
     }
 }
 
@@ -758,7 +757,7 @@ message XOSComponentLink {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -767,7 +766,7 @@ message XOSComponentLink {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -785,16 +784,16 @@ message XOSComponentLink {
       bool no_policy = 14;
     }
     oneof component_present {
-      int32 component_id = 15;
+      int32 component_id = 15 [(val).nonNull= true,(foreignKey).modelName = "XOSComponent"];
     }
     oneof container_present {
-      string container = 16;
+      string container = 16 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof alias_present {
-      string alias = 17;
+      string alias = 17 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof kind_present {
-      string kind = 18;
+      string kind = 18 [(val).maxLength = 20,(val).nonNull= true];
     }
 }
 
@@ -818,7 +817,7 @@ message TenantPrivilege {
       float policed = 4;
     }
     oneof backend_register_present {
-      string backend_register = 5;
+      string backend_register = 5 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 6;
@@ -827,7 +826,7 @@ message TenantPrivilege {
       bool backend_need_reap = 7;
     }
     oneof backend_status_present {
-      string backend_status = 8;
+      string backend_status = 8 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 9;
@@ -848,13 +847,13 @@ message TenantPrivilege {
       int32 id = 14;
     }
     oneof user_present {
-      int32 user_id = 15;
+      int32 user_id = 15 [(val).nonNull= true,(foreignKey).modelName = "User"];
     }
     oneof tenant_present {
-      int32 tenant_id = 16;
+      int32 tenant_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Tenant"];
     }
     oneof role_present {
-      int32 role_id = 17;
+      int32 role_id = 17 [(val).nonNull= true,(foreignKey).modelName = "TenantRole"];
     }
 }
 
@@ -881,7 +880,7 @@ message Tag {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -890,7 +889,7 @@ message Tag {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -908,16 +907,16 @@ message Tag {
       bool no_policy = 14;
     }
     oneof service_present {
-      int32 service_id = 15;
+      int32 service_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Service"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 128,(val).nonNull= true];
     }
     oneof value_present {
-      string value = 17;
+      string value = 17 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof content_type_present {
-      int32 content_type_id = 18;
+      int32 content_type_id = 18 [(val).nonNull= true,(foreignKey).modelName = "ContentType"];
     }
     oneof object_id_present {
       uint32 object_id = 19;
@@ -947,7 +946,7 @@ message ServiceMonitoringAgentInfo {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -956,7 +955,7 @@ message ServiceMonitoringAgentInfo {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -974,13 +973,13 @@ message ServiceMonitoringAgentInfo {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 128,(val).nonNull= true];
     }
     oneof service_present {
-      int32 service_id = 16;
+      int32 service_id = 16 [(foreignKey).modelName = "Service"];
     }
     oneof target_uri_present {
-      string target_uri = 17;
+      string target_uri = 17 [(val).nonNull= true];
     }
 }
 
@@ -1007,7 +1006,7 @@ message XOSComponent {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1016,7 +1015,7 @@ message XOSComponent {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1034,31 +1033,31 @@ message XOSComponent {
       bool no_policy = 14;
     }
     oneof xos_present {
-      int32 xos_id = 15;
+      int32 xos_id = 15 [(val).nonNull= true,(foreignKey).modelName = "XOS"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof base_url_present {
-      string base_url = 17;
+      string base_url = 17 [(val).maxLength = 1024];
     }
     oneof version_present {
-      string version = 18;
+      string version = 18 [(val).maxLength = 30];
     }
     oneof provides_present {
-      string provides = 19;
+      string provides = 19 [(val).maxLength = 254];
     }
     oneof requires_present {
-      string requires = 20;
+      string requires = 20 [(val).maxLength = 254];
     }
     oneof image_present {
-      string image = 21;
+      string image = 21 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof command_present {
-      string command = 22;
+      string command = 22 [(val).maxLength = 1024];
     }
     oneof ports_present {
-      string ports = 23;
+      string ports = 23 [(val).maxLength = 200];
     }
 }
 
@@ -1085,7 +1084,7 @@ message Invoice {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1094,7 +1093,7 @@ message Invoice {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1115,7 +1114,7 @@ message Invoice {
       float date = 15;
     }
     oneof account_present {
-      int32 account_id = 16;
+      int32 account_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Account"];
     }
 }
 
@@ -1142,7 +1141,7 @@ message SlicePrivilege {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1151,7 +1150,7 @@ message SlicePrivilege {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1169,13 +1168,13 @@ message SlicePrivilege {
       bool no_policy = 14;
     }
     oneof user_present {
-      int32 user_id = 15;
+      int32 user_id = 15 [(val).nonNull= true,(foreignKey).modelName = "User"];
     }
     oneof slice_present {
-      int32 slice_id = 16;
+      int32 slice_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Slice"];
     }
     oneof role_present {
-      int32 role_id = 17;
+      int32 role_id = 17 [(val).nonNull= true,(foreignKey).modelName = "SliceRole"];
     }
 }
 
@@ -1202,7 +1201,7 @@ message Flavor {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1211,7 +1210,7 @@ message Flavor {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1229,13 +1228,13 @@ message Flavor {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof description_present {
-      string description = 16;
+      string description = 16 [(val).maxLength = 1024];
     }
     oneof flavor_present {
-      string flavor = 17;
+      string flavor = 17 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof order_present {
       int32 order = 18;
@@ -1268,7 +1267,7 @@ message Port {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1277,7 +1276,7 @@ message Port {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1295,19 +1294,19 @@ message Port {
       bool no_policy = 14;
     }
     oneof network_present {
-      int32 network_id = 15;
+      int32 network_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Network"];
     }
     oneof instance_present {
-      int32 instance_id = 16;
+      int32 instance_id = 16 [(foreignKey).modelName = "Instance"];
     }
     oneof ip_present {
       string ip = 17;
     }
     oneof port_id_present {
-      string port_id = 18;
+      string port_id = 18 [(val).maxLength = 256];
     }
     oneof mac_present {
-      string mac = 19;
+      string mac = 19 [(val).maxLength = 256];
     }
     oneof xos_created_present {
       bool xos_created = 20;
@@ -1337,7 +1336,7 @@ message ServiceRole {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1346,7 +1345,7 @@ message ServiceRole {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1364,7 +1363,7 @@ message ServiceRole {
       bool no_policy = 14;
     }
     oneof role_present {
-      string role = 15;
+      string role = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
 }
 
@@ -1391,7 +1390,7 @@ message ControllerSite {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1400,7 +1399,7 @@ message ControllerSite {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1418,13 +1417,13 @@ message ControllerSite {
       bool no_policy = 14;
     }
     oneof site_present {
-      int32 site_id = 15;
+      int32 site_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Site"];
     }
     oneof controller_present {
-      int32 controller_id = 16;
+      int32 controller_id = 16 [(foreignKey).modelName = "Controller"];
     }
     oneof tenant_id_present {
-      string tenant_id = 17;
+      string tenant_id = 17 [(val).maxLength = 200];
     }
 }
 
@@ -1451,7 +1450,7 @@ message ControllerSlice {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1460,7 +1459,7 @@ message ControllerSlice {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1478,13 +1477,13 @@ message ControllerSlice {
       bool no_policy = 14;
     }
     oneof controller_present {
-      int32 controller_id = 15;
+      int32 controller_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Controller"];
     }
     oneof slice_present {
-      int32 slice_id = 16;
+      int32 slice_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Slice"];
     }
     oneof tenant_id_present {
-      string tenant_id = 17;
+      string tenant_id = 17 [(val).maxLength = 200];
     }
 }
 
@@ -1511,7 +1510,7 @@ message TenantRole {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1520,7 +1519,7 @@ message TenantRole {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1538,7 +1537,7 @@ message TenantRole {
       bool no_policy = 14;
     }
     oneof role_present {
-      string role = 15;
+      string role = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
 }
 
@@ -1565,7 +1564,7 @@ message Slice {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1574,7 +1573,7 @@ message Slice {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1592,7 +1591,7 @@ message Slice {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 80,(val).nonNull= true];
     }
     oneof enabled_present {
       bool enabled = 16;
@@ -1601,46 +1600,46 @@ message Slice {
       bool omf_friendly = 17;
     }
     oneof description_present {
-      string description = 18;
+      string description = 18 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof slice_url_present {
-      string slice_url = 19;
+      string slice_url = 19 [(val).maxLength = 512,(val).nonNull= true];
     }
     oneof site_present {
-      int32 site_id = 20;
+      int32 site_id = 20 [(val).nonNull= true,(foreignKey).modelName = "Site"];
     }
     oneof max_instances_present {
       int32 max_instances = 21;
     }
     oneof service_present {
-      int32 service_id = 22;
+      int32 service_id = 22 [(foreignKey).modelName = "Service"];
     }
     oneof network_present {
-      string network = 23;
+      string network = 23 [(val).maxLength = 256];
     }
     oneof exposed_ports_present {
-      string exposed_ports = 24;
+      string exposed_ports = 24 [(val).maxLength = 256];
     }
     oneof serviceClass_present {
-      int32 serviceClass_id = 25;
+      int32 serviceClass_id = 25 [(foreignKey).modelName = "ServiceClass"];
     }
     oneof creator_present {
-      int32 creator_id = 26;
+      int32 creator_id = 26 [(foreignKey).modelName = "User"];
     }
     oneof default_flavor_present {
-      int32 default_flavor_id = 27;
+      int32 default_flavor_id = 27 [(foreignKey).modelName = "Flavor"];
     }
     oneof default_image_present {
-      int32 default_image_id = 28;
+      int32 default_image_id = 28 [(foreignKey).modelName = "Image"];
     }
     oneof default_node_present {
-      int32 default_node_id = 29;
+      int32 default_node_id = 29 [(foreignKey).modelName = "Node"];
     }
     oneof mount_data_sets_present {
-      string mount_data_sets = 30;
+      string mount_data_sets = 30 [(val).maxLength = 256];
     }
     oneof default_isolation_present {
-      string default_isolation = 31;
+      string default_isolation = 31 [(val).maxLength = 30,(val).nonNull= true];
     }
 }
 
@@ -1667,7 +1666,7 @@ message LoadableModuleResource {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1676,7 +1675,7 @@ message LoadableModuleResource {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1694,22 +1693,22 @@ message LoadableModuleResource {
       bool no_policy = 14;
     }
     oneof loadable_module_present {
-      int32 loadable_module_id = 15;
+      int32 loadable_module_id = 15 [(val).nonNull= true,(foreignKey).modelName = "LoadableModule"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof subdirectory_present {
-      string subdirectory = 17;
+      string subdirectory = 17 [(val).maxLength = 1024];
     }
     oneof kind_present {
-      string kind = 18;
+      string kind = 18 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof format_present {
-      string format = 19;
+      string format = 19 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof url_present {
-      string url = 20;
+      string url = 20 [(val).maxLength = 1024];
     }
 }
 
@@ -1736,7 +1735,7 @@ message ControllerRole {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1745,7 +1744,7 @@ message ControllerRole {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1763,7 +1762,7 @@ message ControllerRole {
       bool no_policy = 14;
     }
     oneof role_present {
-      string role = 15;
+      string role = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
 }
 
@@ -1790,7 +1789,7 @@ message Diag {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1799,7 +1798,7 @@ message Diag {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1817,7 +1816,7 @@ message Diag {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 200,(val).nonNull= true];
     }
 }
 
@@ -1844,7 +1843,7 @@ message XOS {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1853,7 +1852,7 @@ message XOS {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1871,7 +1870,7 @@ message XOS {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof ui_port_present {
       int32 ui_port = 16;
@@ -1880,13 +1879,13 @@ message XOS {
       int32 bootstrap_ui_port = 17;
     }
     oneof db_container_name_present {
-      string db_container_name = 18;
+      string db_container_name = 18 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof redis_container_name_present {
-      string redis_container_name = 19;
+      string redis_container_name = 19 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof docker_project_name_present {
-      string docker_project_name = 20;
+      string docker_project_name = 20 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof enable_build_present {
       bool enable_build = 21;
@@ -1895,10 +1894,10 @@ message XOS {
       bool frontend_only = 22;
     }
     oneof source_ui_image_present {
-      string source_ui_image = 23;
+      string source_ui_image = 23 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof extra_hosts_present {
-      string extra_hosts = 24;
+      string extra_hosts = 24 [(val).maxLength = 1024];
     }
     oneof no_start_present {
       bool no_start = 25;
@@ -1928,7 +1927,7 @@ message ServiceClass {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -1937,7 +1936,7 @@ message ServiceClass {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -1955,10 +1954,10 @@ message ServiceClass {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof description_present {
-      string description = 16;
+      string description = 16 [(val).maxLength = 255,(val).nonNull= true];
     }
     oneof commitment_present {
       int32 commitment = 17;
@@ -1997,7 +1996,7 @@ message TenantAttribute {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2006,7 +2005,7 @@ message TenantAttribute {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2024,13 +2023,13 @@ message TenantAttribute {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 128,(val).nonNull= true];
     }
     oneof value_present {
-      string value = 16;
+      string value = 16 [(val).nonNull= true];
     }
     oneof tenant_present {
-      int32 tenant_id = 17;
+      int32 tenant_id = 17 [(val).nonNull= true,(foreignKey).modelName = "Tenant"];
     }
 }
 
@@ -2057,7 +2056,7 @@ message SiteRole {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2066,7 +2065,7 @@ message SiteRole {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2084,7 +2083,7 @@ message SiteRole {
       bool no_policy = 14;
     }
     oneof role_present {
-      string role = 15;
+      string role = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
 }
 
@@ -2111,7 +2110,7 @@ message Subscriber {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2120,7 +2119,7 @@ message Subscriber {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2138,16 +2137,16 @@ message Subscriber {
       bool no_policy = 14;
     }
     oneof kind_present {
-      string kind = 15;
+      string kind = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 255];
     }
     oneof service_specific_attribute_present {
-      string service_specific_attribute = 17;
+      string service_specific_attribute = 17 ;
     }
     oneof service_specific_id_present {
-      string service_specific_id = 18;
+      string service_specific_id = 18 [(val).maxLength = 30];
     }
 }
 
@@ -2174,7 +2173,7 @@ message Instance {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2183,7 +2182,7 @@ message Instance {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2201,52 +2200,52 @@ message Instance {
       bool no_policy = 14;
     }
     oneof instance_id_present {
-      string instance_id = 15;
+      string instance_id = 15 [(val).maxLength = 200];
     }
     oneof instance_uuid_present {
-      string instance_uuid = 16;
+      string instance_uuid = 16 [(val).maxLength = 200];
     }
     oneof name_present {
-      string name = 17;
+      string name = 17 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof instance_name_present {
-      string instance_name = 18;
+      string instance_name = 18 [(val).maxLength = 200];
     }
     oneof ip_present {
       string ip = 19;
     }
     oneof image_present {
-      int32 image_id = 20;
+      int32 image_id = 20 [(val).nonNull= true,(foreignKey).modelName = "Image"];
     }
     oneof creator_present {
-      int32 creator_id = 21;
+      int32 creator_id = 21 [(foreignKey).modelName = "User"];
     }
     oneof slice_present {
-      int32 slice_id = 22;
+      int32 slice_id = 22 [(val).nonNull= true,(foreignKey).modelName = "Slice"];
     }
     oneof deployment_present {
-      int32 deployment_id = 23;
+      int32 deployment_id = 23 [(val).nonNull= true,(foreignKey).modelName = "Deployment"];
     }
     oneof node_present {
-      int32 node_id = 24;
+      int32 node_id = 24 [(val).nonNull= true,(foreignKey).modelName = "Node"];
     }
     oneof numberCores_present {
       int32 numberCores = 25;
     }
     oneof flavor_present {
-      int32 flavor_id = 26;
+      int32 flavor_id = 26 [(val).nonNull= true,(foreignKey).modelName = "Flavor"];
     }
     oneof userData_present {
-      string userData = 27;
+      string userData = 27 ;
     }
     oneof isolation_present {
-      string isolation = 28;
+      string isolation = 28 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof volumes_present {
-      string volumes = 29;
+      string volumes = 29 ;
     }
     oneof parent_present {
-      int32 parent_id = 30;
+      int32 parent_id = 30 [(foreignKey).modelName = "Instance"];
     }
 }
 
@@ -2273,7 +2272,7 @@ message Charge {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2282,7 +2281,7 @@ message Charge {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2300,22 +2299,22 @@ message Charge {
       bool no_policy = 14;
     }
     oneof account_present {
-      int32 account_id = 15;
+      int32 account_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Account"];
     }
     oneof slice_present {
-      int32 slice_id = 16;
+      int32 slice_id = 16 [(foreignKey).modelName = "Slice"];
     }
     oneof kind_present {
-      string kind = 17;
+      string kind = 17 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof state_present {
-      string state = 18;
+      string state = 18 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof date_present {
       float date = 19;
     }
     oneof object_present {
-      int32 object_id = 20;
+      int32 object_id = 20 [(val).nonNull= true,(foreignKey).modelName = "UsableObject"];
     }
     oneof amount_present {
       float amount = 21;
@@ -2324,7 +2323,7 @@ message Charge {
       float coreHours = 22;
     }
     oneof invoice_present {
-      int32 invoice_id = 23;
+      int32 invoice_id = 23 [(foreignKey).modelName = "Invoice"];
     }
 }
 
@@ -2351,7 +2350,7 @@ message Program {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2360,7 +2359,7 @@ message Program {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2378,31 +2377,31 @@ message Program {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof description_present {
-      string description = 16;
+      string description = 16 [(val).maxLength = 254];
     }
     oneof kind_present {
-      string kind = 17;
+      string kind = 17 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof command_present {
-      string command = 18;
+      string command = 18 [(val).maxLength = 30];
     }
     oneof owner_present {
-      int32 owner_id = 19;
+      int32 owner_id = 19 [(foreignKey).modelName = "User"];
     }
     oneof contents_present {
-      string contents = 20;
+      string contents = 20 ;
     }
     oneof output_present {
-      string output = 21;
+      string output = 21 ;
     }
     oneof messages_present {
-      string messages = 22;
+      string messages = 22 ;
     }
     oneof status_present {
-      string status = 23;
+      string status = 23 [(val).maxLength = 30];
     }
 }
 
@@ -2429,7 +2428,7 @@ message Role {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2438,7 +2437,7 @@ message Role {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2456,16 +2455,16 @@ message Role {
       bool no_policy = 14;
     }
     oneof role_type_present {
-      string role_type = 15;
+      string role_type = 15 [(val).maxLength = 80,(val).nonNull= true];
     }
     oneof role_present {
-      string role = 16;
+      string role = 16 [(val).maxLength = 80];
     }
     oneof description_present {
-      string description = 17;
+      string description = 17 [(val).maxLength = 120,(val).nonNull= true];
     }
     oneof content_type_present {
-      int32 content_type_id = 18;
+      int32 content_type_id = 18 [(val).nonNull= true,(foreignKey).modelName = "ContentType"];
     }
 }
 
@@ -2492,7 +2491,7 @@ message NodeLabel {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2501,7 +2500,7 @@ message NodeLabel {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2519,7 +2518,7 @@ message NodeLabel {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 200,(val).nonNull= true];
     }
 }
 
@@ -2546,7 +2545,7 @@ message NetworkTemplate {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2555,7 +2554,7 @@ message NetworkTemplate {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2573,37 +2572,37 @@ message NetworkTemplate {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof description_present {
-      string description = 16;
+      string description = 16 [(val).maxLength = 1024];
     }
     oneof guaranteed_bandwidth_present {
       int32 guaranteed_bandwidth = 17;
     }
     oneof visibility_present {
-      string visibility = 18;
+      string visibility = 18 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof translation_present {
-      string translation = 19;
+      string translation = 19 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof access_present {
-      string access = 20;
+      string access = 20 [(val).maxLength = 30];
     }
     oneof shared_network_name_present {
-      string shared_network_name = 21;
+      string shared_network_name = 21 [(val).maxLength = 30];
     }
     oneof shared_network_id_present {
-      string shared_network_id = 22;
+      string shared_network_id = 22 [(val).maxLength = 256];
     }
     oneof topology_kind_present {
-      string topology_kind = 23;
+      string topology_kind = 23 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof controller_kind_present {
-      string controller_kind = 24;
+      string controller_kind = 24 [(val).maxLength = 30];
     }
     oneof vtn_kind_present {
-      string vtn_kind = 25;
+      string vtn_kind = 25 [(val).maxLength = 30];
     }
 }
 
@@ -2630,7 +2629,7 @@ message ServiceController {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2639,7 +2638,7 @@ message ServiceController {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2657,28 +2656,28 @@ message ServiceController {
       bool no_policy = 14;
     }
     oneof xos_present {
-      int32 xos_id = 15;
+      int32 xos_id = 15 [(val).nonNull= true,(foreignKey).modelName = "XOS"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof base_url_present {
-      string base_url = 17;
+      string base_url = 17 [(val).maxLength = 1024];
     }
     oneof version_present {
-      string version = 18;
+      string version = 18 [(val).maxLength = 30];
     }
     oneof provides_present {
-      string provides = 19;
+      string provides = 19 [(val).maxLength = 254];
     }
     oneof requires_present {
-      string requires = 20;
+      string requires = 20 [(val).maxLength = 254];
     }
     oneof synchronizer_run_present {
-      string synchronizer_run = 21;
+      string synchronizer_run = 21 [(val).maxLength = 1024];
     }
     oneof synchronizer_config_present {
-      string synchronizer_config = 22;
+      string synchronizer_config = 22 [(val).maxLength = 1024];
     }
     oneof no_start_present {
       bool no_start = 23;
@@ -2708,7 +2707,7 @@ message LoadableModule {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2717,7 +2716,7 @@ message LoadableModule {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2735,22 +2734,22 @@ message LoadableModule {
       bool no_policy = 14;
     }
     oneof xos_present {
-      int32 xos_id = 15;
+      int32 xos_id = 15 [(val).nonNull= true,(foreignKey).modelName = "XOS"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof base_url_present {
-      string base_url = 17;
+      string base_url = 17 [(val).maxLength = 1024];
     }
     oneof version_present {
-      string version = 18;
+      string version = 18 [(val).maxLength = 30];
     }
     oneof provides_present {
-      string provides = 19;
+      string provides = 19 [(val).maxLength = 254];
     }
     oneof requires_present {
-      string requires = 20;
+      string requires = 20 [(val).maxLength = 254];
     }
 }
 
@@ -2777,7 +2776,7 @@ message UsableObject {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2786,7 +2785,7 @@ message UsableObject {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2804,7 +2803,7 @@ message UsableObject {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 1024,(val).nonNull= true];
     }
 }
 
@@ -2831,7 +2830,7 @@ message Node {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2840,7 +2839,7 @@ message Node {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2858,13 +2857,13 @@ message Node {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof site_deployment_present {
-      int32 site_deployment_id = 16;
+      int32 site_deployment_id = 16 [(val).nonNull= true,(foreignKey).modelName = "SiteDeployment"];
     }
     oneof site_present {
-      int32 site_id = 17;
+      int32 site_id = 17 [(foreignKey).modelName = "Site"];
     }
 }
 
@@ -2891,7 +2890,7 @@ message AddressPool {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2900,7 +2899,7 @@ message AddressPool {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2918,25 +2917,25 @@ message AddressPool {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof addresses_present {
-      string addresses = 16;
+      string addresses = 16 ;
     }
     oneof gateway_ip_present {
-      string gateway_ip = 17;
+      string gateway_ip = 17 [(val).maxLength = 32];
     }
     oneof gateway_mac_present {
-      string gateway_mac = 18;
+      string gateway_mac = 18 [(val).maxLength = 32];
     }
     oneof cidr_present {
-      string cidr = 19;
+      string cidr = 19 [(val).maxLength = 32];
     }
     oneof inuse_present {
-      string inuse = 20;
+      string inuse = 20 ;
     }
     oneof service_present {
-      int32 service_id = 21;
+      int32 service_id = 21 [(foreignKey).modelName = "Service"];
     }
 }
 
@@ -2963,7 +2962,7 @@ message DashboardView {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -2972,7 +2971,7 @@ message DashboardView {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -2990,19 +2989,19 @@ message DashboardView {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof url_present {
-      string url = 16;
+      string url = 16 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof enabled_present {
       bool enabled = 17;
     }
     oneof icon_present {
-      string icon = 18;
+      string icon = 18 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof icon_active_present {
-      string icon_active = 19;
+      string icon_active = 19 [(val).maxLength = 200,(val).nonNull= true];
     }
 }
 
@@ -3029,7 +3028,7 @@ message NetworkParameter {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3038,7 +3037,7 @@ message NetworkParameter {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3056,13 +3055,13 @@ message NetworkParameter {
       bool no_policy = 14;
     }
     oneof parameter_present {
-      int32 parameter_id = 15;
+      int32 parameter_id = 15 [(val).nonNull= true,(foreignKey).modelName = "NetworkParameterType"];
     }
     oneof value_present {
-      string value = 16;
+      string value = 16 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof content_type_present {
-      int32 content_type_id = 17;
+      int32 content_type_id = 17 [(val).nonNull= true,(foreignKey).modelName = "ContentType"];
     }
     oneof object_id_present {
       uint32 object_id = 18;
@@ -3092,7 +3091,7 @@ message ImageDeployments {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3101,7 +3100,7 @@ message ImageDeployments {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3119,10 +3118,10 @@ message ImageDeployments {
       bool no_policy = 14;
     }
     oneof image_present {
-      int32 image_id = 15;
+      int32 image_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Image"];
     }
     oneof deployment_present {
-      int32 deployment_id = 16;
+      int32 deployment_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Deployment"];
     }
 }
 
@@ -3149,7 +3148,7 @@ message ControllerUser {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3158,7 +3157,7 @@ message ControllerUser {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3176,13 +3175,13 @@ message ControllerUser {
       bool no_policy = 14;
     }
     oneof user_present {
-      int32 user_id = 15;
+      int32 user_id = 15 [(val).nonNull= true,(foreignKey).modelName = "User"];
     }
     oneof controller_present {
-      int32 controller_id = 16;
+      int32 controller_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Controller"];
     }
     oneof kuser_id_present {
-      string kuser_id = 17;
+      string kuser_id = 17 [(val).maxLength = 200];
     }
 }
 
@@ -3209,7 +3208,7 @@ message ReservedResource {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3218,7 +3217,7 @@ message ReservedResource {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3236,16 +3235,16 @@ message ReservedResource {
       bool no_policy = 14;
     }
     oneof instance_present {
-      int32 instance_id = 15;
+      int32 instance_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Instance"];
     }
     oneof resource_present {
-      int32 resource_id = 16;
+      int32 resource_id = 16 [(val).nonNull= true,(foreignKey).modelName = "ServiceResource"];
     }
     oneof quantity_present {
       int32 quantity = 17;
     }
     oneof reservationSet_present {
-      int32 reservationSet_id = 18;
+      int32 reservationSet_id = 18 [(val).nonNull= true,(foreignKey).modelName = "Reservation"];
     }
 }
 
@@ -3260,19 +3259,19 @@ message JournalEntry {
       int32 id = 1;
     }
     oneof objClassName_present {
-      string objClassName = 2;
+      string objClassName = 2 [(val).maxLength = 64,(val).nonNull= true];
     }
     oneof objId_present {
-      string objId = 3;
+      string objId = 3 [(val).maxLength = 64];
     }
     oneof objUnicode_present {
-      string objUnicode = 4;
+      string objUnicode = 4 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof operation_present {
-      string operation = 5;
+      string operation = 5 [(val).maxLength = 64,(val).nonNull= true];
     }
     oneof msg_present {
-      string msg = 6;
+      string msg = 6 ;
     }
     oneof timestamp_present {
       float timestamp = 7;
@@ -3302,7 +3301,7 @@ message UserCredential {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3311,7 +3310,7 @@ message UserCredential {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3329,16 +3328,16 @@ message UserCredential {
       bool no_policy = 14;
     }
     oneof user_present {
-      int32 user_id = 15;
+      int32 user_id = 15 [(val).nonNull= true,(foreignKey).modelName = "User"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 128,(val).nonNull= true];
     }
     oneof key_id_present {
-      string key_id = 17;
+      string key_id = 17 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof enc_value_present {
-      string enc_value = 18;
+      string enc_value = 18 [(val).maxLength = 1024,(val).nonNull= true];
     }
 }
 
@@ -3365,7 +3364,7 @@ message ControllerDashboardView {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3374,7 +3373,7 @@ message ControllerDashboardView {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3392,16 +3391,16 @@ message ControllerDashboardView {
       bool no_policy = 14;
     }
     oneof controller_present {
-      int32 controller_id = 15;
+      int32 controller_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Controller"];
     }
     oneof dashboardView_present {
-      int32 dashboardView_id = 16;
+      int32 dashboardView_id = 16 [(val).nonNull= true,(foreignKey).modelName = "DashboardView"];
     }
     oneof enabled_present {
       bool enabled = 17;
     }
     oneof url_present {
-      string url = 18;
+      string url = 18 [(val).maxLength = 1024,(val).nonNull= true];
     }
 }
 
@@ -3428,7 +3427,7 @@ message UserDashboardView {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3437,7 +3436,7 @@ message UserDashboardView {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3455,10 +3454,10 @@ message UserDashboardView {
       bool no_policy = 14;
     }
     oneof user_present {
-      int32 user_id = 15;
+      int32 user_id = 15 [(val).nonNull= true,(foreignKey).modelName = "User"];
     }
     oneof dashboardView_present {
-      int32 dashboardView_id = 16;
+      int32 dashboardView_id = 16 [(val).nonNull= true,(foreignKey).modelName = "DashboardView"];
     }
     oneof order_present {
       int32 order = 17;
@@ -3488,7 +3487,7 @@ message Controller {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3497,7 +3496,7 @@ message Controller {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3515,40 +3514,40 @@ message Controller {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof backend_type_present {
-      string backend_type = 16;
+      string backend_type = 16 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof version_present {
-      string version = 17;
+      string version = 17 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof auth_url_present {
-      string auth_url = 18;
+      string auth_url = 18 [(val).maxLength = 200];
     }
     oneof admin_user_present {
-      string admin_user = 19;
+      string admin_user = 19 [(val).maxLength = 200];
     }
     oneof admin_password_present {
-      string admin_password = 20;
+      string admin_password = 20 [(val).maxLength = 200];
     }
     oneof admin_tenant_present {
-      string admin_tenant = 21;
+      string admin_tenant = 21 [(val).maxLength = 200];
     }
     oneof domain_present {
-      string domain = 22;
+      string domain = 22 [(val).maxLength = 200];
     }
     oneof rabbit_host_present {
-      string rabbit_host = 23;
+      string rabbit_host = 23 [(val).maxLength = 200];
     }
     oneof rabbit_user_present {
-      string rabbit_user = 24;
+      string rabbit_user = 24 [(val).maxLength = 200];
     }
     oneof rabbit_password_present {
-      string rabbit_password = 25;
+      string rabbit_password = 25 [(val).maxLength = 200];
     }
     oneof deployment_present {
-      int32 deployment_id = 26;
+      int32 deployment_id = 26 [(val).nonNull= true,(foreignKey).modelName = "Deployment"];
     }
 }
 
@@ -3575,7 +3574,7 @@ message TenantRootRole {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3584,7 +3583,7 @@ message TenantRootRole {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3602,7 +3601,7 @@ message TenantRootRole {
       bool no_policy = 14;
     }
     oneof role_present {
-      string role = 15;
+      string role = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
 }
 
@@ -3629,7 +3628,7 @@ message Deployment {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3638,7 +3637,7 @@ message Deployment {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3656,10 +3655,10 @@ message Deployment {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof accessControl_present {
-      string accessControl = 16;
+      string accessControl = 16 [(val).maxLength = 200,(val).nonNull= true];
     }
 }
 
@@ -3686,7 +3685,7 @@ message Reservation {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3695,7 +3694,7 @@ message Reservation {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3716,7 +3715,7 @@ message Reservation {
       float startTime = 15;
     }
     oneof slice_present {
-      int32 slice_id = 16;
+      int32 slice_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Slice"];
     }
     oneof duration_present {
       int32 duration = 17;
@@ -3746,7 +3745,7 @@ message SitePrivilege {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3755,7 +3754,7 @@ message SitePrivilege {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3773,13 +3772,13 @@ message SitePrivilege {
       bool no_policy = 14;
     }
     oneof user_present {
-      int32 user_id = 15;
+      int32 user_id = 15 [(val).nonNull= true,(foreignKey).modelName = "User"];
     }
     oneof site_present {
-      int32 site_id = 16;
+      int32 site_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Site"];
     }
     oneof role_present {
-      int32 role_id = 17;
+      int32 role_id = 17 [(val).nonNull= true,(foreignKey).modelName = "SiteRole"];
     }
 }
 
@@ -3806,7 +3805,7 @@ message Payment {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3815,7 +3814,7 @@ message Payment {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3833,7 +3832,7 @@ message Payment {
       bool no_policy = 14;
     }
     oneof account_present {
-      int32 account_id = 15;
+      int32 account_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Account"];
     }
     oneof amount_present {
       float amount = 16;
@@ -3866,7 +3865,7 @@ message Tenant {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3875,7 +3874,7 @@ message Tenant {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3893,34 +3892,34 @@ message Tenant {
       bool no_policy = 14;
     }
     oneof kind_present {
-      string kind = 15;
+      string kind = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof provider_service_present {
-      int32 provider_service_id = 16;
+      int32 provider_service_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Service"];
     }
     oneof subscriber_service_present {
-      int32 subscriber_service_id = 17;
+      int32 subscriber_service_id = 17 [(foreignKey).modelName = "Service"];
     }
     oneof subscriber_tenant_present {
-      int32 subscriber_tenant_id = 18;
+      int32 subscriber_tenant_id = 18 [(foreignKey).modelName = "Tenant"];
     }
     oneof subscriber_user_present {
-      int32 subscriber_user_id = 19;
+      int32 subscriber_user_id = 19 [(foreignKey).modelName = "User"];
     }
     oneof subscriber_root_present {
-      int32 subscriber_root_id = 20;
+      int32 subscriber_root_id = 20 [(foreignKey).modelName = "TenantRoot"];
     }
     oneof subscriber_network_present {
-      int32 subscriber_network_id = 21;
+      int32 subscriber_network_id = 21 [(foreignKey).modelName = "Network"];
     }
     oneof service_specific_id_present {
-      string service_specific_id = 22;
+      string service_specific_id = 22 [(val).maxLength = 30];
     }
     oneof service_specific_attribute_present {
-      string service_specific_attribute = 23;
+      string service_specific_attribute = 23 ;
     }
     oneof connect_method_present {
-      string connect_method = 24;
+      string connect_method = 24 [(val).maxLength = 30,(val).nonNull= true];
     }
 }
 
@@ -3947,7 +3946,7 @@ message Network {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -3956,7 +3955,7 @@ message Network {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -3974,28 +3973,28 @@ message Network {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof template_present {
-      int32 template_id = 16;
+      int32 template_id = 16 [(val).nonNull= true,(foreignKey).modelName = "NetworkTemplate"];
     }
     oneof subnet_present {
-      string subnet = 17;
+      string subnet = 17 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof start_ip_present {
-      string start_ip = 18;
+      string start_ip = 18 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof end_ip_present {
-      string end_ip = 19;
+      string end_ip = 19 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof ports_present {
-      string ports = 20;
+      string ports = 20 [(val).maxLength = 1024];
     }
     oneof labels_present {
-      string labels = 21;
+      string labels = 21 [(val).maxLength = 1024];
     }
     oneof owner_present {
-      int32 owner_id = 22;
+      int32 owner_id = 22 [(val).nonNull= true,(foreignKey).modelName = "Slice"];
     }
     oneof guaranteed_bandwidth_present {
       int32 guaranteed_bandwidth = 23;
@@ -4004,22 +4003,22 @@ message Network {
       bool permit_all_slices = 24;
     }
     oneof topology_parameters_present {
-      string topology_parameters = 25;
+      string topology_parameters = 25 ;
     }
     oneof controller_url_present {
-      string controller_url = 26;
+      string controller_url = 26 [(val).maxLength = 1024];
     }
     oneof controller_parameters_present {
-      string controller_parameters = 27;
+      string controller_parameters = 27 ;
     }
     oneof network_id_present {
-      string network_id = 28;
+      string network_id = 28 [(val).maxLength = 256];
     }
     oneof router_id_present {
-      string router_id = 29;
+      string router_id = 29 [(val).maxLength = 256];
     }
     oneof subnet_id_present {
-      string subnet_id = 30;
+      string subnet_id = 30 [(val).maxLength = 256];
     }
     oneof autoconnect_present {
       bool autoconnect = 31;
@@ -4049,7 +4048,7 @@ message NetworkSlice {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4058,7 +4057,7 @@ message NetworkSlice {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4076,10 +4075,10 @@ message NetworkSlice {
       bool no_policy = 14;
     }
     oneof network_present {
-      int32 network_id = 15;
+      int32 network_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Network"];
     }
     oneof slice_present {
-      int32 slice_id = 16;
+      int32 slice_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Slice"];
     }
 }
 
@@ -4106,7 +4105,7 @@ message Account {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4115,7 +4114,7 @@ message Account {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4133,7 +4132,7 @@ message Account {
       bool no_policy = 14;
     }
     oneof site_present {
-      int32 site_id = 15;
+      int32 site_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Site"];
     }
 }
 
@@ -4160,7 +4159,7 @@ message TenantRoot {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4169,7 +4168,7 @@ message TenantRoot {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4187,16 +4186,16 @@ message TenantRoot {
       bool no_policy = 14;
     }
     oneof kind_present {
-      string kind = 15;
+      string kind = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 255];
     }
     oneof service_specific_attribute_present {
-      string service_specific_attribute = 17;
+      string service_specific_attribute = 17 ;
     }
     oneof service_specific_id_present {
-      string service_specific_id = 18;
+      string service_specific_id = 18 [(val).maxLength = 30];
     }
 }
 
@@ -4223,7 +4222,7 @@ message Service {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4232,7 +4231,7 @@ message Service {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4250,43 +4249,43 @@ message Service {
       bool no_policy = 14;
     }
     oneof description_present {
-      string description = 15;
+      string description = 15 [(val).maxLength = 254];
     }
     oneof enabled_present {
       bool enabled = 16;
     }
     oneof kind_present {
-      string kind = 17;
+      string kind = 17 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof name_present {
-      string name = 18;
+      string name = 18 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof versionNumber_present {
-      string versionNumber = 19;
+      string versionNumber = 19 [(val).maxLength = 30];
     }
     oneof published_present {
       bool published = 20;
     }
     oneof view_url_present {
-      string view_url = 21;
+      string view_url = 21 [(val).maxLength = 1024];
     }
     oneof icon_url_present {
-      string icon_url = 22;
+      string icon_url = 22 [(val).maxLength = 1024];
     }
     oneof public_key_present {
-      string public_key = 23;
+      string public_key = 23 [(val).maxLength = 1024];
     }
     oneof private_key_fn_present {
-      string private_key_fn = 24;
+      string private_key_fn = 24 [(val).maxLength = 1024];
     }
     oneof service_specific_id_present {
-      string service_specific_id = 25;
+      string service_specific_id = 25 [(val).maxLength = 30];
     }
     oneof service_specific_attribute_present {
-      string service_specific_attribute = 26;
+      string service_specific_attribute = 26 ;
     }
     oneof controller_present {
-      int32 controller_id = 27;
+      int32 controller_id = 27 [(foreignKey).modelName = "ServiceController"];
     }
 }
 
@@ -4313,7 +4312,7 @@ message ControllerSlicePrivilege {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4322,7 +4321,7 @@ message ControllerSlicePrivilege {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4340,13 +4339,13 @@ message ControllerSlicePrivilege {
       bool no_policy = 14;
     }
     oneof controller_present {
-      int32 controller_id = 15;
+      int32 controller_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Controller"];
     }
     oneof slice_privilege_present {
-      int32 slice_privilege_id = 16;
+      int32 slice_privilege_id = 16 [(val).nonNull= true,(foreignKey).modelName = "SlicePrivilege"];
     }
     oneof role_id_present {
-      string role_id = 17;
+      string role_id = 17 [(val).maxLength = 200];
     }
 }
 
@@ -4373,7 +4372,7 @@ message SiteCredential {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4382,7 +4381,7 @@ message SiteCredential {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4400,16 +4399,16 @@ message SiteCredential {
       bool no_policy = 14;
     }
     oneof site_present {
-      int32 site_id = 15;
+      int32 site_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Site"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 128,(val).nonNull= true];
     }
     oneof key_id_present {
-      string key_id = 17;
+      string key_id = 17 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof enc_value_present {
-      string enc_value = 18;
+      string enc_value = 18 [(val).maxLength = 1024,(val).nonNull= true];
     }
 }
 
@@ -4436,7 +4435,7 @@ message DeploymentPrivilege {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4445,7 +4444,7 @@ message DeploymentPrivilege {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4463,13 +4462,13 @@ message DeploymentPrivilege {
       bool no_policy = 14;
     }
     oneof user_present {
-      int32 user_id = 15;
+      int32 user_id = 15 [(val).nonNull= true,(foreignKey).modelName = "User"];
     }
     oneof deployment_present {
-      int32 deployment_id = 16;
+      int32 deployment_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Deployment"];
     }
     oneof role_present {
-      int32 role_id = 17;
+      int32 role_id = 17 [(val).nonNull= true,(foreignKey).modelName = "DeploymentRole"];
     }
 }
 
@@ -4496,7 +4495,7 @@ message NetworkParameterType {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4505,7 +4504,7 @@ message NetworkParameterType {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4523,10 +4522,10 @@ message NetworkParameterType {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 128,(val).nonNull= true];
     }
     oneof description_present {
-      string description = 16;
+      string description = 16 [(val).maxLength = 1024,(val).nonNull= true];
     }
 }
 
@@ -4553,7 +4552,7 @@ message Provider {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4562,7 +4561,7 @@ message Provider {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4580,16 +4579,16 @@ message Provider {
       bool no_policy = 14;
     }
     oneof kind_present {
-      string kind = 15;
+      string kind = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 255];
     }
     oneof service_specific_attribute_present {
-      string service_specific_attribute = 17;
+      string service_specific_attribute = 17 ;
     }
     oneof service_specific_id_present {
-      string service_specific_id = 18;
+      string service_specific_id = 18 [(val).maxLength = 30];
     }
 }
 
@@ -4616,7 +4615,7 @@ message TenantWithContainer {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4625,7 +4624,7 @@ message TenantWithContainer {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4643,34 +4642,46 @@ message TenantWithContainer {
       bool no_policy = 14;
     }
     oneof kind_present {
-      string kind = 15;
+      string kind = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof provider_service_present {
-      int32 provider_service_id = 16;
+      int32 provider_service_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Service"];
     }
     oneof subscriber_service_present {
-      int32 subscriber_service_id = 17;
+      int32 subscriber_service_id = 17 [(foreignKey).modelName = "Service"];
     }
     oneof subscriber_tenant_present {
-      int32 subscriber_tenant_id = 18;
+      int32 subscriber_tenant_id = 18 [(foreignKey).modelName = "Tenant"];
     }
     oneof subscriber_user_present {
-      int32 subscriber_user_id = 19;
+      int32 subscriber_user_id = 19 [(foreignKey).modelName = "User"];
     }
     oneof subscriber_root_present {
-      int32 subscriber_root_id = 20;
+      int32 subscriber_root_id = 20 [(foreignKey).modelName = "TenantRoot"];
     }
     oneof subscriber_network_present {
-      int32 subscriber_network_id = 21;
+      int32 subscriber_network_id = 21 [(foreignKey).modelName = "Network"];
     }
     oneof service_specific_id_present {
-      string service_specific_id = 22;
+      string service_specific_id = 22 [(val).maxLength = 30];
     }
     oneof service_specific_attribute_present {
-      string service_specific_attribute = 23;
+      string service_specific_attribute = 23 ;
     }
     oneof connect_method_present {
-      string connect_method = 24;
+      string connect_method = 24 [(val).maxLength = 30,(val).nonNull= true];
+    }
+    oneof instance_present {
+      int32 instance_id = 25 [(foreignKey).modelName = "Instance"];
+    }
+    oneof creator_present {
+      int32 creator_id = 26 [(foreignKey).modelName = "User"];
+    }
+    oneof external_hostname_present {
+      string external_hostname = 27 [(val).maxLength = 30];
+    }
+    oneof external_container_present {
+      string external_container = 28 [(val).maxLength = 30];
     }
 }
 
@@ -4697,7 +4708,7 @@ message DeploymentRole {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4706,7 +4717,7 @@ message DeploymentRole {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4724,7 +4735,7 @@ message DeploymentRole {
       bool no_policy = 14;
     }
     oneof role_present {
-      string role = 15;
+      string role = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
 }
 
@@ -4751,7 +4762,7 @@ message Project {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4760,7 +4771,7 @@ message Project {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4778,7 +4789,7 @@ message Project {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 200,(val).nonNull= true];
     }
 }
 
@@ -4805,7 +4816,7 @@ message TenantRootPrivilege {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4814,7 +4825,7 @@ message TenantRootPrivilege {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4832,13 +4843,13 @@ message TenantRootPrivilege {
       bool no_policy = 14;
     }
     oneof user_present {
-      int32 user_id = 15;
+      int32 user_id = 15 [(val).nonNull= true,(foreignKey).modelName = "User"];
     }
     oneof tenant_root_present {
-      int32 tenant_root_id = 16;
+      int32 tenant_root_id = 16 [(val).nonNull= true,(foreignKey).modelName = "TenantRoot"];
     }
     oneof role_present {
-      int32 role_id = 17;
+      int32 role_id = 17 [(val).nonNull= true,(foreignKey).modelName = "TenantRootRole"];
     }
 }
 
@@ -4865,7 +4876,7 @@ message XOSComponentVolume {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4874,7 +4885,7 @@ message XOSComponentVolume {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4892,16 +4903,16 @@ message XOSComponentVolume {
       bool no_policy = 14;
     }
     oneof component_present {
-      int32 component_id = 15;
+      int32 component_id = 15 [(val).nonNull= true,(foreignKey).modelName = "XOSComponent"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof container_path_present {
-      string container_path = 17;
+      string container_path = 17 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof host_path_present {
-      string host_path = 18;
+      string host_path = 18 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof read_only_present {
       bool read_only = 19;
@@ -4931,7 +4942,7 @@ message SliceCredential {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -4940,7 +4951,7 @@ message SliceCredential {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -4958,16 +4969,16 @@ message SliceCredential {
       bool no_policy = 14;
     }
     oneof slice_present {
-      int32 slice_id = 15;
+      int32 slice_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Slice"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 128,(val).nonNull= true];
     }
     oneof key_id_present {
-      string key_id = 17;
+      string key_id = 17 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof enc_value_present {
-      string enc_value = 18;
+      string enc_value = 18 [(val).maxLength = 1024,(val).nonNull= true];
     }
 }
 
@@ -4994,7 +5005,7 @@ message SliceTag {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -5003,7 +5014,7 @@ message SliceTag {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -5021,13 +5032,13 @@ message SliceTag {
       bool no_policy = 14;
     }
     oneof slice_present {
-      int32 slice_id = 15;
+      int32 slice_id = 15 [(val).nonNull= true,(foreignKey).modelName = "Slice"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof value_present {
-      string value = 17;
+      string value = 17 [(val).maxLength = 1024,(val).nonNull= true];
     }
 }
 
@@ -5054,7 +5065,7 @@ message CoarseTenant {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -5063,7 +5074,7 @@ message CoarseTenant {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -5081,34 +5092,34 @@ message CoarseTenant {
       bool no_policy = 14;
     }
     oneof kind_present {
-      string kind = 15;
+      string kind = 15 [(val).maxLength = 30,(val).nonNull= true];
     }
     oneof provider_service_present {
-      int32 provider_service_id = 16;
+      int32 provider_service_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Service"];
     }
     oneof subscriber_service_present {
-      int32 subscriber_service_id = 17;
+      int32 subscriber_service_id = 17 [(foreignKey).modelName = "Service"];
     }
     oneof subscriber_tenant_present {
-      int32 subscriber_tenant_id = 18;
+      int32 subscriber_tenant_id = 18 [(foreignKey).modelName = "Tenant"];
     }
     oneof subscriber_user_present {
-      int32 subscriber_user_id = 19;
+      int32 subscriber_user_id = 19 [(foreignKey).modelName = "User"];
     }
     oneof subscriber_root_present {
-      int32 subscriber_root_id = 20;
+      int32 subscriber_root_id = 20 [(foreignKey).modelName = "TenantRoot"];
     }
     oneof subscriber_network_present {
-      int32 subscriber_network_id = 21;
+      int32 subscriber_network_id = 21 [(foreignKey).modelName = "Network"];
     }
     oneof service_specific_id_present {
-      string service_specific_id = 22;
+      string service_specific_id = 22 [(val).maxLength = 30];
     }
     oneof service_specific_attribute_present {
-      string service_specific_attribute = 23;
+      string service_specific_attribute = 23 ;
     }
     oneof connect_method_present {
-      string connect_method = 24;
+      string connect_method = 24 [(val).maxLength = 30,(val).nonNull= true];
     }
 }
 
@@ -5135,7 +5146,7 @@ message Router {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -5144,7 +5155,7 @@ message Router {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -5162,10 +5173,10 @@ message Router {
       bool no_policy = 14;
     }
     oneof name_present {
-      string name = 15;
+      string name = 15 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof owner_present {
-      int32 owner_id = 16;
+      int32 owner_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Slice"];
     }
 }
 
@@ -5192,7 +5203,7 @@ message ServiceResource {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -5201,7 +5212,7 @@ message ServiceResource {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -5219,10 +5230,10 @@ message ServiceResource {
       bool no_policy = 14;
     }
     oneof serviceClass_present {
-      int32 serviceClass_id = 15;
+      int32 serviceClass_id = 15 [(val).nonNull= true,(foreignKey).modelName = "ServiceClass"];
     }
     oneof name_present {
-      string name = 16;
+      string name = 16 [(val).maxLength = 32,(val).nonNull= true];
     }
     oneof maxUnitsDeployment_present {
       int32 maxUnitsDeployment = 17;
@@ -5270,7 +5281,7 @@ message ServicePrivilege {
       float policed = 5;
     }
     oneof backend_register_present {
-      string backend_register = 6;
+      string backend_register = 6 [(val).maxLength = 1024];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 7;
@@ -5279,7 +5290,7 @@ message ServicePrivilege {
       bool backend_need_reap = 8;
     }
     oneof backend_status_present {
-      string backend_status = 9;
+      string backend_status = 9 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof deleted_present {
       bool deleted = 10;
@@ -5297,13 +5308,13 @@ message ServicePrivilege {
       bool no_policy = 14;
     }
     oneof user_present {
-      int32 user_id = 15;
+      int32 user_id = 15 [(val).nonNull= true,(foreignKey).modelName = "User"];
     }
     oneof service_present {
-      int32 service_id = 16;
+      int32 service_id = 16 [(val).nonNull= true,(foreignKey).modelName = "Service"];
     }
     oneof role_present {
-      int32 role_id = 17;
+      int32 role_id = 17 [(val).nonNull= true,(foreignKey).modelName = "ServiceRole"];
     }
 }
 
@@ -5318,34 +5329,34 @@ message User {
       int32 id = 1;
     }
     oneof password_present {
-      string password = 2;
+      string password = 2 [(val).maxLength = 128,(val).nonNull= true];
     }
     oneof last_login_present {
       float last_login = 3;
     }
     oneof email_present {
-      string email = 4;
+      string email = 4 [(val).maxLength = 255,(val).nonNull= true];
     }
     oneof username_present {
-      string username = 5;
+      string username = 5 [(val).maxLength = 255,(val).nonNull= true];
     }
     oneof firstname_present {
-      string firstname = 6;
+      string firstname = 6 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof lastname_present {
-      string lastname = 7;
+      string lastname = 7 [(val).maxLength = 200,(val).nonNull= true];
     }
     oneof phone_present {
-      string phone = 8;
+      string phone = 8 [(val).maxLength = 100];
     }
     oneof user_url_present {
-      string user_url = 9;
+      string user_url = 9 [(val).maxLength = 200];
     }
     oneof site_present {
-      int32 site_id = 10;
+      int32 site_id = 10 [(val).nonNull= true,(foreignKey).modelName = "Site"];
     }
     oneof public_key_present {
-      string public_key = 11;
+      string public_key = 11 [(val).maxLength = 1024];
     }
     oneof is_active_present {
       bool is_active = 12;
@@ -5366,7 +5377,7 @@ message User {
       bool is_appuser = 17;
     }
     oneof login_page_present {
-      string login_page = 18;
+      string login_page = 18 [(val).maxLength = 200];
     }
     oneof created_present {
       float created = 19;
@@ -5381,7 +5392,7 @@ message User {
       float policed = 22;
     }
     oneof backend_status_present {
-      string backend_status = 23;
+      string backend_status = 23 [(val).maxLength = 1024,(val).nonNull= true];
     }
     oneof backend_need_delete_present {
       bool backend_need_delete = 24;
@@ -5405,7 +5416,7 @@ message User {
       bool no_policy = 30;
     }
     oneof timezone_present {
-      string timezone = 31;
+      string timezone = 31 [(val).maxLength = 100,(val).nonNull= true];
     }
 }
 
