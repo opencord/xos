@@ -9,7 +9,7 @@ from .service import XOSComponent, XOSComponentLink, XOSComponentVolume
 from .tag import Tag
 from .role import Role
 from .site import Site, Deployment, DeploymentRole, DeploymentPrivilege, Controller, ControllerRole, ControllerSite, SiteDeployment,Diag
-from .dashboard import DashboardView, ControllerDashboardView
+from .dashboard import DashboardView, ControllerDashboardView, XOSGuiExtension
 from .user import User, UserDashboardView
 from .serviceclass import ServiceClass
 from .site import ControllerManager, ControllerDeletionManager, ControllerLinkManager,ControllerLinkDeletionManager

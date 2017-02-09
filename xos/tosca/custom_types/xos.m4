@@ -66,6 +66,16 @@ node_types:
                 required: false
                 description: True if mount read only
 
+    tosca.nodes.XOSGuiExtension:
+        derived_from: tosca.nodes.Root
+        description: A GUI Extension that can be loaded at runtime and need to be persisted
+        properties:
+            xos_base_props
+            files:
+                type: string
+                required: false
+                description: List of comma separated file composing the view
+
     tosca.nodes.Service:
         derived_from: tosca.nodes.Root
         description: >
