@@ -241,6 +241,17 @@ class XOSComponentVolume(PlCoreBase):
         super(XOSComponentVolume, self).save(*args, **kwds)
 
 
+class XOSComponentVolumeContainer(PlCoreBase):
+    component = models.ForeignKey(XOSComponent, related_name='volumecontainers', help_text="The Component object for this VolumeContainer")
+    name = StrippedCharField(max_length=30, help_text="Volume Name")
+
+    def save(self, *args, **kwds):
+        existing = XOSComponentVolumeContainer.objects.filter(name=self.name)
+        if len(existing) > 0:
+            raise XOSValidationError('XOSComponentVolumeContainer for %s:%s already defined' % (self.container_path, self.host_path))
+        super(XOSComponentVolumeContainer, self).save(*args, **kwds)
+
+
 class ServiceController(LoadableModule):
     synchronizer_run = StrippedCharField(max_length=1024, help_text="synchronizer run command", null=True, blank=True)
     synchronizer_config = StrippedCharField(max_length=1024, help_text="synchronizer config file", null=True, blank=True)

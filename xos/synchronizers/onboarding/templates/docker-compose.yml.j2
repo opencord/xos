@@ -50,6 +50,14 @@ services:
 {%- endif %}
 {%- endfor %}
 {%- endif %}
+
+{%- if container.volumes_from %}
+    volumes_from:
+{%- for volume in container.volumes_from %}
+      - {{ volume }}
+{%- endfor %}
+{%- endif %}
+
 {%- if container.expose %}
     expose:
 {%- for expose in container.expose %}

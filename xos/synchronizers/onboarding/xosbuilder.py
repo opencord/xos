@@ -379,6 +379,11 @@ class XOSBuilder(object):
                                     "container_path": volume.container_path,
                                     "read_only": volume.read_only})
 
+            # creating containervolumes list
+            component_containervolume_list = []
+            for volume in c.volumecontainers.all():
+                component_containervolume_list.append(volume.name)
+
             port = c.ports.split(":")
             containers[c.name] = {
                 "image": c.image,
@@ -389,7 +394,8 @@ class XOSBuilder(object):
                 },
                 "links": component_links,
                 "external_links": component_external_links,
-                "volumes": component_volume_list
+                "volumes": component_volume_list,
+                "volumes_from": component_containervolume_list,
             }
 
             if c.no_start:
