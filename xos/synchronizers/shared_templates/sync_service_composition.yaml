@@ -2,12 +2,7 @@
 - hosts: {{ instance_name }}
   #gather_facts: False
   connection: ssh
-  user: ubuntu
-  become: yes
-  vars:
-      target_subnet : {{ target_subnet }}
-      src_intf_ip : {{ src_intf_ip }}
-
+  become_user: ubuntu
 
   tasks:
   - name: Find the interface that has specified src ip
@@ -18,7 +13,7 @@
     debug: var=src_intf.stdout
 
   - name: set up the network
-    shell: "{{ '{{' }} item {{ '}}' }}"
+    shell: "{{ item }}"
     with_items:
-       - sudo ip route add {{ target_subnet }} dev {{ '{{' }} src_intf.stdout {{ '}}' }}
+       - sudo ip route add {{ target_subnet }} dev {{ src_intf.stdout }}
 
