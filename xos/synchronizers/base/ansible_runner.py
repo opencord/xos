@@ -1,8 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import os
 import sys
 import pdb
+import json
 
 from tempfile import NamedTemporaryFile
 from ansible.inventory import Inventory
@@ -15,20 +16,36 @@ from xos.logger import observer_logger as logger
 
 
 class ResultCallback(CallbackBase):
+
+    CALLBACK_NAME = 'resultcallback'
+    CALLBACK_TYPE = 'programmatic'
+    CALLBACK_VERSION = 2.0
+
     def __init__(self):
         super(ResultCallback, self).__init__()
         self.results = []
 
+    def v2_playbook_on_play_start(self, play, **kwargs):
+        logger.debug("PLAY START: %s" % play.name)
+
     def v2_runner_on_ok(self, result, **kwargs):
-        logger.info("OK: %s"%str(result._task))
+        host = result._host
+        logger.debug("OK (%s): %s" % (host, str(result._task)))
         self.results.append(result)
     
+    def v2_runner_on_skipped(self, result, **kwargs):
+        host = result._host
+        logger.debug("SKIPPED (%s): %s" % (host, str(result._task)))
+        self.results.append(result)
+
     def v2_runner_on_failed(self, result, **kwargs):
         host = result._host
+        logger.error("FAILED (%s): %s" % (host, str(result._task)), extra=result._result)
         self.results.append(result)
 
     def v2_runner_on_unreachable(self, result, **kwargs):
         host = result._host
+        logger.error("UNREACHABLE (%s): %s" % (host, str(result._task)), extra=result._result)
         self.results.append(result)
 
 class Options(object):
