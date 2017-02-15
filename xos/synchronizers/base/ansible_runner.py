@@ -1,8 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import os
 import sys
 import pdb
+import json
 
 from tempfile import NamedTemporaryFile
 from ansible.inventory import Inventory
@@ -15,20 +16,69 @@ from xos.logger import observer_logger as logger
 
 
 class ResultCallback(CallbackBase):
+
+    CALLBACK_NAME = 'resultcallback'
+    CALLBACK_TYPE = 'programmatic'
+    CALLBACK_VERSION = 2.0
+
     def __init__(self):
         super(ResultCallback, self).__init__()
         self.results = []
 
+    def v2_playbook_on_play_start(self, play, **kwargs):
+        log_extra = {}
+        log_extra['ansible'] = 1
+        logger.debug("PLAY [%s]" % play.name, extra=log_extra)
+
+    def v2_playbook_on_handler_task_start(self, task, **kwargs):
+        log_extra = {}
+        log_extra['ansible'] = 1
+        logger.debug("HANDLER [%s]" % task.get_name().strip())
+
     def v2_runner_on_ok(self, result, **kwargs):
-        logger.info("OK: %s"%str(result._task))
-        self.results.append(result)
-    
+        if result._task.loop and 'results' in result._result:
+            self._process_items(result)
+        else:
+            log_extra = {}
+            log_extra['ansible'] = 1
+            log_extra['ansible_host'] = result._host.get_name()
+            log_extra['ansible_results']=json.dumps(result._result)
+            logger.debug("OK [%s]" % str(result._task), extra=log_extra)
+            self.results.append(result)
+
     def v2_runner_on_failed(self, result, **kwargs):
-        host = result._host
+        if result._task.loop and 'results' in result._result:
+            self._process_items(result)
+        else:
+            log_extra = {}
+            log_extra['ansible'] = 1
+            log_extra['ansible_host'] = result._host.get_name()
+            log_extra['ansible_results']=json.dumps(result._result)
+            logger.error("FAILED [%s]" % str(result._task), extra=log_extra)
+            self.results.append(result)
+
+    def v2_runner_on_skipped(self, result, **kwargs):
+        log_extra = {}
+        log_extra['ansible'] = 1
+        log_extra['ansible_host'] = result._host.get_name()
+        log_extra['ansible_results']=json.dumps(result._result)
+        logger.debug("SKIPPED [%s]" % str(result._task), extra=log_extra)
         self.results.append(result)
 
     def v2_runner_on_unreachable(self, result, **kwargs):
-        host = result._host
+        log_extra = {}
+        log_extra['ansible'] = 1
+        log_extra['ansible_host'] = result._host.get_name()
+        log_extra['ansible_results']=json.dumps(result._result)
+        logger.error("UNREACHABLE [%s]" % str(result._task), extra=log_extra)
+        self.results.append(result)
+
+    def v2_runner_retry(self, result):
+        log_extra = {}
+        log_extra['ansible'] = 1
+        log_extra['ansible_host'] = result._host.get_name()
+        log_extra['ansible_results']=json.dumps(result._result)
+        logger.error("RETRYING [%s] - attempt %d" % (str(result._task), result._result['attempts']), extra=log_extra)
         self.results.append(result)
 
 class Options(object):
@@ -103,7 +153,7 @@ class Runner(object):
         # Set global verbosity
         self.display = Display()
         self.display.verbosity = self.options.verbosity
-        # Executor appears to have it's own 
+        # Executor appears to have it's own
         # verbosity object/setting as well
         playbook_executor.verbosity = self.options.verbosity
 
@@ -117,7 +167,7 @@ class Runner(object):
         except KeyError:
             pass
 
-        
+
         # All the variables from all the various places
         self.variable_manager = VariableManager()
         self.variable_manager.extra_vars = {} # self.run_data
@@ -133,11 +183,11 @@ class Runner(object):
 
         # Setup playbook executor, but don't run until run() called
         self.pbex = playbook_executor.PlaybookExecutor(
-            playbooks=[playbook], 
-            inventory=self.inventory, 
+            playbooks=[playbook],
+            inventory=self.inventory,
             variable_manager=self.variable_manager,
-            loader=self.loader, 
-            options=self.options, 
+            loader=self.loader,
+            options=self.options,
             passwords={})
 
     def run(self):
