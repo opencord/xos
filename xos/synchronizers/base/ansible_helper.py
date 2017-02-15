@@ -10,7 +10,8 @@ import re
 import traceback
 import subprocess
 from xos.config import Config, XOS_DIR
-from xos.logger import observer_logger as logger
+from multiprocessing import Process, Queue
+
 
 step_dir = Config().observer_steps_dir
 sys_dir = Config().observer_sys_dir
@@ -45,6 +46,35 @@ def get_playbook_fn(opts, path):
 
     return (opts, os.path.join(pathed_sys_dir,objname))
 
+def run_playbook(ansible_hosts, ansible_config, fqp, opts, q):
+    if ansible_config:
+       os.environ["ANSIBLE_CONFIG"] = ansible_config
+    else:
+       try:
+           del os.environ["ANSIBLE_CONFIG"]
+       except KeyError:
+           pass
+
+    if ansible_hosts:
+       os.environ["ANSIBLE_HOSTS"] = ansible_hosts
+    else:
+       try:
+           del os.environ["ANSIBLE_HOSTS"]
+       except KeyError:
+           pass
+
+    # This import needs to be here, otherwise ANSIBLE_CONFIG does not take effect
+    import ansible_runner
+
+    # Dropped support for observer_pretend - to be redone
+    runner = ansible_runner.Runner(
+        playbook=fqp,
+        run_data=opts,
+        host_file=ansible_hosts)
+
+    stats,aresults = runner.run()
+    q.put([stats,aresults])
+
 def run_template(name, opts, path='', expected_num=None, ansible_config=None, ansible_hosts=None, run_ansible_script=None, object=None):
     template = os_template_env.get_template(name)
     buffer = template.render(opts)
@@ -55,22 +85,11 @@ def run_template(name, opts, path='', expected_num=None, ansible_config=None, an
     f.write(buffer)
     f.flush()
 
-    if ansible_config:
-       os.environ["ANSIBLE_CONFIG"] = ansible_config
-    if ansible_hosts:
-       os.environ["ANSIBLE_HOSTS"] = ansible_hosts
-
-    # This import needs to be here, otherwise ANSIBLE_CONFIG does not take effect
-    from ansible_runner import Runner
-
-
-    # Dropped support for observer_pretend - to be redone
-    runner = Runner(
-        playbook=fqp,
-        run_data=opts,
-        host_file=ansible_hosts)
-
-    stats,aresults = runner.run()
+    q = Queue()
+    p = Process(target=run_playbook, args=(ansible_hosts, ansible_config, fqp, opts, q,))
+    p.start()
+    stats,aresults = q.get()
+    p.join()
 
     try:
         ok_results = []
@@ -95,20 +114,12 @@ def run_template(name, opts, path='', expected_num=None, ansible_config=None, an
                 except:
                     pass
 
-	    if (object):
-		oprops = object.tologdict()
-		ansible = x._result
-		oprops['ansible']=1
-		oprops['failed']=failed
-		oprops['ansible_results']=json.dumps(ansible)
-
-		logger.info(x._task, extra=oprops)
-
 
         if (expected_num is not None) and (len(ok_results) != expected_num):
             raise ValueError('Unexpected num %s!=%d' % (str(expected_num), len(ok_results)) )
 
         #total_unreachable = stats.unreachable
+
 
 	if (failed):
 		raise ValueError('Ansible playbook failed.')
@@ -120,8 +131,6 @@ def run_template(name, opts, path='', expected_num=None, ansible_config=None, an
             pass
         raise Exception(error)
 
-    
-            
     processed_results = map(lambda x:x._result, ok_results)
     return processed_results[1:] # 0 is setup
 
@@ -142,8 +151,8 @@ def run_template_ssh(name, opts, path='', expected_num=None, object=None):
         except:
             proxy_ssh = True
 
-    if (not ssh_ip):
-        raise Exception('IP of ssh proxy not available. Synchronization deferred')
+        if (not ssh_ip):
+            raise Exception('IP of ssh proxy not available. Synchronization deferred')
 
     (opts, fqp) = get_playbook_fn(opts, path)
     private_key_pathname = fqp + ".key"
@@ -192,7 +201,6 @@ def run_template_ssh(name, opts, path='', expected_num=None, object=None):
     return run_template(name, opts, path, ansible_config = config_pathname, ansible_hosts = hosts_pathname, run_ansible_script="/opt/xos/synchronizers/base/run_ansible_verbose", object=object)
 
 
-
 def main():
     run_template('ansible/sync_user_deployments.yaml',{ "endpoint" : "http://172.31.38.128:5000/v2.0/",
              "name" : "Sapan Bhatia",
@@ -203,3 +211,4 @@ def main():
              "admin_tenant":"admin",
              "tenant":"demo",
              "roles":['user','admin'] })
+
