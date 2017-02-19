@@ -98,9 +98,13 @@ def run_template(name, opts, path='', expected_num=None, ansible_config=None, an
 	    if (object):
 		oprops = object.tologdict()
 		ansible = x._result
-		oprops['ansible']=1
-		oprops['failed']=failed
-		oprops['ansible_results']=json.dumps(ansible)
+		oprops['xos_type']='ansible'
+		oprops['ansible_result']=json.dumps(ansible)
+
+                if failed == 0:
+		    oprops['ansible_status']='OK'
+                else:
+		    oprops['ansible_status']='FAILED'
 
 		logger.info(x._task, extra=oprops)
 
