@@ -82,6 +82,12 @@ class ORMWrapper(object):
 
         return self.cache[name]
 
+    def fk_set(self, name, model):
+        fk_entry = self._fkmap[name]
+        id = model.id
+        setattr(self._wrapped_class, fk_entry["src_fieldName"], id)
+        self.cache[name] = model._wrapped_class
+
     def __getattr__(self, name, *args, **kwargs):
         # note: getattr is only called for attributes that do not exist in
         #       self.__dict__
@@ -95,7 +101,9 @@ class ORMWrapper(object):
         return getattr(self._wrapped_class, name, *args, **kwargs)
 
     def __setattr__(self, name, value):
-        if name in self.__dict__:
+        if name in self._fkmap.keys():
+            self.fk_set(name, value)
+        elif name in self.__dict__:
             super(ORMWrapper,self).__setattr__(name, value)
         else:
             setattr(self._wrapped_class, name, value)
