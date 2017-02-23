@@ -6,6 +6,11 @@ import pdb
 import json
 import uuid
 
+try:
+    constants = reload(constants)
+except NameError:
+    from ansible import constants
+
 from tempfile import NamedTemporaryFile
 from ansible.inventory import Inventory
 from ansible.vars import VariableManager
