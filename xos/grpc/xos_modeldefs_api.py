@@ -67,53 +67,56 @@ class ModelDefsService(modeldefs_pb2.modeldefsServicer, XOSAPIHelperMixin):
         response = []
 
         for model in models:
-            if 'core' in model.__module__:
-                modeldef = modeldefs.items.add()
+            # if 'core' in model.__module__:
+            modeldef = modeldefs.items.add()
 
-                modeldef.name = model.__name__
+            modeldef.name = model.__name__
+            modeldef.app = model.__module__
 
-                for f in model._meta.fields:
-                    field = modeldef.fields.add()
+            for f in model._meta.fields:
+                field = modeldef.fields.add()
 
-                    field.name = f.name
-                    field.hint = f.help_text
+                field.name = f.name
+                field.hint = f.help_text
 
-                    fieldtype = self.convertType(f.get_internal_type())
-                    if fieldtype is not None:
-                        field.type = fieldtype
+                fieldtype = self.convertType(f.get_internal_type())
+                if fieldtype is not None:
+                    field.type = fieldtype
+                else:
+                    field.type = 'string'
+
+                if not f.blank and not f.null:
+                    val = field.validators.add()
+                    val.name = "required"
+                    val.bool_value = True
+
+                for v in f.validators:
+                    val = field.validators.add()
+                    validator_name = v.__class__.__name__
+                    if 'function' in validator_name:
+                        validator_name = v.__name__
+                    validator_name = self.convertValidator(validator_name)
+
+                    if not validator_name:
+                        continue
+
+                    val.name = validator_name
+                    if hasattr(v, 'limit_value'):
+                        try:
+                            val.int_value = v.limit_value
+                        except TypeError:
+                            val.str_value = str(v.limit_value)
                     else:
-                        field.type = 'string'
-
-                    if not f.blank and not f.null:
-                        val = field.validators.add()
-                        val.name = "required"
                         val.bool_value = True
 
-                    for v in f.validators:
-                        val = field.validators.add()
-                        validator_name = v.__class__.__name__
-                        if 'function' in validator_name:
-                            validator_name = v.__name__
-                        validator_name = self.convertValidator(validator_name)
+                if f.is_relation and f.related_model:
+                    # TODO update field.name to add _id
+                    field.name = field.name + '_id'
+                    field.relation.model = f.related_model.__name__
+                    field.relation.type = self.getRelationType(f)
 
-                        if not validator_name:
-                            continue
-
-                        val.name = validator_name
-                        if hasattr(v, 'limit_value'):
-                            try:
-                                val.int_value = v.limit_value
-                            except TypeError:
-                                val.str_value = str(v.limit_value)
-                        else:
-                            val.bool_value = True
-
-                    if f.is_relation and f.related_model:
-                        field.relation.model = f.related_model.__name__
-                        field.relation.type = self.getRelationType(f)
-
-                        rel = modeldef.relations.add()
-                        rel.model = f.related_model.__name__
-                        rel.type = self.getRelationType(f)
+                    rel = modeldef.relations.add()
+                    rel.model = f.related_model.__name__
+                    rel.type = self.getRelationType(f)
         return modeldefs
 
