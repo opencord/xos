@@ -109,6 +109,8 @@ class ModelDefsService(modeldefs_pb2.modeldefsServicer, XOSAPIHelperMixin):
                             val.bool_value = True
 
                     if f.is_relation and f.related_model:
+                        # TODO update field.name to add _id
+                        field.name = field.name + '_id'
                         field.relation.model = f.related_model.__name__
                         field.relation.type = self.getRelationType(f)
 
