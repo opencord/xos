@@ -5,7 +5,7 @@ from xos.logger import Logger, logging
 from synchronizers.new_base.modelaccessor import *
 #from synchronizers.new_base.steps import *
 #from synchronizers.new_base.ansible_helper import *
-from generate.dependency_walker import *
+#from generate.dependency_walker import *
 
 import json
 import time

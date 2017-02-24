@@ -208,6 +208,12 @@ class ORMObjectManager(object):
     def all(self):
         return self.wrap_list(self._stub.invoke("List%s" % self._modelName, Empty()))
 
+    def first(self):
+        objs=self.wrap_list(self._stub.invoke("List%s" % self._modelName, Empty()))
+        if not objs:
+            return None
+        return objs[0]
+
     def filter(self, **kwargs):
         q = self._stub.make_Query()
         q.kind = q.DEFAULT
