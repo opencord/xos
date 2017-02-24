@@ -169,6 +169,10 @@ class XOSAPIHelperMixin(object):
         for (k, v) in context.invocation_metadata():
             if k=="update_fields":
                 save_kwargs["update_fields"] = v.split(",")
+            elif k=="caller_kind":
+                save_kwargs["caller_kind"] = v
+            elif k=="always_update_timestamp":
+                save_kwargs["always_update_timestamp"] = True
 
         obj.save(**save_kwargs)
         return self.objToProto(obj)
