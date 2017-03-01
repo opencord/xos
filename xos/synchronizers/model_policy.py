@@ -175,7 +175,7 @@ def run_policy_once():
         objects = []
         deleted_objects = []
 
-        logger.debug("MODEL POLICY: run_policy_once()")
+        #logger.debug("MODEL POLICY: run_policy_once()")
 
         check_db_connection_okay()
 
@@ -231,4 +231,4 @@ def run_policy_once():
             # this shouldn't happen, but in case it does, catch it...
             logger.log_exc("MODEL POLICY: exception in reset_queries")
 
-        logger.debug("MODEL POLICY: finished run_policy_once()")
+        #logger.debug("MODEL POLICY: finished run_policy_once()")
