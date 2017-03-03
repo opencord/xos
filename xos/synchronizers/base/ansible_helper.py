@@ -9,6 +9,7 @@ import random
 import re
 import traceback
 import subprocess
+import threading
 from xos.config import Config, XOS_DIR
 from xos.logger import observer_logger as logger
 from multiprocessing import Process, Queue
@@ -83,6 +84,13 @@ def run_playbook(ansible_hosts, ansible_config, fqp, opts, q):
     q.put([stats,aresults])
 
 def run_template(name, opts, path='', expected_num=None, ansible_config=None, ansible_hosts=None, run_ansible_script=None, object=None):
+    global uglylock
+    if (not uglylock):
+        # Ingore almost impossible race here - this is going away in a few days
+        uglylock = threading.Lock()
+
+    uglylock.acquire()
+
     template = os_template_env.get_template(name)
     buffer = template.render(opts)
 
@@ -98,6 +106,8 @@ def run_template(name, opts, path='', expected_num=None, ansible_config=None, an
     stats,aresults = q.get()
     p.join()
 
+    uglylock.release()
+    
     output_file = fqp + '.out'
     try:
         if (aresults is None):
