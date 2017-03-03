@@ -254,6 +254,20 @@ class User(AbstractBaseUser, PlModelMixIn):
             self.send_temporary_password()
             self.is_registering = False
 
+        caller_kind = "unknown"
+
+        if ('synchronizer' in threading.current_thread().name):
+            caller_kind = "synchronizer"
+
+        if "caller_kind" in kwargs:
+            caller_kind = kwargs.pop("caller_kind")
+
+        always_update_timestamp = False
+        if "always_update_timestamp" in kwargs:
+            always_update_timestamp = always_update_timestamp or kwargs.pop("always_update_timestamp")
+
+        # TODO: plCoreBase logic for updating timestamps is missing
+
         self.username = self.email
         super(User, self).save(*args, **kwds)
 
