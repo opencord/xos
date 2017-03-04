@@ -25,10 +25,6 @@ import grpc
 from concurrent import futures
 import zlib
 
-import django
-sys.path.append('/opt/xos')
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
-
 from protos import xos_pb2, schema_pb2, modeldefs_pb2, utility_pb2
 from xos_grpc_api import XosService
 from xos_modeldefs_api import ModelDefsService
@@ -178,6 +174,10 @@ def restart_chameleon():
 # This is to allow running the GRPC server in stand-alone mode
 
 if __name__ == '__main__':
+    import django
+    sys.path.append('/opt/xos')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
+
     django.setup()
 
     server = XOSGrpcServer().start()
