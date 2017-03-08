@@ -51,7 +51,7 @@ class ORMWrapper(object):
            if name.endswith("_id"):
                foreignKey = field.GetOptions().Extensions._FindExtensionByName("xos.foreignKey")
                fk = field.GetOptions().Extensions[foreignKey]
-               if fk:
+               if fk and fk.modelName:
                    fkmap[name[:-3]] = {"src_fieldName": name, "modelName": fk.modelName}
 
         return fkmap
@@ -281,23 +281,31 @@ class ORMObjectManager(object):
             return objs[0]
 
     def new(self, **kwargs):
-        full_model_name = "%s.%s" % (self._packageName, self._modelName)
-        cls = _sym_db._classes[full_model_name]
+        #full_model_name = "%s.%s" % (self._packageName, self._modelName)
+        #cls = _sym_db._classes[full_model_name]
+        cls = self._stub.all_model_classes[self._modelName]
         return make_ORMWrapper(cls(), self._stub, is_new=True)
 
 class ORMModelClass(object):
     def __init__(self, stub, model_name, package_name):
         self.model_name = model_name
+        self._stub = stub
         self.objects = ORMObjectManager(stub, model_name, package_name)
 
     @property
     def __name__(self):
         return self.model_name
 
+    @property
+    def content_type_id(self):
+        return self._stub.content_type_map[self._modelName]
+
 class ORMStub(object):
     def __init__(self, stub, package_name, invoker=None, caller_kind="grpcapi"):
         self.grpc_stub = stub
         self.all_model_names = []
+        self.all_model_classes = {}
+        self.content_type_map = {}
         self.invoker = invoker
         self.caller_kind = caller_kind
 
@@ -307,6 +315,15 @@ class ORMStub(object):
                setattr(self,model_name, ORMModelClass(self, model_name, package_name))
 
                self.all_model_names.append(model_name)
+
+               grpc_class = _sym_db._classes["%s.%s" % (package_name, model_name)]
+               self.all_model_classes[model_name] = grpc_class
+
+               ct = grpc_class.DESCRIPTOR.GetOptions().Extensions._FindExtensionByName("xos.contentTypeId")
+               if ct:
+                   ct = grpc_class.DESCRIPTOR.GetOptions().Extensions[ct]
+                   if ct:
+                       self.content_type_map[ct] = grpc_class
 
     def listObjects(self):
         return self.all_model_names
