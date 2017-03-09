@@ -4,6 +4,7 @@ import jinja2
 import tempfile
 import os
 import json
+import pickle
 import pdb
 import string
 import random
@@ -49,7 +50,7 @@ def get_playbook_fn(opts, path):
 
     return (opts, os.path.join(pathed_sys_dir,objname))
 
-def run_playbook(ansible_hosts, ansible_config, fqp, opts):#, q):
+def run_playbook_old(ansible_hosts, ansible_config, fqp, opts):#, q):
     try:
         if ansible_config:
            os.environ["ANSIBLE_CONFIG"] = ansible_config
@@ -85,6 +86,47 @@ def run_playbook(ansible_hosts, ansible_config, fqp, opts):#, q):
     #q.put([stats,aresults])
     return (stats,aresults)
 
+def run_playbook(ansible_hosts, ansible_config, fqp, opts):
+    args = {"ansible_hosts": ansible_hosts,
+            "ansible_config": ansible_config,
+            "fqp": fqp,
+            "opts": opts}
+
+    dir = tempfile.mkdtemp()
+    args_fn = None
+    result_fn = None
+    try:
+        print "XXX", dir
+        args_fn = os.path.join(dir, "args")
+        result_fn = os.path.join(dir, "result")
+
+        open(args_fn, "w").write(pickle.dumps(args))
+
+        ansible_main_fn = os.path.join(os.path.dirname(__file__), "ansible_main.py")
+
+        os.system("python %s %s %s" % (ansible_main_fn, args_fn, result_fn))
+
+        result = pickle.loads(open(result_fn).read())
+
+        if hasattr(result, "exception"):
+            logger.log_error("Exception in playbook: %s" % result["exception"])
+
+        stats = result.get("stats", None)
+        aresults = result.get("aresults", None)
+    except:
+        logger.log_exc("Exception running ansible_main")
+        stats = None
+        aresults = None
+    finally:
+        pass
+#        if args_fn and os.path.exists(args_fn):
+#            os.remove(args_fn)
+#        if result_fn and os.path.exists(result_fn):
+#            os.remove(result_fn)
+#        os.rmdir(dir)
+
+    return (stats, aresults)
+
 def run_template(name, opts, path='', expected_num=None, ansible_config=None, ansible_hosts=None, run_ansible_script=None, object=None):
     global uglylock
     try:
@@ -114,7 +156,9 @@ def run_template(name, opts, path='', expected_num=None, ansible_config=None, an
     stats,aresults = run_playbook(ansible_hosts,ansible_config,fqp,opts)
 
     uglylock.release()
-    
+
+    error_msg = []
+
     output_file = fqp + '.out'
     try:
         if (aresults is None):
@@ -123,8 +167,6 @@ def run_template(name, opts, path='', expected_num=None, ansible_config=None, an
         ok_results = []
         total_unreachable = 0
         failed = 0
-
-        error_msg = []
 
         ofile = open(output_file, 'w')
 
@@ -174,11 +216,14 @@ def run_template(name, opts, path='', expected_num=None, ansible_config=None, an
 		raise ValueError('Ansible playbook failed.')
 
     except ValueError,e:
-        try:
-            error = ' // '.join(error_msg)
-        except:
-            pass
-        raise Exception(error)
+        if error_msg:
+            try:
+                error = ' // '.join(error_msg)
+            except:
+                error = "failed to join error_msg"
+            raise Exception(error)
+        else:
+            raise
 
     
             
