@@ -1,0 +1,10 @@
+---
+# xos-docker-images/defaults/main.yml
+
+cord_dir: "{{ ansible_user_dir + '/cord' }}"
+
+pull_xos_base_image: True
+build_xos_base_image: False
+build_xos_test_image: False
+
+build_docker_tag: "candidate"
