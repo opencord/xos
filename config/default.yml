@@ -1,0 +1,8 @@
+---
+debug: false
+
+headnode:
+  ip: '10.100.198.201'
+  ansible_user: 'vagrant'
+  ansible_ssh_pass: 'vagrant'
+  ansible_ssh_port: 22
