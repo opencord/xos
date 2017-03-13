@@ -1,0 +1,102 @@
+---
+# xos-docker-images/tasks/main.yml
+
+- name: Build xos-base docker image
+  when: build_xos_base_image
+  docker_image:
+    name: "xosproject/xos-base"
+    path: "{{ cord_dir }}/orchestration/xos/containers/xos"
+    tag: "{{ build_docker_tag }}"
+    dockerfile: "Dockerfile.base"
+
+- name: Pull xos-base docker image from Dockerhub
+  when: pull_xos_base_image
+  docker_image:
+    name: "xosproject/xos-base"
+    repository: "xosproject/xos-base:{{ build_docker_tag }}"
+
+- name: Obtain XOS git repo metadata
+  command: "git log --pretty=format:'{\"XOS_GIT_COMMIT_DATE\":\"%ci\", \"XOS_GIT_COMMIT_HASH\":\"%H\"}' -n 1"
+  args:
+    chdir: "{{ cord_dir }}/orchestration/xos/"
+  register: xos_git_metadata
+  tags:
+    - skip_ansible_lint # idempotent git metadata retrieval, git module can't do this
+
+- name: Build xosproject/xos image
+  docker_image:
+    name: "xosproject/xos"
+    path: "{{ cord_dir }}/orchestration/xos/"
+    dockerfile: "containers/xos/Dockerfile.xos"
+    tag: "{{ build_docker_tag }}"
+    buildargs: "{{ xos_git_metadata.stdout }}"
+    pull: False # should use locally created, or already pulled xos-base image
+
+- name: Build xosproject/xos-test testing image
+  when: build_xos_test_image
+  docker_image:
+    name: "xosproject/xos-test"
+    path: "{{ cord_dir }}/orchestration/xos/"
+    dockerfile: "containers/xos/Dockerfile.test"
+    tag: "{{ build_docker_tag }}"
+    pull: False # use the locally built copy of xosproject/xos
+
+- name: Clean up chameleon temp directory
+  file:
+    path: "{{ cord_dir }}/orchestration/xos/containers/chameleon/tmp.chameleon"
+    state: absent
+
+- name: Populate chameleon temp directory
+  shell: cp -a "{{ cord_dir }}/component/chameleon" "{{ cord_dir }}/orchestration/xos/containers/chameleon/tmp.chameleon"
+  tags:
+    - skip_ansible_lint # docker can't access files outside of build context, so we must copy
+
+- name: Build xosproject/chameleon image
+  docker_image:
+    name: "xosproject/chameleon"
+    path: "{{ cord_dir }}/orchestration/xos/containers/chameleon"
+    dockerfile: "Dockerfile.chameleon"
+    tag: "{{ build_docker_tag }}"
+    pull: False # use the locally built copy of xosproject/xos
+
+- name: Build xosproject/xos-rest-gw container image
+  docker_image:
+    name: "xosproject/xos-rest-gw"
+    path: "{{ cord_dir }}/orchestration/xos-rest-gw"
+    dockerfile: "Dockerfile"
+    tag: "{{ build_docker_tag }}"
+    pull: False # use the locally built copy of xosproject/xos
+
+- name: Build xosproject/xos-gui container image
+  docker_image:
+    name: "xosproject/xos-gui"
+    path: "{{ cord_dir }}/orchestration/xos-gui"
+    dockerfile: "Dockerfile"
+    tag: "{{ build_docker_tag }}"
+    pull: False # use the locally built copy of xosproject/xos
+
+- name: Clean up xos-client's chameleon temp directory
+  file:
+    path: "{{ cord_dir }}/orchestration/xos/containers/xos/tmp.chameleon"
+    state: absent
+
+- name: Populate xos-client's chameleon temp directory
+  shell: cp -a "{{ cord_dir }}/component/chameleon" "{{ cord_dir }}/orchestration/xos/containers/xos/tmp.chameleon"
+  tags:
+    - skip_ansible_lint # docker can't access files outside of build context, so we must copy
+
+- name: Build xosproject/xos-client image
+  docker_image:
+    name: "xosproject/xos-client"
+    path: "{{ cord_dir }}/orchestration/xos"
+    dockerfile: "containers/xos/Dockerfile.client"
+    tag: "{{ build_docker_tag }}"
+    pull: False # use the locally built copy of xosproject/xos
+
+- name: Build xosproject/xos-synchronizer-base container image
+  docker_image:
+    name: "xosproject/xos-synchronizer-base"
+    path: "{{ cord_dir }}/orchestration/xos"
+    dockerfile: "containers/xos/Dockerfile.synchronizer-base"
+    tag: "{{ build_docker_tag }}"
+    pull: False # use the locally built copy of xosproject/xos
