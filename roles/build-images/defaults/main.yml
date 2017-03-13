@@ -1,0 +1,46 @@
+---
+# build-images/defaults/main.yml
+
+cord_dir: "{{ ansible_user_dir + '/cord' }}"
+
+chameleon_dirs:
+  - "{{ cord_dir }}/orchestration/xos/containers/chameleon/tmp.chameleon"
+  - "{{ cord_dir }}/orchestration/xos/containers/xos/tmp.chameleon"
+
+docker_images:
+  - name: "xosproject/xos-base"
+    path: "{{ cord_dir }}/orchestration/xos/containers/xos"
+    dockerfile: "Dockerfile.base"
+  - name: "xosproject/xos"
+    path: "{{ cord_dir }}/orchestration/xos"
+    dockerfile: "containers/xos/Dockerfile.xos"
+  - name: "xosproject/chameleon"
+    path: "{{ cord_dir }}/orchestration/xos/containers/chameleon"
+    dockerfile: "Dockerfile.chameleon"
+  - name: "xosproject/xos-client"
+    path: "{{ cord_dir }}/orchestration/xos"
+    dockerfile: "containers/xos/Dockerfile.client"
+  - name: "xosproject/xos-synchronizer-base"
+    path: "{{ cord_dir }}/orchestration/xos"
+    dockerfile: "containers/xos/Dockerfile.synchronizer-base"
+  - name: "xosproject/xos-rest-gw"
+    path: "{{ cord_dir }}/orchestration/xos-rest-gw"
+    dockerfile: "Dockerfile"
+  - name: "xosproject/xos-gui"
+    path: "{{ cord_dir }}/orchestration/xos-gui"
+    dockerfile: "Dockerfile"
+  - name: "xosproject/xos-gui-extension-builder"
+    path: "{{ cord_dir }}/orchestration/xos-gui/"
+    dockerfile: "Dockerfile.xos-gui-extension-builder"
+
+build_optional_images: False
+
+docker_optional_images:
+  - name: xosprojext/xos-test
+    dockerfile: Dockerfile.test
+
+build_docker_tag: "candidate"
+
+enabled_gui_extensions:
+  - name: sample
+    path: orchestration/xos-sample-gui-extension
