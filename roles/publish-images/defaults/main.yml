@@ -1,0 +1,18 @@
+---
+# publish-xos-docker-images/defaults/main.yml
+
+build_docker_tag: "candidate"
+
+deploy_docker_registry: "localhost:5000"
+deploy_docker_tag: "candidate"
+
+xos_docker_images:
+  - xosproject/xos
+  - xosproject/chameleon
+  - xosproject/xos-rest-gw
+  - xosproject/xos-gui
+  - xosproject/xos-synchronizer-base
+  - xosproject/xos-client
+
+misc_docker_images:
+  - node:argon
