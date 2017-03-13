@@ -1,0 +1,7 @@
+---
+# pull-images/defaults/main.yml
+
+pull_docker_images:
+  - xosproject/xos-base
+
+build_docker_tag: candidate
