@@ -1,0 +1,13 @@
+---
+# pull-images-playbook.yml
+
+# This seems to be required when including this playbook from platform-install
+- name: Explicitly include global default vars
+  hosts: localhost
+  tasks:
+    - include_vars: group_vars/all
+
+- name: Create XOS docker images
+  hosts: localhost
+  roles:
+    - pull-images
