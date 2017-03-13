@@ -1,0 +1,25 @@
+---
+# publish-xos-docker-images/tasks/main.yml
+
+# Probably not all of these are needed
+- name: Tag and push locally built images to docker registry
+  docker_image:
+    name: "{{ item }}:{{ deploy_docker_tag }}"
+    repository: "{{ deploy_docker_registry }}/{{ item }}:{{ deploy_docker_tag }}"
+    push: True
+  with_items:
+    - xosproject/xos
+    - xosproject/chameleon
+    - xosproject/xos-rest-gw
+    - xosproject/xos-gui
+    - xosproject/xos-synchronizer-base
+    - xosproject/xos-client
+
+# Just needed for onboarding, will go away
+- name: Tag and push miscellaneous containers
+  docker_image:
+    name: "{{ item }}"
+    repository: "{{ deploy_docker_registry }}/{{ item }}"
+    push: True
+  with_items:
+    - node:argon

@@ -1,0 +1,7 @@
+---
+# publish-xos-docker-images/defaults/main.yml
+
+build_docker_tag: "candidate"
+
+deploy_docker_registry: "localhost:5000"
+deploy_docker_tag: "candidate"
