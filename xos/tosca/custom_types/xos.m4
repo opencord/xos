@@ -1361,6 +1361,10 @@ node_types:
         derived_from: tosca.relationships.Root
         valid_target_types: [ tosca.capabilities.xos.Subscriber ]
 
+    tosca.relationships.BelongsToTenant:
+        derived_from: tosca.relationships.Root
+        valid_target_types: [ tosca.capabilities.xos.Tenant ]
+
     tosca.relationships.UsesDashboard:
         derived_from: tosca.relationships.Root
         valid_target_types: [ tosca.capabilities.xos.DashboardView ]
@@ -1469,6 +1473,10 @@ node_types:
     tosca.capabilities.xos.TenantRole:
         derived_from: tosca.capabilities.Root
         description: An XOS TenantRole
+
+    tosca.capabilities.xos.Tenant:
+        derived_from: tosca.capabilities.Root
+        description: An XOS Tenant
 
     tosca.capabilities.xos.Image:
         derived_from: tosca.capabilities.Root
