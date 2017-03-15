@@ -222,6 +222,9 @@ class ORMQuerySet(list):
         else:
             return None
 
+    def exists(self):
+        return len(self)>0
+
 class ORMLocalObjectManager(object):
     """ Manages a local list of objects """
 
@@ -246,6 +249,9 @@ class ORMLocalObjectManager(object):
     def all(self):
         models = self.resolve_queryset()
         return [make_ORMWrapper(x,self._stub) for x in models]
+
+    def exists(self):
+        return len(self.models)>0
 
 class ORMObjectManager(object):
     """ Manages a remote list of objects """
