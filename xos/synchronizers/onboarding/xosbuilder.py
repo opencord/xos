@@ -412,7 +412,36 @@ class XOSBuilder(object):
                     logger.warning("Controller %s has unready resources" % str(c))
                     continue
 
-                if c.loadable_module_resources.filter(kind="synchronizer").exists():
+                if c.no_deploy:
+                    logger.info("Controller %s has no_deploy set" % str(c))
+
+                if c.no_build and c.image:
+                    # refactored synchronizer containers
+
+                    volume_list=[{"host_path": "/opt/cord_profile/node_key",
+                                  "container_path": "/opt/cord_profile/node_key",
+                                  "read_only": True},
+                                 {"host_path": "/opt/xos/syncornizers/onboarding/credentials/xosadmin@opencord.org",   # Need to make sure this is in the onboarding sync container
+                                  "container_path": "/opt/xos/services/%s/credentials/xosadmin@opencord.org" % c.name,
+                                  "read_only": True}]
+
+                    if os.path.exists("/opt/cord_profile/key_import/%s_rsa" % c.name):
+                        volume_list.append({"host_path": "/opt/cord_profile/key_import/%s_rsa" % c.name,    # Note: not all services have keys
+                                  "container_path": "/opt/xos/services/%s/keys/%s_rsa" % (c.name, c.name),
+                                  "read_only": True})
+
+                    if c.name == "vtr":
+                        # VTR is special -- it has the vSG's private key
+                        volume_list.append({"host_path": "/opt/cord_profile/key_import/vsg_rsa",    # Note: not all services have keys
+                                  "container_path": "/opt/xos/services/%s/keys/vsg_rsa" % c.name,
+                                  "read_only": True})
+
+                    containers["%s-synchronizer" % c.name] = {
+                        "image": c.image,
+                        "volumes": volume_list}
+
+                elif c.loadable_module_resources.filter(kind="synchronizer").exists():
+                    # old-style synchronizer containers
                     if c.synchronizer_run and c.synchronizer_config:
                         command = 'bash -c "sleep 120; cd /opt/xos/synchronizers/%s; python ./%s -C %s"' % (c.name, c.synchronizer_run, c.synchronizer_config)
                     else:
