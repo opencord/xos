@@ -13,6 +13,9 @@ import os
 from xos.config import Config
 from diag import update_diag
 
+from xos.logger import Logger, logging
+logger = Logger(level=logging.INFO)
+
 class ModelAccessor(object):
     def __init__(self):
         self.all_model_classes = self.get_all_model_classes()
@@ -102,6 +105,28 @@ def grpcapi_reconnect(client, reactor):
 
     from apiaccessor import CoreApiModelAccessor
     model_accessor = CoreApiModelAccessor(orm = client.xos_orm)
+
+    required_models = getattr(Config(), "observer_required_models", None)
+    if required_models:
+        required_models = required_models.split(",")
+        required_models = [x.strip() for x in required_models]
+
+        missing = []
+        found = []
+        for model in required_models:
+            if model_accessor.has_model_class(model):
+                found.append(model)
+            else:
+                missing.append(model)
+
+        logger.info("required_models: found %s" % ", ".join(found))
+        if missing:
+            logger.warning("required_models: missing %s" % ", ".join(missing))
+            # We're missing a required model. Give up and assume grpc_client
+            # will call us back later when more models are available
+            return
+
+    # import all models to global space
     import_models_to_globals()
 
     # Synchronizer framework isn't ready to embrace reactor yet...
