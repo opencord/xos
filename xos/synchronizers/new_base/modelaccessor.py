@@ -13,6 +13,9 @@ import os
 from xos.config import Config
 from diag import update_diag
 
+from xos.logger import Logger, logging
+logger = Logger(level=logging.INFO)
+
 class ModelAccessor(object):
     def __init__(self):
         self.all_model_classes = self.get_all_model_classes()
@@ -94,6 +97,28 @@ def import_models_to_globals():
                 self.into=into
         globals()["ModelLink"] = ModelLink
 
+def keep_trying(client, reactor):
+    # chameleon's grpc_client will not automatically reconnect unless we keep
+    # sending requests...
+    # so generate a request every few seconds.
+
+    logger.info("keep_trying")
+
+    from xosapi.xos_grpc_client import Empty
+
+    try:
+        client.utility.NoOp(Empty())
+    except:
+        # If we caught an exception, then the API has become unavailable.
+        # So reconnect.
+
+        logger.log_exc("exception in NoOp")
+        client.connected = False
+        client.connect()
+        return
+
+    reactor.callLater(1, functools.partial(keep_trying, client, reactor))
+
 def grpcapi_reconnect(client, reactor):
     global model_accessor
 
@@ -102,6 +127,33 @@ def grpcapi_reconnect(client, reactor):
 
     from apiaccessor import CoreApiModelAccessor
     model_accessor = CoreApiModelAccessor(orm = client.xos_orm)
+
+    # If required_models is set, then check to make sure the required_models
+    # are present. If not, then the synchronizer needs to go to sleep until
+    # the models show up.
+
+    required_models = getattr(Config(), "observer_required_models", None)
+    if required_models:
+        required_models = required_models.split(",")
+        required_models = [x.strip() for x in required_models]
+
+        missing = []
+        found = []
+        for model in required_models:
+            if model_accessor.has_model_class(model):
+                found.append(model)
+            else:
+                missing.append(model)
+
+        logger.info("required_models: found %s" % ", ".join(found))
+        if missing:
+            logger.warning("required_models: missing %s" % ", ".join(missing))
+            # We're missing a required model. Give up and assume grpc_client
+            # will call us back later when more models are available
+            reactor.callLater(1, functools.partial(keep_trying, client, reactor))
+            return
+
+    # import all models to global space
     import_models_to_globals()
 
     # Synchronizer framework isn't ready to embrace reactor yet...
