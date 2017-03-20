@@ -1,72 +1,4 @@
-import json
-import operator
-
-from operator import attrgetter
-from distutils.version import LooseVersion
-
-from core.models import PlCoreBase, PlCoreBaseManager, SingletonModel, XOS
-from core.models.plcorebase import StrippedCharField
-from django.db import models
-from django.core.validators import URLValidator
-from xos.exceptions import *
-import urlparse
-
-COARSE_KIND = "coarse"
-
-def get_xos():
-    xos = XOS.objects.all()
-
-    if xos:
-       return xos[0]
-    else:
-       return None
-
-class AttributeMixin(object):
-    # helper for extracting things from a json-encoded
-    # service_specific_attribute
-
-    def get_attribute(self, name, default=None):
-        if self.service_specific_attribute:
-            attributes = json.loads(self.service_specific_attribute)
-        else:
-            attributes = {}
-        return attributes.get(name, default)
-
-    def set_attribute(self, name, value):
-        if self.service_specific_attribute:
-            attributes = json.loads(self.service_specific_attribute)
-        else:
-            attributes = {}
-        attributes[name] = value
-        self.service_specific_attribute = json.dumps(attributes)
-
-    def get_initial_attribute(self, name, default=None):
-        if self._initial["service_specific_attribute"]:
-            attributes = json.loads(
-                self._initial["service_specific_attribute"])
-        else:
-            attributes = {}
-        return attributes.get(name, default)
-
-    @classmethod
-    def get_default_attribute(cls, name):
-        for (attrname, default) in cls.simple_attributes:
-            if attrname == name:
-                return default
-        if hasattr(cls, "default_attributes"):
-            if name in cls.default_attributes:
-                return cls.default_attributes[name]
-
-        return None
-
-    @classmethod
-    def setup_simple_attributes(cls):
-        for (attrname, default) in cls.simple_attributes:
-            setattr(cls, attrname, property(lambda self, attrname=attrname, default=default: self.get_attribute(attrname, default),
-                                            lambda self, value, attrname=attrname: self.set_attribute(
-                                                attrname, value),
-                                            None,
-                                            attrname))
+from service_header import *
 
 class LoadableModule(PlCoreBase):
     xos = models.ForeignKey(XOS, related_name='loadable_modules', help_text="Pointer to XOS", default=get_xos)
@@ -257,11 +189,7 @@ class ServiceController(LoadableModule):
     synchronizer_run = StrippedCharField(max_length=1024, help_text="synchronizer run command", null=True, blank=True)
     synchronizer_config = StrippedCharField(max_length=1024, help_text="synchronizer config file", null=True, blank=True)
 
-    image = StrippedCharField(max_length=200, help_text="docker image name", null=True, blank=True)
-
     no_start = models.BooleanField(help_text="Do not start the Synchronizer", default=False)
-    no_build = models.BooleanField(help_text="Do not build the Synchronizer container", default=False)
-    no_deploy = models.BooleanField(help_text="Do not add synchronizer container to onboarding-docker-compose", default=False)
 
 class ServiceControllerResource(LoadableModuleResource):
     class Meta:

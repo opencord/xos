@@ -1,10 +1,6 @@
-import os
-from django.db import models
-from core.models import PlCoreBase
-from core.models import ServiceClass
-from core.models.plcorebase import StrippedCharField
+from header import *
 
-# Create your models here.
+from core.models.serviceclass import ServiceClass 
 
 class ServiceResource(PlCoreBase):
     serviceClass = models.ForeignKey(ServiceClass, related_name = "serviceresources")
