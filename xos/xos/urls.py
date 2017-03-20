@@ -7,7 +7,6 @@ from django.contrib import admin
 # This is the generated API
 from xosapi import *
 
-from core.views.serviceGraph import ServiceGridView, ServiceGraphView
 # from services.vbbu.view import *
 from core.views.mcordview import *
 # from core.views.analytics import AnalyticsAjaxView
@@ -38,13 +37,6 @@ def load_class(full_class_string):
     # Finally, we retrieve the Class
     return getattr(module, class_str)
 
-servicePage = getattr(config, "gui_service_view_class", ServiceGridView)
-
-if(isinstance(servicePage, basestring)):
-    serviceClass = getattr(load_class(servicePage), "as_view")
-else:
-    serviceClass = getattr(servicePage, "as_view")
-
 # from api import import_api_methods
 
 admin.site = SitePlus()
@@ -60,12 +52,6 @@ urlpatterns = patterns(
     '',
 
     url(r'^mcord', MCordView.as_view(), name='mcord'),
-
-    url(r'^serviceGrid', serviceClass(), name='serviceGrid'),
-
-    url(r'^serviceGrid', ServiceGridView.as_view(), name='serviceGrid'),
-
-    url(r'^serviceGraph.png', ServiceGraphView.as_view(), name='serviceGraph'),
 
     # url(r'^docs/', include('rest_framework_swagger.urls')),
 
