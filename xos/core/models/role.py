@@ -1,9 +1,4 @@
-import os
-import datetime
-from django.db import models
-from django.contrib.contenttypes.models import ContentType
-from core.models import PlCoreBase
-from core.models.plcorebase import StrippedCharField
+from header import *
 
 class Role(PlCoreBase):
 

@@ -1,10 +1,7 @@
-import os
-from django.db import models
-from core.models import PlCoreBase,ModelLink
-from core.models import User,Site,Slice,Controller
-from core.models.plcorebase import StrippedCharField
-from encrypted_fields import EncryptedCharField
-from core.models import Controller,ControllerLinkManager,ControllerLinkDeletionManager
+from header import *
+from core.models.user import User
+from core.models.site import *
+from core.models.slice import *
 
 class UserCredential(PlCoreBase):
     user = models.ForeignKey(User, related_name='usercredentials', help_text="The User this credential is associated with")
