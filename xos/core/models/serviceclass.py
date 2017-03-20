@@ -1,13 +1,4 @@
-import os
-from django.db import models
-from core.models import PlCoreBase
-from core.models.plcorebase import StrippedCharField
-
-def get_default_serviceclass():
-    try:
-        return ServiceClass.objects.get(name="Best Effort")
-    except ServiceClass.DoesNotExist:
-        return None
+from header import *
 
 class ServiceClass(PlCoreBase):
     name = StrippedCharField(max_length=32)
