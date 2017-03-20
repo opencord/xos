@@ -1,10 +1,7 @@
-import os
-import datetime
-from django.db import models
-from core.models import PlCoreBase, ModelLink
-from core.models import Instance
-from core.models import Slice
-from core.models import ServiceResource
+from header import *
+from core.models.slice import Slice
+from core.models.instance import Instance
+from core.models.serviceresource import ServiceResource
 
 # Create your models here.
 

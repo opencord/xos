@@ -1,15 +1,7 @@
-import os
-from django.db import models
-from core.models import PlCoreBase
-from core.models import Service
-from core.models.plcorebase import StrippedCharField
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes.fields import GenericForeignKey
-
-# Create your models here.
+from header import *
+from core.models.service import *
 
 class Tag(PlCoreBase):
-
     service = models.ForeignKey(Service, related_name='tags', help_text="The Service this Tag is associated with")
 
     name = models.SlugField(help_text="The name of this tag", max_length=128)
