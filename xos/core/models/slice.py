@@ -1,24 +1,12 @@
-import os
-from django.db import models
-from core.models import PlCoreBase,ModelLink
-from core.models import Site
-from core.models.site import SitePrivilege
-from core.models import User
-from core.models import Role
-from core.models import Controller,ControllerLinkManager,ControllerLinkDeletionManager
-from core.models import ServiceClass
-#from core.models.serviceclass import get_default_serviceclass
-from core.models import Tag
-from django.contrib.contenttypes.fields import GenericRelation
-from core.models import Service
-from core.models import Controller
-from core.models.node import Node
-from core.models import Flavor, Image
-from core.models.plcorebase import StrippedCharField
-from django.core.exceptions import PermissionDenied, ValidationError
-from xos.exceptions import *
-
-# Create your models here.
+from core.models.plcorebase import *
+from core.models.site import *
+from core.models.serviceclass import *
+from core.models.service import *
+from core.models.user import *
+from core.models.flavor import *
+from core.models.image import *
+from core.models.node import *
+from core.models.role import *
 
 class Slice(PlCoreBase):
     ISOLATION_CHOICES = (('vm', 'Virtual Machine'), ('container', 'Container'), ('container_vm', 'Container In VM'))

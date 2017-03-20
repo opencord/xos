@@ -1,11 +1,5 @@
-import os
-from django.db import models, transaction
-from core.models import PlCoreBase
-from core.models.plcorebase import StrippedCharField
-
-# XOS: Serves as the root of the build system
-
-
+from header import *
+from core.models.plcorebase import *
 
 class XOS(PlCoreBase):
     name = StrippedCharField(max_length=200, unique=True, help_text="Name of XOS", default="XOS")

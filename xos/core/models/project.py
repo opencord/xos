@@ -1,9 +1,4 @@
-import os
-from django.db import models
-from core.models import PlCoreBase
-from core.models.plcorebase import StrippedCharField
-
-# Create your models here.
+from header import *
 
 class Project(PlCoreBase):
     name = StrippedCharField(max_length=200, unique=True, help_text="Name of Project")

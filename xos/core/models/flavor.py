@@ -1,9 +1,5 @@
-import os
-import socket
-from django.db import models
-from core.models import PlCoreBase, Deployment
-from core.models.plcorebase import StrippedCharField
-from django.contrib.contenttypes.models import ContentType
+from header import *
+from core.models.site import *
 
 class Flavor(PlCoreBase):
     name = StrippedCharField(max_length=32, help_text="name of this flavor, as displayed to users")
