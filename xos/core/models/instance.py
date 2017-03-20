@@ -1,81 +1,8 @@
-import os
-from django.db import models
-from django.db.models import Q
-from django.core import exceptions
-from core.models import PlCoreBase,PlCoreBaseManager,PlCoreBaseDeletionManager,ModelLink
-from core.models.plcorebase import StrippedCharField
-from core.models import Image
-from core.models import Slice, SlicePrivilege
-from core.models import Node
-from core.models import Site
-from core.models import Deployment
-from core.models import Controller
-from core.models import User
-from core.models import Tag
-from core.models import Flavor
-from django.contrib.contenttypes.fields import GenericRelation
-from xos.config import Config
-from django.core.exceptions import PermissionDenied, ValidationError
-
-config = Config()
-
-def get_default_flavor(controller = None):
-    # Find a default flavor that can be used for a instance. This is particularly
-    # useful in evolution. It's also intended this helper function can be used
-    # for admin.py when users
-
-    if controller:
-        flavors = controller.flavors.all()
-    else:
-        flavors = Flavor.objects.all()
-
-    if not flavors:
-        return None
-
-    for flavor in flavors:
-        if flavor.default:
-            return flavor
-
-    return flavors[0]
-
-class InstanceDeletionManager(PlCoreBaseDeletionManager):
-    def get_queryset(self):
-        parent=super(InstanceDeletionManager, self)
-        try:
-            backend_type = config.observer_backend_type
-        except AttributeError:
-            backend_type = None
-
-        parent_queryset = parent.get_queryset() if hasattr(parent, "get_queryset") else parent.get_query_set()
-        if (backend_type):
-            return parent_queryset.filter(Q(node__controller__backend_type=backend_type))
-        else:
-            return parent_queryset
-
-    # deprecated in django 1.7 in favor of get_queryset().
-    def get_query_set(self):
-        return self.get_queryset()
-
-
-class InstanceManager(PlCoreBaseManager):
-    def get_queryset(self):
-        parent=super(InstanceManager, self)
-
-        try:
-            backend_type = config.observer_backend_type
-        except AttributeError:
-            backend_type = None
-
-        parent_queryset = parent.get_queryset() if hasattr(parent, "get_queryset") else parent.get_query_set()
-
-        if backend_type:
-            return parent_queryset.filter(Q(node__controller__backend_type=backend_type))
-        else:
-            return parent_queryset
-
-    # deprecated in django 1.7 in favor of get_queryset().
-    def get_query_set(self):
-        return self.get_queryset()
+from header import *
+from instance_header import *
+from core.models.image import *
+from core.models.user import *
+from core.models.slice import *
 
 # Create your models here.
 class Instance(PlCoreBase):
@@ -252,10 +179,4 @@ class Instance(PlCoreBase):
 
         return pubkeys
 
-def controller_setter(instance, **kwargs):
-    try:
-        instance.controller = instance.node.site_deployment.controller
-    except:
-        instance.controller = None
-
-models.signals.post_init.connect(controller_setter, Instance)
+from instance_footer import *

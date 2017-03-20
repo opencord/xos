@@ -1,9 +1,6 @@
-from django.db import models
-from core.models import PlCoreBase,SingletonModel,PlCoreBaseManager,User
-from core.models.plcorebase import StrippedCharField
-from xos.exceptions import *
-from operator import attrgetter
-import json
+from header import *
+
+from core.models.user import *
 
 class Program(PlCoreBase):
     KIND_CHOICES = (('tosca', 'Tosca'), )
