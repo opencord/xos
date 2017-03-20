@@ -1,13 +1,7 @@
-import os
-import datetime
-from collections import defaultdict
-from django.db import models
-from django.db.models import F, Q
-from core.models import PlCoreBase,User,Controller,ModelLink
-from core.models.site import SitePrivilege
-from core.models.slice import SlicePrivilege
-from core.models.plcorebase import StrippedCharField
-from core.models import Controller,ControllerLinkManager,ControllerLinkDeletionManager
+from header import *
+from core.models.user import *
+from core.models.site import *
+from core.models.slice import *
 
 class ControllerUser(PlCoreBase):
     objects = ControllerLinkManager()

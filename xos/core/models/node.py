@@ -1,12 +1,5 @@
-import os
-from django.db import models
-from core.models import PlCoreBase,ModelLink
-from core.models.plcorebase import StrippedCharField
-from core.models.site import Site, SiteDeployment, SitePrivilege
-from core.models import Tag
-from django.contrib.contenttypes.fields import GenericRelation
-
-# Create your models here.
+from header import *
+from core.models.site import *
 
 class Node(PlCoreBase):
     name = StrippedCharField(max_length=200, unique=True, help_text="Name of the Node")

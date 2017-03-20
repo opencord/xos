@@ -1,10 +1,5 @@
-import os
-from django.db import models
-from core.models import PlCoreBase
-from core.models.plcorebase import StrippedCharField,ModelLink
-from core.models import Deployment, DeploymentPrivilege, Controller,ControllerLinkManager,ControllerLinkDeletionManager
-
-# Create your models here.
+from header import *
+from core.models.site import *
 
 class Image(PlCoreBase):
     KIND_CHOICES = (('vm', 'Virtual Machine'), ('container', 'Container'), )
