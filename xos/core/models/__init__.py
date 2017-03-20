@@ -1,11 +1,8 @@
 from .plcorebase import PlCoreBase,PlCoreBaseManager,PlCoreBaseDeletionManager,PlModelMixIn,ModelLink
 from .project import Project
 from .singletonmodel import SingletonModel
-from .xosmodel import XOS, XOSVolume
-from .service import Service, Tenant, TenantWithContainer, ServiceDependency, ServicePrivilege, TenantRoot, TenantRootPrivilege, TenantRootRole, TenantPrivilege, TenantRole
-from .service import ServiceAttribute, TenantAttribute, ServiceRole, ServiceMonitoringAgentInfo
-from .service import ServiceController, LoadableModule, LoadableModuleResource, Library
-from .service import XOSComponent, XOSComponentLink, XOSComponentVolume, XOSComponentVolumeContainer
+from .xosmodel import *
+from .service import *
 from .tag import Tag
 from .role import Role
 from .site import Site, Deployment, DeploymentRole, DeploymentPrivilege, Controller, ControllerRole, ControllerSite, SiteDeployment,Diag

@@ -1,8 +1,5 @@
-import os
-from django.db import models
-from core.models import PlCoreBase,ModelLink
-from core.models import Slice
-from core.models.plcorebase import StrippedCharField
+from core.models.plcorebase import *
+from core.models.slice import *
 
 class SliceTag(PlCoreBase):
     slice = models.ForeignKey(Slice, related_name='slicetags')

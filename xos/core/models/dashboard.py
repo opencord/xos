@@ -1,9 +1,5 @@
-import os
-from django.db import models
-from core.models import PlCoreBase, Controller, Deployment
-from core.models.plcorebase import StrippedCharField, ModelLink
-from core.models.site import ControllerLinkManager, ControllerLinkDeletionManager
-
+from header import *
+from core.models.site import *
 
 class DashboardView(PlCoreBase):
     name = StrippedCharField(max_length=200, unique=True, help_text="Name of the View")
