@@ -8,6 +8,7 @@ from google.protobuf.empty_pb2 import Empty
 
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth import authenticate as django_authenticate
+from django.db.models.fields.related import RelatedObjectDoesNotExist
 from django.db.models import F,Q
 from core.models import *
 from xos.exceptions import *
@@ -85,11 +86,20 @@ class XOSAPIHelperMixin(object):
                 continue
             if "+" in related_name:
                 continue
-            rel_objs = getattr(obj, related_name)
+            try:
+                rel_objs = getattr(obj, related_name)
+            except RelatedObjectDoesNotExist:
+                # OneToOneField throws this if relation does not exist
+                continue
+
+            if not hasattr(rel_objs, "all"):
+                # this is in anticipation of OneToOneField causing problems
+                continue
+
             for rel_obj in rel_objs.all():
                 if not hasattr(p_obj,related_name+"_ids"):
                     continue
-                x=getattr(p_obj,related_name+"_ids").append(rel_obj.id)
+                getattr(p_obj,related_name+"_ids").append(rel_obj.id)
 
         # Generate a list of class names for the object. This includes its
         # ancestors. Anything that is a descendant of PlCoreBase or User
