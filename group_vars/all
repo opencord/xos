@@ -68,3 +68,24 @@ misc_docker_images:
 enabled_gui_extensions:
   - name: sample
     path: orchestration/xos-sample-gui-extension
+
+#xos_services: []
+# For testing
+xos_services:
+  - name: vtn
+    path: onos-apps/apps/vtn
+  - name: openstack
+    path: orchestration/xos_services/openstack
+  - name: onos
+    path: orchestration/xos_services/onos-service
+  - name: vrouter
+    path: orchestration/xos_services/vrouter
+  - name: vsg
+    path: orchestration/xos_services/vsg
+  - name: vtr
+    path: orchestration/xos_services/vtr
+  - name: fabric
+    path: orchestration/xos_services/fabric
+# needed onboarding synchronizer doesn't require service code to be present when started
+  - name: exampleservice
+    path: orchestration/xos_services/exampleservice
