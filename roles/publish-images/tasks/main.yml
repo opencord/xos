@@ -30,6 +30,22 @@
   with_items: "{{ enabled_gui_extensions }}"
 
 # Remove the old local images to force them to be re-pushed
+- name: Remove old local synchronizer images
+  docker_image:
+    name: "{{ deploy_docker_registry }}/xosproject/{{ item.name }}-synchronizer:{{ deploy_docker_tag }}"
+    state: absent
+  with_items: "{{ xos_services }}"
+
+# Should get rid of ignore_errors when all services have Dockerfiles
+- name: Tag and push locally built synchronizer images to docker registry
+  docker_image:
+    name: "xosproject/{{ item.name }}-synchronizer:{{ deploy_docker_tag }}"
+    repository: "{{ deploy_docker_registry }}/xosproject/{{ item.name }}-synchronizer:{{ deploy_docker_tag }}"
+    push: True
+  with_items: "{{ xos_services }}"
+  ignore_errors: True
+
+# Remove the old local images to force them to be re-pushed
 - name: Remove old local miscellaneous images
   docker_image:
     name: "{{ deploy_docker_registry }}/{{ item }}"
