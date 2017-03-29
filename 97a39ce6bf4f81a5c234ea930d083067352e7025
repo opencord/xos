@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba092121_8d4a1182",
+        "filename": "xos/genx/xprotos/core/protos.tar.gz",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000005
+      },
+      "writtenOn": "2017-03-29T20:44:09Z",
+      "side": 1,
+      "message": "This one probably wasn\u0027t meant to be checked in either?",
+      "revId": "97a39ce6bf4f81a5c234ea930d083067352e7025",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
