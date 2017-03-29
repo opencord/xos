@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba092121_0d8961ca",
+        "filename": "xos/genx/generator/parsetab.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2017-03-29T17:35:22Z",
+      "side": 1,
+      "message": "this won\u0027t work...",
+      "range": {
+        "startLine": 30,
+        "startChar": 71,
+        "endLine": 30,
+        "endChar": 89
+      },
+      "revId": "d16e2773afbceff83af024ca71581bee4cb916fd",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
