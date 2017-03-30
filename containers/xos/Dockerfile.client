@@ -1,10 +1,21 @@
-FROM xosproject/xos-base:candidate
+FROM xosproject/xos-base
 
-ARG XOS_GIT_COMMIT_HASH=unknown
-ARG XOS_GIT_COMMIT_DATE=unknown
+# Label image
+ARG org_label-schema_schema-version=1.0
+ARG org_label-schema_name=xos-client
+ARG org_label-schema_version=unknown
+ARG org_label-schema_vcs-url=unknown
+ARG org_label-schema_vcs-ref=unknown
+ARG org_label-schema_build-date=unknown
+ARG org_opencord_vcs-commit-date=unknown
 
-LABEL XOS_GIT_COMMIT_HASH=$XOS_GIT_COMMIT_HASH
-LABEL XOS_GIT_COMMIT_DATE=$XOS_GIT_COMMIT_DATE
+LABEL org.label-schema.schema-version=$org_label-schema_schema-version \
+      org.label-schema.name=$org_label-schema_name \
+      org.label-schema.version=$org_label-schema_version \
+      org.label-schema.vcs-url=$org_label-schema_vcs-url \
+      org.label-schema.vcs-ref=$org_label-schema_vcs-ref \
+      org.label-schema.build-date=$org_label-schema_build-date \
+      org.opencord.vcs-commit-date=$org_opencord_vcs-commit-date
 
 # Install XOS client
 ADD xos/xos_client /tmp/xos_client
