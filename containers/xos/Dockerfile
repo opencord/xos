@@ -1,36 +1,33 @@
+# xosproject/xos
 FROM xosproject/xos-base
 
-# Include certificates from Openstack
-ADD local_certs.crt /usr/local/share/ca-certificates/local_certs.crt
-RUN update-ca-certificates
+# Label image
+ARG org_label_schema_schema_version=1.0
+ARG org_label_schema_name=xos
+ARG org_label_schema_version=unknown
+ARG org_label_schema_vcs_url=unknown
+ARG org_label_schema_vcs_ref=unknown
+ARG org_label_schema_build_date=unknown
+ARG org_opencord_vcs_commit_date=unknown
 
-# Install and boostrap XOS and Tosca
-ENV XOS_GIT_REPO https://github.com/opencord/xos.git
-ENV XOS_GIT_BRANCH master
+LABEL org.label-schema.schema-version=$org_label_schema_schema_version \
+      org.label-schema.name=$org_label_schema_name \
+      org.label-schema.version=$org_label_schema_version \
+      org.label-schema.vcs-url=$org_label_schema_vcs_url \
+      org.label-schema.vcs-ref=$org_label_schema_vcs_ref \
+      org.label-schema.build-date=$org_label_schema_build_date \
+      org.opencord.vcs-commit-date=$org_opencord_vcs_commit_date
 
-RUN git clone $XOS_GIT_REPO -b $XOS_GIT_BRANCH /tmp/xos && \
-    mv /tmp/xos/xos /opt/ && \
-    chmod +x /opt/xos/tools/xos-manage && \
-    /opt/xos/tools/xos-manage genkeys
+# Install XOS
+ADD xos /opt/xos
 
-# ng-xos-lib download
-
-ENV NG_XOS_LIB_URL https://github.com/opencord/ng-xos-lib.git
-ENV NG_XOS_LIB_VERSION 1.0.0
-
-RUN git clone $NG_XOS_LIB_URL /tmp/ng-xos-lib 
-RUN cd /tmp/ng-xos-lib && git checkout tags/$NG_XOS_LIB_VERSION
-RUN cp /tmp/ng-xos-lib/dist/ngXosHelpers.min.js /opt/xos/core/xoslib/static/vendor/ 
-RUN cp /tmp/ng-xos-lib/dist/ngXosVendor.min.js /opt/xos/core/xoslib/static/vendor/
-
-EXPOSE 8000
+RUN chmod +x /opt/xos/tools/xos-manage \
+ && mkdir -p /opt/cord_profile /opt/xos_services /opt/xos_libraries \
+ && sync \
+ && /opt/xos/tools/xos-manage genkeys
 
 # Set environment variables
 ENV HOME /root
 
 # Define working directory
 WORKDIR /opt/xos
-
-# Define default command
-CMD python /opt/xos/manage.py runserver 0.0.0.0:8000 --insecure --makemigrations
-
