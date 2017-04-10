@@ -50,7 +50,11 @@ node_types:
             no_start:
                 type: boolean
                 required: false
-                description: Wheter to start the Django server or not
+                description: Whether to start the Django server or not
+            no_build:
+                type: boolean
+                required: false
+                description: Whether to build the core UI image
 
     tosca.nodes.XOSVolume:
         derived_from: tosca.nodes.Root
