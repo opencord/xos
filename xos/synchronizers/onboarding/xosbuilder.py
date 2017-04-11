@@ -314,6 +314,13 @@ class XOSBuilder(object):
                                 "container_path": volume.container_path,
                                 "read_only": volume.read_only})
 
+        # Force all legacy UI and Synchronizer containers to include
+        # the certificate, so that it does not have to be built at build time.
+
+        volume_list.append({"host_path": "/opt/cord_profile/im_cert_chain.pem",
+                                  "container_path": "/usr/local/share/ca-certificates/local_certs.crt",
+                                  "read_only": True})
+
         if xos.extra_hosts:
             extra_hosts = [x.strip() for x in xos.extra_hosts.split(",")]
         else:
@@ -322,10 +329,6 @@ class XOSBuilder(object):
         networks = [ "xos" ] # docker networks used by XOS, parameterize in the future
 
         containers = {}
-
-#         containers["xos_db"] = \
-#                            {"image": "xosproject/xos-postgres",
-#                             "expose": [5432]}
 
         external_links = []
         if xos.db_container_name:
@@ -469,9 +472,9 @@ class XOSBuilder(object):
                 elif c.loadable_module_resources.filter(kind="synchronizer").exists():
                     # old-style synchronizer containers
                     if c.synchronizer_run and c.synchronizer_config:
-                        command = 'bash -c "sleep 120; cd /opt/xos/synchronizers/%s; python ./%s -C %s"' % (c.name, c.synchronizer_run, c.synchronizer_config)
+                        command = 'bash -c "sleep 120; update-ca-certificates; cd /opt/xos/synchronizers/%s; python ./%s -C %s"' % (c.name, c.synchronizer_run, c.synchronizer_config)
                     else:
-                        command = 'bash -c "sleep 120; cd /opt/xos/synchronizers/%s; bash ./run.sh"' % c.name
+                        command = 'bash -c "sleep 120; update-ca-certificates; cd /opt/xos/synchronizers/%s; bash ./run.sh"' % c.name
 
                     containers["xos_synchronizer_%s" % c.name] = {
                         "image": "xosproject/xos-synchronizer-%s" % c.name,
