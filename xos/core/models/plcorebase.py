@@ -15,6 +15,8 @@ from django.core.exceptions import PermissionDenied
 from model_autodeletion import ephemeral_models
 from cgi import escape as html_escape
 from journal import journal_object
+from django.db.models.deletion import Collector
+from django.db import router
 
 import redis
 from redis import ConnectionError
@@ -203,8 +205,6 @@ class PlModelMixIn(object):
 
 # For cascading deletes, we need a Collector that doesn't do fastdelete,
 # so we get a full list of models.
-from django.db.models.deletion import Collector
-from django.db import router
 class XOSCollector(Collector):
   def can_fast_delete(self, *args, **kwargs):
     return False
@@ -280,7 +280,7 @@ class PlCoreBase(models.Model, PlModelMixIn):
 
         if (purge):
             journal_object(self, "delete.purge")
-            super(PlCoreBase, self).delete(*args, **kwds)
+            super(PlModelMixin, self).delete(*args, **kwds)
         else:
             if (not self.write_protect ):
                 self.deleted = True

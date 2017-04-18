@@ -8,15 +8,17 @@ from operator import attrgetter, itemgetter
 
 from core.middleware import get_request
 from core.models import DashboardView, PlCoreBase, PlModelMixIn, Site, ModelLink
-from core.models.plcorebase import StrippedCharField
+from core.models.plcorebase import StrippedCharField, XOSCollector
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
+from django.db import router
 from django.db.models import F, Q
 from django.forms.models import model_to_dict
 from django.utils import timezone
 from timezones.fields import TimeZoneField
+from journal import journal_object
 
 # ------ from plcorebase.py ------
 try:
@@ -182,24 +184,6 @@ class User(AbstractBaseUser, PlModelMixIn):
         # The user is identified by their email address
         return self.email
 
-    def delete(self, *args, **kwds):
-        # so we have something to give the observer
-        purge = kwds.get('purge', False)
-        if purge:
-            del kwds['purge']
-        try:
-            purge = purge or observer_disabled
-        except NameError:
-            pass
-
-        if (purge):
-            super(User, self).delete(*args, **kwds)
-        else:
-            if (not self.write_protect):
-                self.deleted = True
-                self.enacted = None
-                self.save(update_fields=['enacted', 'deleted'])
-
     @property
     def keyname(self):
         return self.email[:self.email.find('@')]
@@ -247,6 +231,44 @@ class User(AbstractBaseUser, PlModelMixIn):
 #        for slice_membership in slice_memberships:
 #            roles[slice_membership.role.role_type].append(slice_membership.slice.name)
 #        return roles
+
+    def delete(self, *args, **kwds):
+        # so we have something to give the observer
+        purge = kwds.get('purge',False)
+        if purge:
+            del kwds['purge']
+        silent = kwds.get('silent',False)
+        if silent:
+            del kwds['silent']
+        try:
+            purge = purge or observer_disabled
+        except NameError:
+            pass
+
+        if (purge):
+            journal_object(self, "delete.purge")
+            super(User, self).delete(*args, **kwds)
+        else:
+            if (not self.write_protect ):
+                self.deleted = True
+                self.enacted=None
+                self.policed=None
+                journal_object(self, "delete.mark_deleted")
+                self.save(update_fields=['enacted','deleted','policed'], silent=silent)
+
+                collector = XOSCollector(using=router.db_for_write(self.__class__, instance=self))
+                collector.collect([self])
+                with transaction.atomic():
+                    for (k, models) in collector.data.items():
+                        for model in models:
+                            if model.deleted:
+                                # in case it's already been deleted, don't delete again
+                                continue
+                            model.deleted = True
+                            model.enacted=None
+                            model.policed=None
+                            journal_object(model, "delete.cascade.mark_deleted", msg="root = %r" % self)
+                            model.save(update_fields=['enacted','deleted','policed'], silent=silent)
 
     def save(self, *args, **kwargs):
         if not self.id:
