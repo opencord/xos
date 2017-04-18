@@ -15,6 +15,8 @@ from django.core.exceptions import PermissionDenied
 from model_autodeletion import ephemeral_models
 from cgi import escape as html_escape
 from journal import journal_object
+from django.db.models.deletion import Collector
+from django.db import router
 
 import redis
 from redis import ConnectionError
@@ -201,10 +203,46 @@ class PlModelMixIn(object):
                 return
         raise Exception("Field value %s is not in %s" % (field, str(choices)))
 
+    def delete(self, *args, **kwds):
+        # so we have something to give the observer
+        purge = kwds.get('purge',False)
+        if purge:
+            del kwds['purge']
+        silent = kwds.get('silent',False)
+        if silent:
+            del kwds['silent']
+        try:
+            purge = purge or observer_disabled
+        except NameError:
+            pass
+
+        if (purge):
+            journal_object(self, "delete.purge")
+            super(PlCoreBase, self).delete(*args, **kwds)
+        else:
+            if (not self.write_protect ):
+                self.deleted = True
+                self.enacted=None
+                self.policed=None
+                journal_object(self, "delete.mark_deleted")
+                self.save(update_fields=['enacted','deleted','policed'], silent=silent)
+
+                collector = XOSCollector(using=router.db_for_write(self.__class__, instance=self))
+                collector.collect([self])
+                with transaction.atomic():
+                    for (k, models) in collector.data.items():
+                        for model in models:
+                            if model.deleted:
+                                # in case it's already been deleted, don't delete again
+                                continue
+                            model.deleted = True
+                            model.enacted=None
+                            model.policed=None
+                            journal_object(model, "delete.cascade.mark_deleted", msg="root = %r" % self)
+                            model.save(update_fields=['enacted','deleted','policed'], silent=silent)
+
 # For cascading deletes, we need a Collector that doesn't do fastdelete,
 # so we get a full list of models.
-from django.db.models.deletion import Collector
-from django.db import router
 class XOSCollector(Collector):
   def can_fast_delete(self, *args, **kwargs):
     return False
@@ -264,44 +302,6 @@ class PlCoreBase(models.Model, PlModelMixIn):
 
     def can_update(self, user):
         return user.can_update_root()
-
-    def delete(self, *args, **kwds):
-        # so we have something to give the observer
-        purge = kwds.get('purge',False)
-        if purge:
-            del kwds['purge']
-        silent = kwds.get('silent',False)
-        if silent:
-            del kwds['silent']
-        try:
-            purge = purge or observer_disabled
-        except NameError:
-            pass
-
-        if (purge):
-            journal_object(self, "delete.purge")
-            super(PlCoreBase, self).delete(*args, **kwds)
-        else:
-            if (not self.write_protect ):
-                self.deleted = True
-                self.enacted=None
-                self.policed=None
-                journal_object(self, "delete.mark_deleted")
-                self.save(update_fields=['enacted','deleted','policed'], silent=silent)
-
-                collector = XOSCollector(using=router.db_for_write(self.__class__, instance=self))
-                collector.collect([self])
-                with transaction.atomic():
-                    for (k, models) in collector.data.items():
-                        for model in models:
-                            if model.deleted:
-                                # in case it's already been deleted, don't delete again
-                                continue
-                            model.deleted = True
-                            model.enacted=None
-                            model.policed=None
-                            journal_object(model, "delete.cascade.mark_deleted", msg="root = %r" % self)
-                            model.save(update_fields=['enacted','deleted','policed'], silent=silent)
 
     def serialize_for_redis(self):
         """ Serialize the object for posting to redis.
