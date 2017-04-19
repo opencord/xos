@@ -36,6 +36,7 @@ class XOSBuilder(object):
         xos_base = "opt/xos"
         service_name = scr.loadable_module.name
         base_dirs = {"models": "%s/services/%s/" % (xos_base, service_name),
+                     "xproto": "%s/services/%s/xproto/" % (xos_base, service_name),
                      "admin": "%s/services/%s/" % (xos_base, service_name),
                      "admin_template": "%s/services/%s/templates/" % (xos_base, service_name),
                      "django_library": "%s/services/%s/" % (xos_base, service_name),
