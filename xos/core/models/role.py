@@ -1,23 +1,28 @@
-import os
-import datetime
-from django.db import models
-from django.contrib.contenttypes.models import ContentType
-from core.models import PlCoreBase
-from core.models.plcorebase import StrippedCharField
+
+from header import *
+
+
+
+
+
+from core.models.contenttype import ContentType 
+
+
+
+
+
 
 class Role(PlCoreBase):
+  # Primitive Fields (Not Relations)
+  role_type = StrippedCharField( db_index = False, max_length = 80, null = False, blank = False )
+  role = StrippedCharField( db_index = False, max_length = 80, null = True, blank = True )
+  description = StrippedCharField( db_index = False, max_length = 120, null = False, blank = False )
+  
 
-    role_type = StrippedCharField(max_length=80, verbose_name="Name")
-    role = StrippedCharField(max_length=80, verbose_name="Keystone role id", null=True, blank=True)
-    description = StrippedCharField(max_length=120, verbose_name="Description")
-    content_type = models.ForeignKey(ContentType, verbose_name="Role Scope")
+  # Relations
+  
+  content_type = ForeignKey(ContentType, db_index = True, related_name = 'role', null = False, blank = False )
 
-    def __unicode__(self):  return u'%s:%s' % (self.content_type,self.role_type)
+  def __unicode__(self):  return u'%s:%s' % (self.content_type,self.role_type)
+  pass
 
-
-    def save(self, *args, **kwds):
-        super(Role, self).save(*args, **kwds)
-    
-    def delete(self, *args, **kwds):
-        super(Role, self).delete(*args, **kwds)
-            
