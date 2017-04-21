@@ -1,28 +1,36 @@
-import os
-from django.db import models
-from core.models import PlCoreBase
-from core.models.plcorebase import StrippedCharField
 
-def get_default_serviceclass():
-    try:
-        return ServiceClass.objects.get(name="Best Effort")
-    except ServiceClass.DoesNotExist:
-        return None
+from header import *
+
+from service_header import *
+
+
+
+
+
+
+
 
 class ServiceClass(PlCoreBase):
-    name = StrippedCharField(max_length=32)
-    description = StrippedCharField(max_length=255)
-    commitment = models.IntegerField(default=365)
-    membershipFee = models.IntegerField(default=0)
-    membershipFeeMonths = models.IntegerField(default=12)
-    upgradeRequiresApproval = models.BooleanField(default=False)
-    upgradeFrom = models.ManyToManyField('self', blank=True)
+  # Primitive Fields (Not Relations)
+  name = StrippedCharField( db_index = False, max_length = 32, null = False, blank = False )
+  description = StrippedCharField( db_index = False, max_length = 255, null = False, blank = False )
+  commitment = IntegerField( default = 365, null = False, blank = False, db_index = False )
+  membershipFee = IntegerField( default = 0, null = False, blank = False, db_index = False )
+  membershipFeeMonths = IntegerField( default = 12, null = False, blank = False, db_index = False )
+  upgradeRequiresApproval = BooleanField( default = False, null = False, blank = True, db_index = False )
+  
 
-    class Meta(PlCoreBase.Meta):
-       verbose_name_plural = "Service classes"
+  # Relations
+  
+  upgradeFrom = ManyToManyField('self', db_index = False, null = False, through = 'ServiceClass_upgradeFrom', blank = True )
 
-    def __unicode__(self):  return u'%s' % (self.name)
+  class Meta(PlCoreBase.Meta):
+     verbose_name_plural = "Service classes"
+  
+  def __unicode__(self):  return u'%s' % (self.name)
+  
+  def save_by_user(self, user, *args, **kwds):
+      if self.can_update(user):
+          super(ServiceClass, self).save(*args, **kwds)
+  pass
 
-    def save_by_user(self, user, *args, **kwds):
-        if self.can_update(user):
-            super(ServiceClass, self).save(*args, **kwds)
