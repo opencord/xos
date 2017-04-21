@@ -345,7 +345,7 @@ class User(AbstractBaseUser, PlModelMixIn):
         msg.send()
 
     def can_update(self, user):
-        from core.models import SitePrivilege
+        from core.models.siteprivilege import SitePrivilege
         _cant_update_fieldName = None
         if user.can_update_root():
             return True
@@ -417,7 +417,7 @@ class User(AbstractBaseUser, PlModelMixIn):
         return False
 
     def can_update_service(self, service, allow=[]):
-        from core.models.service import ServicePrivilege
+        from core.models.serviceprivilege import ServicePrivilege
         if self.can_update_root():
             return True
         if ServicePrivilege.objects.filter(
