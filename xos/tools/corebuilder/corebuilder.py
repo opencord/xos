@@ -1,3 +1,7 @@
+#!/usr/bin/python
+
+from stat import *
+
 """ CoreBuilder
 
     Read XOS Tosca Onboarding Recipes and generate a BUILD directory.
@@ -85,8 +89,13 @@ class XOSCoreBuilder(object):
 
     def get_dest_dir(self, kind, service_name):
         xos_base = "opt/xos"
+        if service_name!='core':
+            service_subdir = 'services'
+        else:
+            service_subdir = ''
+
         base_dirs = {"models": "%s/services/%s/" % (xos_base, service_name),
-                     "xproto": "%s/services/%s/xproto/" % (xos_base, service_name),
+                     "xproto": "%s/%s/%s/" % (xos_base, service_subdir, service_name),
                      "admin": "%s/services/%s/" % (xos_base, service_name),
                      "admin_template": "%s/services/%s/templates/" % (xos_base, service_name),
                      "django_library": "%s/services/%s/" % (xos_base, service_name),
@@ -98,6 +107,7 @@ class XOSCoreBuilder(object):
                      "private_key": "%s/services/%s/keys/" % (xos_base, service_name),
                      "public_key": "%s/services/%s/keys/" % (xos_base, service_name),
                      "vendor_js": "%s/core/xoslib/static/vendor/" % (xos_base)}
+
         dest_dir = base_dirs[kind]
 
         return dest_dir
@@ -113,6 +123,7 @@ class XOSCoreBuilder(object):
         fixups = ( ("/opt/xos_services/olt/", "/opt/cord/onos-apps/apps/olt/"),
                    ("/opt/xos_services/vtn/", "/opt/cord/onos-apps/apps/vtn/"),
                    ("/opt/xos_services/", "/opt/cord/orchestration/xos_services/"),
+                   ("/opt/xos/core/", "/opt/cord/orchestration/xos/xos/core/"),
                    ("/opt/xos_libraries/", "/opt/cord/orchestration/xos_libraries/") )
 
         for (pattern, replace) in fixups:
@@ -238,17 +249,22 @@ class XOSCoreBuilder(object):
 
         # Copy all of the resources into the build directory
         for (kind, src_fn, dest_fn) in self.resources:
-#            if (kind == "xproto"):
-#               build_dest_dir = os.path.join(BUILD_DIR, os.path.dirname(dest_fn))
-
-                # TODO: If we wanted to statically compile xproto files, then
-                #   this is where we could do it. src_fn would be the name of
-                #   the xproto file, and build_dest_dir would be the place
-                #   to store the generated files.
-
             build_dest_fn = os.path.join(BUILD_DIR, dest_fn)
             makedirs_if_noexist(os.path.dirname(build_dest_fn))
-            shutil.copyfile(src_fn, build_dest_fn)
+            if (os.path.isdir(src_fn) and not os.path.isdir(build_dest_fn)):
+                shutil.copytree(src_fn, build_dest_fn)
+            else:
+                shutil.copyfile(src_fn, build_dest_fn)
+
+            if (kind=='xproto'):
+                # Invoke xproto toolchain in the destination directory
+                xosgen_path = '/opt/cord/orchestration/xos/xos/genx'
+                xproto_makefile = '%s/tool/Makefile'%xosgen_path
+                xproto_makefile_dst = '/'.join([build_dest_fn, 'Makefile'])
+                shutil.copyfile(xproto_makefile, xproto_makefile_dst)
+                if (os.system('make -C %s PREFIX=%s'%(build_dest_fn, xosgen_path))):
+                    raise Exception('xproto build failed!')
+
 
         # Create the __init__.py files
         for fn in self.inits:
