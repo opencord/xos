@@ -25,5 +25,8 @@ ADD xos/tosca/custom_types /opt/xos/tools/corebuilder/custom_types
 ENV HOME /root
 WORKDIR /opt/xos/tools/corebuilder
 
+# Temporary fix. This should go away when we update xos-core to a more recent image.
+RUN pip install git+https://github.com/sb98052/plyprotobuf
+
 ENTRYPOINT ["/usr/bin/python", "corebuilder.py"]
 
