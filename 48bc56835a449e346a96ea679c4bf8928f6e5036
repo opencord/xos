@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba092121_6a031974",
+        "filename": "containers/xos/Dockerfile.corebuilder",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-04-28T21:39:40Z",
+      "side": 1,
+      "message": "We should have this fixed in the base image and not need this anymore.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 58
+      },
+      "revId": "48bc56835a449e346a96ea679c4bf8928f6e5036",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_eaee09b4",
+        "filename": "xos/core/models/attic/xosmodel.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-04-28T21:39:40Z",
+      "side": 1,
+      "message": "Why does this attic file have django fields whereas the other attic files do not?",
+      "range": {
+        "startLine": 5,
+        "startChar": 4,
+        "endLine": 5,
+        "endChar": 97
+      },
+      "revId": "48bc56835a449e346a96ea679c4bf8928f6e5036",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_aa301157",
+        "filename": "xos/core/models/header.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-04-28T21:39:40Z",
+      "side": 1,
+      "message": "Is this file the same as xos/core/models/attic/header.py ?",
+      "range": {
+        "startLine": 1,
+        "startChar": 17,
+        "endLine": 1,
+        "endChar": 38
+      },
+      "revId": "48bc56835a449e346a96ea679c4bf8928f6e5036",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_8a354d48",
+        "filename": "xos/core/models/service_header.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-04-28T21:39:40Z",
+      "side": 1,
+      "message": "This is another file that is also in attic/",
+      "revId": "48bc56835a449e346a96ea679c4bf8928f6e5036",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_6a3af937",
+        "filename": "xos/core/models/user.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-04-28T21:39:40Z",
+      "side": 1,
+      "message": "This file is not converted to xproto? Is it because it\u0027s not a descendant of plcorebase?",
+      "revId": "48bc56835a449e346a96ea679c4bf8928f6e5036",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
