@@ -1,5 +1,22 @@
+import json
 from rest_framework.exceptions import APIException
 from rest_framework.exceptions import PermissionDenied as RestFrameworkPermissionDenied
+
+def _get_json_error_details(data):
+    """
+    Convert error details to JSON
+    """
+    if isinstance(data, dict):
+        ret = {
+            key: value for key, value in data.items()
+        }
+    elif isinstance(data, list):
+        ret = [
+            item for item in data
+        ]
+
+    return json.dumps(ret)
+
 
 class XOSProgrammingError(APIException):
     status_code=400
@@ -31,9 +48,14 @@ class XOSNotFound(RestFrameworkPermissionDenied):
 class XOSValidationError(APIException):
     status_code=403
     def __init__(self, why="validation error", fields={}):
-        APIException.__init__(self, {"error": "XOSValidationError",
-                            "specific_error": why,
-                            "fields": fields})
+        raw_detail = {
+            "error": "XOSValidationError",
+            "specific_error": why,
+            "fields": fields
+        }
+        APIException.__init__(self, raw_detail)
+        self.raw_detail = raw_detail
+        self.json_detail = _get_json_error_details(raw_detail)
 
 class XOSDuplicateKey(APIException):
     status_code=400
