@@ -31,6 +31,15 @@ ext {
             : 'candidate'
 }
 
+task fetch(type: Exec) {
+  executable = "ansible-playbook"
+  args = [
+    "--extra-vars", "@../../build/genconfig/config.yml",
+    "--extra-vars", "build_docker_tag="+targetTag,
+    "--extra-vars", "cord_dir=../..",
+    "pull-xos-playbook.yml" ]
+}
+
 task buildImages(type: Exec) {
   executable = "ansible-playbook"
   args = [
