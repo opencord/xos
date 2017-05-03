@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba092121_d063f218",
+        "filename": "xos/tools/xossh",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000010
+      },
+      "writtenOn": "2017-05-03T16:14:18Z",
+      "side": 1,
+      "message": "I guess this won\u0027t work in the devel VM because we currently don\u0027t have a registry there.",
+      "range": {
+        "startLine": 5,
+        "startChar": 12,
+        "endLine": 5,
+        "endChar": 33
+      },
+      "revId": "dd7719d9da1677afb4bd72ea3ba28c85f6876170",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_10aa8a19",
+        "filename": "xos/xos_client/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000010
+      },
+      "writtenOn": "2017-05-03T16:14:18Z",
+      "side": 1,
+      "message": "where",
+      "range": {
+        "startLine": 13,
+        "startChar": 54,
+        "endLine": 13,
+        "endChar": 58
+      },
+      "revId": "dd7719d9da1677afb4bd72ea3ba28c85f6876170",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_f0a6f652",
+        "filename": "xos/xos_client/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000010
+      },
+      "writtenOn": "2017-05-03T16:14:18Z",
+      "side": 1,
+      "message": "need backslash",
+      "range": {
+        "startLine": 13,
+        "startChar": 63,
+        "endLine": 13,
+        "endChar": 73
+      },
+      "revId": "dd7719d9da1677afb4bd72ea3ba28c85f6876170",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
