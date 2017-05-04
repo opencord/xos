@@ -36,6 +36,42 @@ def translate_exceptions(function):
             raise
     return wrapper
 
+class CachedAuthenticator(object):
+    """ Django Authentication is very slow (~ 10 ops/second), so cache
+        authentication results and reuse them.
+    """
+
+    def __init__(self):
+        self.cached_creds = {}
+        self.timeout = 10          # keep cache entries around for 10s
+
+    def authenticate(self, username, password):
+        self.trim()
+
+        key = "%s:%s" % (username, password)
+        cred = self.cached_creds.get(key, None)
+        if cred:
+            user = User.objects.filter(id=cred["user_id"])
+            if user:
+               user = user[0]
+               #print "cached authenticated %s:%s as %s" % (username, password, user)
+               return user
+
+        user = django_authenticate(username=username, password=password)
+        if user:
+            #print "django authenticated %s:%s as %s" % (username, password, user)
+            self.cached_creds[key] = {"timeout": time.time() + self.timeout, "user_id": user.id}
+
+        return user
+
+    def trim(self):
+        """ Delete all cache entries that have expired """
+        for (k, v) in list(self.cached_creds.items()):
+            if time.time() > v["timeout"]:
+                del self.cached_creds[k]
+
+cached_authenticator = CachedAuthenticator()
+
 class XOSAPIHelperMixin(object):
     def __init__(self):
         import django.apps
@@ -284,10 +320,9 @@ class XOSAPIHelperMixin(object):
                 if (method.lower() == "basic"):
                     auth = base64.b64decode(auth)
                     (username, password) = auth.split(":")
-                    user = django_authenticate(username=username, password=password)
+                    user = cached_authenticator.authenticate(username=username, password=password)
                     if not user:
                         raise XOSPermissionDenied("failed to authenticate %s:%s" % (username, password))
-                    print "authenticated %s:%s as %s" % (username, password, user)
                     return user
             elif (k.lower()=="x-xossession"):
                  s = SessionStore(session_key=v)
