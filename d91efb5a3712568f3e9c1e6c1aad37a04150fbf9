@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba092121_d32c1c4d",
+        "filename": "build.gradle",
+        "patchSetId": 5
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-05-04T01:19:57Z",
+      "side": 1,
+      "message": "Does this happen in practice?",
+      "revId": "d91efb5a3712568f3e9c1e6c1aad37a04150fbf9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
