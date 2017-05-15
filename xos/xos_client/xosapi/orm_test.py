@@ -3,52 +3,70 @@ import shutil
 import sys
 import unittest
 
-from twisted.internet import reactor
-from xosapi import xos_grpc_client
-
-exitStatus = -1
-
-# TODO: See if there's a way to stub this out using a fake xos_grpc_client
-# instead of the real one.
+USE_FAKE_STUB = True
 
 class TestORM(unittest.TestCase):
+    def make_coreapi(self):
+        if USE_FAKE_STUB:
+            stub = FakeStub()
+            api = ORMStub(stub=stub, package_name = "xos", sym_db = FakeSymDb(), empty = FakeObj)
+            return api
+        else:
+            return xos_grpc_client.coreapi
+
     def test_repr_name(self):
-        s = xos_grpc_client.coreapi.Slice(name="foo")
+        orm = self.make_coreapi()
+        s = orm.Slice(name="foo")
         self.assertNotEqual(s, None)
         self.assertEqual(repr(s), "<Slice: foo>")
 
     def test_str_name(self):
-        s = xos_grpc_client.coreapi.Slice(name="foo")
+        orm = self.make_coreapi()
+        s = orm.Slice(name="foo")
         self.assertNotEqual(s, None)
         self.assertEqual(str(s), "foo")
 
     def test_dumpstr_name(self):
-        s = xos_grpc_client.coreapi.Slice(name="foo")
+        orm = self.make_coreapi()
+        s = orm.Slice(name="foo")
         self.assertNotEqual(s, None)
         self.assertEqual(s.dumpstr(), 'name: "foo"\n')
 
     def test_repr_noname(self):
-        s = xos_grpc_client.coreapi.Slice()
+        orm = self.make_coreapi()
+        s = orm.Slice()
         self.assertNotEqual(s, None)
         self.assertEqual(repr(s), "<Slice: id-0>")
 
     def test_str_noname(self):
-        s = xos_grpc_client.coreapi.Slice()
+        orm = self.make_coreapi()
+        s = orm.Slice()
         self.assertNotEqual(s, None)
         self.assertEqual(str(s), "Slice-0")
 
     def test_dumpstr_noname(self):
-        s = xos_grpc_client.coreapi.Slice()
+        orm = self.make_coreapi()
+        s = orm.Slice()
         self.assertNotEqual(s, None)
         self.assertEqual(s.dumpstr(), '')
 
-def test_callback():
-    try:
-        unittest.main()
-    except exceptions.SystemExit, e:
-        global exitStatus
-        exitStatus = e.code
+if USE_FAKE_STUB:
+    from fake_stub import FakeStub, FakeSymDb, FakeObj
+    from orm import ORMStub
 
-xos_grpc_client.start_api_parseargs(test_callback)
+    unittest.main()
+else:
+    from twisted.internet import reactor
+    from xosapi import xos_grpc_client
 
-sys.exit(exitStatus)
+    def test_callback():
+        try:
+            unittest.main()
+        except exceptions.SystemExit, e:
+            global exitStatus
+            exitStatus = e.code
+
+    xos_grpc_client.start_api_parseargs(test_callback)
+
+    sys.exit(exitStatus)
+
