@@ -4,9 +4,6 @@ from django.conf.urls import patterns, include, url
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 
-# This is the generated API
-from xosapi import *
-
 from core.views.serviceGraph import ServiceGridView
 
 # from services.vbbu.view import *
@@ -88,4 +85,4 @@ urlpatterns = patterns(
 
     url(r'^', include('api.import_methods', namespace='api')),
 
-  ) + get_REST_patterns()
+  ) 
