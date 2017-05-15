@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba092121_910e9933",
+        "filename": "xos/genx/tool/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-05-15T20:10:47Z",
+      "side": 1,
+      "message": "Do we need to use make to run these tests? Would be nice to be able to run all the Unit Tests inside XOS with a test runner, I believe the proposed one was \"Python Nose Test\": https://docs.google.com/document/d/1XXMT8VMFD83QRHcReLeMiu3Btf4CfQqQW79TpyJzo60/edit#heading\u003dh.agk6ql1jy1fk",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 16
+      },
+      "revId": "6a32e6a0d06758002ea183d05148806f092d80bf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_b1099d2e",
+        "filename": "xos/genx/tool/tests/proto_generator_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-05-15T20:10:47Z",
+      "side": 1,
+      "message": "We should not commit commented code.\nIs there a reason because of why we are not asserting anything in this test?",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "6a32e6a0d06758002ea183d05148806f092d80bf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
