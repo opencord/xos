@@ -7,7 +7,10 @@ from urlparse import urlparse
 
 # Django settings for XOS.
 from config import Config
-config = Config()
+if os.environ['XOS_ENV'] == 'test':
+	config = Config(os.path.dirname(os.path.realpath(__file__)) + '/test_config')
+else:
+    config = Config()
 
 GEOIP_PATH = "/usr/share/GeoIP"
 XOS_DIR = "/opt/xos"
