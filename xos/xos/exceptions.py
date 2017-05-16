@@ -117,7 +117,7 @@ class XOSConflictingField(APIException):
     status_code=400
     def __init__(self, why="conflicting field", fields={}):
         raw_detail = {
-            "error": "XOSMissingField",
+            "error": "XOSConflictingField",
             "specific_error": why,
             "fields": fields
         }
