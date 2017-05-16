@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ba092121_311d8d67",
+        "filename": "xos/genx/tool/README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-05-16T15:51:07Z",
+      "side": 1,
+      "message": "make is not a requirement. It is just a convenient way of invoking the functionality of this code in isolation, and a way of documenting how it is used. The tests/ directory contains a list of Python-unittest-based tests and should integrate with Nose or other frameworks.",
+      "parentUuid": "ba092121_910e9933",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 16
+      },
+      "revId": "6a32e6a0d06758002ea183d05148806f092d80bf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba092121_b1099d2e",
         "filename": "xos/genx/tool/tests/proto_generator_test.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-05-15T20:10:47Z",
       "side": 1,
       "message": "We should not commit commented code.\nIs there a reason because of why we are not asserting anything in this test?",
+      "range": {
+        "startLine": 27,
+        "startChar": 8,
+        "endLine": 29,
+        "endChar": 28
+      },
+      "revId": "6a32e6a0d06758002ea183d05148806f092d80bf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_111a896e",
+        "filename": "xos/genx/tool/tests/proto_generator_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-05-16T15:51:07Z",
+      "side": 1,
+      "message": "I\u0027ve fixed this by disabling the test.",
+      "parentUuid": "ba092121_b1099d2e",
       "range": {
         "startLine": 27,
         "startChar": 8,
