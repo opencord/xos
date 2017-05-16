@@ -1,12 +1,18 @@
+# Run with 'XOS_ENV=test python xos/xos/exceptions_test.py'
+
 import unittest
 import sys
 import os
 import inspect
 import json
-sys.path.append(os.path.abspath('..'))
+
+xos_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/../..')
+sys.path.append(xos_path)
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
+
 import xos.exceptions
-from xos.exceptions import *
+
 
 class TestXosExceptions(unittest.TestCase):
     """

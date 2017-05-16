@@ -13,7 +13,8 @@ __NOTE: files should not be added by hand to this folder. They will break the co
 A common configuration file is saved in `xos/configurations/common/xos_common_config`. This file stores all the common configurations for XOS.
 
 This is the base config:
-``
+
+```
 [plc]
 name=plc
 deployment=plc
@@ -61,7 +62,8 @@ branding_name=Open Cloud
 branding_icon=/static/logo.png
 service_view_class=core.views.mCordServiceGrid.ServiceGridView
 
-``
+```
+
 
 ## Extending configuration
 

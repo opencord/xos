@@ -1,5 +1,10 @@
 from xosresource import XOSResource
 from core.models import Slice,Instance,User,Flavor,Node,Image
+import os
+import sys
+tosca_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/..')
+sys.path.append(tosca_path)
+
 from nodeselect import XOSNodeSelector
 from imageselect import XOSImageSelector
 from flavorselect import XOSFlavorSelector
