@@ -2,11 +2,7 @@ from xproto_test_base import *
 
 # Generate Protobuf from Xproto and then parse the resulting Protobuf
 class XProtoProtobufGeneratorTest(XProtoTest):
-    # This test is disabled because of a bug in Protobuf generation from xproto
-    # Namely, options appear with repeated double quotes: foo=""bar"" 
-    # TODO: Fix this bug, and re-enable this test
-
-    def __disabled_test_proto_generator(self):
+    def test_proto_generator(self):
         xproto = \
 """
 message VRouterPort (PlCoreBase){
