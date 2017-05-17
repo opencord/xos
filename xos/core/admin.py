@@ -1538,13 +1538,12 @@ class InstanceForm(forms.ModelForm):
         }
         fields = '__all__'
 
-
 class TagAdmin(XOSBaseAdmin):
     list_display = ['backend_status_icon', 'service',
-                    'name', 'value', 'content_type', 'content_object', ]
+                    'name', 'value', 'content_type', 'object_id', ]
     list_display_links = list_display
     user_readonly_fields = ['service', 'name',
-                            'value', 'content_type', 'content_object', ]
+                            'value', 'content_type', 'object_id', ]
     user_readonly_inlines = []
 
 
