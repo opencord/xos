@@ -13,6 +13,7 @@ from cgi import escape as html_escape
 from journal import journal_object
 from django.db.models.deletion import Collector
 from django.db import router
+from django.contrib.contenttypes.models import ContentType
 
 import redis
 from redis import ConnectionError
@@ -429,6 +430,10 @@ class PlCoreBase(models.Model, PlModelMixIn):
             d = {}
 
         return d
+
+    def get_content_type_key(self):
+        ct = ContentType.objects.get_for_model(self.__class__)
+        return "%s.%s" % (ct.app_label, ct.model)
 
 class ModelLink:
     def __init__(self,dest,via,into=None):
