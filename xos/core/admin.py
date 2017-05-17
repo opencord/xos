@@ -1538,7 +1538,8 @@ class InstanceForm(forms.ModelForm):
         }
         fields = '__all__'
 
-
+"""
+# TagAdmin no longer supported due to content_object...
 class TagAdmin(XOSBaseAdmin):
     list_display = ['backend_status_icon', 'service',
                     'name', 'value', 'content_type', 'content_object', ]
@@ -1546,6 +1547,7 @@ class TagAdmin(XOSBaseAdmin):
     user_readonly_fields = ['service', 'name',
                             'value', 'content_type', 'content_object', ]
     user_readonly_inlines = []
+"""
 
 
 class InstancePortInline(XOSTabularInline):
@@ -2183,7 +2185,7 @@ admin.site.register(Program, ProgramAdmin)
 if True:
     admin.site.register(NetworkParameterType, NetworkParameterTypeAdmin)
     admin.site.register(ServiceClass, ServiceClassAdmin)
-    admin.site.register(Tag, TagAdmin)
+#    admin.site.register(Tag, TagAdmin)
     admin.site.register(ControllerRole)
     admin.site.register(SiteRole)
     admin.site.register(SliceRole)
