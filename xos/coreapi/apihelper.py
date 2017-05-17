@@ -135,6 +135,24 @@ class XOSAPIHelperMixin(object):
         else:
             return int(x.id)
 
+    # Note: SerializeContentType and DeserializeContentType assume that
+    # xproto has chosen model names and app names that are compatible with
+    # ContentType's app_label and model name.
+
+    def serializeContentType(self, obj):
+#        c = obj.__class__
+#        if hasattr(c, "_meta") and hasattr(c._meta, "app_label"):
+#            app_name = c._meta.app_label
+#        else:
+#            app_name = app_map[c.__name__].split(".")[-1]  # only the last part
+#        return "%s.%s" % (app_name, obj.__name__)
+        ct = ContentType.objects.get_for_model(obj.__class__)
+        return "%s.%s" % (ct.app_label, ct.model)
+
+    def deserializeContentType(self, ct):
+        (app_name, model_name) = ct.split(".")
+        return ContentType.objects.get_by_natural_key(app_name, model_name)
+
     def objToProto(self, obj):
         p_obj = self.getProtoClass(obj.__class__)()
         for field in obj._meta.fields:
@@ -150,6 +168,8 @@ class XOSAPIHelperMixin(object):
                 setattr(p_obj, field.name, int(getattr(obj, field.name)))
             elif (ftype == "IntegerField") or (ftype == "PositiveIntegerField") or (ftype == "BigIntegerField"):
                 setattr(p_obj, field.name, int(getattr(obj, field.name)))
+            elif (ftype == "ForeignKey") and (ftype.related_model == ContentType):
+                setattr(p_obj, field.name, self.serializeContentType(getattr(obj, field.name)))
             elif (ftype == "ForeignKey"):
                 setattr(p_obj, field.name+"_id", self.convertForeignKey(getattr(obj, field.name)))
             elif (ftype == "DateTimeField"):
@@ -192,7 +212,9 @@ class XOSAPIHelperMixin(object):
         bases = [x for x in bases if issubclass(x, PlCoreBase) or issubclass(x, User)]
         p_obj.class_names = ",".join( [x.__name__ for x in bases] )
 
-        p_obj.self_content_type_id = ContentType.objects.get_for_model(obj).id
+        #p_obj.self_content_type_id = ContentType.objects.get_for_model(obj).id
+
+        p_obj.self_content_type_id = self.serializeContentType(obj)
 
         return p_obj
 
@@ -221,6 +243,8 @@ class XOSAPIHelperMixin(object):
                     args[name] = val
                 elif (ftype == "IntegerField") or (ftype == "PositiveIntegerField") or (ftype == "BigIntegerField"):
                     args[name] = val
+                elif (ftype == "ForeignKey") and (ftype.related_model == ContentType):
+                    args[name] = self.deserializeContentType(val)
                 elif (ftype == "ForeignKey"):
                     args[name] = val # field name already has "_id" at the end
                 elif (ftype == "DateTimeField"):

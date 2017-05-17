@@ -430,6 +430,10 @@ class PlCoreBase(models.Model, PlModelMixIn):
 
         return d
 
+    def get_content_type_key(self):
+        ct = ContentType.objects.get_for_model(self.__class__)
+        return "%s.%s" % (ct.app_label, ct.model)
+
 class ModelLink:
     def __init__(self,dest,via,into=None):
         self.dest=dest

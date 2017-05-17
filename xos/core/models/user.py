@@ -608,6 +608,10 @@ class User(AbstractBaseUser, PlModelMixIn):
             for db in self.userdashboardviews.all():
                 db.delete()
 
+    def get_content_type_key(self):
+        ct = ContentType.objects.get_for_model(self.__class__)
+        return "%s.%s" % (ct.app_label, ct.model)
+
 
 class UserDashboardView(PlCoreBase):
     user = models.ForeignKey(User, related_name='userdashboardviews')
