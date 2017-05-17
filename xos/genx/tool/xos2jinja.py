@@ -146,6 +146,8 @@ class XOS2Jinja(m.Visitor):
         n = self.count_stack.pop()
         for i in range(0, n):
             k,v = self.stack.pop()
+            if (v.startswith('"') and v.endswith('"')):
+                v = v[1:-1]
             opts[k] = v
 
         s['options'] = opts
