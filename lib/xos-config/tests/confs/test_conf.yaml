@@ -1,0 +1,11 @@
+database:
+  username: test
+  password: safe
+logging:
+  level: info
+  channels:
+    - file
+    - console
+nested:
+  parameter:
+    for: testing
