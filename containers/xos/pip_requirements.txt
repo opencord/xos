@@ -71,6 +71,7 @@ klein==16.12.0
 kombu==3.0.35
 lxml==3.6.4
 meld3==0.6.10
+mock==2.0.0
 monotonic==1.2
 msgpack-python==0.4.8
 munch==2.0.4
