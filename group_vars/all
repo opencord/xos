@@ -14,8 +14,8 @@ docker_images:
   - name: "xosproject/xos-base"
     path: "{{ cord_dir }}/orchestration/xos/containers/xos"
     dockerfile: "Dockerfile.base"
-    pull: True
-    build: False
+    pull: False
+    build: True
     publish: False
   - name: "xosproject/xos-postgres"
     path: "{{ cord_dir }}/orchestration/xos/containers/postgresql"
@@ -63,6 +63,16 @@ docker_images:
     pull: False
     publish: True
   - name: "nginx:latest"
+    path: ""
+    dockerfile: ""
+    pull: True
+    publish: False
+  - name: "gliderlabs/consul-server:latest"
+    path: ""
+    dockerfile: ""
+    pull: True
+    publish: False
+  - name: "gliderlabs/registrator:latest"
     path: ""
     dockerfile: ""
     pull: True
