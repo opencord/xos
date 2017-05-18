@@ -3,6 +3,7 @@ FROM xosproject/xos-base:candidate
 
 # Install XOS
 ADD xos /opt/xos
+ADD lib /opt/xos/lib
 
 RUN chmod +x /opt/xos/tools/xos-manage \
  && mkdir -p /opt/cord_profile /opt/xos_services /opt/xos_libraries \
