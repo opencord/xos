@@ -1,4 +1,4 @@
-class Meta(PlCoreBase.Meta):
+class Meta(XOSBase.Meta):
    verbose_name_plural = "Service classes"
 
 def __unicode__(self):  return u'%s' % (self.name)

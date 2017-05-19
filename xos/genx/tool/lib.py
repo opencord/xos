@@ -59,8 +59,10 @@ def django_string_type(xptags):
     else:
         return 'TextField'
 
-def xproto_base_def(base):
-    if (not base):
+def xproto_base_def(model_name, base):
+    if (model_name=='XOSBase'):
+        return '(models.Model, PlModelMixIn)'
+    elif (not base):
         return ''
     else:
         return '(' + ','.join(base) + ')'
@@ -171,7 +173,7 @@ def xproto_base_name(n):
     if (n.startswith('NetworkParameter')):
         return '_'
 
-    expr = r'^[A-Z][a-z]+'
+    expr = r'^[A-Z]+[a-z]*'
 
     try:
         match = re.findall(expr, n)[0]
