@@ -1,6 +1,6 @@
 
 
-message Router (PlCoreBase){
+message Router (XOSBase){
      required string name = 1 [db_index = False, max_length = 32, null = False, blank = False];
      required manytoone owner->Slice:routers = 2 [db_index = True, null = False, blank = False];
      required manytomany permittedNetworks->Network/Router_permittedNetworks:availableRouters = 3 [db_index = False, null = False, blank = True];
