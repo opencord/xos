@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba092121_67db47ee",
+        "filename": "xos/xos_client/xosapi/fake_stub.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-05-19T18:41:47Z",
+      "side": 1,
+      "message": "Is there any particular reason because of why we need a fake server instead using the mock helper provided by UnitTest?",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 63
+      },
+      "revId": "500f8c7f08877858538f8b69686da6bdae1bccf8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
