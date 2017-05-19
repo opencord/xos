@@ -22,6 +22,30 @@
       "revId": "500f8c7f08877858538f8b69686da6bdae1bccf8",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_27e54fa8",
+        "filename": "xos/xos_client/xosapi/fake_stub.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-05-19T18:58:56Z",
+      "side": 1,
+      "message": "This isn\u0027t a server. It\u0027s a client-side stub. The client-side ORM requires a client-side stub, as it learns the API from that stub. Using a fake stub allows the unit tests to be executed without having to spin up XOS.",
+      "parentUuid": "ba092121_67db47ee",
+      "range": {
+        "startLine": 3,
+        "startChar": 4,
+        "endLine": 3,
+        "endChar": 63
+      },
+      "revId": "500f8c7f08877858538f8b69686da6bdae1bccf8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
