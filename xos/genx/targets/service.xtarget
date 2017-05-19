@@ -10,7 +10,7 @@ from core.models import {{ l.peer }}
 {%- endif -%}
 {%- endfor -%}
 {%- for b in m.bases -%}
-{%- if b!='PlCoreBase' and 'Mixin' not in b -%}
+{%- if b!='XOSBase' and 'Mixin' not in b -%}
 #from core.models.{{b | lower}} import {{ b }}
 from core.models import {{ b }}
 {%- endif -%}
