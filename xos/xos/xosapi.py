@@ -72,9 +72,6 @@ def get_REST_patterns():
         url(r'xos/tags/$', TagList.as_view(), name='tag-list-legacy'),
         url(r'xos/tags/(?P<pk>[a-zA-Z0-9\-]+)/$', TagDetail.as_view(), name ='tag-detail-legacy'),
     
-        url(r'xos/usercredentials/$', UserCredentialList.as_view(), name='usercredential-list-legacy'),
-        url(r'xos/usercredentials/(?P<pk>[a-zA-Z0-9\-]+)/$', UserCredentialDetail.as_view(), name ='usercredential-detail-legacy'),
-    
         url(r'xos/slice_privileges/$', SlicePrivilegeList.as_view(), name='sliceprivilege-list-legacy'),
         url(r'xos/slice_privileges/(?P<pk>[a-zA-Z0-9\-]+)/$', SlicePrivilegeDetail.as_view(), name ='sliceprivilege-detail-legacy'),
     
@@ -117,17 +114,11 @@ def get_REST_patterns():
         url(r'xos/instances/$', InstanceList.as_view(), name='instance-list-legacy'),
         url(r'xos/instances/(?P<pk>[a-zA-Z0-9\-]+)/$', InstanceDetail.as_view(), name ='instance-detail-legacy'),
     
-        url(r'xos/programs/$', ProgramList.as_view(), name='program-list-legacy'),
-        url(r'xos/programs/(?P<pk>[a-zA-Z0-9\-]+)/$', ProgramDetail.as_view(), name ='program-detail-legacy'),
-    
         url(r'xos/roles/$', RoleList.as_view(), name='role-list-legacy'),
         url(r'xos/roles/(?P<pk>[a-zA-Z0-9\-]+)/$', RoleDetail.as_view(), name ='role-detail-legacy'),
     
         url(r'xos/nodelabels/$', NodeLabelList.as_view(), name='nodelabel-list-legacy'),
         url(r'xos/nodelabels/(?P<pk>[a-zA-Z0-9\-]+)/$', NodeLabelDetail.as_view(), name ='nodelabel-detail-legacy'),
-    
-        url(r'xos/slicecredentials/$', SliceCredentialList.as_view(), name='slicecredential-list-legacy'),
-        url(r'xos/slicecredentials/(?P<pk>[a-zA-Z0-9\-]+)/$', SliceCredentialDetail.as_view(), name ='slicecredential-detail-legacy'),
     
         url(r'xos/nodes/$', NodeList.as_view(), name='node-list-legacy'),
         url(r'xos/nodes/(?P<pk>[a-zA-Z0-9\-]+)/$', NodeDetail.as_view(), name ='node-detail-legacy'),
@@ -192,9 +183,6 @@ def get_REST_patterns():
         url(r'xos/controllersliceprivileges/$', ControllerSlicePrivilegeList.as_view(), name='controllersliceprivilege-list-legacy'),
         url(r'xos/controllersliceprivileges/(?P<pk>[a-zA-Z0-9\-]+)/$', ControllerSlicePrivilegeDetail.as_view(), name ='controllersliceprivilege-detail-legacy'),
     
-        url(r'xos/sitecredentials/$', SiteCredentialList.as_view(), name='sitecredential-list-legacy'),
-        url(r'xos/sitecredentials/(?P<pk>[a-zA-Z0-9\-]+)/$', SiteCredentialDetail.as_view(), name ='sitecredential-detail-legacy'),
-    
         url(r'xos/deploymentprivileges/$', DeploymentPrivilegeList.as_view(), name='deploymentprivilege-list-legacy'),
         url(r'xos/deploymentprivileges/(?P<pk>[a-zA-Z0-9\-]+)/$', DeploymentPrivilegeDetail.as_view(), name ='deploymentprivilege-detail-legacy'),
     
@@ -210,14 +198,8 @@ def get_REST_patterns():
         url(r'xos/deploymentroles/$', DeploymentRoleList.as_view(), name='deploymentrole-list-legacy'),
         url(r'xos/deploymentroles/(?P<pk>[a-zA-Z0-9\-]+)/$', DeploymentRoleDetail.as_view(), name ='deploymentrole-detail-legacy'),
     
-        url(r'xos/projects/$', ProjectList.as_view(), name='project-list-legacy'),
-        url(r'xos/projects/(?P<pk>[a-zA-Z0-9\-]+)/$', ProjectDetail.as_view(), name ='project-detail-legacy'),
-    
         url(r'xos/tenantrootprivileges/$', TenantRootPrivilegeList.as_view(), name='tenantrootprivilege-list-legacy'),
         url(r'xos/tenantrootprivileges/(?P<pk>[a-zA-Z0-9\-]+)/$', TenantRootPrivilegeDetail.as_view(), name ='tenantrootprivilege-detail-legacy'),
-    
-        url(r'xos/slicetags/$', SliceTagList.as_view(), name='slicetag-list-legacy'),
-        url(r'xos/slicetags/(?P<pk>[a-zA-Z0-9\-]+)/$', SliceTagDetail.as_view(), name ='slicetag-detail-legacy'),
     
         url(r'xos/networktemplates/$', NetworkTemplateList.as_view(), name='networktemplate-list-legacy'),
         url(r'xos/networktemplates/(?P<pk>[a-zA-Z0-9\-]+)/$', NetworkTemplateDetail.as_view(), name ='networktemplate-detail-legacy'),
@@ -268,9 +250,6 @@ def get_REST_patterns():
         url(r'api/core/tags/$', TagList.as_view(), name='tag-list'),
         url(r'api/core/tags/(?P<pk>[a-zA-Z0-9\-]+)/$', TagDetail.as_view(), name ='tag-detail'),
     
-        url(r'api/core/usercredentials/$', UserCredentialList.as_view(), name='usercredential-list'),
-        url(r'api/core/usercredentials/(?P<pk>[a-zA-Z0-9\-]+)/$', UserCredentialDetail.as_view(), name ='usercredential-detail'),
-    
         url(r'api/core/slice_privileges/$', SlicePrivilegeList.as_view(), name='sliceprivilege-list'),
         url(r'api/core/slice_privileges/(?P<pk>[a-zA-Z0-9\-]+)/$', SlicePrivilegeDetail.as_view(), name ='sliceprivilege-detail'),
     
@@ -313,17 +292,11 @@ def get_REST_patterns():
         url(r'api/core/instances/$', InstanceList.as_view(), name='instance-list'),
         url(r'api/core/instances/(?P<pk>[a-zA-Z0-9\-]+)/$', InstanceDetail.as_view(), name ='instance-detail'),
     
-        url(r'api/core/programs/$', ProgramList.as_view(), name='program-list'),
-        url(r'api/core/programs/(?P<pk>[a-zA-Z0-9\-]+)/$', ProgramDetail.as_view(), name ='program-detail'),
-    
         url(r'api/core/roles/$', RoleList.as_view(), name='role-list'),
         url(r'api/core/roles/(?P<pk>[a-zA-Z0-9\-]+)/$', RoleDetail.as_view(), name ='role-detail'),
     
         url(r'api/core/nodelabels/$', NodeLabelList.as_view(), name='nodelabel-list'),
         url(r'api/core/nodelabels/(?P<pk>[a-zA-Z0-9\-]+)/$', NodeLabelDetail.as_view(), name ='nodelabel-detail'),
-    
-        url(r'api/core/slicecredentials/$', SliceCredentialList.as_view(), name='slicecredential-list'),
-        url(r'api/core/slicecredentials/(?P<pk>[a-zA-Z0-9\-]+)/$', SliceCredentialDetail.as_view(), name ='slicecredential-detail'),
     
         url(r'api/core/nodes/$', NodeList.as_view(), name='node-list'),
         url(r'api/core/nodes/(?P<pk>[a-zA-Z0-9\-]+)/$', NodeDetail.as_view(), name ='node-detail'),
@@ -388,9 +361,6 @@ def get_REST_patterns():
         url(r'api/core/controllersliceprivileges/$', ControllerSlicePrivilegeList.as_view(), name='controllersliceprivilege-list'),
         url(r'api/core/controllersliceprivileges/(?P<pk>[a-zA-Z0-9\-]+)/$', ControllerSlicePrivilegeDetail.as_view(), name ='controllersliceprivilege-detail'),
     
-        url(r'api/core/sitecredentials/$', SiteCredentialList.as_view(), name='sitecredential-list'),
-        url(r'api/core/sitecredentials/(?P<pk>[a-zA-Z0-9\-]+)/$', SiteCredentialDetail.as_view(), name ='sitecredential-detail'),
-    
         url(r'api/core/deploymentprivileges/$', DeploymentPrivilegeList.as_view(), name='deploymentprivilege-list'),
         url(r'api/core/deploymentprivileges/(?P<pk>[a-zA-Z0-9\-]+)/$', DeploymentPrivilegeDetail.as_view(), name ='deploymentprivilege-detail'),
     
@@ -406,14 +376,8 @@ def get_REST_patterns():
         url(r'api/core/deploymentroles/$', DeploymentRoleList.as_view(), name='deploymentrole-list'),
         url(r'api/core/deploymentroles/(?P<pk>[a-zA-Z0-9\-]+)/$', DeploymentRoleDetail.as_view(), name ='deploymentrole-detail'),
     
-        url(r'api/core/projects/$', ProjectList.as_view(), name='project-list'),
-        url(r'api/core/projects/(?P<pk>[a-zA-Z0-9\-]+)/$', ProjectDetail.as_view(), name ='project-detail'),
-    
         url(r'api/core/tenantrootprivileges/$', TenantRootPrivilegeList.as_view(), name='tenantrootprivilege-list'),
         url(r'api/core/tenantrootprivileges/(?P<pk>[a-zA-Z0-9\-]+)/$', TenantRootPrivilegeDetail.as_view(), name ='tenantrootprivilege-detail'),
-    
-        url(r'api/core/slicetags/$', SliceTagList.as_view(), name='slicetag-list'),
-        url(r'api/core/slicetags/(?P<pk>[a-zA-Z0-9\-]+)/$', SliceTagDetail.as_view(), name ='slicetag-detail'),
     
         url(r'api/core/networktemplates/$', NetworkTemplateList.as_view(), name='networktemplate-list'),
         url(r'api/core/networktemplates/(?P<pk>[a-zA-Z0-9\-]+)/$', NetworkTemplateDetail.as_view(), name ='networktemplate-detail'),
@@ -443,7 +407,6 @@ def api_root_legacy(request, format=None):
         'xosguiextensions': reverse('xosguiextension-list-legacy', request=request, format=format),
         'tenantprivileges': reverse('tenantprivilege-list-legacy', request=request, format=format),
         'tags': reverse('tag-list-legacy', request=request, format=format),
-        'usercredentials': reverse('usercredential-list-legacy', request=request, format=format),
         'sliceprivileges': reverse('sliceprivilege-list-legacy', request=request, format=format),
         'flavors': reverse('flavor-list-legacy', request=request, format=format),
         'ports': reverse('port-list-legacy', request=request, format=format),
@@ -458,10 +421,8 @@ def api_root_legacy(request, format=None):
         'serviceclasses': reverse('serviceclass-list-legacy', request=request, format=format),
         'tenantattributes': reverse('tenantattribute-list-legacy', request=request, format=format),
         'instances': reverse('instance-list-legacy', request=request, format=format),
-        'programs': reverse('program-list-legacy', request=request, format=format),
         'roles': reverse('role-list-legacy', request=request, format=format),
         'nodelabels': reverse('nodelabel-list-legacy', request=request, format=format),
-        'slicecredentials': reverse('slicecredential-list-legacy', request=request, format=format),
         'nodes': reverse('node-list-legacy', request=request, format=format),
         'addresspools': reverse('addresspool-list-legacy', request=request, format=format),
         'dashboardviews': reverse('dashboardview-list-legacy', request=request, format=format),
@@ -483,15 +444,12 @@ def api_root_legacy(request, format=None):
         'tenantroots': reverse('tenantroot-list-legacy', request=request, format=format),
         'services': reverse('service-list-legacy', request=request, format=format),
         'controllersliceprivileges': reverse('controllersliceprivilege-list-legacy', request=request, format=format),
-        'sitecredentials': reverse('sitecredential-list-legacy', request=request, format=format),
         'deploymentprivileges': reverse('deploymentprivilege-list-legacy', request=request, format=format),
         'networkparametertypes': reverse('networkparametertype-list-legacy', request=request, format=format),
         'sitedeployments': reverse('sitedeployment-list-legacy', request=request, format=format),
         'tenantwithcontainers': reverse('tenantwithcontainer-list-legacy', request=request, format=format),
         'deploymentroles': reverse('deploymentrole-list-legacy', request=request, format=format),
-        'projects': reverse('project-list-legacy', request=request, format=format),
         'tenantrootprivileges': reverse('tenantrootprivilege-list-legacy', request=request, format=format),
-        'slicetags': reverse('slicetag-list-legacy', request=request, format=format),
         'networktemplates': reverse('networktemplate-list-legacy', request=request, format=format),
         'routers': reverse('router-list-legacy', request=request, format=format),
         'serviceresources': reverse('serviceresource-list-legacy', request=request, format=format),
@@ -513,7 +471,6 @@ def api_root(request, format=None):
         'xosguiextensions': reverse('xosguiextension-list', request=request, format=format),
         'tenantprivileges': reverse('tenantprivilege-list', request=request, format=format),
         'tags': reverse('tag-list', request=request, format=format),
-        'usercredentials': reverse('usercredential-list', request=request, format=format),
         'sliceprivileges': reverse('sliceprivilege-list', request=request, format=format),
         'flavors': reverse('flavor-list', request=request, format=format),
         'ports': reverse('port-list', request=request, format=format),
@@ -528,10 +485,8 @@ def api_root(request, format=None):
         'serviceclasses': reverse('serviceclass-list', request=request, format=format),
         'tenantattributes': reverse('tenantattribute-list', request=request, format=format),
         'instances': reverse('instance-list', request=request, format=format),
-        'programs': reverse('program-list', request=request, format=format),
         'roles': reverse('role-list', request=request, format=format),
         'nodelabels': reverse('nodelabel-list', request=request, format=format),
-        'slicecredentials': reverse('slicecredential-list', request=request, format=format),
         'nodes': reverse('node-list', request=request, format=format),
         'addresspools': reverse('addresspool-list', request=request, format=format),
         'dashboardviews': reverse('dashboardview-list', request=request, format=format),
@@ -553,15 +508,12 @@ def api_root(request, format=None):
         'tenantroots': reverse('tenantroot-list', request=request, format=format),
         'services': reverse('service-list', request=request, format=format),
         'controllersliceprivileges': reverse('controllersliceprivilege-list', request=request, format=format),
-        'sitecredentials': reverse('sitecredential-list', request=request, format=format),
         'deploymentprivileges': reverse('deploymentprivilege-list', request=request, format=format),
         'networkparametertypes': reverse('networkparametertype-list', request=request, format=format),
         'sitedeployments': reverse('sitedeployment-list', request=request, format=format),
         'tenantwithcontainers': reverse('tenantwithcontainer-list', request=request, format=format),
         'deploymentroles': reverse('deploymentrole-list', request=request, format=format),
-        'projects': reverse('project-list', request=request, format=format),
         'tenantrootprivileges': reverse('tenantrootprivilege-list', request=request, format=format),
-        'slicetags': reverse('slicetag-list', request=request, format=format),
         'networktemplates': reverse('networktemplate-list', request=request, format=format),
         'routers': reverse('router-list', request=request, format=format),
         'serviceresources': reverse('serviceresource-list', request=request, format=format),
@@ -1023,41 +975,6 @@ class TagIdSerializer(XOSModelSerializer):
     class Meta:
         model = Tag
         fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','value','content_type','object_id','service',)
-
-
-
-
-class UserCredentialSerializer(serializers.HyperlinkedModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = UserCredential
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','key_id','enc_value','user',)
-
-class UserCredentialIdSerializer(XOSModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = UserCredential
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','key_id','enc_value','user',)
 
 
 
@@ -1608,41 +1525,6 @@ class InstanceIdSerializer(XOSModelSerializer):
 
 
 
-class ProgramSerializer(serializers.HyperlinkedModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = Program
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','description','kind','command','contents','output','messages','status','owner',)
-
-class ProgramIdSerializer(XOSModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = Program
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','description','kind','command','contents','output','messages','status','owner',)
-
-
-
-
 class RoleSerializer(serializers.HyperlinkedModelSerializer):
     id = IdField()
     
@@ -1717,41 +1599,6 @@ class NodeLabelIdSerializer(XOSModelSerializer):
     class Meta:
         model = NodeLabel
         fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','nodes',)
-
-
-
-
-class SliceCredentialSerializer(serializers.HyperlinkedModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = SliceCredential
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','key_id','enc_value','slice',)
-
-class SliceCredentialIdSerializer(XOSModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = SliceCredential
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','key_id','enc_value','slice',)
 
 
 
@@ -2571,41 +2418,6 @@ class ControllerSlicePrivilegeIdSerializer(XOSModelSerializer):
 
 
 
-class SiteCredentialSerializer(serializers.HyperlinkedModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = SiteCredential
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','key_id','enc_value','site',)
-
-class SiteCredentialIdSerializer(XOSModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = SiteCredential
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','key_id','enc_value','site',)
-
-
-
-
 class DeploymentPrivilegeSerializer(serializers.HyperlinkedModelSerializer):
     id = IdField()
     
@@ -2781,41 +2593,6 @@ class DeploymentRoleIdSerializer(XOSModelSerializer):
 
 
 
-class ProjectSerializer(serializers.HyperlinkedModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = Project
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name',)
-
-class ProjectIdSerializer(XOSModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = Project
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name',)
-
-
-
-
 class TenantRootPrivilegeSerializer(serializers.HyperlinkedModelSerializer):
     id = IdField()
     
@@ -2847,41 +2624,6 @@ class TenantRootPrivilegeIdSerializer(XOSModelSerializer):
     class Meta:
         model = TenantRootPrivilege
         fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','user','tenant_root','role',)
-
-
-
-
-class SliceTagSerializer(serializers.HyperlinkedModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = SliceTag
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','value','slice',)
-
-class SliceTagIdSerializer(XOSModelSerializer):
-    id = IdField()
-    
-    humanReadableName = serializers.SerializerMethodField("getHumanReadableName")
-    validators = serializers.SerializerMethodField("getValidators")
-    def getHumanReadableName(self, obj):
-        return str(obj)
-    def getValidators(self, obj):
-        try:
-            return obj.getValidators()
-        except:
-            return None
-    class Meta:
-        model = SliceTag
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','value','slice',)
 
 
 
@@ -3066,8 +2808,6 @@ serializerLookUp = {
 
                  Tag: TagSerializer,
 
-                 UserCredential: UserCredentialSerializer,
-
                  SlicePrivilege: SlicePrivilegeSerializer,
 
                  Flavor: FlavorSerializer,
@@ -3096,13 +2836,9 @@ serializerLookUp = {
 
                  Instance: InstanceSerializer,
 
-                 Program: ProgramSerializer,
-
                  Role: RoleSerializer,
 
                  NodeLabel: NodeLabelSerializer,
-
-                 SliceCredential: SliceCredentialSerializer,
 
                  Node: NodeSerializer,
 
@@ -3146,8 +2882,6 @@ serializerLookUp = {
 
                  ControllerSlicePrivilege: ControllerSlicePrivilegeSerializer,
 
-                 SiteCredential: SiteCredentialSerializer,
-
                  DeploymentPrivilege: DeploymentPrivilegeSerializer,
 
                  NetworkParameterType: NetworkParameterTypeSerializer,
@@ -3158,11 +2892,7 @@ serializerLookUp = {
 
                  DeploymentRole: DeploymentRoleSerializer,
 
-                 Project: ProjectSerializer,
-
                  TenantRootPrivilege: TenantRootPrivilegeSerializer,
-
-                 SliceTag: SliceTagSerializer,
 
                  NetworkTemplate: NetworkTemplateSerializer,
 
@@ -3688,53 +3418,6 @@ class TagDetail(XOSRetrieveUpdateDestroyAPIView):
         if (not self.request.user.is_authenticated()):
             raise XOSNotAuthenticated()
         return Tag.select_by_user(self.request.user)
-
-    # update() is handled by XOSRetrieveUpdateDestroyAPIView
-
-    # destroy() is handled by XOSRetrieveUpdateDestroyAPIView
-
-
-
-class UserCredentialList(XOSListCreateAPIView):
-    queryset = UserCredential.objects.select_related().all()
-    serializer_class = UserCredentialSerializer
-    id_serializer_class = UserCredentialIdSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','key_id','enc_value','user',)
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return UserCredential.select_by_user(self.request.user)
-
-
-class UserCredentialDetail(XOSRetrieveUpdateDestroyAPIView):
-    queryset = UserCredential.objects.select_related().all()
-    serializer_class = UserCredentialSerializer
-    id_serializer_class = UserCredentialIdSerializer
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return UserCredential.select_by_user(self.request.user)
 
     # update() is handled by XOSRetrieveUpdateDestroyAPIView
 
@@ -4400,53 +4083,6 @@ class InstanceDetail(XOSRetrieveUpdateDestroyAPIView):
 
 
 
-class ProgramList(XOSListCreateAPIView):
-    queryset = Program.objects.select_related().all()
-    serializer_class = ProgramSerializer
-    id_serializer_class = ProgramIdSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','description','kind','command','contents','output','messages','status','owner',)
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return Program.select_by_user(self.request.user)
-
-
-class ProgramDetail(XOSRetrieveUpdateDestroyAPIView):
-    queryset = Program.objects.select_related().all()
-    serializer_class = ProgramSerializer
-    id_serializer_class = ProgramIdSerializer
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return Program.select_by_user(self.request.user)
-
-    # update() is handled by XOSRetrieveUpdateDestroyAPIView
-
-    # destroy() is handled by XOSRetrieveUpdateDestroyAPIView
-
-
-
 class RoleList(XOSListCreateAPIView):
     queryset = Role.objects.select_related().all()
     serializer_class = RoleSerializer
@@ -4534,53 +4170,6 @@ class NodeLabelDetail(XOSRetrieveUpdateDestroyAPIView):
         if (not self.request.user.is_authenticated()):
             raise XOSNotAuthenticated()
         return NodeLabel.select_by_user(self.request.user)
-
-    # update() is handled by XOSRetrieveUpdateDestroyAPIView
-
-    # destroy() is handled by XOSRetrieveUpdateDestroyAPIView
-
-
-
-class SliceCredentialList(XOSListCreateAPIView):
-    queryset = SliceCredential.objects.select_related().all()
-    serializer_class = SliceCredentialSerializer
-    id_serializer_class = SliceCredentialIdSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','key_id','enc_value','slice',)
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return SliceCredential.select_by_user(self.request.user)
-
-
-class SliceCredentialDetail(XOSRetrieveUpdateDestroyAPIView):
-    queryset = SliceCredential.objects.select_related().all()
-    serializer_class = SliceCredentialSerializer
-    id_serializer_class = SliceCredentialIdSerializer
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return SliceCredential.select_by_user(self.request.user)
 
     # update() is handled by XOSRetrieveUpdateDestroyAPIView
 
@@ -5575,53 +5164,6 @@ class ControllerSlicePrivilegeDetail(XOSRetrieveUpdateDestroyAPIView):
 
 
 
-class SiteCredentialList(XOSListCreateAPIView):
-    queryset = SiteCredential.objects.select_related().all()
-    serializer_class = SiteCredentialSerializer
-    id_serializer_class = SiteCredentialIdSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','key_id','enc_value','site',)
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return SiteCredential.select_by_user(self.request.user)
-
-
-class SiteCredentialDetail(XOSRetrieveUpdateDestroyAPIView):
-    queryset = SiteCredential.objects.select_related().all()
-    serializer_class = SiteCredentialSerializer
-    id_serializer_class = SiteCredentialIdSerializer
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return SiteCredential.select_by_user(self.request.user)
-
-    # update() is handled by XOSRetrieveUpdateDestroyAPIView
-
-    # destroy() is handled by XOSRetrieveUpdateDestroyAPIView
-
-
-
 class DeploymentPrivilegeList(XOSListCreateAPIView):
     queryset = DeploymentPrivilege.objects.select_related().all()
     serializer_class = DeploymentPrivilegeSerializer
@@ -5857,53 +5399,6 @@ class DeploymentRoleDetail(XOSRetrieveUpdateDestroyAPIView):
 
 
 
-class ProjectList(XOSListCreateAPIView):
-    queryset = Project.objects.select_related().all()
-    serializer_class = ProjectSerializer
-    id_serializer_class = ProjectIdSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name',)
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return Project.select_by_user(self.request.user)
-
-
-class ProjectDetail(XOSRetrieveUpdateDestroyAPIView):
-    queryset = Project.objects.select_related().all()
-    serializer_class = ProjectSerializer
-    id_serializer_class = ProjectIdSerializer
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return Project.select_by_user(self.request.user)
-
-    # update() is handled by XOSRetrieveUpdateDestroyAPIView
-
-    # destroy() is handled by XOSRetrieveUpdateDestroyAPIView
-
-
-
 class TenantRootPrivilegeList(XOSListCreateAPIView):
     queryset = TenantRootPrivilege.objects.select_related().all()
     serializer_class = TenantRootPrivilegeSerializer
@@ -5944,53 +5439,6 @@ class TenantRootPrivilegeDetail(XOSRetrieveUpdateDestroyAPIView):
         if (not self.request.user.is_authenticated()):
             raise XOSNotAuthenticated()
         return TenantRootPrivilege.select_by_user(self.request.user)
-
-    # update() is handled by XOSRetrieveUpdateDestroyAPIView
-
-    # destroy() is handled by XOSRetrieveUpdateDestroyAPIView
-
-
-
-class SliceTagList(XOSListCreateAPIView):
-    queryset = SliceTag.objects.select_related().all()
-    serializer_class = SliceTagSerializer
-    id_serializer_class = SliceTagIdSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','value','slice',)
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return SliceTag.select_by_user(self.request.user)
-
-
-class SliceTagDetail(XOSRetrieveUpdateDestroyAPIView):
-    queryset = SliceTag.objects.select_related().all()
-    serializer_class = SliceTagSerializer
-    id_serializer_class = SliceTagIdSerializer
-
-    def get_serializer_class(self):
-        no_hyperlinks=False
-        if hasattr(self.request,"query_params"):
-            no_hyperlinks = self.request.query_params.get('no_hyperlinks', False)
-        if (no_hyperlinks):
-            return self.id_serializer_class
-        else:
-            return self.serializer_class
-
-    def get_queryset(self):
-        if (not self.request.user.is_authenticated()):
-            raise XOSNotAuthenticated()
-        return SliceTag.select_by_user(self.request.user)
 
     # update() is handled by XOSRetrieveUpdateDestroyAPIView
 
