@@ -171,7 +171,7 @@ def xproto_base_name(n):
     if (n.startswith('NetworkParameter')):
         return '_'
 
-    expr = r'^[A-Z][a-z]+'
+    expr = r'^[A-Z]+[a-z]*'
 
     try:
         match = re.findall(expr, n)[0]

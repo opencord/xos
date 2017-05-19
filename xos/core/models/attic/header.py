@@ -4,7 +4,7 @@ import sys
 import json
 import operator
 from operator import attrgetter
-from core.models.plcorebase import *
+from core.models.xosbase import *
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.utils.timezone import now
@@ -98,7 +98,7 @@ def get_default_flavor(controller = None):
 
     return flavors[0]
 
-class InstanceDeletionManager(PlCoreBaseDeletionManager):
+class InstanceDeletionManager(XOSBaseDeletionManager):
     def get_queryset(self):
         parent=super(InstanceDeletionManager, self)
         try:
@@ -117,7 +117,7 @@ class InstanceDeletionManager(PlCoreBaseDeletionManager):
         return self.get_queryset()
 
 
-class InstanceManager(PlCoreBaseManager):
+class InstanceManager(XOSBaseManager):
     def get_queryset(self):
         parent=super(InstanceManager, self)
 
@@ -144,7 +144,7 @@ def get_default_serviceclass():
     except ServiceClass.DoesNotExist:
         return None
 
-class ControllerLinkDeletionManager(PlCoreBaseDeletionManager):
+class ControllerLinkDeletionManager(XOSBaseDeletionManager):
     def get_queryset(self):
         parent=super(ControllerLinkDeletionManager, self)
         try:
@@ -163,7 +163,7 @@ class ControllerLinkDeletionManager(PlCoreBaseDeletionManager):
         return self.get_queryset()
 
 
-class ControllerDeletionManager(PlCoreBaseDeletionManager):
+class ControllerDeletionManager(XOSBaseDeletionManager):
     def get_queryset(self):
         parent=super(ControllerDeletionManager, self)
 
@@ -183,7 +183,7 @@ class ControllerDeletionManager(PlCoreBaseDeletionManager):
     def get_query_set(self):
         return self.get_queryset()
 
-class ControllerLinkManager(PlCoreBaseManager):
+class ControllerLinkManager(XOSBaseManager):
     def get_queryset(self):
         parent=super(ControllerLinkManager, self)
 
@@ -204,7 +204,7 @@ class ControllerLinkManager(PlCoreBaseManager):
         return self.get_queryset()
 
 
-class ControllerManager(PlCoreBaseManager):
+class ControllerManager(XOSBaseManager):
     def get_queryset(self):
         parent=super(ControllerManager, self)
 
