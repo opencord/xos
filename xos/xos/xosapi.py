@@ -1285,7 +1285,7 @@ class NetworkSerializer(serializers.HyperlinkedModelSerializer):
             return None
     class Meta:
         model = Network
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','subnet','start_ip','end_ip','ports','labels','guaranteed_bandwidth','permit_all_slices','topology_parameters','controller_url','controller_parameters','network_id','router_id','subnet_id','autoconnect','template','owner','slices','slices','instances',)
+        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','subnet','start_ip','end_ip','ports','labels','permit_all_slices','autoconnect','template','owner','slices','slices','instances',)
 
 class NetworkIdSerializer(XOSModelSerializer):
     id = IdField()
@@ -1313,7 +1313,7 @@ class NetworkIdSerializer(XOSModelSerializer):
             return None
     class Meta:
         model = Network
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','subnet','start_ip','end_ip','ports','labels','guaranteed_bandwidth','permit_all_slices','topology_parameters','controller_url','controller_parameters','network_id','router_id','subnet_id','autoconnect','template','owner','slices','slices','instances',)
+        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','subnet','start_ip','end_ip','ports','labels','permit_all_slices','autoconnect','template','owner','slices','slices','instances',)
 
 
 
@@ -1515,7 +1515,7 @@ class RoleSerializer(serializers.HyperlinkedModelSerializer):
             return None
     class Meta:
         model = Role
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','role_type','role','description','content_type',)
+        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','role_type','role','description',)
 
 class RoleIdSerializer(XOSModelSerializer):
     id = IdField()
@@ -1531,7 +1531,7 @@ class RoleIdSerializer(XOSModelSerializer):
             return None
     class Meta:
         model = Role
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','role_type','role','description','content_type',)
+        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','role_type','role','description',)
 
 
 
@@ -1983,7 +1983,7 @@ class SliceSerializer(serializers.HyperlinkedModelSerializer):
             return None
     class Meta:
         model = Slice
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','enabled','omf_friendly','description','slice_url','max_instances','network','exposed_ports','mount_data_sets','default_isolation','site','service','serviceClass','creator','default_flavor','default_image','default_node','networks','networks',)
+        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','enabled','description','slice_url','max_instances','network','exposed_ports','mount_data_sets','default_isolation','site','service','serviceClass','creator','default_flavor','default_image','default_node','networks','networks',)
 
 class SliceIdSerializer(XOSModelSerializer):
     id = IdField()
@@ -2007,7 +2007,7 @@ class SliceIdSerializer(XOSModelSerializer):
             return None
     class Meta:
         model = Slice
-        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','enabled','omf_friendly','description','slice_url','max_instances','network','exposed_ports','mount_data_sets','default_isolation','site','service','serviceClass','creator','default_flavor','default_image','default_node','networks','networks',)
+        fields = ('humanReadableName', 'validators', 'id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','enabled','description','slice_url','max_instances','network','exposed_ports','mount_data_sets','default_isolation','site','service','serviceClass','creator','default_flavor','default_image','default_node','networks','networks',)
 
 
 
@@ -3729,7 +3729,7 @@ class NetworkList(XOSListCreateAPIView):
     serializer_class = NetworkSerializer
     id_serializer_class = NetworkIdSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','subnet','start_ip','end_ip','ports','labels','guaranteed_bandwidth','permit_all_slices','topology_parameters','controller_url','controller_parameters','network_id','router_id','subnet_id','autoconnect','template','owner','slices','slices','instances',)
+    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','subnet','start_ip','end_ip','ports','labels','permit_all_slices','autoconnect','template','owner','slices','slices','instances',)
 
     def get_serializer_class(self):
         no_hyperlinks=False
@@ -4011,7 +4011,7 @@ class RoleList(XOSListCreateAPIView):
     serializer_class = RoleSerializer
     id_serializer_class = RoleIdSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','role_type','role','description','content_type',)
+    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','role_type','role','description',)
 
     def get_serializer_class(self):
         no_hyperlinks=False
@@ -4575,7 +4575,7 @@ class SliceList(XOSListCreateAPIView):
     serializer_class = SliceSerializer
     id_serializer_class = SliceIdSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','enabled','omf_friendly','description','slice_url','max_instances','network','exposed_ports','mount_data_sets','default_isolation','site','service','serviceClass','creator','default_flavor','default_image','default_node','networks','networks',)
+    filter_fields = ('id','created','updated','enacted','policed','backend_register','backend_need_delete','backend_need_reap','backend_status','deleted','write_protect','lazy_blocked','no_sync','no_policy','name','enabled','description','slice_url','max_instances','network','exposed_ports','mount_data_sets','default_isolation','site','service','serviceClass','creator','default_flavor','default_image','default_node','networks','networks',)
 
     def get_serializer_class(self):
         no_hyperlinks=False
