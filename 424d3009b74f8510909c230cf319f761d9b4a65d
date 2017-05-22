@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba092121_aae7e6e3",
+        "filename": "SUMMARY.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-05-22T17:43:57Z",
+      "side": 1,
+      "message": "These links are pointing to missing files",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 32
+      },
+      "revId": "424d3009b74f8510909c230cf319f761d9b4a65d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_eaddde15",
+        "filename": "xproto.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-05-22T17:43:57Z",
+      "side": 1,
+      "message": "To use xProto we don\u0027t really need to have a full CORD pod, the frontend config is enough (as they only affect the data-model).\nWe should encourage people to start from the smallest possible environment.",
+      "range": {
+        "startLine": 7,
+        "startChar": 176,
+        "endLine": 7,
+        "endChar": 304
+      },
+      "revId": "424d3009b74f8510909c230cf319f761d9b4a65d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_8aec22c9",
+        "filename": "xproto.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-05-22T17:43:57Z",
+      "side": 1,
+      "message": "add backticks?",
+      "range": {
+        "startLine": 37,
+        "startChar": 48,
+        "endLine": 37,
+        "endChar": 75
+      },
+      "revId": "424d3009b74f8510909c230cf319f761d9b4a65d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_4ace0a5c",
+        "filename": "xproto.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-05-22T17:43:57Z",
+      "side": 1,
+      "message": "from which directory?",
+      "range": {
+        "startLine": 39,
+        "startChar": 110,
+        "endLine": 39,
+        "endChar": 125
+      },
+      "revId": "424d3009b74f8510909c230cf319f761d9b4a65d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba092121_2adbd61c",
+        "filename": "xproto.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-05-22T17:43:57Z",
+      "side": 1,
+      "message": "Not documentation related, but why the python syntax?",
+      "range": {
+        "startLine": 168,
+        "startChar": 17,
+        "endLine": 168,
+        "endChar": 74
+      },
+      "revId": "424d3009b74f8510909c230cf319f761d9b4a65d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
