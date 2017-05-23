@@ -1,5 +1,3 @@
-def __unicode__(self):  return u'%s' % (self.name)
-
 def save(self, *args, **kwds):
     if (not self.subnet) and (NO_OBSERVER):
         from util.network_subnet_allocator import find_unused_subnet
