@@ -5,18 +5,6 @@ def __init__(self, *args, **kwargs):
     self._meta.get_field("kind").default = self.KIND
     super(Tenant, self).__init__(*args, **kwargs)
 
-@classmethod
-def get_tenant_objects(cls):
-    return cls.objects.filter(kind=cls.KIND)
-
-@classmethod
-def get_tenant_objects_by_user(cls, user):
-    return cls.select_by_user(user).filter(kind=cls.KIND)
-
-@classmethod
-def get_deleted_tenant_objects(cls):
-    return cls.deleted_objects.filter(kind=cls.KIND)
-
 @property
 def tenantattribute_dict(self):
     attrs = {}

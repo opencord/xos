@@ -19,14 +19,6 @@ def get_newest_subscribed_tenant(self, kind):
     return sorted(st, key=attrgetter('id'))[0]
 
 @classmethod
-def get_tenant_objects(cls):
-    return cls.objects.filter(kind=cls.KIND)
-
-@classmethod
-def get_tenant_objects_by_user(cls, user):
-    return cls.select_by_user(user).filter(kind=cls.KIND)
-
-@classmethod
 def select_by_user(cls, user):
     if user.is_admin:
         return cls.objects.all()
