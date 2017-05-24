@@ -22,6 +22,7 @@
 
 default: build
 
+XOS_DIR=/opt/xos
 PROTO_FILES := $(wildcard *.proto) $(wildcard third_party/google/api/*proto)
 PROTO_PB2_FILES := $(foreach f,$(PROTO_FILES),$(subst .proto,_pb2.py,$(f)))
 PROTO_DESC_FILES := $(foreach f,$(PROTO_FILES),$(subst .proto,.desc,$(f)))
@@ -82,7 +83,7 @@ uninstall-protoc:
 	    sudo make uninstall
 
 rebuild-protos:
-	cd ../../tools/apigen && python ./modelgen -a "*" protobuf.template.txt > /opt/xos/coreapi/protos/xos.proto  
-	cd ../../tools/apigen && python ./modelgen -a "*" grpc_api.template.py > /opt/xos/coreapi/xos_grpc_api.py  
-	cd ../../tools/apigen && python ./modelgen -a "*" grpc_list_test.template.py > /opt/xos/coreapi/tests/list_test.py
-	cd ../../tools/apigen && python ./modelgen -a "*" chameleon_list_test.template.sh > /opt/xos/coreapi/tests/chameleon_list_test.sh
+	cd ../../core/models && python ../../genx/tool/xosgen --target ../../genx/targets/protoapi.xtarget core.xproto > $(XOS_DIR)/coreapi/protos/xos.proto  
+	cd ../../core/models && python ../../genx/tool/xosgen --target ../../genx/targets/grpc_api.xtarget core.xproto > $(XOS_DIR)/coreapi/xos_grpc_api.py  
+	cd ../../core/models && python ../../genx/tool/xosgen --target ../../genx/targets/grpc_list_test.xtarget core.xproto > $(XOS_DIR)/coreapi/tests/list_test.py
+	cd ../../core/models && python ../../genx/tool/xosgen --target ../../genx/targets/chameleon_list_test.xtarget core.xproto > $(XOS_DIR)/coreapi/tests/chameleon_list_test.sh
