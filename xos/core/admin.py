@@ -494,8 +494,8 @@ class InstanceInline(XOSTabularInline):
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         if db_field.name == 'deployment':
-            kwargs['queryset'] = Deployment.select_by_acl(request.user).filter(
-                sitedeployments__nodes__isnull=False).distinct()
+#            kwargs['queryset'] = Deployment.select_by_acl(request.user).filter(
+#                sitedeployments__nodes__isnull=False).distinct()
             kwargs['widget'] = forms.Select(
                 attrs={'onChange': "instance_deployment_changed(this);"})
         if db_field.name == 'flavor':
@@ -523,8 +523,8 @@ class CordInstanceInline(XOSTabularInline):
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         if db_field.name == 'deployment':
 
-            kwargs['queryset'] = Deployment.select_by_acl(request.user).filter(
-                sitedeployments__nodes__isnull=False).distinct()
+#            kwargs['queryset'] = Deployment.select_by_acl(request.user).filter(
+#                sitedeployments__nodes__isnull=False).distinct()
             kwargs['widget'] = forms.Select(
                 attrs={'onChange': "instance_deployment_changed(this);"})
         if db_field.name == 'flavor':
@@ -1639,8 +1639,8 @@ class InstanceAdmin(XOSBaseAdmin):
 
     def formfield_for_foreignkey(self, db_field, request=None, **kwargs):
         if db_field.name == 'deployment':
-            kwargs['queryset'] = Deployment.select_by_acl(request.user).filter(
-                sitedeployments__nodes__isnull=False).distinct()
+#            kwargs['queryset'] = Deployment.select_by_acl(request.user).filter(
+#                sitedeployments__nodes__isnull=False).distinct()
             kwargs['widget'] = forms.Select(
                 attrs={'onChange': "instance_deployment_changed(this);"})
         if db_field.name == 'flavor':
