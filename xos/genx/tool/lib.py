@@ -19,6 +19,16 @@ def xproto_singularize(field):
 
     return singular
 
+def xproto_singularize_pluralize(field):
+    try:
+        # The user has set a plural, as an exception that cannot be handled automatically
+        plural = field['options']['plural']
+        plural = unquote(plural)
+    except KeyError:
+        plural = en.pluralize(en.singularize(field['name']))
+
+    return plural
+
 def xproto_pluralize(field):
     try:
         # The user has set a plural, as an exception that cannot be handled automatically
@@ -211,3 +221,25 @@ def xproto_base_fields(m, table):
             fields.extend(model_fields)
 
     return fields
+
+def xproto_api_opts(field):
+    options = []
+    if 'max_length' in field['options'] and field['type']=='string':
+        options.append('(val).maxLength = %s'%field['options']['max_length'])
+
+    try:
+        if field['options']['null'] == 'False':
+            options.append('(val).nonNull = true')
+    except KeyError:
+        pass
+
+    if 'link' in field and 'model' in field['options']:
+        options.append('(foreignKey).modelName = "%s"'%field['options']['model'])
+
+    if options:
+        options_str = '[' + ', '.join(options) + ']'
+    else:
+        options_str = ''
+
+    return options_str
+
