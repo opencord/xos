@@ -10,8 +10,6 @@ from proto2xproto import Proto2XProto
 
 import lib
 
-
-
 loader = jinja2.PackageLoader(__name__, 'templates')
 env = jinja2.Environment(loader=loader)
 
