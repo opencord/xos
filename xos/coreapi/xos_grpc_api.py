@@ -4,1737 +4,2825 @@ from protos import xos_pb2
 from google.protobuf.empty_pb2 import Empty
 
 from django.contrib.auth import authenticate as django_authenticate
-from core.models import *
 from xos.exceptions import *
-from apihelper import XOSAPIHelperMixin
+from apihelper import XOSAPIHelperMixin, translate_exceptions
 
 class XosService(xos_pb2.xosServicer, XOSAPIHelperMixin):
     def __init__(self, thread_pool):
         self.thread_pool = thread_pool
+        XOSAPIHelperMixin.__init__(self)
 
     def stop(self):
         pass
 
-    def ListServiceControllerResource(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ServiceControllerResource, ServiceControllerResource.objects.all())
-
-    def GetServiceControllerResource(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ServiceControllerResource, request.id)
-
-    def CreateServiceControllerResource(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ServiceControllerResource, user, request)
-
-    def DeleteServiceControllerResource(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ServiceControllerResource, user, request.id)
-
-    def UpdateServiceControllerResource(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ServiceControllerResource, user, request.id, request)
-
-
-    def ListXOSVolume(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(XOSVolume, XOSVolume.objects.all())
-
-    def GetXOSVolume(self, request, context):
-      user=self.authenticate(context)
-      return self.get(XOSVolume, request.id)
-
-    def CreateXOSVolume(self, request, context):
-      user=self.authenticate(context)
-      return self.create(XOSVolume, user, request)
-
-    def DeleteXOSVolume(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(XOSVolume, user, request.id)
-
-    def UpdateXOSVolume(self, request, context):
-      user=self.authenticate(context)
-      return self.update(XOSVolume, user, request.id, request)
-
-
-    def ListServiceAttribute(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ServiceAttribute, ServiceAttribute.objects.all())
-
-    def GetServiceAttribute(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ServiceAttribute, request.id)
-
-    def CreateServiceAttribute(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ServiceAttribute, user, request)
-
-    def DeleteServiceAttribute(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ServiceAttribute, user, request.id)
-
-    def UpdateServiceAttribute(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ServiceAttribute, user, request.id, request)
-
-
-    def ListControllerImages(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ControllerImages, ControllerImages.objects.all())
-
-    def GetControllerImages(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ControllerImages, request.id)
-
-    def CreateControllerImages(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ControllerImages, user, request)
-
-    def DeleteControllerImages(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ControllerImages, user, request.id)
-
-    def UpdateControllerImages(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ControllerImages, user, request.id, request)
-
-
-    def ListControllerSitePrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ControllerSitePrivilege, ControllerSitePrivilege.objects.all())
-
-    def GetControllerSitePrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ControllerSitePrivilege, request.id)
-
-    def CreateControllerSitePrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ControllerSitePrivilege, user, request)
-
-    def DeleteControllerSitePrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ControllerSitePrivilege, user, request.id)
-
-    def UpdateControllerSitePrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ControllerSitePrivilege, user, request.id, request)
-
-
-    def ListImage(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Image, Image.objects.all())
-
-    def GetImage(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Image, request.id)
-
-    def CreateImage(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Image, user, request)
-
-    def DeleteImage(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Image, user, request.id)
-
-    def UpdateImage(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Image, user, request.id, request)
-
-
-    def ListControllerNetwork(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ControllerNetwork, ControllerNetwork.objects.all())
-
-    def GetControllerNetwork(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ControllerNetwork, request.id)
-
-    def CreateControllerNetwork(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ControllerNetwork, user, request)
-
-    def DeleteControllerNetwork(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ControllerNetwork, user, request.id)
-
-    def UpdateControllerNetwork(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ControllerNetwork, user, request.id, request)
-
-
-    def ListSite(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Site, Site.objects.all())
-
-    def GetSite(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Site, request.id)
-
-    def CreateSite(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Site, user, request)
-
-    def DeleteSite(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Site, user, request.id)
-
-    def UpdateSite(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Site, user, request.id, request)
-
-
-    def ListLibrary(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Library, Library.objects.all())
-
-    def GetLibrary(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Library, request.id)
-
-    def CreateLibrary(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Library, user, request)
-
-    def DeleteLibrary(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Library, user, request.id)
-
-    def UpdateLibrary(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Library, user, request.id, request)
-
-
-    def ListSliceRole(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(SliceRole, SliceRole.objects.all())
-
-    def GetSliceRole(self, request, context):
-      user=self.authenticate(context)
-      return self.get(SliceRole, request.id)
-
-    def CreateSliceRole(self, request, context):
-      user=self.authenticate(context)
-      return self.create(SliceRole, user, request)
-
-    def DeleteSliceRole(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(SliceRole, user, request.id)
-
-    def UpdateSliceRole(self, request, context):
-      user=self.authenticate(context)
-      return self.update(SliceRole, user, request.id, request)
-
-
-    def ListSiteDeployment(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(SiteDeployment, SiteDeployment.objects.all())
-
-    def GetSiteDeployment(self, request, context):
-      user=self.authenticate(context)
-      return self.get(SiteDeployment, request.id)
-
-    def CreateSiteDeployment(self, request, context):
-      user=self.authenticate(context)
-      return self.create(SiteDeployment, user, request)
-
-    def DeleteSiteDeployment(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(SiteDeployment, user, request.id)
-
-    def UpdateSiteDeployment(self, request, context):
-      user=self.authenticate(context)
-      return self.update(SiteDeployment, user, request.id, request)
-
-
-    def ListXOSComponentLink(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(XOSComponentLink, XOSComponentLink.objects.all())
-
-    def GetXOSComponentLink(self, request, context):
-      user=self.authenticate(context)
-      return self.get(XOSComponentLink, request.id)
-
-    def CreateXOSComponentLink(self, request, context):
-      user=self.authenticate(context)
-      return self.create(XOSComponentLink, user, request)
-
-    def DeleteXOSComponentLink(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(XOSComponentLink, user, request.id)
-
-    def UpdateXOSComponentLink(self, request, context):
-      user=self.authenticate(context)
-      return self.update(XOSComponentLink, user, request.id, request)
-
-
-    def ListTenantPrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(TenantPrivilege, TenantPrivilege.objects.all())
-
-    def GetTenantPrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.get(TenantPrivilege, request.id)
-
-    def CreateTenantPrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.create(TenantPrivilege, user, request)
-
-    def DeleteTenantPrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(TenantPrivilege, user, request.id)
-
-    def UpdateTenantPrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.update(TenantPrivilege, user, request.id, request)
-
-
-    def ListTag(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Tag, Tag.objects.all())
-
-    def GetTag(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Tag, request.id)
-
-    def CreateTag(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Tag, user, request)
-
-    def DeleteTag(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Tag, user, request.id)
-
-    def UpdateTag(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Tag, user, request.id, request)
-
-
-    def ListServiceMonitoringAgentInfo(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ServiceMonitoringAgentInfo, ServiceMonitoringAgentInfo.objects.all())
-
-    def GetServiceMonitoringAgentInfo(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ServiceMonitoringAgentInfo, request.id)
-
-    def CreateServiceMonitoringAgentInfo(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ServiceMonitoringAgentInfo, user, request)
-
-    def DeleteServiceMonitoringAgentInfo(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ServiceMonitoringAgentInfo, user, request.id)
-
-    def UpdateServiceMonitoringAgentInfo(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ServiceMonitoringAgentInfo, user, request.id, request)
-
-
-    def ListXOSComponent(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(XOSComponent, XOSComponent.objects.all())
-
-    def GetXOSComponent(self, request, context):
-      user=self.authenticate(context)
-      return self.get(XOSComponent, request.id)
-
-    def CreateXOSComponent(self, request, context):
-      user=self.authenticate(context)
-      return self.create(XOSComponent, user, request)
-
-    def DeleteXOSComponent(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(XOSComponent, user, request.id)
-
-    def UpdateXOSComponent(self, request, context):
-      user=self.authenticate(context)
-      return self.update(XOSComponent, user, request.id, request)
-
-
-    def ListInvoice(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Invoice, Invoice.objects.all())
-
-    def GetInvoice(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Invoice, request.id)
-
-    def CreateInvoice(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Invoice, user, request)
-
-    def DeleteInvoice(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Invoice, user, request.id)
-
-    def UpdateInvoice(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Invoice, user, request.id, request)
-
-
-    def ListSlicePrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(SlicePrivilege, SlicePrivilege.objects.all())
-
-    def GetSlicePrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.get(SlicePrivilege, request.id)
-
-    def CreateSlicePrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.create(SlicePrivilege, user, request)
-
-    def DeleteSlicePrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(SlicePrivilege, user, request.id)
-
-    def UpdateSlicePrivilege(self, request, context):
-      user=self.authenticate(context)
-      return self.update(SlicePrivilege, user, request.id, request)
-
-
-    def ListFlavor(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Flavor, Flavor.objects.all())
-
-    def GetFlavor(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Flavor, request.id)
-
-    def CreateFlavor(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Flavor, user, request)
-
-    def DeleteFlavor(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Flavor, user, request.id)
-
-    def UpdateFlavor(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Flavor, user, request.id, request)
-
-
-    def ListPort(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Port, Port.objects.all())
-
-    def GetPort(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Port, request.id)
-
-    def CreatePort(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Port, user, request)
-
-    def DeletePort(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Port, user, request.id)
-
-    def UpdatePort(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Port, user, request.id, request)
-
-
-    def ListServiceRole(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ServiceRole, ServiceRole.objects.all())
-
-    def GetServiceRole(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ServiceRole, request.id)
-
-    def CreateServiceRole(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ServiceRole, user, request)
-
-    def DeleteServiceRole(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ServiceRole, user, request.id)
-
-    def UpdateServiceRole(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ServiceRole, user, request.id, request)
-
-
-    def ListControllerSite(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ControllerSite, ControllerSite.objects.all())
-
-    def GetControllerSite(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ControllerSite, request.id)
-
-    def CreateControllerSite(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ControllerSite, user, request)
-
-    def DeleteControllerSite(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ControllerSite, user, request.id)
-
-    def UpdateControllerSite(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ControllerSite, user, request.id, request)
-
-
-    def ListControllerSlice(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ControllerSlice, ControllerSlice.objects.all())
-
-    def GetControllerSlice(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ControllerSlice, request.id)
-
-    def CreateControllerSlice(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ControllerSlice, user, request)
-
-    def DeleteControllerSlice(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ControllerSlice, user, request.id)
-
-    def UpdateControllerSlice(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ControllerSlice, user, request.id, request)
-
-
-    def ListTenantRole(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(TenantRole, TenantRole.objects.all())
-
-    def GetTenantRole(self, request, context):
-      user=self.authenticate(context)
-      return self.get(TenantRole, request.id)
-
-    def CreateTenantRole(self, request, context):
-      user=self.authenticate(context)
-      return self.create(TenantRole, user, request)
-
-    def DeleteTenantRole(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(TenantRole, user, request.id)
-
-    def UpdateTenantRole(self, request, context):
-      user=self.authenticate(context)
-      return self.update(TenantRole, user, request.id, request)
-
-
-    def ListSlice(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Slice, Slice.objects.all())
-
-    def GetSlice(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Slice, request.id)
-
-    def CreateSlice(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Slice, user, request)
-
-    def DeleteSlice(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Slice, user, request.id)
-
-    def UpdateSlice(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Slice, user, request.id, request)
-
-
-    def ListLoadableModuleResource(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(LoadableModuleResource, LoadableModuleResource.objects.all())
-
-    def GetLoadableModuleResource(self, request, context):
-      user=self.authenticate(context)
-      return self.get(LoadableModuleResource, request.id)
-
-    def CreateLoadableModuleResource(self, request, context):
-      user=self.authenticate(context)
-      return self.create(LoadableModuleResource, user, request)
-
-    def DeleteLoadableModuleResource(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(LoadableModuleResource, user, request.id)
-
-    def UpdateLoadableModuleResource(self, request, context):
-      user=self.authenticate(context)
-      return self.update(LoadableModuleResource, user, request.id, request)
-
-
-    def ListControllerRole(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ControllerRole, ControllerRole.objects.all())
-
-    def GetControllerRole(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ControllerRole, request.id)
-
-    def CreateControllerRole(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ControllerRole, user, request)
-
-    def DeleteControllerRole(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ControllerRole, user, request.id)
-
-    def UpdateControllerRole(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ControllerRole, user, request.id, request)
-
-
-    def ListDiag(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Diag, Diag.objects.all())
-
-    def GetDiag(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Diag, request.id)
-
-    def CreateDiag(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Diag, user, request)
-
-    def DeleteDiag(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Diag, user, request.id)
-
-    def UpdateDiag(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Diag, user, request.id, request)
-
-
-    def ListXOS(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(XOS, XOS.objects.all())
-
-    def GetXOS(self, request, context):
-      user=self.authenticate(context)
-      return self.get(XOS, request.id)
-
-    def CreateXOS(self, request, context):
-      user=self.authenticate(context)
-      return self.create(XOS, user, request)
-
-    def DeleteXOS(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(XOS, user, request.id)
-
-    def UpdateXOS(self, request, context):
-      user=self.authenticate(context)
-      return self.update(XOS, user, request.id, request)
-
-
-    def ListServiceClass(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ServiceClass, ServiceClass.objects.all())
-
-    def GetServiceClass(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ServiceClass, request.id)
-
-    def CreateServiceClass(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ServiceClass, user, request)
-
-    def DeleteServiceClass(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ServiceClass, user, request.id)
-
-    def UpdateServiceClass(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ServiceClass, user, request.id, request)
-
-
-    def ListTenantAttribute(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(TenantAttribute, TenantAttribute.objects.all())
-
-    def GetTenantAttribute(self, request, context):
-      user=self.authenticate(context)
-      return self.get(TenantAttribute, request.id)
-
-    def CreateTenantAttribute(self, request, context):
-      user=self.authenticate(context)
-      return self.create(TenantAttribute, user, request)
-
-    def DeleteTenantAttribute(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(TenantAttribute, user, request.id)
-
-    def UpdateTenantAttribute(self, request, context):
-      user=self.authenticate(context)
-      return self.update(TenantAttribute, user, request.id, request)
-
-
-    def ListSiteRole(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(SiteRole, SiteRole.objects.all())
-
-    def GetSiteRole(self, request, context):
-      user=self.authenticate(context)
-      return self.get(SiteRole, request.id)
-
-    def CreateSiteRole(self, request, context):
-      user=self.authenticate(context)
-      return self.create(SiteRole, user, request)
-
-    def DeleteSiteRole(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(SiteRole, user, request.id)
-
-    def UpdateSiteRole(self, request, context):
-      user=self.authenticate(context)
-      return self.update(SiteRole, user, request.id, request)
-
-
-    def ListSubscriber(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Subscriber, Subscriber.objects.all())
-
-    def GetSubscriber(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Subscriber, request.id)
-
-    def CreateSubscriber(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Subscriber, user, request)
-
-    def DeleteSubscriber(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Subscriber, user, request.id)
-
-    def UpdateSubscriber(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Subscriber, user, request.id, request)
-
-
-    def ListInstance(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Instance, Instance.objects.all())
-
-    def GetInstance(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Instance, request.id)
-
-    def CreateInstance(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Instance, user, request)
-
-    def DeleteInstance(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Instance, user, request.id)
-
-    def UpdateInstance(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Instance, user, request.id, request)
-
-
-    def ListCharge(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Charge, Charge.objects.all())
-
-    def GetCharge(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Charge, request.id)
-
-    def CreateCharge(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Charge, user, request)
-
-    def DeleteCharge(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Charge, user, request.id)
-
-    def UpdateCharge(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Charge, user, request.id, request)
-
-
-    def ListProgram(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Program, Program.objects.all())
-
-    def GetProgram(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Program, request.id)
-
-    def CreateProgram(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Program, user, request)
-
-    def DeleteProgram(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Program, user, request.id)
 
-    def UpdateProgram(self, request, context):
+    @translate_exceptions
+    def ListAccessAgent(self, request, context):
       user=self.authenticate(context)
-      return self.update(Program, user, request.id, request)
+      model=self.get_model("AccessAgent")
+      return self.querysetToProto(model, model.objects.all())
 
-
-    def ListRole(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Role, Role.objects.all())
-
-    def GetRole(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Role, request.id)
-
-    def CreateRole(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Role, user, request)
-
-    def DeleteRole(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Role, user, request.id)
-
-    def UpdateRole(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Role, user, request.id, request)
-
-
-    def ListNodeLabel(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(NodeLabel, NodeLabel.objects.all())
-
-    def GetNodeLabel(self, request, context):
-      user=self.authenticate(context)
-      return self.get(NodeLabel, request.id)
-
-    def CreateNodeLabel(self, request, context):
-      user=self.authenticate(context)
-      return self.create(NodeLabel, user, request)
-
-    def DeleteNodeLabel(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(NodeLabel, user, request.id)
-
-    def UpdateNodeLabel(self, request, context):
-      user=self.authenticate(context)
-      return self.update(NodeLabel, user, request.id, request)
-
-
-    def ListNetworkTemplate(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(NetworkTemplate, NetworkTemplate.objects.all())
-
-    def GetNetworkTemplate(self, request, context):
-      user=self.authenticate(context)
-      return self.get(NetworkTemplate, request.id)
-
-    def CreateNetworkTemplate(self, request, context):
-      user=self.authenticate(context)
-      return self.create(NetworkTemplate, user, request)
-
-    def DeleteNetworkTemplate(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(NetworkTemplate, user, request.id)
-
-    def UpdateNetworkTemplate(self, request, context):
-      user=self.authenticate(context)
-      return self.update(NetworkTemplate, user, request.id, request)
-
-
-    def ListServiceController(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ServiceController, ServiceController.objects.all())
-
-    def GetServiceController(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ServiceController, request.id)
-
-    def CreateServiceController(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ServiceController, user, request)
-
-    def DeleteServiceController(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ServiceController, user, request.id)
-
-    def UpdateServiceController(self, request, context):
+    @translate_exceptions
+    def FilterAccessAgent(self, request, context):
       user=self.authenticate(context)
-      return self.update(ServiceController, user, request.id, request)
+      model=self.get_model("AccessAgent")
+      return self.filter(model, request)
 
-
-    def ListLoadableModule(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(LoadableModule, LoadableModule.objects.all())
-
-    def GetLoadableModule(self, request, context):
-      user=self.authenticate(context)
-      return self.get(LoadableModule, request.id)
-
-    def CreateLoadableModule(self, request, context):
-      user=self.authenticate(context)
-      return self.create(LoadableModule, user, request)
-
-    def DeleteLoadableModule(self, request, context):
+    @translate_exceptions
+    def GetAccessAgent(self, request, context):
       user=self.authenticate(context)
-      return self.delete(LoadableModule, user, request.id)
+      model=self.get_model("AccessAgent")
+      return self.get(model, request.id)
 
-    def UpdateLoadableModule(self, request, context):
+    @translate_exceptions
+    def CreateAccessAgent(self, request, context):
       user=self.authenticate(context)
-      return self.update(LoadableModule, user, request.id, request)
+      model=self.get_model("AccessAgent")
+      return self.create(model, user, request)
 
-
-    def ListUsableObject(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(UsableObject, UsableObject.objects.all())
-
-    def GetUsableObject(self, request, context):
+    @translate_exceptions
+    def DeleteAccessAgent(self, request, context):
       user=self.authenticate(context)
-      return self.get(UsableObject, request.id)
+      model=self.get_model("AccessAgent")
+      return self.delete(model, user, request.id)
 
-    def CreateUsableObject(self, request, context):
+    @translate_exceptions
+    def UpdateAccessAgent(self, request, context):
       user=self.authenticate(context)
-      return self.create(UsableObject, user, request)
+      model=self.get_model("AccessAgent")
+      return self.update(model, user, request.id, request, context)
 
-    def DeleteUsableObject(self, request, context):
+    @translate_exceptions
+    def ListAccessDevice(self, request, context):
       user=self.authenticate(context)
-      return self.delete(UsableObject, user, request.id)
+      model=self.get_model("AccessDevice")
+      return self.querysetToProto(model, model.objects.all())
 
-    def UpdateUsableObject(self, request, context):
+    @translate_exceptions
+    def FilterAccessDevice(self, request, context):
       user=self.authenticate(context)
-      return self.update(UsableObject, user, request.id, request)
+      model=self.get_model("AccessDevice")
+      return self.filter(model, request)
 
-
-    def ListNode(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Node, Node.objects.all())
-
-    def GetNode(self, request, context):
+    @translate_exceptions
+    def GetAccessDevice(self, request, context):
       user=self.authenticate(context)
-      return self.get(Node, request.id)
+      model=self.get_model("AccessDevice")
+      return self.get(model, request.id)
 
-    def CreateNode(self, request, context):
+    @translate_exceptions
+    def CreateAccessDevice(self, request, context):
       user=self.authenticate(context)
-      return self.create(Node, user, request)
+      model=self.get_model("AccessDevice")
+      return self.create(model, user, request)
 
-    def DeleteNode(self, request, context):
+    @translate_exceptions
+    def DeleteAccessDevice(self, request, context):
       user=self.authenticate(context)
-      return self.delete(Node, user, request.id)
+      model=self.get_model("AccessDevice")
+      return self.delete(model, user, request.id)
 
-    def UpdateNode(self, request, context):
+    @translate_exceptions
+    def UpdateAccessDevice(self, request, context):
       user=self.authenticate(context)
-      return self.update(Node, user, request.id, request)
-
+      model=self.get_model("AccessDevice")
+      return self.update(model, user, request.id, request, context)
 
+    @translate_exceptions
     def ListAddressPool(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(AddressPool, AddressPool.objects.all())
+      model=self.get_model("AddressPool")
+      return self.querysetToProto(model, model.objects.all())
 
+    @translate_exceptions
+    def FilterAddressPool(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("AddressPool")
+      return self.filter(model, request)
+
+    @translate_exceptions
     def GetAddressPool(self, request, context):
       user=self.authenticate(context)
-      return self.get(AddressPool, request.id)
+      model=self.get_model("AddressPool")
+      return self.get(model, request.id)
 
+    @translate_exceptions
     def CreateAddressPool(self, request, context):
       user=self.authenticate(context)
-      return self.create(AddressPool, user, request)
+      model=self.get_model("AddressPool")
+      return self.create(model, user, request)
 
+    @translate_exceptions
     def DeleteAddressPool(self, request, context):
       user=self.authenticate(context)
-      return self.delete(AddressPool, user, request.id)
+      model=self.get_model("AddressPool")
+      return self.delete(model, user, request.id)
 
+    @translate_exceptions
     def UpdateAddressPool(self, request, context):
       user=self.authenticate(context)
-      return self.update(AddressPool, user, request.id, request)
+      model=self.get_model("AddressPool")
+      return self.update(model, user, request.id, request, context)
 
-
-    def ListDashboardView(self, request, context):
+    @translate_exceptions
+    def ListAgentPortMapping(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(DashboardView, DashboardView.objects.all())
+      model=self.get_model("AgentPortMapping")
+      return self.querysetToProto(model, model.objects.all())
 
-    def GetDashboardView(self, request, context):
+    @translate_exceptions
+    def FilterAgentPortMapping(self, request, context):
       user=self.authenticate(context)
-      return self.get(DashboardView, request.id)
+      model=self.get_model("AgentPortMapping")
+      return self.filter(model, request)
 
-    def CreateDashboardView(self, request, context):
+    @translate_exceptions
+    def GetAgentPortMapping(self, request, context):
       user=self.authenticate(context)
-      return self.create(DashboardView, user, request)
+      model=self.get_model("AgentPortMapping")
+      return self.get(model, request.id)
 
-    def DeleteDashboardView(self, request, context):
+    @translate_exceptions
+    def CreateAgentPortMapping(self, request, context):
       user=self.authenticate(context)
-      return self.delete(DashboardView, user, request.id)
+      model=self.get_model("AgentPortMapping")
+      return self.create(model, user, request)
 
-    def UpdateDashboardView(self, request, context):
+    @translate_exceptions
+    def DeleteAgentPortMapping(self, request, context):
       user=self.authenticate(context)
-      return self.update(DashboardView, user, request.id, request)
+      model=self.get_model("AgentPortMapping")
+      return self.delete(model, user, request.id)
 
-
-    def ListNetworkParameter(self, request, context):
+    @translate_exceptions
+    def UpdateAgentPortMapping(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(NetworkParameter, NetworkParameter.objects.all())
+      model=self.get_model("AgentPortMapping")
+      return self.update(model, user, request.id, request, context)
 
-    def GetNetworkParameter(self, request, context):
-      user=self.authenticate(context)
-      return self.get(NetworkParameter, request.id)
-
-    def CreateNetworkParameter(self, request, context):
-      user=self.authenticate(context)
-      return self.create(NetworkParameter, user, request)
-
-    def DeleteNetworkParameter(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(NetworkParameter, user, request.id)
-
-    def UpdateNetworkParameter(self, request, context):
-      user=self.authenticate(context)
-      return self.update(NetworkParameter, user, request.id, request)
-
-
-    def ListImageDeployments(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ImageDeployments, ImageDeployments.objects.all())
-
-    def GetImageDeployments(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ImageDeployments, request.id)
-
-    def CreateImageDeployments(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ImageDeployments, user, request)
-
-    def DeleteImageDeployments(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ImageDeployments, user, request.id)
-
-    def UpdateImageDeployments(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ImageDeployments, user, request.id, request)
-
-
-    def ListControllerUser(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ControllerUser, ControllerUser.objects.all())
-
-    def GetControllerUser(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ControllerUser, request.id)
-
-    def CreateControllerUser(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ControllerUser, user, request)
-
-    def DeleteControllerUser(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ControllerUser, user, request.id)
-
-    def UpdateControllerUser(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ControllerUser, user, request.id, request)
-
-
-    def ListReservedResource(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ReservedResource, ReservedResource.objects.all())
-
-    def GetReservedResource(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ReservedResource, request.id)
-
-    def CreateReservedResource(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ReservedResource, user, request)
-
-    def DeleteReservedResource(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ReservedResource, user, request.id)
-
-    def UpdateReservedResource(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ReservedResource, user, request.id, request)
-
-
-    def ListJournalEntry(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(JournalEntry, JournalEntry.objects.all())
-
-    def GetJournalEntry(self, request, context):
-      user=self.authenticate(context)
-      return self.get(JournalEntry, request.id)
-
-    def CreateJournalEntry(self, request, context):
-      user=self.authenticate(context)
-      return self.create(JournalEntry, user, request)
-
-    def DeleteJournalEntry(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(JournalEntry, user, request.id)
-
-    def UpdateJournalEntry(self, request, context):
-      user=self.authenticate(context)
-      return self.update(JournalEntry, user, request.id, request)
-
-
-    def ListUserCredential(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(UserCredential, UserCredential.objects.all())
-
-    def GetUserCredential(self, request, context):
-      user=self.authenticate(context)
-      return self.get(UserCredential, request.id)
-
-    def CreateUserCredential(self, request, context):
-      user=self.authenticate(context)
-      return self.create(UserCredential, user, request)
-
-    def DeleteUserCredential(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(UserCredential, user, request.id)
-
-    def UpdateUserCredential(self, request, context):
-      user=self.authenticate(context)
-      return self.update(UserCredential, user, request.id, request)
-
-
-    def ListControllerDashboardView(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(ControllerDashboardView, ControllerDashboardView.objects.all())
-
-    def GetControllerDashboardView(self, request, context):
-      user=self.authenticate(context)
-      return self.get(ControllerDashboardView, request.id)
-
-    def CreateControllerDashboardView(self, request, context):
-      user=self.authenticate(context)
-      return self.create(ControllerDashboardView, user, request)
-
-    def DeleteControllerDashboardView(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(ControllerDashboardView, user, request.id)
-
-    def UpdateControllerDashboardView(self, request, context):
-      user=self.authenticate(context)
-      return self.update(ControllerDashboardView, user, request.id, request)
-
-
-    def ListUserDashboardView(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(UserDashboardView, UserDashboardView.objects.all())
-
-    def GetUserDashboardView(self, request, context):
-      user=self.authenticate(context)
-      return self.get(UserDashboardView, request.id)
-
-    def CreateUserDashboardView(self, request, context):
-      user=self.authenticate(context)
-      return self.create(UserDashboardView, user, request)
-
-    def DeleteUserDashboardView(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(UserDashboardView, user, request.id)
-
-    def UpdateUserDashboardView(self, request, context):
-      user=self.authenticate(context)
-      return self.update(UserDashboardView, user, request.id, request)
-
-
+    @translate_exceptions
     def ListController(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(Controller, Controller.objects.all())
+      model=self.get_model("Controller")
+      return self.querysetToProto(model, model.objects.all())
 
+    @translate_exceptions
+    def FilterController(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Controller")
+      return self.filter(model, request)
+
+    @translate_exceptions
     def GetController(self, request, context):
       user=self.authenticate(context)
-      return self.get(Controller, request.id)
+      model=self.get_model("Controller")
+      return self.get(model, request.id)
 
+    @translate_exceptions
     def CreateController(self, request, context):
       user=self.authenticate(context)
-      return self.create(Controller, user, request)
+      model=self.get_model("Controller")
+      return self.create(model, user, request)
 
+    @translate_exceptions
     def DeleteController(self, request, context):
       user=self.authenticate(context)
-      return self.delete(Controller, user, request.id)
+      model=self.get_model("Controller")
+      return self.delete(model, user, request.id)
 
+    @translate_exceptions
     def UpdateController(self, request, context):
       user=self.authenticate(context)
-      return self.update(Controller, user, request.id, request)
+      model=self.get_model("Controller")
+      return self.update(model, user, request.id, request, context)
 
-
-    def ListTenantRootRole(self, request, context):
+    @translate_exceptions
+    def ListControllerDashboardView(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(TenantRootRole, TenantRootRole.objects.all())
+      model=self.get_model("ControllerDashboardView")
+      return self.querysetToProto(model, model.objects.all())
 
-    def GetTenantRootRole(self, request, context):
+    @translate_exceptions
+    def FilterControllerDashboardView(self, request, context):
       user=self.authenticate(context)
-      return self.get(TenantRootRole, request.id)
+      model=self.get_model("ControllerDashboardView")
+      return self.filter(model, request)
 
-    def CreateTenantRootRole(self, request, context):
+    @translate_exceptions
+    def GetControllerDashboardView(self, request, context):
       user=self.authenticate(context)
-      return self.create(TenantRootRole, user, request)
+      model=self.get_model("ControllerDashboardView")
+      return self.get(model, request.id)
 
-    def DeleteTenantRootRole(self, request, context):
+    @translate_exceptions
+    def CreateControllerDashboardView(self, request, context):
       user=self.authenticate(context)
-      return self.delete(TenantRootRole, user, request.id)
+      model=self.get_model("ControllerDashboardView")
+      return self.create(model, user, request)
 
-    def UpdateTenantRootRole(self, request, context):
+    @translate_exceptions
+    def DeleteControllerDashboardView(self, request, context):
       user=self.authenticate(context)
-      return self.update(TenantRootRole, user, request.id, request)
+      model=self.get_model("ControllerDashboardView")
+      return self.delete(model, user, request.id)
 
-
-    def ListDeployment(self, request, context):
+    @translate_exceptions
+    def UpdateControllerDashboardView(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(Deployment, Deployment.objects.all())
+      model=self.get_model("ControllerDashboardView")
+      return self.update(model, user, request.id, request, context)
 
-    def GetDeployment(self, request, context):
+    @translate_exceptions
+    def ListControllerImages(self, request, context):
       user=self.authenticate(context)
-      return self.get(Deployment, request.id)
+      model=self.get_model("ControllerImages")
+      return self.querysetToProto(model, model.objects.all())
 
-    def CreateDeployment(self, request, context):
+    @translate_exceptions
+    def FilterControllerImages(self, request, context):
       user=self.authenticate(context)
-      return self.create(Deployment, user, request)
+      model=self.get_model("ControllerImages")
+      return self.filter(model, request)
 
-    def DeleteDeployment(self, request, context):
+    @translate_exceptions
+    def GetControllerImages(self, request, context):
       user=self.authenticate(context)
-      return self.delete(Deployment, user, request.id)
+      model=self.get_model("ControllerImages")
+      return self.get(model, request.id)
 
-    def UpdateDeployment(self, request, context):
+    @translate_exceptions
+    def CreateControllerImages(self, request, context):
       user=self.authenticate(context)
-      return self.update(Deployment, user, request.id, request)
+      model=self.get_model("ControllerImages")
+      return self.create(model, user, request)
 
-
-    def ListReservation(self, request, context):
+    @translate_exceptions
+    def DeleteControllerImages(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(Reservation, Reservation.objects.all())
+      model=self.get_model("ControllerImages")
+      return self.delete(model, user, request.id)
 
-    def GetReservation(self, request, context):
+    @translate_exceptions
+    def UpdateControllerImages(self, request, context):
       user=self.authenticate(context)
-      return self.get(Reservation, request.id)
+      model=self.get_model("ControllerImages")
+      return self.update(model, user, request.id, request, context)
 
-    def CreateReservation(self, request, context):
+    @translate_exceptions
+    def ListControllerNetwork(self, request, context):
       user=self.authenticate(context)
-      return self.create(Reservation, user, request)
+      model=self.get_model("ControllerNetwork")
+      return self.querysetToProto(model, model.objects.all())
 
-    def DeleteReservation(self, request, context):
+    @translate_exceptions
+    def FilterControllerNetwork(self, request, context):
       user=self.authenticate(context)
-      return self.delete(Reservation, user, request.id)
+      model=self.get_model("ControllerNetwork")
+      return self.filter(model, request)
 
-    def UpdateReservation(self, request, context):
+    @translate_exceptions
+    def GetControllerNetwork(self, request, context):
       user=self.authenticate(context)
-      return self.update(Reservation, user, request.id, request)
+      model=self.get_model("ControllerNetwork")
+      return self.get(model, request.id)
 
-
-    def ListSitePrivilege(self, request, context):
+    @translate_exceptions
+    def CreateControllerNetwork(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(SitePrivilege, SitePrivilege.objects.all())
+      model=self.get_model("ControllerNetwork")
+      return self.create(model, user, request)
 
-    def GetSitePrivilege(self, request, context):
+    @translate_exceptions
+    def DeleteControllerNetwork(self, request, context):
       user=self.authenticate(context)
-      return self.get(SitePrivilege, request.id)
+      model=self.get_model("ControllerNetwork")
+      return self.delete(model, user, request.id)
 
-    def CreateSitePrivilege(self, request, context):
+    @translate_exceptions
+    def UpdateControllerNetwork(self, request, context):
       user=self.authenticate(context)
-      return self.create(SitePrivilege, user, request)
+      model=self.get_model("ControllerNetwork")
+      return self.update(model, user, request.id, request, context)
 
-    def DeleteSitePrivilege(self, request, context):
+    @translate_exceptions
+    def ListControllerRole(self, request, context):
       user=self.authenticate(context)
-      return self.delete(SitePrivilege, user, request.id)
+      model=self.get_model("ControllerRole")
+      return self.querysetToProto(model, model.objects.all())
 
-    def UpdateSitePrivilege(self, request, context):
+    @translate_exceptions
+    def FilterControllerRole(self, request, context):
       user=self.authenticate(context)
-      return self.update(SitePrivilege, user, request.id, request)
+      model=self.get_model("ControllerRole")
+      return self.filter(model, request)
 
-
-    def ListPayment(self, request, context):
+    @translate_exceptions
+    def GetControllerRole(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(Payment, Payment.objects.all())
+      model=self.get_model("ControllerRole")
+      return self.get(model, request.id)
 
-    def GetPayment(self, request, context):
+    @translate_exceptions
+    def CreateControllerRole(self, request, context):
       user=self.authenticate(context)
-      return self.get(Payment, request.id)
+      model=self.get_model("ControllerRole")
+      return self.create(model, user, request)
 
-    def CreatePayment(self, request, context):
+    @translate_exceptions
+    def DeleteControllerRole(self, request, context):
       user=self.authenticate(context)
-      return self.create(Payment, user, request)
+      model=self.get_model("ControllerRole")
+      return self.delete(model, user, request.id)
 
-    def DeletePayment(self, request, context):
+    @translate_exceptions
+    def UpdateControllerRole(self, request, context):
       user=self.authenticate(context)
-      return self.delete(Payment, user, request.id)
+      model=self.get_model("ControllerRole")
+      return self.update(model, user, request.id, request, context)
 
-    def UpdatePayment(self, request, context):
+    @translate_exceptions
+    def ListControllerSite(self, request, context):
       user=self.authenticate(context)
-      return self.update(Payment, user, request.id, request)
+      model=self.get_model("ControllerSite")
+      return self.querysetToProto(model, model.objects.all())
 
-
-    def ListTenant(self, request, context):
+    @translate_exceptions
+    def FilterControllerSite(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(Tenant, Tenant.objects.all())
+      model=self.get_model("ControllerSite")
+      return self.filter(model, request)
 
-    def GetTenant(self, request, context):
+    @translate_exceptions
+    def GetControllerSite(self, request, context):
       user=self.authenticate(context)
-      return self.get(Tenant, request.id)
+      model=self.get_model("ControllerSite")
+      return self.get(model, request.id)
 
-    def CreateTenant(self, request, context):
+    @translate_exceptions
+    def CreateControllerSite(self, request, context):
       user=self.authenticate(context)
-      return self.create(Tenant, user, request)
+      model=self.get_model("ControllerSite")
+      return self.create(model, user, request)
 
-    def DeleteTenant(self, request, context):
+    @translate_exceptions
+    def DeleteControllerSite(self, request, context):
       user=self.authenticate(context)
-      return self.delete(Tenant, user, request.id)
+      model=self.get_model("ControllerSite")
+      return self.delete(model, user, request.id)
 
-    def UpdateTenant(self, request, context):
+    @translate_exceptions
+    def UpdateControllerSite(self, request, context):
       user=self.authenticate(context)
-      return self.update(Tenant, user, request.id, request)
+      model=self.get_model("ControllerSite")
+      return self.update(model, user, request.id, request, context)
 
-
-    def ListNetwork(self, request, context):
+    @translate_exceptions
+    def ListControllerSitePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(Network, Network.objects.all())
+      model=self.get_model("ControllerSitePrivilege")
+      return self.querysetToProto(model, model.objects.all())
 
-    def GetNetwork(self, request, context):
+    @translate_exceptions
+    def FilterControllerSitePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.get(Network, request.id)
+      model=self.get_model("ControllerSitePrivilege")
+      return self.filter(model, request)
 
-    def CreateNetwork(self, request, context):
+    @translate_exceptions
+    def GetControllerSitePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.create(Network, user, request)
+      model=self.get_model("ControllerSitePrivilege")
+      return self.get(model, request.id)
 
-    def DeleteNetwork(self, request, context):
+    @translate_exceptions
+    def CreateControllerSitePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.delete(Network, user, request.id)
+      model=self.get_model("ControllerSitePrivilege")
+      return self.create(model, user, request)
 
-    def UpdateNetwork(self, request, context):
+    @translate_exceptions
+    def DeleteControllerSitePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.update(Network, user, request.id, request)
+      model=self.get_model("ControllerSitePrivilege")
+      return self.delete(model, user, request.id)
 
-
-    def ListNetworkSlice(self, request, context):
+    @translate_exceptions
+    def UpdateControllerSitePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(NetworkSlice, NetworkSlice.objects.all())
+      model=self.get_model("ControllerSitePrivilege")
+      return self.update(model, user, request.id, request, context)
 
-    def GetNetworkSlice(self, request, context):
+    @translate_exceptions
+    def ListControllerSlice(self, request, context):
       user=self.authenticate(context)
-      return self.get(NetworkSlice, request.id)
+      model=self.get_model("ControllerSlice")
+      return self.querysetToProto(model, model.objects.all())
 
-    def CreateNetworkSlice(self, request, context):
+    @translate_exceptions
+    def FilterControllerSlice(self, request, context):
       user=self.authenticate(context)
-      return self.create(NetworkSlice, user, request)
+      model=self.get_model("ControllerSlice")
+      return self.filter(model, request)
 
-    def DeleteNetworkSlice(self, request, context):
+    @translate_exceptions
+    def GetControllerSlice(self, request, context):
       user=self.authenticate(context)
-      return self.delete(NetworkSlice, user, request.id)
+      model=self.get_model("ControllerSlice")
+      return self.get(model, request.id)
 
-    def UpdateNetworkSlice(self, request, context):
+    @translate_exceptions
+    def CreateControllerSlice(self, request, context):
       user=self.authenticate(context)
-      return self.update(NetworkSlice, user, request.id, request)
+      model=self.get_model("ControllerSlice")
+      return self.create(model, user, request)
 
-
-    def ListAccount(self, request, context):
+    @translate_exceptions
+    def DeleteControllerSlice(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(Account, Account.objects.all())
+      model=self.get_model("ControllerSlice")
+      return self.delete(model, user, request.id)
 
-    def GetAccount(self, request, context):
+    @translate_exceptions
+    def UpdateControllerSlice(self, request, context):
       user=self.authenticate(context)
-      return self.get(Account, request.id)
+      model=self.get_model("ControllerSlice")
+      return self.update(model, user, request.id, request, context)
 
-    def CreateAccount(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Account, user, request)
-
-    def DeleteAccount(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Account, user, request.id)
-
-    def UpdateAccount(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Account, user, request.id, request)
-
-
-    def ListTenantRoot(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(TenantRoot, TenantRoot.objects.all())
-
-    def GetTenantRoot(self, request, context):
-      user=self.authenticate(context)
-      return self.get(TenantRoot, request.id)
-
-    def CreateTenantRoot(self, request, context):
-      user=self.authenticate(context)
-      return self.create(TenantRoot, user, request)
-
-    def DeleteTenantRoot(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(TenantRoot, user, request.id)
-
-    def UpdateTenantRoot(self, request, context):
-      user=self.authenticate(context)
-      return self.update(TenantRoot, user, request.id, request)
-
-
-    def ListService(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Service, Service.objects.all())
-
-    def GetService(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Service, request.id)
-
-    def CreateService(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Service, user, request)
-
-    def DeleteService(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Service, user, request.id)
-
-    def UpdateService(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Service, user, request.id, request)
-
-
+    @translate_exceptions
     def ListControllerSlicePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(ControllerSlicePrivilege, ControllerSlicePrivilege.objects.all())
+      model=self.get_model("ControllerSlicePrivilege")
+      return self.querysetToProto(model, model.objects.all())
 
+    @translate_exceptions
+    def FilterControllerSlicePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ControllerSlicePrivilege")
+      return self.filter(model, request)
+
+    @translate_exceptions
     def GetControllerSlicePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.get(ControllerSlicePrivilege, request.id)
+      model=self.get_model("ControllerSlicePrivilege")
+      return self.get(model, request.id)
 
+    @translate_exceptions
     def CreateControllerSlicePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.create(ControllerSlicePrivilege, user, request)
+      model=self.get_model("ControllerSlicePrivilege")
+      return self.create(model, user, request)
 
+    @translate_exceptions
     def DeleteControllerSlicePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.delete(ControllerSlicePrivilege, user, request.id)
+      model=self.get_model("ControllerSlicePrivilege")
+      return self.delete(model, user, request.id)
 
+    @translate_exceptions
     def UpdateControllerSlicePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.update(ControllerSlicePrivilege, user, request.id, request)
+      model=self.get_model("ControllerSlicePrivilege")
+      return self.update(model, user, request.id, request, context)
 
-
-    def ListSiteCredential(self, request, context):
+    @translate_exceptions
+    def ListControllerUser(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(SiteCredential, SiteCredential.objects.all())
+      model=self.get_model("ControllerUser")
+      return self.querysetToProto(model, model.objects.all())
 
-    def GetSiteCredential(self, request, context):
+    @translate_exceptions
+    def FilterControllerUser(self, request, context):
       user=self.authenticate(context)
-      return self.get(SiteCredential, request.id)
+      model=self.get_model("ControllerUser")
+      return self.filter(model, request)
 
-    def CreateSiteCredential(self, request, context):
+    @translate_exceptions
+    def GetControllerUser(self, request, context):
       user=self.authenticate(context)
-      return self.create(SiteCredential, user, request)
+      model=self.get_model("ControllerUser")
+      return self.get(model, request.id)
 
-    def DeleteSiteCredential(self, request, context):
+    @translate_exceptions
+    def CreateControllerUser(self, request, context):
       user=self.authenticate(context)
-      return self.delete(SiteCredential, user, request.id)
+      model=self.get_model("ControllerUser")
+      return self.create(model, user, request)
 
-    def UpdateSiteCredential(self, request, context):
+    @translate_exceptions
+    def DeleteControllerUser(self, request, context):
       user=self.authenticate(context)
-      return self.update(SiteCredential, user, request.id, request)
+      model=self.get_model("ControllerUser")
+      return self.delete(model, user, request.id)
 
+    @translate_exceptions
+    def UpdateControllerUser(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ControllerUser")
+      return self.update(model, user, request.id, request, context)
 
+    @translate_exceptions
+    def ListCordSubscriberRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("CordSubscriberRoot")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterCordSubscriberRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("CordSubscriberRoot")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetCordSubscriberRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("CordSubscriberRoot")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateCordSubscriberRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("CordSubscriberRoot")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteCordSubscriberRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("CordSubscriberRoot")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateCordSubscriberRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("CordSubscriberRoot")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListDashboardView(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("DashboardView")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterDashboardView(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("DashboardView")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetDashboardView(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("DashboardView")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateDashboardView(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("DashboardView")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteDashboardView(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("DashboardView")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateDashboardView(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("DashboardView")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Deployment")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Deployment")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Deployment")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Deployment")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Deployment")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Deployment")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
     def ListDeploymentPrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(DeploymentPrivilege, DeploymentPrivilege.objects.all())
+      model=self.get_model("DeploymentPrivilege")
+      return self.querysetToProto(model, model.objects.all())
 
+    @translate_exceptions
+    def FilterDeploymentPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("DeploymentPrivilege")
+      return self.filter(model, request)
+
+    @translate_exceptions
     def GetDeploymentPrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.get(DeploymentPrivilege, request.id)
+      model=self.get_model("DeploymentPrivilege")
+      return self.get(model, request.id)
 
+    @translate_exceptions
     def CreateDeploymentPrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.create(DeploymentPrivilege, user, request)
+      model=self.get_model("DeploymentPrivilege")
+      return self.create(model, user, request)
 
+    @translate_exceptions
     def DeleteDeploymentPrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.delete(DeploymentPrivilege, user, request.id)
+      model=self.get_model("DeploymentPrivilege")
+      return self.delete(model, user, request.id)
 
+    @translate_exceptions
     def UpdateDeploymentPrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.update(DeploymentPrivilege, user, request.id, request)
+      model=self.get_model("DeploymentPrivilege")
+      return self.update(model, user, request.id, request, context)
 
-
-    def ListNetworkParameterType(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(NetworkParameterType, NetworkParameterType.objects.all())
-
-    def GetNetworkParameterType(self, request, context):
-      user=self.authenticate(context)
-      return self.get(NetworkParameterType, request.id)
-
-    def CreateNetworkParameterType(self, request, context):
-      user=self.authenticate(context)
-      return self.create(NetworkParameterType, user, request)
-
-    def DeleteNetworkParameterType(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(NetworkParameterType, user, request.id)
-
-    def UpdateNetworkParameterType(self, request, context):
-      user=self.authenticate(context)
-      return self.update(NetworkParameterType, user, request.id, request)
-
-
-    def ListProvider(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(Provider, Provider.objects.all())
-
-    def GetProvider(self, request, context):
-      user=self.authenticate(context)
-      return self.get(Provider, request.id)
-
-    def CreateProvider(self, request, context):
-      user=self.authenticate(context)
-      return self.create(Provider, user, request)
-
-    def DeleteProvider(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(Provider, user, request.id)
-
-    def UpdateProvider(self, request, context):
-      user=self.authenticate(context)
-      return self.update(Provider, user, request.id, request)
-
-
-    def ListTenantWithContainer(self, request, context):
-      user=self.authenticate(context)
-      return self.querysetToProto(TenantWithContainer, TenantWithContainer.objects.all())
-
-    def GetTenantWithContainer(self, request, context):
-      user=self.authenticate(context)
-      return self.get(TenantWithContainer, request.id)
-
-    def CreateTenantWithContainer(self, request, context):
-      user=self.authenticate(context)
-      return self.create(TenantWithContainer, user, request)
-
-    def DeleteTenantWithContainer(self, request, context):
-      user=self.authenticate(context)
-      return self.delete(TenantWithContainer, user, request.id)
-
-    def UpdateTenantWithContainer(self, request, context):
-      user=self.authenticate(context)
-      return self.update(TenantWithContainer, user, request.id, request)
-
-
+    @translate_exceptions
     def ListDeploymentRole(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(DeploymentRole, DeploymentRole.objects.all())
+      model=self.get_model("DeploymentRole")
+      return self.querysetToProto(model, model.objects.all())
 
+    @translate_exceptions
+    def FilterDeploymentRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("DeploymentRole")
+      return self.filter(model, request)
+
+    @translate_exceptions
     def GetDeploymentRole(self, request, context):
       user=self.authenticate(context)
-      return self.get(DeploymentRole, request.id)
+      model=self.get_model("DeploymentRole")
+      return self.get(model, request.id)
 
+    @translate_exceptions
     def CreateDeploymentRole(self, request, context):
       user=self.authenticate(context)
-      return self.create(DeploymentRole, user, request)
+      model=self.get_model("DeploymentRole")
+      return self.create(model, user, request)
 
+    @translate_exceptions
     def DeleteDeploymentRole(self, request, context):
       user=self.authenticate(context)
-      return self.delete(DeploymentRole, user, request.id)
+      model=self.get_model("DeploymentRole")
+      return self.delete(model, user, request.id)
 
+    @translate_exceptions
     def UpdateDeploymentRole(self, request, context):
       user=self.authenticate(context)
-      return self.update(DeploymentRole, user, request.id, request)
+      model=self.get_model("DeploymentRole")
+      return self.update(model, user, request.id, request, context)
 
-
-    def ListProject(self, request, context):
+    @translate_exceptions
+    def ListDiag(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(Project, Project.objects.all())
+      model=self.get_model("Diag")
+      return self.querysetToProto(model, model.objects.all())
 
-    def GetProject(self, request, context):
+    @translate_exceptions
+    def FilterDiag(self, request, context):
       user=self.authenticate(context)
-      return self.get(Project, request.id)
+      model=self.get_model("Diag")
+      return self.filter(model, request)
 
-    def CreateProject(self, request, context):
+    @translate_exceptions
+    def GetDiag(self, request, context):
       user=self.authenticate(context)
-      return self.create(Project, user, request)
+      model=self.get_model("Diag")
+      return self.get(model, request.id)
 
-    def DeleteProject(self, request, context):
+    @translate_exceptions
+    def CreateDiag(self, request, context):
       user=self.authenticate(context)
-      return self.delete(Project, user, request.id)
+      model=self.get_model("Diag")
+      return self.create(model, user, request)
 
-    def UpdateProject(self, request, context):
+    @translate_exceptions
+    def DeleteDiag(self, request, context):
       user=self.authenticate(context)
-      return self.update(Project, user, request.id, request)
+      model=self.get_model("Diag")
+      return self.delete(model, user, request.id)
 
-
-    def ListTenantRootPrivilege(self, request, context):
+    @translate_exceptions
+    def UpdateDiag(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(TenantRootPrivilege, TenantRootPrivilege.objects.all())
+      model=self.get_model("Diag")
+      return self.update(model, user, request.id, request, context)
 
-    def GetTenantRootPrivilege(self, request, context):
+    @translate_exceptions
+    def ListExampleService(self, request, context):
       user=self.authenticate(context)
-      return self.get(TenantRootPrivilege, request.id)
+      model=self.get_model("ExampleService")
+      return self.querysetToProto(model, model.objects.all())
 
-    def CreateTenantRootPrivilege(self, request, context):
+    @translate_exceptions
+    def FilterExampleService(self, request, context):
       user=self.authenticate(context)
-      return self.create(TenantRootPrivilege, user, request)
+      model=self.get_model("ExampleService")
+      return self.filter(model, request)
 
-    def DeleteTenantRootPrivilege(self, request, context):
+    @translate_exceptions
+    def GetExampleService(self, request, context):
       user=self.authenticate(context)
-      return self.delete(TenantRootPrivilege, user, request.id)
+      model=self.get_model("ExampleService")
+      return self.get(model, request.id)
 
-    def UpdateTenantRootPrivilege(self, request, context):
+    @translate_exceptions
+    def CreateExampleService(self, request, context):
       user=self.authenticate(context)
-      return self.update(TenantRootPrivilege, user, request.id, request)
+      model=self.get_model("ExampleService")
+      return self.create(model, user, request)
 
-
-    def ListXOSComponentVolume(self, request, context):
+    @translate_exceptions
+    def DeleteExampleService(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(XOSComponentVolume, XOSComponentVolume.objects.all())
+      model=self.get_model("ExampleService")
+      return self.delete(model, user, request.id)
 
-    def GetXOSComponentVolume(self, request, context):
+    @translate_exceptions
+    def UpdateExampleService(self, request, context):
       user=self.authenticate(context)
-      return self.get(XOSComponentVolume, request.id)
+      model=self.get_model("ExampleService")
+      return self.update(model, user, request.id, request, context)
 
-    def CreateXOSComponentVolume(self, request, context):
+    @translate_exceptions
+    def ListExampleTenant(self, request, context):
       user=self.authenticate(context)
-      return self.create(XOSComponentVolume, user, request)
+      model=self.get_model("ExampleTenant")
+      return self.querysetToProto(model, model.objects.all())
 
-    def DeleteXOSComponentVolume(self, request, context):
+    @translate_exceptions
+    def FilterExampleTenant(self, request, context):
       user=self.authenticate(context)
-      return self.delete(XOSComponentVolume, user, request.id)
+      model=self.get_model("ExampleTenant")
+      return self.filter(model, request)
 
-    def UpdateXOSComponentVolume(self, request, context):
+    @translate_exceptions
+    def GetExampleTenant(self, request, context):
       user=self.authenticate(context)
-      return self.update(XOSComponentVolume, user, request.id, request)
+      model=self.get_model("ExampleTenant")
+      return self.get(model, request.id)
 
-
-    def ListSliceCredential(self, request, context):
+    @translate_exceptions
+    def CreateExampleTenant(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(SliceCredential, SliceCredential.objects.all())
+      model=self.get_model("ExampleTenant")
+      return self.create(model, user, request)
 
-    def GetSliceCredential(self, request, context):
+    @translate_exceptions
+    def DeleteExampleTenant(self, request, context):
       user=self.authenticate(context)
-      return self.get(SliceCredential, request.id)
+      model=self.get_model("ExampleTenant")
+      return self.delete(model, user, request.id)
 
-    def CreateSliceCredential(self, request, context):
+    @translate_exceptions
+    def UpdateExampleTenant(self, request, context):
       user=self.authenticate(context)
-      return self.create(SliceCredential, user, request)
+      model=self.get_model("ExampleTenant")
+      return self.update(model, user, request.id, request, context)
 
-    def DeleteSliceCredential(self, request, context):
+    @translate_exceptions
+    def ListFabricService(self, request, context):
       user=self.authenticate(context)
-      return self.delete(SliceCredential, user, request.id)
+      model=self.get_model("FabricService")
+      return self.querysetToProto(model, model.objects.all())
 
-    def UpdateSliceCredential(self, request, context):
+    @translate_exceptions
+    def FilterFabricService(self, request, context):
       user=self.authenticate(context)
-      return self.update(SliceCredential, user, request.id, request)
+      model=self.get_model("FabricService")
+      return self.filter(model, request)
 
-
-    def ListSliceTag(self, request, context):
+    @translate_exceptions
+    def GetFabricService(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(SliceTag, SliceTag.objects.all())
+      model=self.get_model("FabricService")
+      return self.get(model, request.id)
 
-    def GetSliceTag(self, request, context):
+    @translate_exceptions
+    def CreateFabricService(self, request, context):
       user=self.authenticate(context)
-      return self.get(SliceTag, request.id)
+      model=self.get_model("FabricService")
+      return self.create(model, user, request)
 
-    def CreateSliceTag(self, request, context):
+    @translate_exceptions
+    def DeleteFabricService(self, request, context):
       user=self.authenticate(context)
-      return self.create(SliceTag, user, request)
+      model=self.get_model("FabricService")
+      return self.delete(model, user, request.id)
 
-    def DeleteSliceTag(self, request, context):
+    @translate_exceptions
+    def UpdateFabricService(self, request, context):
       user=self.authenticate(context)
-      return self.delete(SliceTag, user, request.id)
+      model=self.get_model("FabricService")
+      return self.update(model, user, request.id, request, context)
 
-    def UpdateSliceTag(self, request, context):
+    @translate_exceptions
+    def ListFlavor(self, request, context):
       user=self.authenticate(context)
-      return self.update(SliceTag, user, request.id, request)
+      model=self.get_model("Flavor")
+      return self.querysetToProto(model, model.objects.all())
 
-
-    def ListCoarseTenant(self, request, context):
+    @translate_exceptions
+    def FilterFlavor(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(CoarseTenant, CoarseTenant.objects.all())
+      model=self.get_model("Flavor")
+      return self.filter(model, request)
 
-    def GetCoarseTenant(self, request, context):
+    @translate_exceptions
+    def GetFlavor(self, request, context):
       user=self.authenticate(context)
-      return self.get(CoarseTenant, request.id)
+      model=self.get_model("Flavor")
+      return self.get(model, request.id)
 
-    def CreateCoarseTenant(self, request, context):
+    @translate_exceptions
+    def CreateFlavor(self, request, context):
       user=self.authenticate(context)
-      return self.create(CoarseTenant, user, request)
+      model=self.get_model("Flavor")
+      return self.create(model, user, request)
 
-    def DeleteCoarseTenant(self, request, context):
+    @translate_exceptions
+    def DeleteFlavor(self, request, context):
       user=self.authenticate(context)
-      return self.delete(CoarseTenant, user, request.id)
+      model=self.get_model("Flavor")
+      return self.delete(model, user, request.id)
 
-    def UpdateCoarseTenant(self, request, context):
+    @translate_exceptions
+    def UpdateFlavor(self, request, context):
       user=self.authenticate(context)
-      return self.update(CoarseTenant, user, request.id, request)
+      model=self.get_model("Flavor")
+      return self.update(model, user, request.id, request, context)
 
-
-    def ListRouter(self, request, context):
+    @translate_exceptions
+    def ListImage(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(Router, Router.objects.all())
+      model=self.get_model("Image")
+      return self.querysetToProto(model, model.objects.all())
 
-    def GetRouter(self, request, context):
+    @translate_exceptions
+    def FilterImage(self, request, context):
       user=self.authenticate(context)
-      return self.get(Router, request.id)
+      model=self.get_model("Image")
+      return self.filter(model, request)
 
-    def CreateRouter(self, request, context):
+    @translate_exceptions
+    def GetImage(self, request, context):
       user=self.authenticate(context)
-      return self.create(Router, user, request)
+      model=self.get_model("Image")
+      return self.get(model, request.id)
 
-    def DeleteRouter(self, request, context):
+    @translate_exceptions
+    def CreateImage(self, request, context):
       user=self.authenticate(context)
-      return self.delete(Router, user, request.id)
+      model=self.get_model("Image")
+      return self.create(model, user, request)
 
-    def UpdateRouter(self, request, context):
+    @translate_exceptions
+    def DeleteImage(self, request, context):
       user=self.authenticate(context)
-      return self.update(Router, user, request.id, request)
+      model=self.get_model("Image")
+      return self.delete(model, user, request.id)
 
-
-    def ListServiceResource(self, request, context):
+    @translate_exceptions
+    def UpdateImage(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(ServiceResource, ServiceResource.objects.all())
+      model=self.get_model("Image")
+      return self.update(model, user, request.id, request, context)
 
-    def GetServiceResource(self, request, context):
+    @translate_exceptions
+    def ListImageDeployments(self, request, context):
       user=self.authenticate(context)
-      return self.get(ServiceResource, request.id)
+      model=self.get_model("ImageDeployments")
+      return self.querysetToProto(model, model.objects.all())
 
-    def CreateServiceResource(self, request, context):
+    @translate_exceptions
+    def FilterImageDeployments(self, request, context):
       user=self.authenticate(context)
-      return self.create(ServiceResource, user, request)
+      model=self.get_model("ImageDeployments")
+      return self.filter(model, request)
 
-    def DeleteServiceResource(self, request, context):
+    @translate_exceptions
+    def GetImageDeployments(self, request, context):
       user=self.authenticate(context)
-      return self.delete(ServiceResource, user, request.id)
+      model=self.get_model("ImageDeployments")
+      return self.get(model, request.id)
 
-    def UpdateServiceResource(self, request, context):
+    @translate_exceptions
+    def CreateImageDeployments(self, request, context):
       user=self.authenticate(context)
-      return self.update(ServiceResource, user, request.id, request)
+      model=self.get_model("ImageDeployments")
+      return self.create(model, user, request)
 
+    @translate_exceptions
+    def DeleteImageDeployments(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ImageDeployments")
+      return self.delete(model, user, request.id)
 
+    @translate_exceptions
+    def UpdateImageDeployments(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ImageDeployments")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListInstance(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Instance")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterInstance(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Instance")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetInstance(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Instance")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateInstance(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Instance")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteInstance(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Instance")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateInstance(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Instance")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListNetwork(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Network")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterNetwork(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Network")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetNetwork(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Network")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateNetwork(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Network")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteNetwork(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Network")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateNetwork(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Network")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListNetworkParameter(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameter")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterNetworkParameter(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameter")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetNetworkParameter(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameter")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateNetworkParameter(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameter")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteNetworkParameter(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameter")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateNetworkParameter(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameter")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListNetworkParameterType(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameterType")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterNetworkParameterType(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameterType")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetNetworkParameterType(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameterType")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateNetworkParameterType(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameterType")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteNetworkParameterType(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameterType")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateNetworkParameterType(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkParameterType")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListNetworkSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkSlice")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterNetworkSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkSlice")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetNetworkSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkSlice")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateNetworkSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkSlice")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteNetworkSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkSlice")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateNetworkSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkSlice")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListNetworkTemplate(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkTemplate")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterNetworkTemplate(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkTemplate")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetNetworkTemplate(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkTemplate")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateNetworkTemplate(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkTemplate")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteNetworkTemplate(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkTemplate")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateNetworkTemplate(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NetworkTemplate")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListNode(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Node")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterNode(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Node")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetNode(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Node")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateNode(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Node")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteNode(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Node")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateNode(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Node")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListNodeLabel(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NodeLabel")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterNodeLabel(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NodeLabel")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetNodeLabel(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NodeLabel")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateNodeLabel(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NodeLabel")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteNodeLabel(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NodeLabel")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateNodeLabel(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("NodeLabel")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListONOSApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSApp")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterONOSApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSApp")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetONOSApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSApp")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateONOSApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSApp")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteONOSApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSApp")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateONOSApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSApp")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListONOSService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSService")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterONOSService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSService")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetONOSService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSService")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateONOSService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSService")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteONOSService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSService")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateONOSService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ONOSService")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListPort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Port")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterPort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Port")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetPort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Port")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreatePort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Port")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeletePort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Port")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdatePort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Port")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Role")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Role")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Role")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Role")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Role")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Role")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Service")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Service")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Service")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Service")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Service")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Service")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListServiceAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceAttribute")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterServiceAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceAttribute")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetServiceAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceAttribute")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateServiceAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceAttribute")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteServiceAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceAttribute")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateServiceAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceAttribute")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListServiceDependency(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceDependency")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterServiceDependency(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceDependency")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetServiceDependency(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceDependency")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateServiceDependency(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceDependency")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteServiceDependency(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceDependency")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateServiceDependency(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceDependency")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListServiceMonitoringAgentInfo(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceMonitoringAgentInfo")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterServiceMonitoringAgentInfo(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceMonitoringAgentInfo")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetServiceMonitoringAgentInfo(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceMonitoringAgentInfo")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateServiceMonitoringAgentInfo(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceMonitoringAgentInfo")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteServiceMonitoringAgentInfo(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceMonitoringAgentInfo")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateServiceMonitoringAgentInfo(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceMonitoringAgentInfo")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
     def ListServicePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(ServicePrivilege, ServicePrivilege.objects.all())
+      model=self.get_model("ServicePrivilege")
+      return self.querysetToProto(model, model.objects.all())
 
+    @translate_exceptions
+    def FilterServicePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServicePrivilege")
+      return self.filter(model, request)
+
+    @translate_exceptions
     def GetServicePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.get(ServicePrivilege, request.id)
+      model=self.get_model("ServicePrivilege")
+      return self.get(model, request.id)
 
+    @translate_exceptions
     def CreateServicePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.create(ServicePrivilege, user, request)
+      model=self.get_model("ServicePrivilege")
+      return self.create(model, user, request)
 
+    @translate_exceptions
     def DeleteServicePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.delete(ServicePrivilege, user, request.id)
+      model=self.get_model("ServicePrivilege")
+      return self.delete(model, user, request.id)
 
+    @translate_exceptions
     def UpdateServicePrivilege(self, request, context):
       user=self.authenticate(context)
-      return self.update(ServicePrivilege, user, request.id, request)
+      model=self.get_model("ServicePrivilege")
+      return self.update(model, user, request.id, request, context)
 
+    @translate_exceptions
+    def ListServiceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceRole")
+      return self.querysetToProto(model, model.objects.all())
 
+    @translate_exceptions
+    def FilterServiceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceRole")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetServiceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceRole")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateServiceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceRole")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteServiceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceRole")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateServiceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("ServiceRole")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListSite(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Site")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterSite(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Site")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetSite(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Site")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateSite(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Site")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteSite(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Site")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateSite(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Site")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListSiteDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteDeployment")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterSiteDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteDeployment")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetSiteDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteDeployment")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateSiteDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteDeployment")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteSiteDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteDeployment")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateSiteDeployment(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteDeployment")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListSitePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SitePrivilege")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterSitePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SitePrivilege")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetSitePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SitePrivilege")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateSitePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SitePrivilege")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteSitePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SitePrivilege")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateSitePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SitePrivilege")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListSiteRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteRole")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterSiteRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteRole")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetSiteRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteRole")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateSiteRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteRole")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteSiteRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteRole")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateSiteRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SiteRole")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Slice")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Slice")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Slice")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Slice")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Slice")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateSlice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Slice")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListSlicePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SlicePrivilege")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterSlicePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SlicePrivilege")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetSlicePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SlicePrivilege")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateSlicePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SlicePrivilege")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteSlicePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SlicePrivilege")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateSlicePrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SlicePrivilege")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListSliceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SliceRole")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterSliceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SliceRole")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetSliceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SliceRole")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateSliceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SliceRole")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteSliceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SliceRole")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateSliceRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("SliceRole")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListTag(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tag")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterTag(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tag")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetTag(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tag")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateTag(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tag")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteTag(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tag")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateTag(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tag")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tenant")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tenant")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tenant")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tenant")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tenant")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("Tenant")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListTenantAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantAttribute")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterTenantAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantAttribute")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetTenantAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantAttribute")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateTenantAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantAttribute")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteTenantAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantAttribute")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateTenantAttribute(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantAttribute")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListTenantPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantPrivilege")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterTenantPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantPrivilege")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetTenantPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantPrivilege")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateTenantPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantPrivilege")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteTenantPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantPrivilege")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateTenantPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantPrivilege")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListTenantRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRole")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterTenantRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRole")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetTenantRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRole")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateTenantRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRole")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteTenantRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRole")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateTenantRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRole")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListTenantRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRoot")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterTenantRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRoot")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetTenantRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRoot")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateTenantRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRoot")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteTenantRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRoot")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateTenantRoot(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRoot")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListTenantRootPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootPrivilege")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterTenantRootPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootPrivilege")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetTenantRootPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootPrivilege")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateTenantRootPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootPrivilege")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteTenantRootPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootPrivilege")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateTenantRootPrivilege(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootPrivilege")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListTenantRootRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootRole")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterTenantRootRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootRole")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetTenantRootRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootRole")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateTenantRootRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootRole")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteTenantRootRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootRole")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateTenantRootRole(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantRootRole")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListTenantWithContainer(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantWithContainer")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterTenantWithContainer(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantWithContainer")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetTenantWithContainer(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantWithContainer")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateTenantWithContainer(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantWithContainer")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteTenantWithContainer(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantWithContainer")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateTenantWithContainer(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("TenantWithContainer")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
     def ListUser(self, request, context):
       user=self.authenticate(context)
-      return self.querysetToProto(User, User.objects.all())
+      model=self.get_model("User")
+      return self.querysetToProto(model, model.objects.all())
 
+    @translate_exceptions
+    def FilterUser(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("User")
+      return self.filter(model, request)
+
+    @translate_exceptions
     def GetUser(self, request, context):
       user=self.authenticate(context)
-      return self.get(User, request.id)
+      model=self.get_model("User")
+      return self.get(model, request.id)
 
+    @translate_exceptions
     def CreateUser(self, request, context):
       user=self.authenticate(context)
-      return self.create(User, user, request)
+      model=self.get_model("User")
+      return self.create(model, user, request)
 
+    @translate_exceptions
     def DeleteUser(self, request, context):
       user=self.authenticate(context)
-      return self.delete(User, user, request.id)
+      model=self.get_model("User")
+      return self.delete(model, user, request.id)
 
+    @translate_exceptions
     def UpdateUser(self, request, context):
       user=self.authenticate(context)
-      return self.update(User, user, request.id, request)
+      model=self.get_model("User")
+      return self.update(model, user, request.id, request, context)
 
+    @translate_exceptions
+    def ListVOLTDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTDevice")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVOLTDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTDevice")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVOLTDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTDevice")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVOLTDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTDevice")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVOLTDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTDevice")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVOLTDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTDevice")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVOLTService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTService")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVOLTService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTService")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVOLTService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTService")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVOLTService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTService")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVOLTService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTService")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVOLTService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTService")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVOLTTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTTenant")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVOLTTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTTenant")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVOLTTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTTenant")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVOLTTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTTenant")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVOLTTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTTenant")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVOLTTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VOLTTenant")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVRouterApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterApp")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVRouterApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterApp")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVRouterApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterApp")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVRouterApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterApp")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVRouterApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterApp")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVRouterApp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterApp")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVRouterDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterDevice")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVRouterDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterDevice")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVRouterDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterDevice")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVRouterDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterDevice")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVRouterDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterDevice")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVRouterDevice(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterDevice")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVRouterInterface(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterInterface")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVRouterInterface(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterInterface")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVRouterInterface(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterInterface")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVRouterInterface(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterInterface")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVRouterInterface(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterInterface")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVRouterInterface(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterInterface")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVRouterIp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterIp")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVRouterIp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterIp")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVRouterIp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterIp")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVRouterIp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterIp")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVRouterIp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterIp")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVRouterIp(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterIp")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVRouterPort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterPort")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVRouterPort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterPort")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVRouterPort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterPort")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVRouterPort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterPort")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVRouterPort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterPort")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVRouterPort(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterPort")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVRouterService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterService")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVRouterService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterService")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVRouterService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterService")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVRouterService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterService")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVRouterService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterService")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVRouterService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterService")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVRouterTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterTenant")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVRouterTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterTenant")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVRouterTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterTenant")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVRouterTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterTenant")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVRouterTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterTenant")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVRouterTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VRouterTenant")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVSGService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGService")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVSGService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGService")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVSGService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGService")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVSGService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGService")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVSGService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGService")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVSGService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGService")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVSGTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGTenant")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVSGTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGTenant")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVSGTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGTenant")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVSGTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGTenant")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVSGTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGTenant")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVSGTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VSGTenant")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVTNService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTNService")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVTNService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTNService")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVTNService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTNService")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVTNService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTNService")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVTNService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTNService")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVTNService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTNService")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVTRService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRService")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVTRService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRService")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVTRService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRService")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVTRService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRService")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVTRService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRService")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVTRService(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRService")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListVTRTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRTenant")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterVTRTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRTenant")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetVTRTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRTenant")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateVTRTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRTenant")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteVTRTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRTenant")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateVTRTenant(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("VTRTenant")
+      return self.update(model, user, request.id, request, context)
+
+    @translate_exceptions
+    def ListXOS(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOS")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterXOS(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOS")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetXOS(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOS")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateXOS(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOS")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteXOS(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOS")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateXOS(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOS")
+      return self.update(model, user, request.id, request, context)
+
+
+    @translate_exceptions
+    def ListXOSGuiExtension(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOSGuiExtension")
+      return self.querysetToProto(model, model.objects.all())
+
+    @translate_exceptions
+    def FilterXOSGuiExtension(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOSGuiExtension")
+      return self.filter(model, request)
+
+    @translate_exceptions
+    def GetXOSGuiExtension(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOSGuiExtension")
+      return self.get(model, request.id)
+
+    @translate_exceptions
+    def CreateXOSGuiExtension(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOSGuiExtension")
+      return self.create(model, user, request)
+
+    @translate_exceptions
+    def DeleteXOSGuiExtension(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOSGuiExtension")
+      return self.delete(model, user, request.id)
+
+    @translate_exceptions
+    def UpdateXOSGuiExtension(self, request, context):
+      user=self.authenticate(context)
+      model=self.get_model("XOSGuiExtension")
+      return self.update(model, user, request.id, request, context)
 
 
