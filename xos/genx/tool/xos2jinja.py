@@ -290,8 +290,8 @@ class XOS2Jinja(m.Visitor):
         # Set message options
         for k,v in self.options.iteritems():
             try:
-                if k not in self.message_options.setdefault(self.current_message_name,{}):
-                    self.message_options[self.current_message_name][k] = v
+                if k not in self.message_options:
+                    self.message_options[k] = v
             except KeyError:
                 pass
 
