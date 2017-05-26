@@ -8,6 +8,10 @@ if __name__ == "__main__":
 
     from django.core.management import execute_from_command_line
 
+    # Initializing xosconfig module
+    from xosconfig import Config
+    Config.init()
+
     if "--makemigrations" in sys.argv:
         os.system("/opt/xos/tools/xos-manage makemigrations")
         sys.argv.remove("--makemigrations")
