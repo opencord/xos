@@ -1,0 +1,33 @@
+map:
+  name:
+    type: str
+    required: True
+  xos_dir:
+    type: str
+  logging:
+    type: map
+    map:
+      level:
+        type: str
+      channels:
+        type: seq
+        sequence:
+          - type: str
+            enum: ['file', 'console', 'elkstack']
+  dependency_graph:
+    type: str
+  steps_dir:
+    type: str
+  sys_dir:
+    type: str
+  accessor:
+    type: map
+    map:
+      username:
+        type: str
+      password:
+        type: str
+  required_models:
+    type: seq
+    sequence:
+      - type: str
