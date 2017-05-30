@@ -26,3 +26,5 @@ map:
         sequence:
           - type: str
             enum: ['file', 'console', 'elkstack']
+  xos_dir:
+    type: str
