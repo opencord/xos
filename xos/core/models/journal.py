@@ -3,7 +3,6 @@ from __future__ import absolute_import
 from django.db import models
 from django.utils import timezone
 
-from xos.config import Config
 from xos.exceptions import *
 from operator import attrgetter
 import json
@@ -20,26 +19,3 @@ class JournalEntry(models.Model):
 
     def can_update(self, user):
         return True
-
-
-def journal_object(o, operation, msg=None, timestamp=None):
-    # do not journal unless it has been explicitly enabled
-    if not getattr(Config(), "debug_enable_journal", None):
-        return
-
-    # ignore objects that generate too much noise
-    if o.__class__.__name__ in ["Diag"]:
-        return
-
-    if not timestamp:
-        timestamp = timezone.now()
-
-    j = JournalEntry(objClassName = o.__class__.__name__,
-                     objId = o.id,
-                     objUnicode = str(o),
-                     operation = operation,
-                     msg= msg)
-    j.save()
-
-
-

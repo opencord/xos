@@ -7,7 +7,7 @@ from .site import Site
 from .dashboardview import DashboardView
 from .user import User
 from .user import UserDashboardView
-from .journal import JournalEntry, journal_object
+from .journal import JournalEntry
 
 {% for m in proto.messages -%}
 {% if not m.options.skip -%}
