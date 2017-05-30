@@ -3,5 +3,8 @@ DEFAULT_VALUES = {
     'logging': {
         'level': 'info',
         'channels': ['file', 'console']
+    },
+    'accessor': {
+        'endpoint': 'xos-core.cord.lab:50051'
     }
 }
