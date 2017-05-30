@@ -8,9 +8,9 @@ from synchronizers.new_base.syncstep import SyncStep
 from synchronizers.new_base.event_loop import XOSObserver
 from synchronizers.new_base.modelaccessor import *
 from xos.logger import Logger, logging
-from xos.config import Config
+from xosconfig import Config
 
-watchers_enabled = getattr(Config(), "observer_enable_watchers", None)
+watchers_enabled = Config.get("enable_watchers")
 
 if (watchers_enabled):
     from synchronizers.new_base.watchers import XOSWatcher
@@ -26,7 +26,7 @@ class Backend:
         sync_steps = []
         if step_dir is None:
             try:
-                step_dir = Config().observer_steps_dir
+                step_dir = Config.get("steps_dir")
             except:
                 step_dir = '/opt/xos/synchronizers/openstack/steps'
 
@@ -73,7 +73,7 @@ class Backend:
             watcher_thread.start()
 
         # start model policies thread
-        policies_dir = getattr(Config(), "observer_model_policies_dir", None)
+        policies_dir = Config.get("model_policies_dir")
         if policies_dir:
             from synchronizers.new_base.model_policy_loop import run_policy
             model_policy_thread = threading.Thread(target=run_policy)

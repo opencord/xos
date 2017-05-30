@@ -10,7 +10,7 @@
 
 import functools
 import os
-from xos.config import Config
+from xosconfig import Config
 from diag import update_diag
 
 from xos.logger import Logger, logging
@@ -138,9 +138,8 @@ def grpcapi_reconnect(client, reactor):
     # are present. If not, then the synchronizer needs to go to sleep until
     # the models show up.
 
-    required_models = getattr(Config(), "observer_required_models", None)
+    required_models = Config.get("required_models")
     if required_models:
-        required_models = required_models.split(",")
         required_models = [x.strip() for x in required_models]
 
         missing = []
@@ -168,35 +167,28 @@ def grpcapi_reconnect(client, reactor):
 def config_accessor():
     global model_accessor
 
-    accessor_kind = getattr(Config(), "observer_accessor_kind", "django")
+    grpcapi_endpoint = Config.get("accessor.endpoint")
+    grpcapi_username = Config.get("accessor.username")
+    grpcapi_password = Config.get("accessor.password")
 
-    if (accessor_kind == "django"):
-       from djangoaccessor import DjangoModelAccessor
-       model_accessor = DjangoModelAccessor()
-       import_models_to_globals()
-    else:
-       grpcapi_endpoint = getattr(Config(), "observer_accessor_endpoint", "xos-core.cord.lab:50051")
-       grpcapi_username = getattr(Config(), "observer_accessor_username", "xosadmin@opencord.org")
-       grpcapi_password = getattr(Config(), "observer_accessor_password")
+    # if password starts with "@", then retreive the password from a file
+    if grpcapi_password.startswith("@"):
+       fn = grpcapi_password[1:]
+       if not os.path.exists(fn):
+           raise Exception("%s does not exist" % fn)
+       grpcapi_password = open(fn).readline().strip()
 
-       # if password starts with "@", then retreive the password from a file
-       if grpcapi_password.startswith("@"):
-           fn = grpcapi_password[1:]
-           if not os.path.exists(fn):
-               raise Exception("%s does not exist" % fn)
-           grpcapi_password = open(fn).readline().strip()
+    from xosapi.xos_grpc_client import SecureClient
+    from twisted.internet import reactor
 
-       from xosapi.xos_grpc_client import SecureClient
-       from twisted.internet import reactor
+    grpcapi_client = SecureClient(endpoint = grpcapi_endpoint, username = grpcapi_username, password=grpcapi_password)
+    grpcapi_client.set_reconnect_callback(functools.partial(grpcapi_reconnect, grpcapi_client, reactor))
+    grpcapi_client.start()
 
-       grpcapi_client = SecureClient(endpoint = grpcapi_endpoint, username = grpcapi_username, password=grpcapi_password)
-       grpcapi_client.set_reconnect_callback(functools.partial(grpcapi_reconnect, grpcapi_client, reactor))
-       grpcapi_client.start()
+    # Start reactor. This will cause the client to connect and then execute
+    # grpcapi_callback().
 
-       # Start reactor. This will cause the client to connect and then execute
-       # grpcapi_callback().
-
-       reactor.run()
+    reactor.run()
 
 config_accessor()
 
