@@ -9,6 +9,8 @@ yaml_not_valid = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "
 invalid_format = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "/confs/invalid_format.yaml")
 sample_conf = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "/confs/sample_conf.yaml")
 
+small_schema = "synchronizer-config-schema.yaml"
+
 services_list = {
   "xos-ws": [],
   "xos-db": [],
@@ -37,6 +39,10 @@ class XOSConfigTest(unittest.TestCase):
     def tearDown(self):
         # NOTE clear the config after each test
         Config.clear()
+
+    def test_sqrt(self):
+        res = Config.sqrt(2)
+        self.assertEqual(res, 4)
 
     def test_initialize_only_once(self):
         """
@@ -81,13 +87,34 @@ class XOSConfigTest(unittest.TestCase):
 
     def test_env_override(self):
         """
-        [XOS-Config] the XOS-CONFIG environment variable should override the config_file
+        [XOS-Config] the XOS_CONFIG_FILE environment variable should override the config_file
         """
-        os.environ["XOS-CONFIG"] = "env.yaml"
+        os.environ["XOS_CONFIG_FILE"] = "env.yaml"
         with self.assertRaises(Exception) as e:
             Config.init("missing_conf")
         self.assertEqual(e.exception.message, "[XOS-Config] Config file not found at: env.yaml")
-        del os.environ["XOS-CONFIG"]
+        del os.environ["XOS_CONFIG_FILE"]
+
+    def test_schema_override(self):
+        """
+        [XOS-Config] the XOS_CONFIG_SCHEMA environment variable should override the config_schema
+        """
+        os.environ["XOS_CONFIG_SCHEMA"] = "env-schema.yaml"
+        with self.assertRaises(Exception) as e:
+            Config.init(basic_conf)
+        self.assertRegexpMatches(e.exception.message, '\[XOS\-Config\] Config schema not found at: (.+)env-schema\.yaml')
+        # self.assertEqual(e.exception.message, "[XOS-Config] Config schema not found at: env-schema.yaml")
+        del os.environ["XOS_CONFIG_SCHEMA"]
+
+    def test_schema_override_usage(self):
+        """
+        [XOS-Config] the XOS_CONFIG_SCHEMA should be used to validate a config
+        """
+        os.environ["XOS_CONFIG_SCHEMA"] = small_schema
+        with self.assertRaises(Exception) as e:
+            Config.init(basic_conf)
+        self.assertEqual(e.exception.message, "[XOS-Config] The config format is wrong: Schema validation failed:\n - Key 'database' was not defined. Path: ''.")
+        del os.environ["XOS_CONFIG_SCHEMA"]
 
     def test_get_cli_param(self):
         """
@@ -193,3 +220,7 @@ class XOSConfigTest(unittest.TestCase):
             mock_get.return_value.json.return_value = db_service
             endpoint = Config.get_service_endpoint("xos-db")
             self.assertEqual(endpoint, "http://172.18.0.4:5432")
+
+
+if __name__ == '__main__':
+    unittest.main()
