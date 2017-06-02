@@ -1,0 +1,145 @@
+{
+    "AddressPool": [
+        ("Service", "service")        
+    ],
+    "Controller": [
+        ("Deployment", "deployment"),        
+        ("ControllerDashboardView", "controllerdashboardviews"),("ControllerImages", "controllerimages"),("ControllerNetwork", "controllernetworks"),("ControllerSite", "controllersite"),("ControllerSitePrivilege", "controllersiteprivileges"),("ControllerSlice", "controllerslices"),("ControllerSlicePrivilege", "controllersliceprivileges"),("ControllerUser", "controllersusers"),("DashboardView", "dashboardviews"),("SiteDeployment", "sitedeployments")
+    ],
+    "ControllerDashboardView": [
+        ("Controller", "controller"),("DashboardView", "dashboardView")        
+        
+    ],
+    "ControllerImages": [
+        ("Image", "image"),("Controller", "controller")        
+        
+    ],
+    "ControllerNetwork": [
+        ("Network", "network"),("Controller", "controller")        
+        
+    ],
+    "ControllerSite": [
+        ("Site", "site"),("Controller", "controller")        
+        
+    ],
+    "ControllerSitePrivilege": [
+        ("Controller", "controller"),("SitePrivilege", "site_privilege")        
+        
+    ],
+    "ControllerSlice": [
+        ("Controller", "controller"),("Slice", "slice")        
+        
+    ],
+    "ControllerSlicePrivilege": [
+        ("Controller", "controller"),("SlicePrivilege", "slice_privilege")        
+        
+    ],
+    "ControllerUser": [
+        ("User", "user"),("Controller", "controller")        
+        
+    ],
+    "DashboardView": [
+        ("Controller", "controllers"),("Deployment", "deployments"),        
+        ("ControllerDashboardView", "controllerdashboardviews")
+    ],
+    "DeploymentPrivilege": [
+        ("User", "user"),("Deployment", "deployment"),("DeploymentRole", "role")        
+        
+    ],
+    "Flavor": [
+        ("Deployment", "deployments"),        
+        ("Instance", "instance"),("Slice", "slices")
+    ],
+    "Image": [
+        ("Deployment", "deployments"),        
+        ("ControllerImages", "controllerimages"),("ImageDeployments", "imagedeployments"),("Instance", "instances"),("Slice", "slices")
+    ],
+    "ImageDeployments": [
+        ("Image", "image"),("Deployment", "deployment")        
+        
+    ],
+    "Instance": [
+        ("Image", "image"),("User", "creator"),("Slice", "slice"),("Deployment", "deployment"),("Node", "node"),("Flavor", "flavor"),("Instance", "parent"),        
+        ("Instance", "instance"),("Network", "networks"),("Port", "ports"),("TenantWithContainer", "+")
+    ],
+    "Network": [
+        ("NetworkTemplate", "template"),("Slice", "owner"),("Slice", "permitted_slices"),("Slice", "slices"),("Instance", "instances"),        
+        ("ControllerNetwork", "controllernetworks"),("NetworkSlice", "networkslices"),("Port", "links"),("Tenant", "subscribed_tenants")
+    ],
+    "NetworkParameter": [
+        ("NetworkParameterType", "parameter")        
+        
+    ],
+    "NetworkSlice": [
+        ("Network", "network"),("Slice", "slice")        
+        
+    ],
+    "Node": [
+        ("SiteDeployment", "site_deployment"),        
+        ("Instance", "instances"),("NodeLabel", "nodelabels"),("Slice", "slices")
+    ],
+    "NodeLabel": [
+        ("Node", "node")        
+        
+    ],
+    "Port": [
+        ("Network", "network"),("Instance", "instance")        
+        
+    ],
+    "ServiceAttribute": [
+        ("Service", "service")        
+        
+    ],
+    "ServiceMonitoringAgentInfo": [
+        ("Service", "service")        
+        
+    ],
+    "ServicePrivilege": [
+        ("User", "user"),("Service", "service"),("ServiceRole", "role")        
+        
+    ],
+    "Site": [
+        ("Deployment", "deployments"),        
+        ("ControllerSite", "controllersite"),("SiteDeployment", "sitedeployments"),("SitePrivilege", "siteprivileges"),("Slice", "slices")
+    ],
+    "SiteDeployment": [
+        ("Site", "site"),("Deployment", "deployment"),("Controller", "controller"),        
+        ("Node", "nodes")
+    ],
+    "SitePrivilege": [
+        ("User", "user"),("Site", "site"),("SiteRole", "role"),        
+        ("ControllerSitePrivilege", "controllersiteprivileges")
+    ],
+    "Slice": [
+        ("Site", "site"),("Service", "service"),("User", "creator"),("Flavor", "default_flavor"),("Image", "default_image"),("Node", "default_node"),        
+        ("ControllerSlice", "controllerslices"),("Instance", "instances"),("Network", "ownedNetworks"),("Network", "availableNetworks"),("Network", "networks"),("NetworkSlice", "networkslices"),("SlicePrivilege", "sliceprivileges")
+    ],
+    "SlicePrivilege": [
+        ("User", "user"),("Slice", "slice"),("SliceRole", "role"),        
+        ("ControllerSlicePrivilege", "controllersliceprivileges")
+    ],
+    "Tag": [
+        ("Service", "service")        
+        
+    ],
+    "Tenant": [
+        ("Service", "provider_service"),("Service", "subscriber_service"),("Tenant", "subscriber_tenant"),("User", "subscriber_user"),("TenantRoot", "subscriber_root"),("Network", "subscriber_network"),        
+        ("Tenant", "subscribed_tenants"),("TenantAttribute", "tenantattributes"),("TenantPrivilege", "tenantprivileges")
+    ],
+    "TenantAttribute": [
+        ("Tenant", "tenant")        
+        
+    ],
+    "TenantPrivilege": [
+        ("User", "user"),("Tenant", "tenant"),("TenantRole", "role")        
+        
+    ],
+    "TenantRootPrivilege": [
+        ("User", "user"),("TenantRoot", "tenant_root"),("TenantRootRole", "role")        
+        
+    ],
+    "TenantWithContainer": [
+        ("Instance", "instance"),("User", "creator")        
+        
+    ],
+}
