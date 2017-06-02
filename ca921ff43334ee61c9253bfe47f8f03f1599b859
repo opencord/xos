@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0e1d27_6b3c4994",
+        "filename": "containers/xos/Dockerfile.base",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-06-02T17:27:07Z",
+      "side": 1,
+      "message": "This doesn\u0027t specify versions, and may install dependencies - could you try specifying the `setuptools` version, and `--no-deps`?\n\nThe `--nodeps -U -I ` from the previous line should explicitly install the specified version over any version installed  (ie, the `apt` installed version).",
+      "revId": "ca921ff43334ee61c9253bfe47f8f03f1599b859",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
