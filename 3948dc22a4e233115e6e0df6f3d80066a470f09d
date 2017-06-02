@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0e1d27_6b87a962",
+        "filename": "xos/genx/reference/dependency_walker.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-06-02T15:55:26Z",
+      "side": 1,
+      "message": "You\u0027ll need to add \"link_graph\" to the config schema. is that for the core or for synchronizers?",
+      "range": {
+        "startLine": 17,
+        "startChar": 41,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "3948dc22a4e233115e6e0df6f3d80066a470f09d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
