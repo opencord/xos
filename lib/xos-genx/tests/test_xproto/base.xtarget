@@ -1,0 +1,4 @@
+{%- for m in proto.messages %}
+    {{ m.name }}
++++ {{m.name|lower}}.yaml
+{%- endfor %}
