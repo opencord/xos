@@ -156,3 +156,4 @@ wsgiref==0.1.2
 zope.interface==4.3.3
 redis==2.10.5
 git+https://github.com/sb98052/plyprotobuf
+
