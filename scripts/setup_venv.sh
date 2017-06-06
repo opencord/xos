@@ -26,7 +26,8 @@ fi
 if \
 pip install cryptography --global-option=build_ext --global-option="-L/usr/local/opt/openssl/lib" --global-option="-I/usr/local/opt/openssl/include" && \
 pip install -r $REQUIREMENTS && \
-cd $BASEDIR/lib/xos-config; python setup.py install
+cd $BASEDIR/lib/xos-config; python setup.py install && \
+cd $BASEDIR/lib/xos-logging; python setup.py install
   then
     echo "Requirements installed."
     echo "Virtualenv ready"

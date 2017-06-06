@@ -1,0 +1,10 @@
+MANIFEST.in
+setup.py
+XosConfig.egg-info/PKG-INFO
+XosConfig.egg-info/SOURCES.txt
+XosConfig.egg-info/dependency_links.txt
+XosConfig.egg-info/top_level.txt
+xosconfig/__init__.py
+xosconfig/config-schema.yaml
+xosconfig/config.py
+xosconfig/default.py

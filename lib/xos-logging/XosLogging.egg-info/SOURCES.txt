@@ -1,0 +1,7 @@
+setup.py
+XosLogging.egg-info/PKG-INFO
+XosLogging.egg-info/SOURCES.txt
+XosLogging.egg-info/dependency_links.txt
+XosLogging.egg-info/top_level.txt
+xoslogging/__init__.py
+xoslogging/logger.py
