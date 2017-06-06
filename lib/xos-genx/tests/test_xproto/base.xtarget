@@ -1,0 +1,3 @@
+{%- for m in proto.messages %}
+    {{ m.name }}
+{%- endfor %}
