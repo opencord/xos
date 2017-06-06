@@ -211,3 +211,8 @@ def xproto_base_fields(m, table):
             fields.extend(model_fields)
 
     return fields
+
+def xproto_tosca_required(blank):
+    if blank == "False":
+        return "true"
+    return "false"

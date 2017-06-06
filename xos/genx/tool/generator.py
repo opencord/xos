@@ -9,6 +9,7 @@ from xos2jinja import XOS2Jinja
 from proto2xproto import Proto2XProto
 
 import lib
+import logging
 
 
 
@@ -18,6 +19,7 @@ env = jinja2.Environment(loader=loader)
 class XOSGenerator:
     def __init__(self, args):
         self.args = args
+        print self.args
 
     def file_exists(self):
         def file_exists2(name):
@@ -42,8 +44,10 @@ class XOSGenerator:
     def generate(self):
         try:
             parser = plyproto.ProtobufAnalyzer()
+            # NOTE why not passing this as input to the method and use `parse.add_argument` in xosgen?
             input = self.input
-            ast = parser.parse_string(input,debug=0)
+
+            ast = parser.parse_string(input, debug=0)
 
             if (self.args.rev):
                 v = Proto2XProto()
@@ -73,7 +77,8 @@ class XOSGenerator:
                 for s in self.args.kv.split(','):
                     k,val=s.split(':')
                     context[k]=val
-            except:
+            except Exception, e:
+                print e.message
                 pass
 
             rendered = template.render({"proto": {'message_table':v.models, 'messages':v.messages, 'message_names':[m['name'] for m in v.messages]},"context":context,"options":v.options})
@@ -82,15 +87,20 @@ class XOSGenerator:
             current_buffer = []
             for l in lines:
                 if (l.startswith('+++')):
-                    prefix = ''
-                    prefixes = self.args.output.rsplit('/',1)
-                    if (len(prefixes)>1):
-                        path = prefix+'/'+l[4:]
-                        direc = prefix
-                        if (direc):
-                            os.system('mkdir -p %s'%direc)
-                    else:
-                        path = l[4:]
+
+                    # NOTE why not:
+                    if self.args.output:
+                        path = self.args.output + '/' + l[4:]
+
+                    # prefix = ''
+                    # prefixes = self.args.output.rsplit('/',1)
+                    # if (len(prefixes)>1):
+                    #     path = prefix+'/'+l[4:]
+                    #     direc = prefix
+                    #     if (direc):
+                    #         os.system('mkdir -p %s'%direc)
+                    # else:
+                    #     path = l[4:]
                     
                     fil = open(path,'w')
                     buf = '\n'.join(current_buffer)
@@ -122,7 +132,7 @@ class XOSGenerator:
 
             if (current_buffer):
                 print '\n'.join(current_buffer)
-
+                return current_buffer
 
         except Exception as e:
             print "    Error occurred! file[%s]" % (self.args.inputs), e
