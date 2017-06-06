@@ -1,9 +1,0 @@
-*.py
-Makefile
-!contenttype.py
-!header.py
-!network_header.py
-!plcorebase.py
-!service_header.py
-!singletonmodel.py
-!user.py

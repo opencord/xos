@@ -1,0 +1,71 @@
+TEST_EXPECTED_OUTPUT = """
+    name: XOSModel
+    fields:
+            name:
+                type: string
+                description: "Help Name"
+            files:
+                type: string
+                description: "Help Files"
+"""
+
+TOSCA_EXPECTED_OUTPUT = """tosca_definitions_version: tosca_simple_yaml_1_0
+
+node_types:
+
+    tosca.nodes.XOSModel:
+        derived_from: tosca.nodes.Root
+        description: XOSModel
+        properties:
+            no-delete:
+                type: boolean
+                default: false
+                description: Do not allow Tosca to delete this object
+            no-create:
+                type: boolean
+                default: false
+                description: Do not allow Tosca to create this object
+            no-update:
+                type: boolean
+                default: false
+                description: Do not allow Tosca to update this object
+            replaces:
+                type: string
+                required: false
+                descrption: Replaces/renames this object
+            name:
+                type: string
+                required: true
+                description: "Help Name"
+            files:
+                type: string
+                required: true
+                description: "Help Files\""""
+
+DJANGO_EXPECTED_OUTPUT = """
+from header import *
+
+from xosmodel_header import *
+def top():
+    return 'top'
+
+
+
+
+
+class XOSModel(XOSBase):
+  # Primitive Fields (Not Relations)
+  name = StrippedCharField( help_text = "Help Name", max_length = 200, null = False, db_index = False, blank = False )
+  files = StrippedCharField( help_text = "Help Files", max_length = 1024, null = False, db_index = False, blank = False )
+
+
+  # Relations
+
+
+  def model():
+      return 'model'
+  pass
+
+def bottom():
+    return 'bottom'
+"""
