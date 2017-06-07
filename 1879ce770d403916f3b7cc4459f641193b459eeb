@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0e1d27_ec6e2f96",
+        "filename": "xos/generate/dependency_walker.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-06-07T21:51:21Z",
+      "side": 1,
+      "message": "Probably can be deleted.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 71
+      },
+      "revId": "1879ce770d403916f3b7cc4459f641193b459eeb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0e1d27_8c5e93e8",
+        "filename": "xos/synchronizers/new_base/backend_modelpolicy.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-06-07T21:51:21Z",
+      "side": 1,
+      "message": "I think it can be removed, but should be tested. We can save for a later cleanup pass / E2E if you want to get this patch in now.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 48
+      },
+      "revId": "1879ce770d403916f3b7cc4459f641193b459eeb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0e1d27_6c633fb2",
+        "filename": "xos/synchronizers/new_base/deleter.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-06-07T21:51:21Z",
+      "side": 1,
+      "message": "Seems removable.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 52
+      },
+      "revId": "1879ce770d403916f3b7cc4459f641193b459eeb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0e1d27_4c587bfa",
+        "filename": "xos/synchronizers/new_base/event_loop.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-06-07T21:51:21Z",
+      "side": 1,
+      "message": "Seems removable, though I\u0027d verify with Sapan.",
+      "range": {
+        "startLine": 122,
+        "startChar": 12,
+        "endLine": 122,
+        "endChar": 81
+      },
+      "revId": "1879ce770d403916f3b7cc4459f641193b459eeb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0e1d27_2c5d47ea",
+        "filename": "xos/synchronizers/new_base/event_manager.py",
+        "patchSetId": 18
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-06-07T21:51:21Z",
+      "side": 1,
+      "message": "Feefie/Fofum was the old event system and has not been used in a long time.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 53
+      },
+      "revId": "1879ce770d403916f3b7cc4459f641193b459eeb",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
