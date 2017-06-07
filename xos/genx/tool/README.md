@@ -9,3 +9,4 @@ Drop the Makefile in a directory with `xproto` files, set `PREFIX` to the locati
 ## Tests
 
 Run `make tests`
+
