@@ -7,8 +7,6 @@ from django.contrib import admin
 # This is the generated API
 from xosapi import *
 
-from core.views.serviceGraph import ServiceGridView
-
 # from services.vbbu.view import *
 from core.views.mcordview import *
 # from core.views.analytics import AnalyticsAjaxView
