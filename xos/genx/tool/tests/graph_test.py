@@ -7,8 +7,8 @@ class XProtoGraphTests(XProtoTest):
   {% for m in proto.messages %}
   {{ m.name }} {
   {%- for l in m.links %}
-     {%- if proto.message_table[l.peer] -%}
-     {%- set model = proto.message_table[l.peer] %}
+     {%- if proto.message_table[l.peer.fqn] -%}
+     {%- set model = proto.message_table[l.peer.fqn] %}
         {% for f in model.fields %}
         {{ f.type }} {{ f.name }};
         {% endfor %}
@@ -104,8 +104,8 @@ message Slice (PlCoreBase){
   {% for m in proto.messages %}
   {{ m.name }} {
   {%- for l in m.links %}
-     {%- if proto.message_table[l.peer] -%}
-     {%- set model = proto.message_table[l.peer] %}
+     {%- if proto.message_table[l.peer.fqn] -%}
+     {%- set model = proto.message_table[l.peer.fqn] %}
         {% for f in model.fields %}
         {{ f.type }} {{ f.name }};
         {% endfor %}
@@ -193,7 +193,7 @@ message Slice (PlCoreBase){
         self.generate(xproto=proto, target=target)
         output = self.get_output()
         num_semis = output.count(';')
-        self.assertGreater(num_semis, 3) # 3 is the number of links, each of which contains at least one field
+        self.assertGreater(num_semis, 3)
 
     def test_from_base(self):
         target = \
