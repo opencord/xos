@@ -108,10 +108,17 @@ class XOSPolicyEngine(object):
                     logger.log_exc("MODEL POLICY: Exception when running handler")
                     policies_failed = True
 
+                    try:
+                        instance.policy_status = "2 - %s" % traceback.format_exc(limit=1)
+                        instance.save(update_fields=["policy_status"])
+                    except:
+                        logger.log_exc("MODEL_POLICY: Exception when storing policy_status")
+
         if not policies_failed:
             try:
                 instance.policed=model_accessor.now()
-                instance.save(update_fields=['policed'])
+                instance.policy_status = "1 - done"
+                instance.save(update_fields=['policed', 'policy_status'])
             except:
                 logger.log_exc('MODEL POLICY: Object %r failed to update policed timestamp' % instance)
 
