@@ -70,6 +70,46 @@ class TenantWithContainerPolicy(Policy):
         # such as creating ports for containers.
         instance.save()
 
+    def allocate_public_service_instance(self, **kwargs):
+        """ Get a ServiceInstance that provides public connectivity. Currently this means to use AddressPool and
+            VRouterTenant.
+
+            Expect this to be refactored when we break hard-coded service dependencies.
+        """
+        address_pool_name = kwargs.pop("address_pool_name")
+
+        ap = AddressPool.objects.filter(name=address_pool_name, service=self)
+        if not ap:
+            raise Exception("vRouter unable to find addresspool %s" % name)
+        ap = ap[0]
+
+        ip = ap.get_address()
+        if not ip:
+            raise Exception("AddressPool '%s' has run out of addresses." % ap.name)
+
+        # TODO: potential partial failure -- AddressPool address is allocated and saved before vrouter tenant
+
+        t = None
+        try:
+            vrouter_service = VRouterService.objects.all()   # TODO: Hardcoded dependency
+            if not vrouter_service:
+                raise Exception("no vrouter services")
+            vrouter_service = vrouter_service[0]
+
+            t = VRouterTenant(provider_service=vrouter_service, **kwargs)    # TODO: Hardcoded dependency
+            t.public_ip = ip
+            t.public_mac = self.ip_to_mac(ip)
+            t.address_pool_id = ap.id
+            t.save()
+        except:
+            # cleanup if anything went wrong
+            ap.put_address(ip)
+            if (t and t.id):
+                t.delete()
+            raise
+
+        return t
+
     def get_image(self, tenant):
         slice = tenant.provider_service.slices.all()
         if not slice:
