@@ -1,7 +1,6 @@
 import unittest
-import shutil
 import os
-from generator import *
+from xosgenx.generator import XOSGenerator
 
 TEST_FILE = "test_file"
 TEST_OUTPUT = "Do re mi fa so la ti do"
@@ -33,6 +32,7 @@ class XProtoTest(unittest.TestCase):
 	pass
 
     def generate(self, xproto = None, target = None, kv = '', rev = False):
+        # TODO refactor this function with the new API (or better don't use a shared wrapper in tests)
         if (not xproto):
             xproto = \
 """

@@ -1,7 +1,17 @@
-from xproto_test_base import *
+import unittest
+from xosgenx.generator import XOSGenerator
+from helpers import FakeArgs, XProtoTestHelpers
 
-class XProtoRlinkTests(XProtoTest):
+class XProtoRlinkTests(unittest.TestCase):
     def test_proto_generator(self):
+        target = XProtoTestHelpers.write_tmp_target("""
+{% for m in proto.messages %}
+   {% for r in m.rlinks %}
+       {{ r }}
+   {% endfor %}
+{% endfor %}
+""")
+
         xproto = \
 """
 message VRouterPort (PlCoreBase){
@@ -26,18 +36,13 @@ message VRouterDevice (PlCoreBase){
      required manytoone vrouter_service->VRouterService:devices = 5 [db_index = True, null = False, blank = False];
 }
 """
-	target = \
-"""
-{% for m in proto.messages %}
-   {% for r in m.rlinks %}
-       {{ r }}
-   {% endfor %}
-{% endfor %} 
-"""
 
-        self.generate(xproto = xproto, target = target)
-        self.assertIn("'src_port': 'device_ports'", self.get_output())
-        self.assertIn("'src_port': 'ports'", self.get_output())
+        args = FakeArgs()
+        args.inputs = xproto
+        args.target = target
+        output = XOSGenerator.generate(args)
+        self.assertIn("'src_port': 'device_ports'", output)
+        self.assertIn("'src_port': 'ports'", output)
 
 if __name__ == '__main__':
     unittest.main()

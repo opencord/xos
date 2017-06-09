@@ -1,22 +1,9 @@
-from xproto_test_base import *
+import unittest
+from xosgenx.generator import XOSGenerator
+from helpers import FakeArgs, XProtoTestHelpers
 
-class XProtoGraphTests(XProtoTest):
+class XProtoGraphTests(unittest.TestCase):
     def test_cross_model(self):
-        target = \
-"""
-  {% for m in proto.messages %}
-  {{ m.name }} {
-  {%- for l in m.links %}
-     {%- if proto.message_table[l.peer] -%}
-     {%- set model = proto.message_table[l.peer] %}
-        {% for f in model.fields %}
-        {{ f.type }} {{ f.name }};
-        {% endfor %}
-     {%- endif -%}
-  {% endfor %}
-  }
-  {% endfor %}
-"""
 
         proto = \
 """
@@ -93,8 +80,25 @@ message Slice (PlCoreBase){
      required manytomany tags->Tag = 18 [db_index = False, null = False, blank = True];
 }
 """
-        self.generate(xproto=proto, target=target)
-        output = self.get_output()
+        target = XProtoTestHelpers.write_tmp_target("""
+        {% for m in proto.messages %}
+{{ m.name }} {
+{%- for l in m.links %}
+ {%- if proto.message_table[l.peer] -%}
+ {%- set model = proto.message_table[l.peer] %}
+    {% for f in model.fields %}
+    {{ f.type }} {{ f.name }};
+    {% endfor %}
+ {%- endif -%}
+{% endfor %}
+}
+{% endfor %}
+        """)
+
+        args = FakeArgs()
+        args.inputs = proto
+        args.target = target
+        output = XOSGenerator.generate(args)
         num_semis = output.count(';')
         self.assertGreater(num_semis, 3) # 3 is the number of links, each of which contains at least one field
 
@@ -114,6 +118,7 @@ message Slice (PlCoreBase){
   }
   {% endfor %}
 """
+        xtarget = XProtoTestHelpers.write_tmp_target(target)
 
         proto = \
 """
@@ -190,8 +195,12 @@ message Slice (PlCoreBase){
      required manytomany tags->Tag = 18 [db_index = False, null = False, blank = True];
 }
 """
-        self.generate(xproto=proto, target=target)
-        output = self.get_output()
+
+        args = FakeArgs()
+        args.inputs = proto
+        args.target = xtarget
+        output = XOSGenerator.generate(args)
+
         num_semis = output.count(';')
         self.assertGreater(num_semis, 3) # 3 is the number of links, each of which contains at least one field
 
@@ -202,7 +211,7 @@ message Slice (PlCoreBase){
         {{ f.type }} {{ f.name }};
   {% endfor %}
 """
-
+        xtarget = XProtoTestHelpers.write_tmp_target(target)
         proto = \
 """
 message Port (PlCoreBase,ParameterMixin){
@@ -279,8 +288,11 @@ message Slice (Network){
      required manytomany tags->Tag = 18 [db_index = False, null = False, blank = True];
 }
 """
-        self.generate(xproto=proto, target=target)
-        self.assertIn('easter_egg', self.get_output())
+        args = FakeArgs()
+        args.inputs = proto
+        args.target = xtarget
+        output = XOSGenerator.generate(args)
+        self.assertIn('easter_egg', output)
 
 if __name__ == '__main__':
     unittest.main()
