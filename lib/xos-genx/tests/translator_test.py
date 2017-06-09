@@ -1,35 +1,29 @@
-from xproto_test_base import *
+import unittest
+import os
+from xosgenx.generator import XOSGenerator
+from helpers import FakeArgs
 import yaml
 
-# Generate other formats from xproto
-class XProtoTranslatorTest(XProtoTest):
-    def test_proto_generator(self):
-        xproto = \
-"""
-message VRouterPort (XOSBase){
-     optional string name = 1 [help_text = "port friendly name", max_length = 20, null = True, db_index = False, blank = True];
-     required string openflow_id = 2 [help_text = "port identifier in ONOS", max_length = 21, null = False, db_index = False, blank = False];
-     required manytoone vrouter_device->VRouterDevice:ports = 3 [db_index = True, null = False, blank = False];
-     required manytoone vrouter_service->VRouterService:device_ports = 4 [db_index = True, null = False, blank = False];
+PROTO_EXPECTED_OUTPUT = """
+message VRouterPort {
+  option bases = "XOSBase";
+  optional string name = 1 [ null = "True",  max_length = "20",  blank = "True",  help_text = ""port friendly name"",  modifier = "optional",  db_index = "False" ];
+  required string openflow_id = 2 [ null = "False",  max_length = "21",  blank = "False",  help_text = ""port identifier in ONOS"",  modifier = "required",  db_index = "False" ];
+  required int32 vrouter_device = 3 [ null = "False",  blank = "False",  model = "VRouterDevice",  modifier = "required",  type = "link",  port = "ports",  link_type = "manytoone",  db_index = "True" ];
+  required int32 vrouter_service = 4 [ null = "False",  blank = "False",  model = "VRouterService",  modifier = "required",  type = "link",  port = "device_ports",  link_type = "manytoone",  db_index = "True" ];
 }
 """
-	target = \
-"""
-{% for m in proto.messages %}
-message {{ m.name }} {
-  option bases = "{{ m.bases | join(",") }}";
-  {%- for f in m.fields %}
-  {{ f.modifier }} {{f.type}} {{f.name}} = {{ f.id }}{% if f.options %} [{% for k,v in f.options.iteritems() %} {{ k }} = "{{ xproto_unquote(v)}}"{% if not loop.last %},{% endif %} {% endfor %}]{% endif %};
-  {%- endfor %}
-}
-{% endfor %}
-"""
+VROUTER_XPROTO = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "/xproto/vrouterport.xproto")
 
-        self.generate(xproto = xproto, target = target)
-        self.generate(xproto = self.get_output(), target = "{{ proto }}")
-	output = self.get_output()
-        self.assertIn("VRouterService", output)
-    
+# Generate other formats from xproto
+class XProtoTranslatorTest(unittest.TestCase):
+    def test_proto_generator(self):
+        args = FakeArgs()
+        args.files = [VROUTER_XPROTO]
+        args.target = 'proto.xtarget'
+        output = XOSGenerator.generate(args)
+        self.assertEqual(output, PROTO_EXPECTED_OUTPUT)
+
     def test_yaml_generator(self):
         xproto = \
 """
@@ -109,50 +103,11 @@ message Slice (PlCoreBase){
 }
 """
 
-        # Update this to the contents of modeldefs.xtarget
-        target = \
-"""
-items:
-{%- for m in proto.messages | sort(attribute='name') %}
-{%- if m.name != 'XOSBase' %}
-- app: {{ xproto_unquote(xproto_first_non_empty([m.options.app_name, context.app_name, options.app_name])) }}
-  fields: 
-  {%- set id_field = {'type':'int32', 'name':'id', 'options':{}} %}
-  {% for f in (xproto_base_fields(m, proto.message_table) + m.fields + [id_field]) | sort(attribute='name') -%}
-  {% if not f.link or f.options.link_type != 'manytomany' -%}
-  - hint: {% if f.options.help_text %}{{ xproto_unquote(f.options.help_text) }}{% else %}''{% endif %}
-    {% if not f.link -%}
-    name: {{ f.name }}
-    {%- else -%}
-    name: {{ f.name }}_id
-    relation: {model: {{ f.options.model }}, type: {{ f.options.link_type }}}
-    {% endif %}
-    type: {{ xproto_type_to_ui_type(f) }}
-    {% set validators = xproto_validators(f) -%}
-    {% if validators -%}
-    validators:
-    {% for v in validators | sort(attribute='name',reverse=True) -%}
-    - {{ v | yaml }}
-    {% endfor %}
-    {% else -%}
-    validators: []
-    {% endif %}
-  {% endif -%}
-  {% endfor %}
-  name: {{ m.name }}  
-  {%- set goodlinks = xproto_links_to_modeldef_relations( xproto_base_links(m, proto.message_table) + m.links ) %}
-  {% if goodlinks %}
-  relations:
-  {{ goodlinks | join('\n') | indent(width=2)}}
-  {%- else %}
-  relations: []
-  {%- endif %}
-{%- endif %}
-{% endfor -%} 
-"""
+        args = FakeArgs()
+        args.inputs = xproto
+        args.target = 'modeldefs.xtarget'
+        output = XOSGenerator.generate(args)
 
-        self.generate(xproto = xproto, target = target)
-	output = self.get_output()
         yaml_ir = yaml.load(output)
         self.assertEqual(len(yaml_ir['items']), 4)
 

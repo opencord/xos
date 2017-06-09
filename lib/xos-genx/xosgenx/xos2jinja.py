@@ -59,11 +59,7 @@ class Stack(list):
 ''' XOS2Jinja overrides the underlying visitor pattern to transform the tree
     in addition to traversing it '''
 class XOS2Jinja(m.Visitor):
-    stack = Stack()
-    models = {}
-    options = {}
-    message_options = {}
-    count_stack = Stack()
+    
     content=""
     offset=0
     current_message_name = None
@@ -73,6 +69,11 @@ class XOS2Jinja(m.Visitor):
 
     def __init__(self):
         super(XOS2Jinja, self).__init__()
+        self.stack = Stack()
+        self.models = {}
+        self.options = {}
+        self.message_options = {}
+        self.count_stack = Stack()
 
         self.verbose = 0
         self.first_field = True

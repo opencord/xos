@@ -306,3 +306,8 @@ def xproto_type_to_ui_type(f):
         return 'number'
     elif f['type'] in ['double','float']:
         return 'string'
+
+def xproto_tosca_required(blank):
+    if blank == "False":
+        return "true"
+    return "false"
