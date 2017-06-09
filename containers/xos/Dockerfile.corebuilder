@@ -4,12 +4,21 @@ FROM xosproject/xos-base:candidate
 # Install the corebuilder tools and the tosca custom_types that it needs
 ADD xos/tools/corebuilder /opt/xos/tools/corebuilder
 ADD xos/tosca/custom_types /opt/xos/tools/corebuilder/custom_types
+ADD lib /opt/xos/lib
 
 # Temporary fix. This should go away when we update xos-core to a more recent image.
 RUN pip install git+https://github.com/sb98052/plyprotobuf
 
 ENV HOME /root
 WORKDIR /opt/xos/tools/corebuilder
+
+# Install the config module
+RUN cd /opt/xos/lib/xos-config/; \
+	python setup.py install
+
+# Install the xosgenx library
+RUN cd /opt/xos/lib/xos-genx/; \
+	python setup.py install
 
 # Label image
 ARG org_label_schema_schema_version=1.0
