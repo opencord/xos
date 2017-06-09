@@ -62,6 +62,9 @@ class XOSPolicyEngine(object):
     def load_model_policies(self, policies_dir):
         policies=[]
         for fn in os.listdir(policies_dir):
+                if fn.startswith("test"):
+                    # don't try to import unit tests!
+                    continue
                 pathname = os.path.join(policies_dir,fn)
                 if os.path.isfile(pathname) and fn.endswith(".py") and (fn!="__init__.py"):
                     module = imp.load_source(fn[:-3], pathname)
@@ -108,10 +111,17 @@ class XOSPolicyEngine(object):
                     logger.log_exc("MODEL POLICY: Exception when running handler")
                     policies_failed = True
 
+                    try:
+                        instance.policy_status = "2 - %s" % traceback.format_exc(limit=1)
+                        instance.save(update_fields=["policy_status"])
+                    except:
+                        logger.log_exc("MODEL_POLICY: Exception when storing policy_status")
+
         if not policies_failed:
             try:
                 instance.policed=model_accessor.now()
-                instance.save(update_fields=['policed'])
+                instance.policy_status = "1 - done"
+                instance.save(update_fields=['policed', 'policy_status'])
             except:
                 logger.log_exc('MODEL POLICY: Object %r failed to update policed timestamp' % instance)
 
