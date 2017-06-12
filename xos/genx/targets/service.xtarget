@@ -4,15 +4,14 @@ from header import *
 {% if file_exists(m.name|lower+'_header.py') -%}from {{m.name|lower }}_header import *{% endif %}
 {% if file_exists(m.name|lower+'_top.py') -%}{{ include_file(m.name|lower+'_top.py') }} {% endif %}
 
-{%- for l in m.links -%}{% set peer_name=xproto_model_basename(l.peer.name) %}
+{%- for l in m.links -%}{% set peer_name=l.peer.name %}
 {% if peer_name not in proto.message_names -%}
 from core.models import {{ peer_name }} 
 {%- endif -%}
 {%- endfor -%}
 {%- for b in m.bases -%}
-{%- if b!='XOSBase' and 'Mixin' not in b -%}
-#from core.models.{{b | lower}} import {{ b }}
-from core.models import {{ b }}
+{%- if b.name!='XOSBase' and 'Mixin' not in b.name -%}
+from core.models import {{ b.name }}
 {%- endif -%}
 {% endfor %}
 
