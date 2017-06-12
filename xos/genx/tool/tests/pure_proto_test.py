@@ -44,7 +44,7 @@ from core.models.{{b | lower}} import {{ b }}
 {% endfor %}
 
 
-class {{ m.name }}{{ xproto_base_def(m.bases) }}:
+class {{ m.name }}{{ xproto_base_def(m, m.bases) }}:
   # Primitive Fields (Not Relations)
   {% for f in m.fields %}
   {%- if not f.link -%}
