@@ -1,7 +1,7 @@
-import plyproto.model as m
+import plyxproto.model as m
 import pdb
 import argparse
-import plyproto.parser as plyproto
+import plyxproto.parser as plyxproto
 import traceback
 import sys
 import jinja2

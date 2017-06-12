@@ -1,6 +1,6 @@
-import plyproto.model as m
+import plyxproto.model as m
 import pdb
-import plyproto.parser as plyproto
+import plyxproto.parser as plyxproto
 import traceback
 import sys
 import jinja2
@@ -40,7 +40,7 @@ class XOSGenerator:
 
     def generate(self):
         try:
-            parser = plyproto.ProtobufAnalyzer()
+            parser = plyxproto.ProtobufAnalyzer()
             input = self.input
             ast = parser.parse_string(input,debug=0)
 
@@ -130,7 +130,7 @@ class XOSGenerator:
             print '-'*60
             traceback.print_exc(file=sys.stdout)
             print '-'*60
-            exit(1)
+            raise e
     
 def main():
     generator = XOSGenerator(args)
