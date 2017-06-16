@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0e1d27_b9d752ed",
+        "filename": "xos/core/models/attic/xosbase_header.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-06-16T14:55:15Z",
+      "side": 1,
+      "message": "Thank you! :-)",
+      "revId": "5c99b8b83bb3e216132ebc7a4ef977823d1cbf46",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
