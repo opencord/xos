@@ -17,9 +17,9 @@ from core.models import {{ b.name }}
 
 {% endfor %}
 
+{%- if options.legacy =='"True"'%}{% set legacy_tag = '_decl' %}{% else %}{% set legacy_tag = '' %}{% endif %}
 {% for m in proto.messages %}
-
-class {{ m.name }}{{ xproto_base_def(m.name, m.bases) }}:
+class {{ m.name }}{{ legacy_tag }}{{ xproto_base_def(m.name, m.bases) }}:
 
   KIND = {{ xproto_first_non_empty([m.options.kind, options.kind, options.name, "Set a kind in your xproto!"]) }}
 
@@ -45,4 +45,4 @@ class {{ m.name }}{{ xproto_base_def(m.name, m.bases) }}:
 
 {% if file_exists(m.name|lower+'_bottom.py') -%}{{ include_file(m.name|lower+'_bottom.py') }}{% endif %}
 {% endfor %}
-+++ models.py
++++ models{{ legacy_tag }}.py
