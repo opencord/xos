@@ -233,7 +233,11 @@ class Generator(dict):
 				else:
                                         f.type = f.__class__.__name__
                                         if (type(f)==ForeignKey):
-                                            f.related.model.class_name = f.related.model.__name__
+                                            try:
+                                                f.related.model.class_name = f.related.model.__name__
+                                            except AttributeError:
+                                                f.related.model.class_name = f.related.model
+
                                         if (f.name not in base_props):
                                             obj.fields.append(f)
                                         obj.all_fields.append(f)
