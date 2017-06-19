@@ -1,4 +1,3 @@
-from synchronizers.new_base.modelaccessor import *
 from synchronizers.new_base.policy import Policy
 
 class Scheduler(object):
@@ -129,6 +128,8 @@ class TenantWithContainerPolicy(Policy):
             tenant.instance = None
 
         if tenant.instance is None:
+            print tenant.provider_service.slices.count()
+            # raise
             if not tenant.provider_service.slices.count():
                 raise XOSConfigurationError("The service has no slices")
 
