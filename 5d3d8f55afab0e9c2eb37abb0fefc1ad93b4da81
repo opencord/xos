@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0e1d27_4f5f4873",
+        "filename": "containers/xos/Dockerfile.corebuilder",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-06-20T14:43:13Z",
+      "side": 1,
+      "message": "Most of the time you want COPY instead of ADD: https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#add-or-copy",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "5d3d8f55afab0e9c2eb37abb0fefc1ad93b4da81",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
