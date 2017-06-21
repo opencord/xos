@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0e1d27_8aa66ec0",
+        "filename": "lib/xos-config/xosconfig/config.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-06-21T17:29:50Z",
+      "side": 1,
+      "message": "Why is this a global variable? Couldn\u0027t you assign it to a class variable, and then reference it from the Config() object similar to other uses cases of the object?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 18
+      },
+      "revId": "5364bed403d7a16bfc802bce015147c767752744",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
