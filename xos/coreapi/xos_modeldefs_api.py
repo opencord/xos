@@ -87,6 +87,10 @@ class ModelDefsService(modeldefs_pb2.modeldefsServicer, XOSAPIHelperMixin):
             if 'core.models.project' in model.__module__:
                 continue
 
+            # NOTE Filtering out wrapper models
+            if 'decl' in model.__module__:
+                continue
+
             modeldef = modeldefs.items.add()
 
             modeldef.name = model.__name__
