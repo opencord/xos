@@ -14,6 +14,7 @@ import threading
 
 if __name__ == "__main__":
     import django
+
     sys.path.append('/opt/xos')
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
 
