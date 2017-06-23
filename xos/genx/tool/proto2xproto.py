@@ -1,4 +1,5 @@
 import plyxproto.model as m
+from plyxproto.helpers import Visitor
 import pdb
 import argparse
 import plyxproto.parser as plyxproto
@@ -47,7 +48,7 @@ def replace_link(obj):
         except:
             return obj
 
-class Proto2XProto(m.Visitor):
+class Proto2XProto(Visitor):
     stack = Stack()
     count_stack = Stack()
     content=""
