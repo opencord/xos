@@ -96,13 +96,12 @@ class XOS2Jinja(m.Visitor):
     options = {}
     package = None
     message_options = {}
+    policies = {}
+
     count_stack = Stack()
     content=""
     offset=0
     current_message_name = None
-
-    def get_stack(self):
-        return stack
 
     def __init__(self):
         super(XOS2Jinja, self).__init__()
@@ -110,6 +109,16 @@ class XOS2Jinja(m.Visitor):
         self.verbose = 0
         self.first_field = True
         self.first_method = True
+
+    def visit_PolicyStatement(self, obj):
+        if self.package:
+            pname = '.'.join([self.package, obj.name])
+        else:
+            pname = obj.name
+
+        self.policies[pname] = obj.body
+
+        return True
 
     def visit_PackageStatement(self, obj):
         dotlist = obj.name.value
@@ -284,7 +293,7 @@ class XOS2Jinja(m.Visitor):
         else:
             model_name = obj.name.value.pval
 
-        model_def = {'name':obj.name.value.pval,'fields':fields,'links':links, 'bases':obj.bases, 'options':self.message_options, 'package':self.package, 'fqn': model_name, 'rlinks': []}
+        model_def = {'name':obj.name.value.pval,'fields':fields,'links':links, 'bases':obj.bases, 'options':self.message_options, 'package':self.package, 'fqn': model_name, 'rlinks': [], 'policy': obj.policy.value.pval}
         self.stack.push(model_def)
         
         self.models[model_name] = model_def
