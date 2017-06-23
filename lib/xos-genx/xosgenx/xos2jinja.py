@@ -1,4 +1,5 @@
 import plyxproto.model as m
+from plyxproto.helpers import Visitor
 import pdb
 import argparse
 import plyxproto.parser as plyxproto
@@ -64,7 +65,6 @@ def compute_rlinks(messages, message_dict):
                 try:
                     rev_links[l['peer']['fqn']].append(rlink)
                 except TypeError:
-                    pdb.set_trace()
                     pass
             except KeyError:
                 rev_links[l['peer']['fqn']] = [rlink]
@@ -97,12 +97,7 @@ class Stack(list):
 ''' XOS2Jinja overrides the underlying visitor pattern to transform the tree
     in addition to traversing it '''
 
-
-class XOS2Jinja(m.Visitor):
-
-    def get_stack(self):
-        return self.stack
-
+class XOS2Jinja(Visitor):
     def __init__(self):
         super(XOS2Jinja, self).__init__()
 
@@ -118,6 +113,16 @@ class XOS2Jinja(m.Visitor):
         self.verbose = 0
         self.first_field = True
         self.first_method = True
+
+    def visit_PolicyStatement(self, obj):
+        if self.package:
+            pname = '.'.join([self.package, obj.name])
+        else:
+            pname = obj.name
+
+        self.policies[pname] = obj.body
+
+        return True
 
     def visit_PackageStatement(self, obj):
         dotlist = obj.name.value
@@ -177,6 +182,10 @@ class XOS2Jinja(m.Visitor):
 
         s['src_port'] = obj.src_port.value.pval
         s['name'] = obj.src_port.value.pval
+        try:
+            s['policy'] = obj.policy.pval
+        except AttributeError:
+            s['policy'] = None
 
         try:
             s['dst_port'] = obj.dst_port.value.pval
@@ -218,6 +227,12 @@ class XOS2Jinja(m.Visitor):
             s['type'] = obj.ftype.name.pval
 
         s['name'] = obj.name.value.pval
+
+        try:
+            s['policy'] = obj.policy.pval
+        except AttributeError:
+            s['policy'] = None
+
         s['modifier'] = obj.field_modifier.pval
         s['id'] = obj.fieldId.pval
 
@@ -293,6 +308,11 @@ class XOS2Jinja(m.Visitor):
             model_name = obj.name.value.pval
 
         model_def = {'name':obj.name.value.pval,'fields':fields,'links':links, 'bases':obj.bases, 'options':self.message_options, 'package':self.package, 'fqn': model_name, 'rlinks': []}
+        try:
+            model_def['policy'] = obj.policy.pval
+        except AttributeError:
+            model_def['policy'] = None
+
         self.stack.push(model_def)
         
         self.models[model_name] = model_def
