@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a0e1d27_0ada5e78",
+        "filename": "lib/xos-genx/tests/parse_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-06-24T01:36:51Z",
+      "side": 1,
+      "message": "Could you make this a move instead of rm followed by mv so that we don\u0027t lose the git history for it?",
+      "revId": "f7999fc9811d741781a2b91c03b9e56f568d342a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a0e1d27_eae60a44",
+        "filename": "lib/xos-genx/tests/target_test.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-06-24T01:36:51Z",
+      "side": 1,
+      "message": "This also. Could you do a git mv instead of rm + add.",
+      "revId": "f7999fc9811d741781a2b91c03b9e56f568d342a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
