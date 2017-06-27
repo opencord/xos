@@ -1,4 +1,5 @@
 import plyxproto.model as m
+from plyxproto.helpers import Visitor
 import pdb
 import argparse
 import plyxproto.parser as plyxproto
@@ -98,7 +99,7 @@ class Stack(list):
     in addition to traversing it '''
 
 
-class XOS2Jinja(m.Visitor):
+class XOS2Jinja(Visitor):
 
     def get_stack(self):
         return self.stack

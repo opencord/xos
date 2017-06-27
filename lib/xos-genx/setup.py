@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='XosGenX',
-      version='1.0',
+      version='1.1',
       description='XOS Generative Toolchain',
       author='Sapan Bhatia, Matteo Scandolo',
       author_email='sapan@onlab.us, teo@onlab.us',
