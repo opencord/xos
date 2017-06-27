@@ -1,4 +1,5 @@
 import plyxproto.model as m
+from plyxproto.helpers import Visitor
 import pdb
 import argparse
 import plyxproto.parser as plyxproto
