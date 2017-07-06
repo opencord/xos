@@ -25,6 +25,7 @@ colorama==0.2.5
 constantly==15.1.0
 contextlib2==0.5.4
 coreapi==1.32.3
+cryptography==1.9
 debtcollector==1.8.0
 decorator==4.0.10
 django-bitfield==1.8.0
