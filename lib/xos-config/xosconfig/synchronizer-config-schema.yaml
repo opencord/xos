@@ -9,6 +9,10 @@ map:
     map:
       level:
         type: str
+      file:
+        type: str
+      logstash_hostport:
+        type: str
       channels:
         type: seq
         sequence:
