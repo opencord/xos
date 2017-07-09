@@ -10,9 +10,10 @@ def select_by_user(cls, user):
     if user.is_admin:
         return cls.objects.all()
     else:
-        from core.models.serviceprivilege import ServicePrivilege
+        from core.models.privilege import Privilege
         service_ids = [
-            sp.slice.id for sp in ServicePrivilege.objects.filter(user=user)]
+            # TODO: Should this be slice id or service id (next line)?
+            sp.object_id for sp in Privilege.objects.filter(accessor_id=user.id, accessor_type='User', object_type='Service')]
         return cls.objects.filter(id__in=service_ids)
 
 @property
