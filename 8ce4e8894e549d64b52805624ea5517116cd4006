@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a202591_0ad147fb",
+        "filename": "xos/api/utility/sliceplus.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-07-12T22:28:29Z",
+      "side": 1,
+      "message": "This file is probably close to being obsolete.",
+      "revId": "8ce4e8894e549d64b52805624ea5517116cd4006",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a202591_eacdeb5e",
+        "filename": "xos/core/models/attic/service_model.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-07-12T22:28:29Z",
+      "side": 1,
+      "message": "Seems like it should be service id. Looks like the old code is incorrect?",
+      "range": {
+        "startLine": 15,
+        "startChar": 12,
+        "endLine": 15,
+        "endChar": 70
+      },
+      "revId": "8ce4e8894e549d64b52805624ea5517116cd4006",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a202591_cada2f17",
+        "filename": "xos/core/models/user.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-07-12T22:28:29Z",
+      "side": 1,
+      "message": "I wish we could force all permissions to lower case, rather than having to test both upper and lower.",
+      "range": {
+        "startLine": 368,
+        "startChar": 32,
+        "endLine": 368,
+        "endChar": 43
+      },
+      "revId": "8ce4e8894e549d64b52805624ea5517116cd4006",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a202591_aad7f3ec",
+        "filename": "xos/core/xoslib/objects/sliceplus.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-07-12T22:28:29Z",
+      "side": 1,
+      "message": "Also soon to be an obsolete file. May already be.",
+      "revId": "8ce4e8894e549d64b52805624ea5517116cd4006",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a202591_8a04377f",
+        "filename": "xos/synchronizers/model_policy.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-07-12T22:28:29Z",
+      "side": 1,
+      "message": "This file may be dead (I hope so).",
+      "revId": "8ce4e8894e549d64b52805624ea5517116cd4006",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a202591_6a09db94",
+        "filename": "xos/xos_client/xosapi/orm.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-07-12T22:28:29Z",
+      "side": 1,
+      "message": "I\u0027m not seeing this file in the patch set. Was it missed?",
+      "range": {
+        "startLine": 506,
+        "startChar": 0,
+        "endLine": 506,
+        "endChar": 28
+      },
+      "revId": "8ce4e8894e549d64b52805624ea5517116cd4006",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
