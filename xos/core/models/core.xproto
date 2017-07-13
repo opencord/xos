@@ -325,7 +325,10 @@ message ServiceAttribute (XOSBase) {
 }
 
 
-message ServiceDependency (Tenant) {
+message ServiceDependency (XOSBase) {
+     required manytoone provider_service->Service->providedDependencies = 1 [help_text = "The service that provides this dependency", null=False, db_index = True, blank=False];
+     required manytoone subscriber_service->Service->subscribedDependencies = 2 [help_text = "The services that subscribes to this dependency", null=False, db_index=True, blank=False];
+     required string connect_method = 3 [help_text = "method to connect thse two services", null=True, blank=True, choices = "(('none', 'None'), ('private', 'Private'), ('public', 'Public'))"];
 }
 
 
