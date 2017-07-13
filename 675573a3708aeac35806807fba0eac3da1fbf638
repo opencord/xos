@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a202591_4a0cdf94",
+        "filename": "containers/xos/Dockerfile.libraries",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-07-13T00:49:06Z",
+      "side": 1,
+      "message": "Use COPY instead: https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#add-or-copy",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 20
+      },
+      "revId": "675573a3708aeac35806807fba0eac3da1fbf638",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a202591_2a11a3ac",
+        "filename": "containers/xos/Dockerfile.libraries",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-07-13T00:49:06Z",
+      "side": 1,
+      "message": "Combine these to reduce # of layers",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "675573a3708aeac35806807fba0eac3da1fbf638",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
