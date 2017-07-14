@@ -22,6 +22,30 @@
       "revId": "99b93b1e6f6e9081a503c0365048e2ecd606e2ee",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a1d315d_74dd4814",
+        "filename": "lib/xos-genx/xosgenx/generator.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-07-14T21:42:42Z",
+      "side": 1,
+      "message": "We\u0027re throwing it away and overwriting it. Something like:\nx \u003d x + 5\n(memory of this transaction is retained in ast).\n\nIf you have a way of making it look nicer, feel free to suggest.",
+      "parentUuid": "3a1d315d_745e68eb",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "99b93b1e6f6e9081a503c0365048e2ecd606e2ee",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
