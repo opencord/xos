@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a1d315d_3458f0f9",
+        "filename": "lib/xos-genx/xosgenx/generator.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-07-14T18:17:19Z",
+      "side": 1,
+      "message": "In this case aren\u0027t we overriding \"v\" also if rev is set?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "029c1caa71a5a1c9deba804817a2b0d199b81ba7",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
