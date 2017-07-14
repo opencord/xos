@@ -7,6 +7,7 @@ import threading
 from django.db import models
 from django.utils.timezone import now
 from django.db.models import *
+from django.db.models.fields.related import RelatedObjectDoesNotExist
 from django.db import transaction
 from django.forms.models import model_to_dict
 from django.utils import timezone
