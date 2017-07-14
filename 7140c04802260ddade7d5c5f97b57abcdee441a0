@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a1d315d_f4715878",
+        "filename": "xos/coreapi/protos/Makefile",
+        "patchSetId": 7
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-07-14T18:19:28Z",
+      "side": 1,
+      "message": "Why aren\u0027t we using anymore the installed library?",
+      "range": {
+        "startLine": 102,
+        "startChar": 1,
+        "endLine": 102,
+        "endChar": 67
+      },
+      "revId": "7140c04802260ddade7d5c5f97b57abcdee441a0",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
