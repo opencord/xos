@@ -99,15 +99,33 @@ class TenantWithContainerPolicy(Policy):
 
         ap.save()  # save the AddressPool to account for address being removed from it
 
+        subscriber_service = None
+        if "subscriber_service" in kwargs:
+            subscriber_service = kwargs.pop("subscriber_service")
+
+        subscriber_service_instance = None
+        if "subscriber_tenant" in kwargs:
+            subscriber_service_instance = kwargs.pop("subscriber_tenant")
+        elif "subscriber_service_instance" in kwargs:
+            subscriber_service_instance = kwargs.pop("subscriber_service_instance")
+
         # TODO: potential partial failure -- AddressPool address is allocated and saved before vrouter tenant
 
         t = None
         try:
-            t = VRouterTenant(provider_service=vrouter_service, **kwargs)    # TODO: Hardcoded dependency
+            t = VRouterTenant(owner=vrouter_service, **kwargs)    # TODO: Hardcoded dependency
             t.public_ip = ip
             t.public_mac = self.ip_to_mac(ip)
             t.address_pool_id = ap.id
             t.save()
+
+            if subscriber_service:
+                link = ServiceInstanceLink(subscriber_service = subscriber_service, provider_service_instance=t)
+                link.save()
+
+            if subscriber_service_instance:
+                link = ServiceInstanceLink(subscriber_service_instance = subscriber_service_instance, provider_service_instance=t)
+                link.save()
         except:
             # cleanup if anything went wrong
             ap.put_address(ip)
@@ -118,7 +136,7 @@ class TenantWithContainerPolicy(Policy):
         return t
 
     def get_image(self, tenant):
-        slice = tenant.provider_service.slices.all()
+        slice = tenant.owner.slices.all()
         if not slice:
             raise SynchronizerProgrammingError("provider service has no slice")
         slice = slice[0]
