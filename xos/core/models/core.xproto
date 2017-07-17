@@ -438,6 +438,28 @@ message Tag (XOSBase) {
      required uint32 object_id = 5 [db_index = False, null = False, blank = False, help_text = "Object linked to this tag"];
 }
 
+message InterfaceType (XOSBase) {
+     required string name = 1 [db_index = False, max_length = 200, null = False, content_type = "stripped", blank = False];
+     required string direction = 2 [db_index = False, max_length = 30, null = False, content_type = "stripped", blank = False, choices = "(('in', 'In'), ('out', 'Out'))"];
+}
+
+message ServiceInterface (XOSBase) {
+     required manytoone service->Service:service_interfaces = 1 [db_index = True, null = False, blank = False];
+     required manytoone interface_type->InterfaceType:service_interfaces = 2 [db_index = True, null = False, blank = False];
+}
+
+message ServiceInstance (XOSBase) {
+     optional string name = 1 [db_index = False, max_length = 200, null = True, content_type = "stripped", blank = True];
+     required manytoone owner->Service:service_instances = 2 [db_index = True, null = False, blank = False];
+     optional string service_specific_id = 3 [db_index = False, max_length = 30, null = True, content_type = "stripped", blank = True];
+}
+
+message ServiceInstanceLink (XOSBase) {
+     required manytoone provider_service_instance->ServiceInstance:provided_links = 1 [db_index = True, null = False, blank = False];
+     required manytoone provider_service_instance->ServiceInstance:provided_links = 2 [db_index = True, null = False, blank = False];
+     required manytoone subscriber_service_instance->ServiceInstance:subscribed_links = 3 [db_index = True, null = False, blank = False];
+     required manytoone subscriber_service_instance->ServiceInstance:subscribed_links = 4 [db_index = True, null = False, blank = False];
+
 message Tenant (XOSBase,AttributeMixin) {
      optional string name = 1 [db_index = False, max_length = 200, null = True, content_type = "stripped", blank = True];
      required string kind = 2 [default = "generic", max_length = 30, content_type = "stripped", blank = False, null = False, db_index = False];
