@@ -99,6 +99,20 @@ node_types:
             xos_base_props
             xos_base_service_props
 
+    tosca.nodes.InterfaceType:
+        derived_from: tosca.nodes.Root
+        description: >
+            An interface type.
+        properties:
+            xos_base_props
+
+    tosca.nodes.ServiceInterface:
+        derived_from: tosca.nodes.Root
+        description: >
+            An interface for the service.
+        properties:
+            xos_base_props
+
     tosca.nodes.ServiceController:
         derived_from: tosca.nodes.Root
         description: >
@@ -1473,6 +1487,9 @@ node_types:
         derived_from: tosca.relationships.Root
 
     tosca.relationships.UsedByXOS:
+        derived_from: tosca.relationships.Root
+
+    tosca.relationships.IsType:
         derived_from: tosca.relationships.Root
 
     tosca.capabilities.xos.Service:
