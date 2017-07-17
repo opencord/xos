@@ -1,5 +1,5 @@
 from xosresource import XOSResource
-from core.models import Slice,User,Network,NetworkTemplate,NetworkSlice,Service,Tenant
+from core.models import Slice,User,Network,NetworkTemplate,NetworkSlice,Service
 
 class XOSNetwork(XOSResource):
     provides = ["tosca.nodes.network.Network", "tosca.nodes.network.Network.XOS"]
@@ -58,6 +58,8 @@ class XOSNetwork(XOSResource):
         # this is really for vRouter
         for provider_service_name in self.get_requirements("tosca.relationships.TenantOfService"):
             provider_service = self.get_xos_object(Service, name=provider_service_name)
+
+            raise Exception("We need to filter by link here")
 
             existing_tenancy = Tenant.objects.filter(provider_service = provider_service, subscriber_network = obj)
             if existing_tenancy:
