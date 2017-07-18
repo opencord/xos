@@ -7,6 +7,10 @@ map:
   logging:
     type: map
     map:
+      file:
+        type: str
+      logstash_hostport:
+        type: str
       level:
         type: str
       channels:
