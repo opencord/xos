@@ -7,7 +7,7 @@ DEFAULT_VALUES = {
         'logstash_hostport': 'cordloghost:5617'
     },
     'accessor': {
-        'endpoint': 'xos-core.cord.lab:50051',
+        'endpoint': 'xos-core:50051',
         'kind': 'grpcapi',
     },
     'keep_temp_files': False,
