@@ -5,7 +5,7 @@ import string
 from plyxproto.parser import *
 import pdb
 
-BINOPS = ['|', '&', '=>']
+BINOPS = ['|', '&', '->']
 QUANTS = ['exists', 'forall']
 
 
@@ -105,7 +105,7 @@ class FOL2Python:
             components = [self.fol_to_python_filter(
                 model, x, django=django).pop() for x in v]
             return [and_expr.join(components)]
-        elif k == '=>':
+        elif k == '->':
             components = [self.fol_to_python_filter(
                 model, x, django=django).pop() for x in v]
             return ['~%s | %s' % (components[0], components[1])]
@@ -196,6 +196,26 @@ class FOL2Python:
             else:
                 return fol
 
+    def gen_validation_function(self, fol, policy_name, message, tag):
+        if not tag:
+            tag = gen_random_string()
+
+        policy_function_name = 'policy_%(policy_name)s_%(random_string)s' % {
+            'policy_name': policy_name, 'random_string': tag}
+        self.verdict_next()
+        function_str = """
+def %(fn_name)s(obj, ctx):
+    if not %(vvar)s: raise ValidationError("%(message)s")
+        """ % {'fn_name': policy_function_name, 'vvar': self.verdict_variable, 'message': message}
+
+        function_ast = self.str_to_ast(function_str)
+        policy_code = self.gen_test(fol, self.verdict_variable)
+
+
+        function_ast.body = [policy_code] + function_ast.body
+
+        return function_ast
+
     def gen_test_function(self, fol, policy_name, tag):
         if not tag:
             tag = gen_random_string()
@@ -213,7 +233,7 @@ def %(fn_name)s(obj, ctx):
 
         function_ast.body = [policy_code] + function_ast.body
 
-        return astunparse.unparse(function_ast)
+        return function_ast
 
     def gen_test(self, fol, verdict_var, bindings=None):
         if isinstance(fol, str):
@@ -221,7 +241,34 @@ def %(fn_name)s(obj, ctx):
 
         (k, v), = fol.items()
 
-        if k == '=':
+        if k == 'python':
+            try:
+                expr_ast = self.str_to_ast(v)
+            except SyntaxError:
+                raise PolicyException('Syntax error in %s' % v)
+
+            if not isinstance(expr_ast, ast.Expr):
+                raise PolicyException(
+                    '%s is not an expression' % expr_ast)
+
+            assignment_str = """
+%(verdict_var)s = (%(escape_expr)s)
+            """ % {'verdict_var': self.verdict_variable, 'escape_expr': v}
+
+            assignment_ast = self.str_to_ast(assignment_str)
+            return assignment_ast
+        elif k == 'not':
+            top_vvar = self.verdict_variable
+            self.verdict_next()
+            block = self.gen_test(v, self.verdict_variable)
+            assignment_str = """
+%(verdict_var)s = not (%(subvar)s)
+                    """ % {'verdict_var': top_vvar, 'subvar': self.verdict_variable}
+
+            assignment_ast = self.str_to_ast(assignment_str)
+
+            return ast.Module(body=[block, assignment_ast])
+        elif k == '=':
             # This is the simplest case, we don't recurse further
             # To use terms that are not simple variables, use
             # the Python escape, e.g. {{ slice.creator is not None }}
@@ -264,8 +311,8 @@ def %(fn_name)s(obj, ctx):
             """ % {'verdict_var': verdict_var, 'lhs': lhs, 'rhs': rhs}
 
             comparison_ast = self.str_to_ast(comparison_str)
-
             combined_ast = ast.Module(body=assignments + [comparison_ast])
+
             return combined_ast
         elif k in BINOPS:
             lhs, rhs = v
@@ -286,7 +333,7 @@ def %(fn_name)s(obj, ctx):
                 binop = 'and'
             elif k == '|':
                 binop = 'or'
-            elif k == '=>':
+            elif k == '->':
                 binop = 'or'
                 invert = 'not'
 
@@ -363,9 +410,16 @@ def %(fn_name)s(obj, ctx):
 def xproto_fol_to_python_test(fol, model, tag=None):
     f2p = FOL2Python()
     fol = f2p.hoist_constants(fol)
-    a = f2p.gen_test_function(fol, 'output', tag)
-    return a
+    a = f2p.gen_test_function(fol, 'output', tag='enforcer')
+    pdb.set_trace()
+    return astunparse.unparse(a)
 
+def xproto_fol_to_python_validator(fol, model, message, tag=None):
+    f2p = FOL2Python()
+    fol = f2p.hoist_constants(fol)
+    a = f2p.gen_validation_function(fol, 'output', message, tag='validator')
+    
+    return astunparse.unparse(a)
 
 def main():
     while True:
