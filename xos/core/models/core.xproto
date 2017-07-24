@@ -17,6 +17,7 @@ message XOSBase {
      required bool no_sync = 12 [default = False];
      required bool no_policy = 13 [default = False];
      optional string policy_status = 14 [default = "0 - Policy in process", max_length = 1024];
+     required string leaf_model_name = 15 [null = False, max_length = 1024, help_text = "The most specialized model in this chain of inheritance, often defined by a service developer"];
 }
 
 message User (AbstractBaseUser,PlModelMixIn) {
@@ -233,7 +234,7 @@ policy instance_isolation_container_vm < (obj.isolation = "container_vm") -> (ob
 policy instance_creator_privilege < not (obj.slice.creator = obj.creator) -> exists Privilege:Privilege.object_id = obj.slice.id & Privilege.accessor_id = obj.creator.id & Privilege.object_type = "Slice" >
 
 message Instance (XOSBase) {
-     option validators = "instance_name:Instance name set improperly, instance_creator:Instance has no creator, instance_isolation: Container instance must use container image, instance_isolation_parent:Container-vm instance must have a parent, instance_isolation_vm: VM Instance must use VM image, instance_isolation_container_vm:Parent field can only be set on Container-vm instances, instance_creator_privilege: instance creator has no privileges on slice";
+     option validators = "instance_name:Instance name set improperly - {obj.name} should be {obj.slice.name}, instance_creator:Instance has no creator, instance_isolation: Container instance must use container image, instance_isolation_parent:Container-vm instance must have a parent, instance_isolation_vm: VM Instance must use VM image, instance_isolation_container_vm:Parent field can only be set on Container-vm instances, instance_creator_privilege: instance creator has no privileges on slice";
     
      optional string instance_id = 1 [max_length = 200, content_type = "stripped", blank = True, help_text = "Nova instance id", null = True, db_index = False];
      optional string instance_uuid = 2 [max_length = 200, content_type = "stripped", blank = True, help_text = "Nova instance uuid", null = True, db_index = False];
@@ -414,12 +415,12 @@ message SiteRole (XOSBase) {
      required string role = 1 [choices = "(('admin', 'Admin'), ('pi', 'PI'), ('tech', 'Tech'), ('billing', 'Billing'))", max_length = 30, content_type = "stripped", blank = False, null = False, db_index = False];
 }
 
-policy slice_name < not obj.id -> {{ obj.name.startswith(obj.site.login_base) }} >
+policy slice_name < obj.id | {{ obj.name.startswith(obj.site.login_base) }} >
 policy slice_name_length_and_no_spaces < {{ len(obj.site.login_base) + 1 < len(obj.name) and ' ' not in obj.name }} >
 policy slice_has_creator < obj.creator >
 
 message Slice (XOSBase) {
-     option validators = "slice_name:Slice name must begin with site login_base, slice_name_length_and_no_spaces:Slice name too short or contains spaces, slice_has_creator:Slice has no creator";
+     option validators = "slice_name:Slice name ({ obj.name}) must begin with site login_base ({ obj.site.login_base}), slice_name_length_and_no_spaces:Slice name too short or contains spaces, slice_has_creator:Slice has no creator";
      option plural = "Slices";
 
      required string name = 1 [max_length = 80, content_type = "stripped", blank = False, help_text = "The Name of the Slice", null = False, db_index = False];
