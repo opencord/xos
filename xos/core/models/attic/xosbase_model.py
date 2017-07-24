@@ -53,6 +53,10 @@ def delete(self, *args, **kwds):
                         model.policed=None
                         model.save(update_fields=['enacted','deleted','policed'], silent=silent)
 
+def save_base(self, *args, **kwargs):
+    """Delete me when attics are gone"""
+    pass
+
 def save(self, *args, **kwargs):
 
     # let the user specify silence as either a kwarg or an instance varible
