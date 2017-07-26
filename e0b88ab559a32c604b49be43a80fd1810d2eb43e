@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a1a2d67_7c4acd84",
+        "filename": "lib/xos-genx/tests/general_security_test.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-07-26T16:03:08Z",
+      "side": 1,
+      "message": "Is the assertion missing as policy_output_enforcer() will raise if the test fail? Wouldn\u0027t be better to have an assertion to make it  more explicit?",
+      "range": {
+        "startLine": 105,
+        "startChar": 8,
+        "endLine": 105,
+        "endChar": 50
+      },
+      "revId": "e0b88ab559a32c604b49be43a80fd1810d2eb43e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
