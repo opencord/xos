@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a1a2d67_a7ba9208",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 27
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-07-26T21:06:59Z",
+      "side": 1,
+      "message": "I will see about adding two valid values: \"Data\" and \"Control\", as well as \"Generic\".",
+      "parentUuid": "1a1a2d67_07c4a690",
+      "range": {
+        "startLine": 337,
+        "startChar": 21,
+        "endLine": 337,
+        "endChar": 25
+      },
+      "revId": "9141248ca0acbd3dabc1d1920e4ddc5f51b8bf40",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a1a2d67_67d59a42",
         "filename": "xos/core/models/core.xproto",
         "patchSetId": 27
@@ -36,6 +60,30 @@
       "writtenOn": "2017-07-26T20:56:27Z",
       "side": 1,
       "message": "provider_interface and subscriber_interface fields are missing, I believe that the relation is implemented via the ManyToMany relation \"ServiceInterface\", why we need it to be a many to many relation? Do we expect a service to have multiple interfaces?\n\nI see that on the specs both are listed, we should decide which one we believe to be the correct implementation",
+      "range": {
+        "startLine": 334,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 1
+      },
+      "revId": "9141248ca0acbd3dabc1d1920e4ddc5f51b8bf40",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_c7bd8e04",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 27
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-07-26T21:06:59Z",
+      "side": 1,
+      "message": "Yes, we expect that services may have multiple interfaces. VSG has two interfaces (lan and wan). It\u0027s conceivable that a service could have more than two interfaces. For example, one implmentation of monitoring could involve adding a monitoring interface to each service that wishes to participate in monitoring.\n\nThe interfaces are implemented in the ServiceInterface model. Xproto/django will automatically create the reverse relations, so Service will have a service_interfaces field provided automatically.",
+      "parentUuid": "1a1a2d67_67d59a42",
       "range": {
         "startLine": 334,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1a1a2d67_873796b0",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 27
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-07-26T21:06:59Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s necessary for a link to specify both the provider and subscriber service interfaces. The restriction is that they must match (i.e. you cannot connect a \"wan\" to a \"lan\"), so it\u0027s only necessary to specify one of the two, and then ensure that the other end of the link has a matching interface.",
+      "parentUuid": "1a1a2d67_47ca9ea2",
+      "range": {
+        "startLine": 480,
+        "startChar": 8,
+        "endLine": 480,
+        "endChar": 27
+      },
+      "revId": "9141248ca0acbd3dabc1d1920e4ddc5f51b8bf40",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a1a2d67_27cfa2b2",
         "filename": "xos/core/models/core.xproto",
         "patchSetId": 27
@@ -82,6 +154,30 @@
       "writtenOn": "2017-07-26T20:56:27Z",
       "side": 1,
       "message": "These fields where not present in the specs that came out of the design meeting. I agree we\u0027ll need to somehow connect a ServiceInstance to a Network, but what\u0027s the reason for connecting it to a Service (this is a confusing point for anyone using CORD, so we should do our best to address it)",
+      "range": {
+        "startLine": 484,
+        "startChar": 5,
+        "endLine": 485,
+        "endChar": 72
+      },
+      "revId": "9141248ca0acbd3dabc1d1920e4ddc5f51b8bf40",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_673c7a94",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 27
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-07-26T21:06:59Z",
+      "side": 1,
+      "message": "This was discussed between Jono and myself during the OpenCloud meeting today, using the ONOS service as an example. The unit of tenancy (aka \"ServiceInstance\") of the ONOS service is the App. The VTN Service uses the ONOS App. This requires a link from Service to ServiceInstance. \n\nThe link from Network to ServiceInstance is something I hope we can eliminate, possibly during further refactoring of the vrouter service.",
+      "parentUuid": "1a1a2d67_27cfa2b2",
       "range": {
         "startLine": 484,
         "startChar": 5,
