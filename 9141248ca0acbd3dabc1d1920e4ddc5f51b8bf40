@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a1a2d67_07c4a690",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 27
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-07-26T20:56:27Z",
+      "side": 1,
+      "message": "We should set some valid valuse for \"kind\", eg: control, data. The need for this field was to differentiate between data-plane services and control-plane services",
+      "range": {
+        "startLine": 337,
+        "startChar": 21,
+        "endLine": 337,
+        "endChar": 25
+      },
+      "revId": "9141248ca0acbd3dabc1d1920e4ddc5f51b8bf40",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_67d59a42",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 27
+      },
+      "lineNbr": 347,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-07-26T20:56:27Z",
+      "side": 1,
+      "message": "provider_interface and subscriber_interface fields are missing, I believe that the relation is implemented via the ManyToMany relation \"ServiceInterface\", why we need it to be a many to many relation? Do we expect a service to have multiple interfaces?\n\nI see that on the specs both are listed, we should decide which one we believe to be the correct implementation",
+      "range": {
+        "startLine": 334,
+        "startChar": 0,
+        "endLine": 347,
+        "endChar": 1
+      },
+      "revId": "9141248ca0acbd3dabc1d1920e4ddc5f51b8bf40",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_47ca9ea2",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 27
+      },
+      "lineNbr": 480,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-07-26T20:56:27Z",
+      "side": 1,
+      "message": "subscriber_service_interface is missing, assuming that we want to replicate that information here. It may need some more discussion.",
+      "range": {
+        "startLine": 480,
+        "startChar": 8,
+        "endLine": 480,
+        "endChar": 27
+      },
+      "revId": "9141248ca0acbd3dabc1d1920e4ddc5f51b8bf40",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a1a2d67_27cfa2b2",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 27
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-07-26T20:56:27Z",
+      "side": 1,
+      "message": "These fields where not present in the specs that came out of the design meeting. I agree we\u0027ll need to somehow connect a ServiceInstance to a Network, but what\u0027s the reason for connecting it to a Service (this is a confusing point for anyone using CORD, so we should do our best to address it)",
+      "range": {
+        "startLine": 484,
+        "startChar": 5,
+        "endLine": 485,
+        "endChar": 72
+      },
+      "revId": "9141248ca0acbd3dabc1d1920e4ddc5f51b8bf40",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
