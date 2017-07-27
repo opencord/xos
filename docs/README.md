@@ -1,4 +1,6 @@
-# XOS
+# Modeling for CORD
 
-Welcome to the XOS documentation.
+CORD adopts a model-based architecture. This guide describes the how
+models are expressed, and the toolchain used to auto-generate various
+aspects of CORD from these models. 
 
