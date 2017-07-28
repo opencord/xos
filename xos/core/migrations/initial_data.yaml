@@ -1,0 +1,50 @@
+# Flavors
+
+- model: core.Flavor
+  fields:
+    name: m1.small
+    flavor: m1.small
+    leaf_model_name: Flavor
+
+- model: core.Flavor
+  fields:
+    name: m1.medium
+    flavor: m1.medium
+    leaf_model_name: Flavor
+
+- model: core.Flavor
+  fields:
+    name: m1.large
+    flavor: m1.large
+    leaf_model_name: Flavor
+
+- model: core.Flavor
+  fields:
+    name: m1.xlarge
+    flavor: m1.xlarge
+    leaf_model_name: Flavor
+
+# Deployment
+- model: core.Deployment
+  fields:
+    name: Mock R-CORD Pod
+
+# Site
+- model: core.Site
+  fields:
+    name: Placeholder Site HumanName
+    site_url: http://mock-rcord.opencloud.us/
+    hosts_nodes: true
+
+# User
+- model: core.User
+  fields:
+    password: rk1UYDHZXbu6KVCMkhmV
+    firstname: XOS
+    lastname: Admin
+    is_admin: True
+  relations:
+    site:
+      fields:
+        name: Placeholder Site HumanName
+      model: core.Site
