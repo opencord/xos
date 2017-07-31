@@ -7,7 +7,8 @@ from collections import defaultdict
 from operator import attrgetter, itemgetter
 
 from core.middleware import get_request
-from core.models import DashboardView, XOSBase, PlModelMixIn, Site, ModelLink
+from xosbase import XOSBase,PlModelMixIn
+import dashboardview
 from core.models.xosbase import StrippedCharField, XOSCollector
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.exceptions import PermissionDenied
@@ -20,6 +21,10 @@ from django.forms.models import model_to_dict
 from django.utils import timezone
 from timezones.fields import TimeZoneField
 from django.contrib.contenttypes.models import ContentType
+
+# The following manual import is needed because we do not
+# currently generate the User models.
+import security
 
 import redis
 from redis import ConnectionError
@@ -114,7 +119,7 @@ class User(AbstractBaseUser, PlModelMixIn):
     phone = StrippedCharField(null=True, blank=True,
                               help_text="phone number contact", max_length=100)
     user_url = models.URLField(null=True, blank=True)
-    site = models.ForeignKey(Site, related_name='users',
+    site = models.ForeignKey('Site', related_name='users',
                              help_text="Site this user will be homed too")
     public_key = models.TextField(
         null=True, blank=True, max_length=1024, help_text="Public key string")
@@ -142,8 +147,6 @@ class User(AbstractBaseUser, PlModelMixIn):
     lazy_blocked = models.BooleanField(default=False)
     no_sync = models.BooleanField(default=False)     # prevent object sync
     no_policy = models.BooleanField(default=False)   # prevent model_policy run
-
-    #xos_links = [ModelLink(Site,via='site')]
 
     timezone = TimeZoneField()
 
@@ -207,7 +210,7 @@ class User(AbstractBaseUser, PlModelMixIn):
 
         if (not dashboards) and (not self.is_appuser):
             for dashboardName in DEFAULT_DASHBOARDS:
-                dbv = DashboardView.objects.filter(name=dashboardName)
+                dbv = dashboardview.DashboardView.objects.filter(name=dashboardName)
                 if dbv:
                     dashboards.append(dbv[0])
 
@@ -429,25 +432,6 @@ class User(AbstractBaseUser, PlModelMixIn):
     def can_update_tenant_privilege(self, tenant_privilege, allow=[]):
         return self.can_update_tenant(tenant_privilege.tenant, allow)
 
-    @staticmethod
-    def select_by_user(user):
-        if user.is_admin:
-            qs = User.objects.all()
-        else:
-            # can see all users at any site where this user has pi role
-            from core.models.privilege import Privilege
-            site_privs = Privilege.objects.filter(accessor_type='User', accessor_id=user.id, object_type='Site')
-            site_ids = [sp.object_id for sp in site_privs if sp.permission in [
-                'role:Admin', 'role:admin', 'role:pi']]
-            sites = [Site.objects.get(pk=sid) for sid in site_ids]
-
-            # get site privs of users at these sites
-            site_privs = Privilege.objects.filter(object_id__in=site_ids, object_type='Site', accessor_type='User')
-
-            user_ids = [sp.accessor_id for sp in site_privs] + [user.id]
-            qs = User.objects.filter(Q(site__in=sites) | Q(id__in=user_ids))
-        return qs
-
     def save_by_user(self, user, *args, **kwds):
         if not self.can_update(user):
             if getattr(self, "_cant_update_fieldName", None) is not None:
@@ -491,11 +475,12 @@ class User(AbstractBaseUser, PlModelMixIn):
         cls = ct.model_class()
         return cls.objects.get(id=object_id)
 
+    def can_access(self, ctx):
+        return security.user_policy_security_check(self, ctx)
 
 class UserDashboardView(XOSBase):
     user = models.ForeignKey(User, related_name='userdashboardviews')
     dashboardView = models.ForeignKey(
-        DashboardView, related_name='userdashboardviews')
+        dashboardview.DashboardView, related_name='userdashboardviews')
     order = models.IntegerField(default=0)
 
-    xos_links = [ModelLink(User, via='user'), ModelLink(DashboardView,via='userdashboardviews')]
