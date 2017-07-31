@@ -5,7 +5,6 @@ import json
 import operator
 from operator import attrgetter
 from core.models.xosbase import *
-from core.models.privilege import *
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.utils.timezone import now
@@ -18,6 +17,8 @@ from django.db.models import *
 from django.core.validators import URLValidator
 from xos.exceptions import *
 import urlparse
+
+XOS_GLOBAL_DEFAULT_SECURITY_POLICY = True
 
 def ParseNatList(ports):
     """ Support a list of ports in the format "protocol:port, protocol:port, ..."
