@@ -19,6 +19,8 @@ from django.contrib.contenttypes.models import ContentType
 import redis
 from redis import ConnectionError
 
+XOS_ACCESS_TYPES=['grant_access','write_access','read_access']
+
 def date_handler(obj):
     if isinstance(obj, pytz.tzfile.DstTzInfo):
         # json can't serialize DstTzInfo
