@@ -18,6 +18,10 @@ from core.models.{{b.name | lower}} import {{ b.name }}
 {{ xproto_fol_to_python_validator(policy, proto.policies[policy], m, error) }}
 {% endfor %}
 
+{% if m.policy %}
+{{ xproto_fol_to_python_test(m.policy, proto.policies[m.policy], m) }}
+{% endif %}
+
 class {{ m.name }}{{ xproto_base_def(m.name, m.bases) }}:
   plural_name = "{{ xproto_pluralize(m) }}"
 
@@ -57,6 +61,13 @@ class {{ m.name }}{{ xproto_base_def(m.name, m.bases) }}:
       policy_{{policy}}_validator(self, None)
       {% endfor %}
       super({{ m.name }}, self).save(*args, **kwds)
+
+  {% if m.policy %}
+  def can_access(self, obj, ctx):
+      verdict = policy_{{m.policy}}_security_check(obj, ctx)
+      return verdict
+  {% endif %}
+      
   {% endif %}
     
 {% if file_exists(xproto_base_name(m.name)|lower+'_bottom.py') -%}{{ include_file(xproto_base_name(m.name)|lower+'_bottom.py') }}{% endif %}
