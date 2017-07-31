@@ -261,24 +261,59 @@ class XOSAPIHelperMixin(object):
             obj = djangoClass.objects.get(id=id)
         return obj
 
-    def get(self, djangoClass, id):
+    def xos_security_gate(self, djangoClass, obj, user, **access_types):
+        sec_ctx = XOSDefaultSecurityContext()
+        sec_ctx.user = user
+
+        for k,v in access_types.items():
+            setattr(sec_ctx, k, v)
+
+        obj_ctx = obj
+
+        verdict, policy_name = djangoClass.can_access(ctx = sec_ctx, obj = obj_ctx)
+
+        # FIXME: This is the central point of enforcement for security policies
+        #        Implement Auditing here.
+        #        logging.info( ... )
+
+        if not verdict:
+            #    logging.critical( ... )
+            raise XOSPermissionDenied("User %(user_email)s cannot access %(django_class_name)s object %(object_id)d due to policy %(policy_name)s"%{'user_email':user.email, 'django_class_name':djangoClass.__name__, 'policy_name': policy_name, 'object_id': obj.id})
+
+    def xos_security_check(self, djangoClass, obj, user, **access_types):
+        sec_ctx = XOSDefaultSecurityContext()
+        sec_ctx.user = user
+        for k,v in access_types.items():
+            setattr(sec_ctx, k, v)
+
+        obj_ctx = obj
+
+        verdict, _ = djangoClass.can_access(ctx = sec_ctx, obj = obj_ctx)
+        return verdict
+
+    def get(self, djangoClass, user, id):
         obj = self.get_live_or_deleted_object(djangoClass, id)
+
+        self.xos_security_gate(djangoClass, obj, user, read_access=True)
+
         return self.objToProto(obj)
 
     def create(self, djangoClass, user, request):
         args = self.protoToArgs(djangoClass, request)
         new_obj = djangoClass(**args)
         new_obj.caller = user
-        if (not user) or (not new_obj.can_update(user)):
-            raise XOSPermissionDenied()
+
+        self.xos_security_gate(djangoClass, new_obj, user, write_access=True)
+
         new_obj.save()
         return self.objToProto(new_obj)
 
     def update(self, djangoClass, user, id, message, context):
         obj = self.get_live_or_deleted_object(djangoClass, id)
         obj.caller = user
-        if (not user) or (not obj.can_update(user)):
-            raise XOSPermissionDenied()
+
+        self.xos_security_gate(djangoClass, obj, user, write_access=True)
+
         args = self.protoToArgs(djangoClass, message)
         for (k,v) in args.iteritems():
             setattr(obj, k, v)
@@ -297,8 +332,9 @@ class XOSAPIHelperMixin(object):
 
     def delete(self, djangoClass, user, id):
       obj = djangoClass.objects.get(id=id)
-      if (not user) or (not obj.can_update(user)):
-          raise XOSPermissionDenied()
+
+      self.xos_security_gate(djangoClass, obj, user, write_access=True)
+
       obj.delete()
       return Empty()
 
@@ -329,7 +365,16 @@ class XOSAPIHelperMixin(object):
 
         return q
 
-    def filter(self, djangoClass, request):
+    def list(self, djangoClass, user):
+        queryset = djangoClass.objects.all()
+        filtered_queryset = (elt for elt in queryset if self.xos_security_check(djangoClass, elt, user, 'get'))
+
+        # FIXME: Implement auditing here
+        # logging.info("User requested x objects, y objects were filtered out by policy z")
+
+        return self.querysetToProto(djangoClass, filtered_queryset)
+
+    def filter(self, djangoClass, user, request):
         query = None
         if request.kind == request.DEFAULT:
             for element in request.elements:
@@ -352,7 +397,12 @@ class XOSAPIHelperMixin(object):
         elif request.kind == request.ALL:
             queryset = djangoClass.objects.all()
 
-        return self.querysetToProto(djangoClass, queryset)
+        filtered_queryset = (elt for elt in queryset if self.xos_security_check(djangoClass, elt, user, 'get'))
+
+        # FIXME: Implement auditing here
+        # logging.info("User requested x objects, y objects were filtered out by policy z")
+
+        return self.querysetToProto(djangoClass, filtered_queryset)
 
     def authenticate(self, context, required=False):
         for (k, v) in context.invocation_metadata():
