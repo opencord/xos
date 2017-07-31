@@ -7,7 +7,9 @@ from collections import defaultdict
 from operator import attrgetter, itemgetter
 
 from core.middleware import get_request
-from core.models import DashboardView, XOSBase, PlModelMixIn, Site, ModelLink
+from xosbase import XOSBase,PlModelMixIn
+from dashboardview import DashboardView
+from site import Site
 from core.models.xosbase import StrippedCharField, XOSCollector
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.core.exceptions import PermissionDenied
@@ -20,6 +22,10 @@ from django.forms.models import model_to_dict
 from django.utils import timezone
 from timezones.fields import TimeZoneField
 from django.contrib.contenttypes.models import ContentType
+
+# The following manual import is needed because we do not
+# currently generate the User models.
+from security import user_policy_security_check
 
 import redis
 from redis import ConnectionError
@@ -429,25 +435,6 @@ class User(AbstractBaseUser, PlModelMixIn):
     def can_update_tenant_privilege(self, tenant_privilege, allow=[]):
         return self.can_update_tenant(tenant_privilege.tenant, allow)
 
-    @staticmethod
-    def select_by_user(user):
-        if user.is_admin:
-            qs = User.objects.all()
-        else:
-            # can see all users at any site where this user has pi role
-            from core.models.privilege import Privilege
-            site_privs = Privilege.objects.filter(accessor_type='User', accessor_id=user.id, object_type='Site')
-            site_ids = [sp.object_id for sp in site_privs if sp.permission in [
-                'role:Admin', 'role:admin', 'role:pi']]
-            sites = [Site.objects.get(pk=sid) for sid in site_ids]
-
-            # get site privs of users at these sites
-            site_privs = Privilege.objects.filter(object_id__in=site_ids, object_type='Site', accessor_type='User')
-
-            user_ids = [sp.accessor_id for sp in site_privs] + [user.id]
-            qs = User.objects.filter(Q(site__in=sites) | Q(id__in=user_ids))
-        return qs
-
     def save_by_user(self, user, *args, **kwds):
         if not self.can_update(user):
             if getattr(self, "_cant_update_fieldName", None) is not None:
@@ -491,6 +478,8 @@ class User(AbstractBaseUser, PlModelMixIn):
         cls = ct.model_class()
         return cls.objects.get(id=object_id)
 
+    def can_access(self, ctx):
+        return user_policy_security_check(ctx)
 
 class UserDashboardView(XOSBase):
     user = models.ForeignKey(User, related_name='userdashboardviews')
