@@ -27,6 +27,7 @@ docker_images:
     path: "{{ build_cord_dir }}/orchestration/xos"
     dockerfile: "containers/xos/Dockerfile.libraries"
     pull: False
+    build: True
     publish: True
   - name: "xosproject/xos"
     path: "{{ build_cord_dir }}/orchestration/xos"
@@ -52,16 +53,19 @@ docker_images:
     path: "{{ build_cord_dir }}/orchestration/xos-rest-gw" # TODO rename repo
     dockerfile: "Dockerfile"
     pull: False
+    build: False
     publish: True
   - name: "xosproject/xos-gui"
     path: "{{ build_cord_dir }}/orchestration/xos-gui"
     dockerfile: "Dockerfile"
     pull: False
-    publish: True
+    build: False
+    publish: False
   - name: "xosproject/xos-gui-extension-builder"
     path: "{{ build_cord_dir }}/orchestration/xos-gui/"
     dockerfile: "Dockerfile.xos-gui-extension-builder"
     pull: False
+    build: False
     publish: False
   - name: "xosproject/xos-corebuilder"
     path: "{{ build_cord_dir }}/orchestration/xos"
@@ -87,6 +91,7 @@ docker_images:
     path: "{{ build_cord_dir }}/orchestration/xos-tosca"
     dockerfile: "Dockerfile"
     pull: False
+    build: False
     publish: True
 
 build_optional_images: False
