@@ -153,6 +153,80 @@ message Foo {
         self.assertEqual(len(yaml_ir['items']), 1)
         self.assertIn('name', output)
         self.assertNotIn('secret', output)
+
+    def test_static_options(self):
+        xproto = \
+"""
+option app_label = "test";
+
+message Foo {
+    required string name = 1 [ null = "False", blank="False"];
+    required string isolation = 14 [default = "vm", choices = "(('vm', 'Virtual Machine'), ('container', 'Container'), ('container_vm', 'Container In VM'))", max_length = 30, blank = False, null = False, db_index = False];
+}
+"""
+
+        args = FakeArgs()
+        args.inputs = xproto
+        args.target = 'modeldefs.xtarget'
+        output = XOSGenerator.generate(args)
+        self.assertIn("options:", output)
+        self.assertIn(" {'id': 'container_vm', 'label': 'Container In VM'}", output)
+
+    def test_not_static_options(self):
+        xproto = \
+"""
+option app_label = "test";
+
+message Foo {
+    required string name = 1 [ null = "False", blank="False"];
+}
+"""
+
+        args = FakeArgs()
+        args.inputs = xproto
+        args.target = 'modeldefs.xtarget'
+        output = XOSGenerator.generate(args)
+        self.assertNotIn("options:", output)
+
+    def test_default_value_in_modeldef(self):
+        xproto = \
+"""
+option app_label = "test";
+
+message Foo {
+    required string name = 1 [ null = "False", blank="False", default = "bar"];
+    required string falsetrue = 1 [ null = "False", blank="False", default = False];
+    required string truefalse = 1 [ null = "False", blank="False", default = True];
+    required string some = 1 [ null = "False", blank="False", default = None];
+}
+"""
+
+        args = FakeArgs()
+        args.inputs = xproto
+        args.target = 'modeldefs.xtarget'
+        output = XOSGenerator.generate(args)
+        print output
+        self.assertIn('default: "bar"', output)
+        self.assertIn('default: "false"', output)
+        self.assertIn('default: "true"', output)
+        self.assertIn('default: "null"', output)
+
+    def test_not_default_value_in_modeldef(self):
+        xproto = \
+"""
+option app_label = "test";
+
+message Foo {
+    required string name = 1 [ null = "False", blank="False"];
+}
+"""
+
+        args = FakeArgs()
+        args.inputs = xproto
+        args.target = 'modeldefs.xtarget'
+        output = XOSGenerator.generate(args)
+        self.assertNotIn('default:', output)
+
 if __name__ == '__main__':
     unittest.main()
 
