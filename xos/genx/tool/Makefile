@@ -3,6 +3,7 @@ PREFIX=.
 XOSGEN=$(PREFIX)/tool/xosgen
 
 DJANGO_TARGET=$(PREFIX)/targets/django-split.xtarget
+
 INIT_TARGET=$(PREFIX)/targets/init.xtarget
 XPROTOS_TMP := $(shell mktemp)
 
