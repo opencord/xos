@@ -6,7 +6,11 @@ ACCOUNT_NUM=1238
 
 DATA=$(cat <<EOF
 {"identity": {"account_num": "$ACCOUNT_NUM", "name": "test-subscriber"},
- "features": {"uplink_speed": 2000000000}}
+ "features": {"cdn": false,
+              "uplink_speed": 2000000000,
+              "downlink_speed": 2000000000,
+              "uverse": true,
+              "status": "enabled"}}
 EOF
 )
 
