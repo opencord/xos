@@ -88,3 +88,19 @@ def xproto_default_to_gui(default):
     else:
         val = str(default)
     return val
+
+
+def xproto_links_to_modeldef_relations(llst):
+    outlist = []
+    seen = []
+    for l in llst:
+        try:
+            t = l['link_type']
+        except KeyError, e:
+            raise e
+
+        if l['peer']['fqn'] not in seen and t != 'manytomany':
+            outlist.append('- {model: %s, type: %s, on_field: %s}\n' % (l['peer']['name'], l['link_type'], l['dst_port']))
+        seen.append(l['peer'])
+
+    return outlist
