@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa3479d7_155cd624",
+        "filename": "xos/core/models/user.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-08-02T22:31:55Z",
+      "side": 1,
+      "message": "There was a strange issue preventing the latest instance of this blurb from getting through to gerrit. The right code is:\n\ndef can_access(self, ctx):\n        return user_policy_security_check(ctx)\n\nIt\u0027s because we don\u0027t generate the user model (but eventually should)",
+      "parentUuid": "fa3479d7_328370ce",
+      "range": {
+        "startLine": 475,
+        "startChar": 4,
+        "endLine": 476,
+        "endChar": 19
+      },
+      "revId": "301488559cd1e58d4160dcb1615522c0283d6c56",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa3479d7_d269c426",
         "filename": "xos/coreapi/apihelper.py",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fa3479d7_75e9e219",
+        "filename": "xos/coreapi/apihelper.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-08-02T22:31:55Z",
+      "side": 1,
+      "message": "Yes. That will be a sweet day, but before that we will need to define security models for everything, and even make them obligatory for services. Until then, unless the door is closed, you can enter.",
+      "parentUuid": "fa3479d7_d269c426",
+      "range": {
+        "startLine": 23,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "301488559cd1e58d4160dcb1615522c0283d6c56",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa3479d7_f26cc838",
         "filename": "xos/coreapi/security.py",
         "patchSetId": 11
@@ -59,6 +107,30 @@
       "writtenOn": "2017-08-02T16:55:01Z",
       "side": 1,
       "message": "Isn\u0027t this a duplicate of \"XOSDefaultSecurityContext\"? Is there a particular reason because we cannot use the same class?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "301488559cd1e58d4160dcb1615522c0283d6c56",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_55eede23",
+        "filename": "xos/coreapi/security.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-08-02T22:31:55Z",
+      "side": 1,
+      "message": "Thanks. This file shouldn\u0027t be checked in.",
+      "parentUuid": "fa3479d7_f26cc838",
       "range": {
         "startLine": 3,
         "startChar": 0,
