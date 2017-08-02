@@ -228,6 +228,27 @@ message Foo {
         output = XOSGenerator.generate(args)
         self.assertNotIn('default:', output)
 
+    def test_one_to_many_in_modeldef(self):
+        xproto = \
+"""
+option app_label = "test";
+
+message Foo {
+    required string name = 1 [ null = "False", blank="False"];
+    required manytoone bar->Bar:foos = 8 [db_index = True, null = False, blank = False];
+}
+
+message Bar {
+    required string name = 1 [ null = "False", blank="False"];
+}
+"""
+
+        args = FakeArgs()
+        args.inputs = xproto
+        args.target = 'modeldefs.xtarget'
+        output = XOSGenerator.generate(args)
+        self.assertIn('{model: Foo, type: onetomany}', output)
+
 if __name__ == '__main__':
     unittest.main()
 
