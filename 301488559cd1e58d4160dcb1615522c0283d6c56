@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa3479d7_328370ce",
+        "filename": "xos/core/models/user.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-08-02T16:55:01Z",
+      "side": 1,
+      "message": "Not sure where is this used, but why we return true by default?",
+      "range": {
+        "startLine": 475,
+        "startChar": 4,
+        "endLine": 476,
+        "endChar": 19
+      },
+      "revId": "301488559cd1e58d4160dcb1615522c0283d6c56",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_d269c426",
+        "filename": "xos/coreapi/apihelper.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-08-02T16:55:01Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we protect everything by default and give access on to authenticated users?",
+      "range": {
+        "startLine": 23,
+        "startChar": 8,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "301488559cd1e58d4160dcb1615522c0283d6c56",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa3479d7_f26cc838",
+        "filename": "xos/coreapi/security.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-08-02T16:55:01Z",
+      "side": 1,
+      "message": "Isn\u0027t this a duplicate of \"XOSDefaultSecurityContext\"? Is there a particular reason because we cannot use the same class?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 31
+      },
+      "revId": "301488559cd1e58d4160dcb1615522c0283d6c56",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
