@@ -205,6 +205,31 @@ class TestORM(unittest.TestCase):
         self.assertNotEqual(tag.content_object, None)
         self.assertEqual(tag.content_object.id, site.id)
 
+    def test_leaf_model_trivial(self):
+        orm = self.make_coreapi()
+        service = orm.Service(name="myservice")
+        service.save()
+        self.assertEqual(service.leaf_model_name, "Service")
+
+    def test_leaf_model_descendant(self):
+        orm = self.make_coreapi()
+        onos_service = orm.ONOSService(name="myservice")
+        onos_service.save()
+        self.assertEqual(onos_service.model_name, "ONOSService")
+        self.assertEqual(onos_service.leaf_model_name, "ONOSService")
+
+        service = orm.Service.objects.first()
+        self.assertEqual(service.id, onos_service.id)
+        self.assertEqual(service.model_name, "Service")
+        self.assertEqual(service.leaf_model_name, "ONOSService")
+
+        onos_service_cast = service.leaf_model
+        self.assertEqual(onos_service_cast.model_name, "ONOSService")
+        self.assertEqual(onos_service_cast.leaf_model_name, "ONOSService")
+        self.assertEqual(onos_service_cast.id, onos_service.id)
+
+
+
 if USE_FAKE_STUB:
     sys.path.append("..")
 
