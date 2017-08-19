@@ -2,7 +2,12 @@
 {%- for model in proto.messages %}
 {%- if model.links %}
     "{{ model.name }}": [
-        {{ model.links | map(attribute='peer') | format_list("\"%s\"") |join(',\n\t\t') }}
+        {% for l in model.links -%}
+        {% if "Controller" + l.peer.name in proto.message_names -%}
+        "Controller{{ l.peer.name }}",
+        {% endif %}
+        "{{ l.peer.name }}"{% if not loop.last %},{% endif %}
+        {% endfor %}
     ],{% endif -%}
 {% endfor %}
 }
