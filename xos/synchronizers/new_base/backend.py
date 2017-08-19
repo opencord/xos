@@ -48,18 +48,21 @@ class Backend:
             pathname = os.path.join(step_dir,fn)
             if os.path.isfile(pathname) and fn.endswith(".py") and (fn!="__init__.py"):
                 module = imp.load_source(fn[:-3],pathname)
+
                 for classname in dir(module):
                     c = getattr(module, classname, None)
 
-                    if classname.startswith("Sync"):
-                        print classname, c, inspect.isclass(c), issubclass(c, SyncStep), hasattr(c,"provides")
+                    #if classname.startswith("Sync"):
+                    #    print classname, c, inspect.isclass(c), issubclass(c, SyncStep), hasattr(c,"provides")
 
                     # make sure 'c' is a descendent of SyncStep and has a
                     # provides field (this eliminates the abstract base classes
                     # since they don't have a provides)
-
-                    if inspect.isclass(c) and issubclass(c, SyncStep) and hasattr(c,"provides") and (c not in sync_steps):
-                        sync_steps.append(c)
+                    
+                    if inspect.isclass(c):
+                        base_names = [b.__name__ for b in c.__bases__]
+                        if 'SyncStep' in base_names and hasattr(c,"provides") and (c not in sync_steps):
+                            sync_steps.append(c)
 
         logger.info("Loaded %s sync steps" % len(sync_steps))
 

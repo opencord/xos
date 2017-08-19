@@ -1,0 +1,362 @@
+{
+    "XOSBase": [
+        
+    ],
+    "User": [
+        "ControllerSite",
+        
+        "Site",
+        "ControllerDashboardView",
+        
+        "DashboardView"
+        
+    ],
+    "Privilege": [
+        
+    ],
+    "AddressPool": [
+        
+        "Service"
+        
+    ],
+    "Controller": [
+        
+        "Deployment"
+        
+    ],
+    "ControllerDashboardView": [
+        
+        "Controller",
+        "ControllerDashboardView",
+        
+        "DashboardView"
+        
+    ],
+    "ControllerImages": [
+        
+        "Image",
+        
+        "Controller"
+        
+    ],
+    "ControllerNetwork": [
+        "ControllerNetwork",
+        
+        "Network",
+        
+        "Controller"
+        
+    ],
+    "ControllerRole": [
+        
+    ],
+    "ControllerSite": [
+        "ControllerSite",
+        
+        "Site",
+        
+        "Controller"
+        
+    ],
+    "ControllerPrivilege": [
+        
+        "Controller",
+        "ControllerPrivilege",
+        
+        "Privilege"
+        
+    ],
+    "ControllerSitePrivilege": [
+        
+        "Controller",
+        "ControllerSitePrivilege",
+        
+        "SitePrivilege"
+        
+    ],
+    "ControllerSlice": [
+        
+        "Controller",
+        "ControllerSlice",
+        
+        "Slice"
+        
+    ],
+    "ControllerSlicePrivilege": [
+        
+        "Controller",
+        "ControllerSlicePrivilege",
+        
+        "SlicePrivilege"
+        
+    ],
+    "ControllerUser": [
+        "ControllerUser",
+        
+        "User",
+        
+        "Controller"
+        
+    ],
+    "DashboardView": [
+        
+        "Controller",
+        
+        "Deployment"
+        
+    ],
+    "Deployment": [
+        
+    ],
+    "DeploymentPrivilege": [
+        "ControllerUser",
+        
+        "User",
+        
+        "Deployment",
+        
+        "DeploymentRole"
+        
+    ],
+    "DeploymentRole": [
+        
+    ],
+    "Diag": [
+        
+    ],
+    "Flavor": [
+        
+    ],
+    "Image": [
+        
+    ],
+    "ImageDeployments": [
+        
+        "Image",
+        
+        "Deployment"
+        
+    ],
+    "Instance": [
+        
+        "Image",
+        "ControllerUser",
+        
+        "User",
+        "ControllerSlice",
+        
+        "Slice",
+        
+        "Deployment",
+        
+        "Node",
+        
+        "Flavor",
+        
+        "Instance"
+        
+    ],
+    "Network": [
+        
+        "NetworkTemplate",
+        "ControllerSlice",
+        
+        "Slice",
+        "ControllerSlice",
+        
+        "Slice",
+        "ControllerSlice",
+        
+        "Slice",
+        
+        "Instance"
+        
+    ],
+    "NetworkParameter": [
+        
+        "NetworkParameterType"
+        
+    ],
+    "NetworkParameterType": [
+        
+    ],
+    "NetworkSlice": [
+        "ControllerNetwork",
+        
+        "Network",
+        "ControllerSlice",
+        
+        "Slice"
+        
+    ],
+    "NetworkTemplate": [
+        
+    ],
+    "Node": [
+        
+        "SiteDeployment"
+        
+    ],
+    "NodeLabel": [
+        
+        "Node"
+        
+    ],
+    "Port": [
+        "ControllerNetwork",
+        
+        "Network",
+        
+        "Instance"
+        
+    ],
+    "Role": [
+        
+    ],
+    "Service": [
+        
+    ],
+    "ServiceAttribute": [
+        
+        "Service"
+        
+    ],
+    "ServiceDependency": [
+        
+        "Service",
+        
+        "Service"
+        
+    ],
+    "ServiceMonitoringAgentInfo": [
+        
+        "Service"
+        
+    ],
+    "ServicePrivilege": [
+        "ControllerUser",
+        
+        "User",
+        
+        "Service",
+        
+        "ServiceRole"
+        
+    ],
+    "ServiceRole": [
+        
+    ],
+    "Site": [
+        
+        "Deployment"
+        
+    ],
+    "SiteDeployment": [
+        "ControllerSite",
+        
+        "Site",
+        
+        "Deployment",
+        
+        "Controller"
+        
+    ],
+    "SitePrivilege": [
+        "ControllerUser",
+        
+        "User",
+        "ControllerSite",
+        
+        "Site",
+        
+        "SiteRole"
+        
+    ],
+    "SiteRole": [
+        
+    ],
+    "Slice": [
+        "ControllerSite",
+        
+        "Site",
+        
+        "Service",
+        "ControllerUser",
+        
+        "User",
+        
+        "Flavor",
+        
+        "Image",
+        
+        "Node"
+        
+    ],
+    "SlicePrivilege": [
+        "ControllerUser",
+        
+        "User",
+        "ControllerSlice",
+        
+        "Slice",
+        
+        "SliceRole"
+        
+    ],
+    "SliceRole": [
+        
+    ],
+    "Tag": [
+        
+        "Service"
+        
+    ],
+    "InterfaceType": [
+        
+    ],
+    "ServiceInterface": [
+        
+        "Service",
+        
+        "InterfaceType"
+        
+    ],
+    "ServiceInstance": [
+        
+        "Service"
+        
+    ],
+    "ServiceInstanceLink": [
+        
+        "ServiceInstance",
+        
+        "ServiceInterface",
+        
+        "ServiceInstance",
+        
+        "Service",
+        "ControllerNetwork",
+        
+        "Network"
+        
+    ],
+    "ServiceInstanceAttribute": [
+        
+        "ServiceInstance"
+        
+    ],
+    "TenantWithContainer": [
+        
+        "Instance",
+        "ControllerUser",
+        
+        "User"
+        
+    ],
+    "XOS": [
+        
+    ],
+    "XOSGuiExtension": [
+        
+    ]
+}
