@@ -51,8 +51,8 @@ class Backend:
                 for classname in dir(module):
                     c = getattr(module, classname, None)
 
-                    if classname.startswith("Sync"):
-                        print classname, c, inspect.isclass(c), issubclass(c, SyncStep), hasattr(c,"provides")
+                    #if classname.startswith("Sync"):
+                    #    print classname, c, inspect.isclass(c), issubclass(c, SyncStep), hasattr(c,"provides")
 
                     # make sure 'c' is a descendent of SyncStep and has a
                     # provides field (this eliminates the abstract base classes

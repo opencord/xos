@@ -36,7 +36,6 @@ import redis
 
 logger = Logger(level=logging.INFO)
 
-
 class XOSWatcher:
     def load_sync_step_modules(self, step_dir=None):
         if step_dir is None:
