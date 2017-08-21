@@ -233,21 +233,6 @@ class PlModelMixIn(object):
 
     def push_redis_event(self):
         # Transmit update via Redis
-        changed_fields = []
-
-        if self.pk is not None:
-            my_model = type(self)
-            try:
-                orig = my_model.objects.get(pk=self.pk)
-
-                for f in my_model._meta.fields:
-                    oval = getattr(orig, f.name)
-                    nval = getattr(self, f.name)
-                    if oval != nval:
-                        changed_fields.append(f.name)
-            except:
-                changed_fields.append('__lookup_error')
-
         try:
             r = redis.Redis("redis")
             # NOTE the redis event has been extended with model properties to facilitate the support of real time notification in the UI
@@ -257,10 +242,12 @@ class PlModelMixIn(object):
             # bases = [x for x in bases if issubclass(x, XOSBase)]
             class_names = ",".join([x.__name__ for x in bases])
             model['class_names'] = class_names
+            changed_fields = self.changed_fields()
             payload = json.dumps({'pk': self.pk, 'changed_fields': changed_fields, 'object': model}, default=date_handler)
             r.publish(self.__class__.__name__, payload)
         except ConnectionError:
             # Redis not running.
+            # TODO add log statement
             pass
 
 # For cascading deletes, we need a Collector that doesn't do fastdelete,
