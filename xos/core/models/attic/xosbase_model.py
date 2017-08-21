@@ -136,13 +136,31 @@ def save(self, *args, **kwargs):
     if (caller_kind!="synchronizer") or always_update_timestamp:
         self.updated = timezone.now()
 
+    changed_fields = self.compute_changed_fields()
     with transaction.atomic():
         self.verify_live_keys(update_fields = kwargs.get("update_fields"))
         super(XOSBase, self).save(*args, **kwargs)
 
-    self.push_redis_event()
+    self.push_redis_event(changed_fields)
 
     self._initial = self._dict
+
+def compute_changed_fields(self):
+    changed_fields = []
+
+    if self.pk is not None:
+        my_model = type(self)
+        try:
+            orig = my_model.objects.get(pk=self.pk)
+
+            for f in my_model._meta.fields:
+                oval = getattr(orig, f.name)
+                nval = getattr(self, f.name)
+                if oval != nval:
+                    changed_fields.append(f.name)
+        except:
+            changed_fields.append('__lookup_error')
+    return changed_fields
 
 def tologdict(self):
     try:
