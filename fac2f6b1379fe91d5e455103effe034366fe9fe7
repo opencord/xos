@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a3291f1_75b67ade",
+        "filename": "group_vars/all",
+        "patchSetId": 2
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-08-22T20:41:46Z",
+      "side": 1,
+      "message": "we should not be pulling latest, we should pull 7.9.0 otherwise we won\u0027t know which version of node we\u0027re downloading and that may cause failures in the future",
+      "range": {
+        "startLine": 91,
+        "startChar": 11,
+        "endLine": 91,
+        "endChar": 22
+      },
+      "revId": "fac2f6b1379fe91d5e455103effe034366fe9fe7",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
