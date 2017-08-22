@@ -30,9 +30,11 @@ import threading
 from xosconfig import Config
 import json
 
-from xos.logger import Logger, logging
+from xosconfig import Config
+from multistructlog import create_logger
 
-logger = Logger(level=logging.INFO)
+Config.init()
+log = create_logger(Config().get('logging'))
 
 missing_links = {}
 
@@ -90,7 +92,7 @@ def __walk_deps(fn, object, deps):
             except AttributeError:
                 if not missing_links.has_key(model + '.' + link):
                     print "Model %s missing link for dependency %s" % (model, link)
-                    logger.log_exc("WARNING: Model %s missing link for dependency %s." % (model, link))
+                    log.exception("WARNING: Model missing link for dependency.", model = model, link = link)
                     missing_links[model + '.' + link] = True
 
         if (peer):
