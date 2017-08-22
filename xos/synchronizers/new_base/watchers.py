@@ -29,12 +29,14 @@ import traceback
 from datetime import datetime
 from collections import defaultdict
 from xos.logger import Logger, logging, logger
-from xosconfig import Config
 from syncstep import SyncStep
 from synchronizers.new_base.error_mapper import *
 import redis
 
-logger = Logger(level=logging.INFO)
+from xosconfig import Config
+from multistructlog import create_logger
+
+log = create_logger(Config().get('logging'))
 
 
 class XOSWatcher:
