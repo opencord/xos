@@ -25,6 +25,11 @@ import sys
 from google.protobuf.empty_pb2 import Empty
 from grpc import metadata_call_credentials, ChannelCredentials, composite_channel_credentials, ssl_channel_credentials
 
+from xosconfig import Config
+from multistructlog import create_logger
+
+log = create_logger(Config())
+
 # fix up sys.path for chameleon
 import inspect
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -189,20 +194,6 @@ def parse_args():
 
     return args
 
-def setup_logging(args):
-    import logging
-    import structlog
-
-    verbosity_adjust = (args.verbose or 0) - (args.quiet or 0)
-    logging.basicConfig()
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG - 10*verbosity_adjust)
-
-    def logger_factory():
-        return logger
-
-    structlog.configure(logger_factory=logger_factory)
-
 def coreclient_reconnect(client, reconnect_callback, *args, **kwargs):
     global coreapi
 
@@ -232,8 +223,6 @@ def start_api_parseargs(reconnect_callback):
     """
 
     args = parse_args()
-
-    setup_logging(args)
 
     if args.username:
         start_api(reconnect_callback, endpoint=args.grpc_secure_endpoint, username=args.username, password=args.password)

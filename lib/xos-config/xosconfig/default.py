@@ -16,11 +16,31 @@
 
 DEFAULT_VALUES = {
     'xos_dir': '/opt/xos',
+
+    # The configuration below inherits from the standard config of the Python logging module
+    # See: https://docs.python.org/2/library/logging.config.html
+    # multistructlog supports this config in all of its generality
+    # So for instance, you can add new handlers. Note that all handlers will
+    # receive logs simultaneously.
+
     'logging': {
-        'file': '/var/log/xos.log', # TODO remove me, the new logger will be able to decide on which file to log
-        'level': 'info',
-        'channels': ['file', 'console'],
-        'logstash_hostport': 'cordloghost:5617'
+	'version': 1,
+                'handlers': {
+                    'console': {
+                        'class': 'logging.StreamHandler',
+                    },
+		    'elk': {
+                        'class': 'logstash.LogstashHandler',
+			'host': 'cordloghost',
+			'port': 5617
+                    },
+                },
+                'loggers': {
+                    '': {
+                        'handlers': ['console', 'elk'],
+                        'level': 'INFO',
+                        'propagate': True
+                },
     },
     'accessor': {
         'endpoint': 'xos-core.cord.lab:50051',
