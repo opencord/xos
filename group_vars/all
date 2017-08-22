@@ -100,7 +100,7 @@ docker_optional_images:
 build_docker_tag: "candidate"
 
 misc_docker_images:
-  - "node:7.9.0"
+  - "node:latest"
 
 enabled_gui_extensions: []
 
