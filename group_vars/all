@@ -88,6 +88,11 @@ docker_images:
     dockerfile: "Dockerfile"
     pull: False
     publish: True
+  - name: "sebp/elk"
+    path: ""
+    dockerfile: ""
+    pull: True
+    publish: False
 
 build_optional_images: False
 
