@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a2f8d8d_0e5ccb24",
+        "filename": "containers/xos/pip_requirements.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-08-25T23:12:13Z",
+      "side": 1,
+      "message": "Rebase this and the dupe with 6 lines earlier will go away.",
+      "revId": "028665bdb4338520a0c3ccbd2dcbc3a906c6504a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
