@@ -17,10 +17,7 @@
 DEFAULT_VALUES = {
     'xos_dir': '/opt/xos',
     'logging': {
-        'file': '/var/log/xos.log', # TODO remove me, the new logger will be able to decide on which file to log
-        'level': 'info',
-        'channels': ['file', 'console'],
-        'logstash_hostport': 'cordloghost:5617'
+        'version': 1
     },
     'accessor': {
         'endpoint': 'xos-core.cord.lab:50051',
