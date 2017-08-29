@@ -20,7 +20,8 @@ import base64
 from xosconfig import Config
 from synchronizers.new_base.modelaccessor import *
 from synchronizers.new_base.ansible_helper import run_template
-#from tests.steps.mock_modelaccessor import model_accessor
+
+from tests.steps.mock_modelaccessor import model_accessor
 
 import json
 import time
