@@ -16,7 +16,6 @@ import time
 import sys
 import threading
 import json
-import pdb
 import pprint
 import traceback
 from collections import defaultdict
@@ -24,7 +23,6 @@ from networkx import DiGraph, dfs_edges, weakly_connected_component_subgraphs, a
 from networkx.algorithms.dag import topological_sort
 
 from datetime import datetime
-#from multistructlog import create_logger
 from xosconfig import Config
 from synchronizers.new_base.steps import *
 from syncstep import InnocuousException, DeferredException, SyncStep
@@ -35,8 +33,10 @@ from multistructlog import create_logger
 
 log = create_logger(Config().get('logging'))
 
+
 class StepNotReady(Exception):
     pass
+
 
 class ExternalDependencyFailed(Exception):
     pass
@@ -54,6 +54,8 @@ class NoOpDriver:
 # set_driver() below.
 DRIVER = NoOpDriver()
 
+DIRECT_EDGE = 1
+PROXY_EDGE = 2
 
 
 def set_driver(x):
@@ -64,7 +66,7 @@ def set_driver(x):
 class XOSObserver:
     sync_steps = []
 
-    def __init__(self, sync_steps, log = log):
+    def __init__(self, sync_steps, log=log):
         # The Condition object via which events are received
         self.log = log
         self.step_lookup = {}
@@ -89,7 +91,7 @@ class XOSObserver:
 
     def load_dependency_graph(self):
         dep_path = Config.get("dependency_graph")
-        self.log.info('Loading model dependency graph', path = dep_path)
+        self.log.info('Loading model dependency graph', path=dep_path)
 
         try:
             dep_graph_str = open(dep_path).read()
@@ -116,14 +118,16 @@ class XOSObserver:
                 True: model_dependency_graph_rev,
                 False: model_dependency_graph
             }
-            self.log.info("Loaded dependencies", edges = model_dependency_graph.edges())
+            self.log.info(
+                "Loaded dependencies",
+                edges=model_dependency_graph.edges())
         except Exception as e:
-            self.log.exception("Error loading dependency graph", e = e)
+            self.log.exception("Error loading dependency graph", e=e)
             raise e
 
     def load_sync_steps(self):
         model_to_step = defaultdict(list)
-        external_dependencies = [] 
+        external_dependencies = []
 
         for s in self.sync_steps:
             if not isinstance(s.observes, list):
@@ -143,7 +147,9 @@ class XOSObserver:
 
         self.model_to_step = model_to_step
         self.external_dependencies = list(set(external_dependencies))
-        self.log.info('Loaded external dependencies', external_dependencies = external_dependencies)
+        self.log.info(
+            'Loaded external dependencies',
+            external_dependencies=external_dependencies)
         self.log.info('Loaded model_map', **model_to_step)
 
     def reset_model_accessor(self, o=None):
@@ -171,7 +177,7 @@ class XOSObserver:
             model_accessor.journal_object(o, "syncstep.call.delete_record")
             log.debug("Deleting object", **o.tologdict())
 
-            step.log = log.bind(step = step)
+            step.log = log.bind(step=step)
             step.delete_record(o)
             step.log = self.log
 
@@ -180,7 +186,6 @@ class XOSObserver:
             model_accessor.journal_object(o, "syncstep.call.delete_set_reap")
             o.backend_need_reap = True
             o.save(update_fields=['backend_need_reap'])
-        
 
     def sync_record(self, o, log):
         try:
@@ -200,7 +205,7 @@ class XOSObserver:
 
         log.debug("Syncing object", **o.tologdict())
 
-        step.log = log.bind(step = step)
+        step.log = log.bind(step=step)
         step.sync_record(o)
         step.log = self.log
 
@@ -216,11 +221,12 @@ class XOSObserver:
         o.backend_code = 1
         model_accessor.journal_object(o, "syncstep.call.save_update")
         o.save(update_fields=['enacted', 'backend_status', 'backend_register'])
-        log.info("Saved sync object, new enacted", enacted = new_enacted)
+        log.info("Saved sync object, new enacted", enacted=new_enacted)
 
     """ This function needs a cleanup. FIXME: Rethink backend_status, backend_register """
+
     def handle_sync_exception(self, o, e):
-        self.log.exception("sync step failed!", e = e, **o.tologdict())
+        self.log.exception("sync step failed!", e=e, **o.tologdict())
         current_code = o.backend_code
 
         if hasattr(e, 'message'):
@@ -228,7 +234,8 @@ class XOSObserver:
         else:
             status = str(e)
 
-        if isinstance(e, InnocuousException) or isinstance(e, DeferredException):
+        if isinstance(e, InnocuousException) or isinstance(
+                e, DeferredException):
             code = 1
         else:
             code = 2
@@ -291,15 +298,19 @@ class XOSObserver:
                 o.backend_status = o.backend_status[:1024]
                 o.save(update_fields=['backend_status',
                                       'backend_register', 'updated'])
-            except BaseException,e:
-                self.log.exception("Could not update backend status field!", e = e)
+            except BaseException as e:
+                self.log.exception(
+                    "Could not update backend status field!", e=e)
                 pass
 
     def sync_cohort(self, cohort, deletion):
-        log = self.log.bind(thread_id = threading.current_thread().ident)
+        log = self.log.bind(thread_id=threading.current_thread().ident)
         try:
             start_time = time.time()
-            log.debug("Starting to work on cohort", cohort = cohort, deletion = deletion)
+            log.debug(
+                "Starting to work on cohort",
+                cohort=cohort,
+                deletion=deletion)
 
             cohort_emptied = False
             dependency_error = None
@@ -323,14 +334,18 @@ class XOSObserver:
                         else:
                             self.sync_record(o, log)
                     except ExternalDependencyFailed:
-                        dependency_error = 'External dependency on object %s id %d not met'%(o.__class__.__name__, o.id)
+                        dependency_error = 'External dependency on object %s id %d not met' % (
+                            o.__class__.__name__, o.id)
                         dependency_error_code = 1
                     except (DeferredException, InnocuousException, Exception) as e:
                         dependency_error, dependency_error_code = self.handle_sync_exception(
                             o, e)
 
                 except StopIteration:
-                    log.debug("Cohort completed", cohort = cohort, deletion = deletion)
+                    log.debug(
+                        "Cohort completed",
+                        cohort=cohort,
+                        deletion=deletion)
                     cohort_emptied = True
         finally:
             self.reset_model_accessor()
@@ -362,7 +377,7 @@ class XOSObserver:
 
         for step_class in step_list:
             step = step_class(driver=self.driver)
-            step.log = self.log.bind(step = step)
+            step.log = self.log.bind(step=step)
 
             if not hasattr(step, 'call'):
                 pending = step.fetch_pending(deletion)
@@ -374,7 +389,10 @@ class XOSObserver:
                 # This needs to be dropped soon.
                 pending_steps.append(step)
 
-	self.log.debug('Fetched pending data', pending_objects = pending_objects, legacy_steps = pending_steps)
+        self.log.debug(
+            'Fetched pending data',
+            pending_objects=pending_objects,
+            legacy_steps=pending_steps)
         return pending_objects, pending_steps
 
     """ Automatically test if a real dependency path exists between two objects. e.g.
@@ -386,6 +404,28 @@ class XOSObserver:
         returns False.
     """
 
+    def same_object(self, o1, o2):
+        if not o1 or not o2:
+            return False, None
+
+        try:
+            o1_lst = (o for o in o1.all())
+            edge_type = PROXY_EDGE
+        except (AttributeError, TypeError):
+            o1_lst = [o1]
+            edge_type = DIRECT_EDGE
+
+        try:
+            found = next(obj for obj in o1_lst if obj.leaf_model_name ==
+                         o2.leaf_model_name and obj.pk == o2.pk)
+        except AttributeError as e:
+            self.log.exception('Compared objects could not be identified', e=e)
+            raise e
+        except StopIteration:
+            found = False
+
+        return found, edge_type
+
     def concrete_path_exists(self, o1, o2):
         try:
             m1 = o1.leaf_model_name
@@ -393,7 +433,7 @@ class XOSObserver:
         except AttributeError:
             # One of the nodes is not in the dependency graph
             # No dependency
-            return False
+            return False, None
 
         # FIXME: Dynamic dependency check
         G = self.model_dependency_graph[False]
@@ -404,33 +444,29 @@ class XOSObserver:
             paths = all_shortest_paths(G, m1, m2)
         except NetworkXNoPath:
             # Easy. The two models are unrelated.
-            return False
+            return False, None
 
         for p in paths:
-            path_verdict = True
             src_object = o1
-            da = None
 
             for i in range(len(p) - 1):
                 src = p[i]
                 dst = p[i + 1]
                 edge_label = G[src][dst]
                 sa = edge_label['src_accessor']
-                da = edge_label['dst_accessor']
                 try:
                     dst_object = getattr(src_object, sa)
-                    if dst_object and dst_object.leaf_model_name != dst and i != len(
-                            p) - 2:
-                        raise AttributeError
                 except AttributeError as e:
                     self.log.debug(
-                        'Could not check object dependencies, making conservative choice', src_object = src_object, sa = sa, o1 = o1, o2 = o2)
-                    return True
+                        'Could not check object dependencies, making conservative choice', src_object=src_object, sa=sa, o1=o1, o2=o2)
+                    return True, DIRECT_EDGE
+
                 src_object = dst_object
 
-            if src_object and ((not da and src_object == o2) or (
-                    da and src_object == getattr(o2, da))):
-                return True
+                if not src_object:
+                    break
+
+            return self.same_object(src_object, o2)
 
             # Otherwise try other paths
 
@@ -461,25 +497,32 @@ class XOSObserver:
         r = range(n)
         indexed_objects = zip(r, objects)
 
-        mG = self.model_dependency_graph[deletion]
-
         oG = DiGraph()
 
         for i in r:
             oG.add_node(i)
 
-        for v0, v1 in mG.edges():
-            try:
-                for i0 in range(n):
-                   for i1 in range(n):
-                       if i0 != i1:
-                            if not deletion and self.concrete_path_exists(
-                                    objects[i0], objects[i1]):
-                                oG.add_edge(i0, i1)
-                            elif deletion and self.concrete_path_exists(objects[i1], objects[i0]):
-                                oG.add_edge(i0, i1)
-            except KeyError:
-                pass
+        try:
+            for i0 in range(n):
+                for i1 in range(n):
+                    if i0 != i1:
+                        if deletion:
+                            path_args = (objects[i1], objects[i0])
+                        else:
+                            path_args = (objects[i0], objects[i1])
+
+                        is_connected, edge_type = self.concrete_path_exists(
+                            *path_args)
+                        if is_connected:
+                            try:
+                                edge_type = oG[i1][i0]['type']
+                                if edge_type == PROXY_EDGE:
+                                    oG.remove_edge(i1, i0)
+                                    oG.add_edge(i0, i1, {'type': edge_type})
+                            except KeyError:
+                                oG.add_edge(i0, i1, {'type': edge_type})
+        except KeyError:
+            pass
 
         components = weakly_connected_component_subgraphs(oG)
         cohort_indexes = [reversed(topological_sort(g)) for g in components]
@@ -499,12 +542,13 @@ class XOSObserver:
             for deletion in (False, True):
                 objects_to_process = []
 
-                objects_to_process, steps_to_process = self.fetch_pending(deletion)
+                objects_to_process, steps_to_process = self.fetch_pending(
+                    deletion)
                 dependent_cohorts = self.compute_dependent_cohorts(
                     objects_to_process, deletion)
 
                 threads = []
-                self.log.debug('In run once inner loop', deletion = deletion)
+                self.log.debug('In run once inner loop', deletion=deletion)
 
                 for cohort in dependent_cohorts:
                     thread = threading.Thread(
@@ -527,9 +571,10 @@ class XOSObserver:
                 # Run legacy synchronizers, which do everything in call()
                 for step in steps_to_process:
                     try:
-                        step.call()
-                    except Exception,e:
-                        self.log.exception("Legacy step failed", step = step, e = e)
+                        step.call(deletion=deletion)
+                    except Exception as e:
+                        self.log.exception(
+                            "Legacy step failed", step=step, e=e)
 
             loop_end = time.time()
 
@@ -542,7 +587,7 @@ class XOSObserver:
         except Exception as e:
             self.log.exception(
                 'Core error. This seems like a misconfiguration or bug. This error will not be relayed to the user!',
-                e = e)
+                e=e)
             self.log.error("Exception in observer run loop")
 
             model_accessor.update_diag(
