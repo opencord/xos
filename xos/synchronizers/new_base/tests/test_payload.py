@@ -37,6 +37,9 @@ import json
 
 import steps.sync_instances
 import steps.sync_controller_slices
+from multistructlog import create_logger
+
+log = create_logger()
 
 ANSIBLE_FILE='/tmp/payload_test'
 
@@ -62,7 +65,7 @@ class TestPayload(unittest.TestCase):
         o.name = "Sisi Pascal"
 
         o.synchronizer_step = steps.sync_instances.SyncInstances()
-        self.synchronizer.delete_record(o)
+        self.synchronizer.delete_record(o, log)
 
         a = get_ansible_output()
         self.assertDictContainsSubset({'delete':True, 'name':o.name}, a)
@@ -75,7 +78,7 @@ class TestPayload(unittest.TestCase):
         o.name = "Sisi Pascal"
 
         o.synchronizer_step = steps.sync_instances.SyncInstances()
-        self.synchronizer.sync_record(o)
+        self.synchronizer.sync_record(o, log)
 
         a = get_ansible_output()
         self.assertDictContainsSubset({'delete':False, 'name':o.name}, a)
