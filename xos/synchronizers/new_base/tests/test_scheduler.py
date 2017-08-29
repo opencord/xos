@@ -118,7 +118,7 @@ class TestScheduling(unittest.TestCase):
         p.slice = s
         s.site = t
         verdict = self.synchronizer.concrete_path_exists(p, ct)
-        self.assertTrue(verdict)
+        self.assertFalse(verdict)
 
     def test_cohorting_independent(self):
         i = Image()
@@ -154,6 +154,23 @@ class TestScheduling(unittest.TestCase):
         big_cohort = max(cohorts, key=len)
         self.assertGreater(big_cohort.index(c), big_cohort.index(i))
         self.assertGreater(big_cohort.index(cs), big_cohort.index(s))
+        self.assertIn([p], cohorts)
+
+    def test_cohorting_related_multi_delete(self):
+        i = Image()
+        p = Port()
+        c = Instance()
+        c.image = i
+        cs = ControllerSlice()
+        s = Slice()
+        cs.slice = s
+        c.slice = s
+
+        cohorts = self.synchronizer.compute_dependent_cohorts([i,p,c,s,cs], True)
+
+        big_cohort = max(cohorts, key=len)
+        self.assertGreater(big_cohort.index(i), big_cohort.index(c))
+        self.assertGreater(big_cohort.index(s), big_cohort.index(cs))
         self.assertIn([p], cohorts)
 
     def test_cohorting_related_delete(self):

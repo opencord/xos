@@ -16,7 +16,6 @@ import time
 import sys
 import threading
 import json
-import pdb
 import pprint
 import traceback
 from collections import defaultdict
@@ -24,7 +23,6 @@ from networkx import DiGraph, dfs_edges, weakly_connected_component_subgraphs, a
 from networkx.algorithms.dag import topological_sort
 
 from datetime import datetime
-#from multistructlog import create_logger
 from xosconfig import Config
 from synchronizers.new_base.steps import *
 from syncstep import InnocuousException, DeferredException, SyncStep
@@ -386,7 +384,15 @@ class XOSObserver:
         returns False.
     """
 
+    def same_object(self, o1, o2):
+        try:
+            return o1.leaf_model_name == o2.leaf_model_name and o1.pk == o2.pk
+        except AttributeError:
+            return False
+
     def concrete_path_exists(self, o1, o2):
+        import pdb
+        pdb.set_trace()
         try:
             m1 = o1.leaf_model_name
             m2 = o2.leaf_model_name
@@ -407,7 +413,6 @@ class XOSObserver:
             return False
 
         for p in paths:
-            path_verdict = True
             src_object = o1
             da = None
 
@@ -426,10 +431,14 @@ class XOSObserver:
                     self.log.debug(
                         'Could not check object dependencies, making conservative choice', src_object = src_object, sa = sa, o1 = o1, o2 = o2)
                     return True
+
                 src_object = dst_object
 
-            if src_object and ((not da and src_object == o2) or (
-                    da and src_object == getattr(o2, da))):
+                if not src_object:
+                    break
+
+            if src_object and ((not da and self.same_object(src_object, o2)) or (
+                    da and self.same_object(src_object, getattr(o2, da)))):
                 return True
 
             # Otherwise try other paths
@@ -461,25 +470,22 @@ class XOSObserver:
         r = range(n)
         indexed_objects = zip(r, objects)
 
-        mG = self.model_dependency_graph[deletion]
-
         oG = DiGraph()
 
         for i in r:
             oG.add_node(i)
 
-        for v0, v1 in mG.edges():
-            try:
-                for i0 in range(n):
-                   for i1 in range(n):
-                       if i0 != i1:
-                            if not deletion and self.concrete_path_exists(
-                                    objects[i0], objects[i1]):
-                                oG.add_edge(i0, i1)
-                            elif deletion and self.concrete_path_exists(objects[i1], objects[i0]):
-                                oG.add_edge(i0, i1)
-            except KeyError:
-                pass
+        try:
+            for i0 in range(n):
+               for i1 in range(n):
+                   if i0 != i1:
+                        if not deletion and self.concrete_path_exists(
+                                objects[i0], objects[i1]):
+                            oG.add_edge(i0, i1)
+                        elif deletion and self.concrete_path_exists(objects[i1], objects[i0]):
+                            oG.add_edge(i0, i1)
+        except KeyError:
+            pass
 
         components = weakly_connected_component_subgraphs(oG)
         cohort_indexes = [reversed(topological_sort(g)) for g in components]
@@ -527,7 +533,7 @@ class XOSObserver:
                 # Run legacy synchronizers, which do everything in call()
                 for step in steps_to_process:
                     try:
-                        step.call()
+                        step.call(deletion=deletion)
                     except Exception,e:
                         self.log.exception("Legacy step failed", step = step, e = e)
 

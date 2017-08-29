@@ -26,15 +26,16 @@ class Object:
         setattr(self, 'delete', Mock())
         setattr(self, 'backend_code', 0)
         setattr(self, 'id', 98052)
+        setattr(self, 'pk', random.randint(0, 1<<30))
 
     def tologdict(self):
         return {}
 
 class ONOSService(Object):
-    pass
+    leaf_model_name = 'ONOSService'
 
-class ONOSTenant(Object):
-    pass
+class ONOSApp(Object):
+    leaf_model_name = 'ONOSApp'
 
 class ModelAccessor:
     def check_db_connection_ok(self):
@@ -84,6 +85,7 @@ class XOSBase(Object):
     leaf_model_name = None
     
     leaf_model_name = "XOSBase"
+
 class User(Object):
     email = None
     username = "Something"
