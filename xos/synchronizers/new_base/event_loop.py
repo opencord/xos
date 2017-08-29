@@ -16,7 +16,6 @@ import time
 import sys
 import threading
 import json
-import pdb
 import pprint
 import traceback
 from collections import defaultdict
@@ -24,7 +23,6 @@ from networkx import DiGraph, dfs_edges, weakly_connected_component_subgraphs, a
 from networkx.algorithms.dag import topological_sort
 
 from datetime import datetime
-#from multistructlog import create_logger
 from xosconfig import Config
 from synchronizers.new_base.steps import *
 from syncstep import InnocuousException, DeferredException, SyncStep
@@ -54,7 +52,8 @@ class NoOpDriver:
 # set_driver() below.
 DRIVER = NoOpDriver()
 
-
+DIRECT_EDGE = 1
+PROXY_EDGE = 2
 
 def set_driver(x):
     global DRIVER
@@ -386,6 +385,27 @@ class XOSObserver:
         returns False.
     """
 
+    def same_object(self, o1, o2):
+        if not o1 or not o2:
+            return False, None
+
+        try:
+            o1_lst = (o for o in o1.all())
+            edge_type = PROXY_EDGE
+        except (AttributeError, TypeError):
+            o1_lst = [o1]
+            edge_type = DIRECT_EDGE
+
+        try:
+            found = next(obj for obj in o1_lst if obj.leaf_model_name == o2.leaf_model_name and obj.pk == o2.pk) 
+        except AttributeError,e:
+            self.log.exception('Compared objects could not be identified', e = e)
+            raise e
+        except StopIteration:
+            found = False
+
+        return found, edge_type
+
     def concrete_path_exists(self, o1, o2):
         try:
             m1 = o1.leaf_model_name
@@ -393,7 +413,7 @@ class XOSObserver:
         except AttributeError:
             # One of the nodes is not in the dependency graph
             # No dependency
-            return False
+            return False, None
 
         # FIXME: Dynamic dependency check
         G = self.model_dependency_graph[False]
@@ -404,33 +424,29 @@ class XOSObserver:
             paths = all_shortest_paths(G, m1, m2)
         except NetworkXNoPath:
             # Easy. The two models are unrelated.
-            return False
+            return False, None
 
         for p in paths:
-            path_verdict = True
             src_object = o1
-            da = None
 
             for i in range(len(p) - 1):
                 src = p[i]
                 dst = p[i + 1]
                 edge_label = G[src][dst]
                 sa = edge_label['src_accessor']
-                da = edge_label['dst_accessor']
                 try:
                     dst_object = getattr(src_object, sa)
-                    if dst_object and dst_object.leaf_model_name != dst and i != len(
-                            p) - 2:
-                        raise AttributeError
                 except AttributeError as e:
                     self.log.debug(
                         'Could not check object dependencies, making conservative choice', src_object = src_object, sa = sa, o1 = o1, o2 = o2)
-                    return True
+                    return True, DIRECT_EDGE
+
                 src_object = dst_object
 
-            if src_object and ((not da and src_object == o2) or (
-                    da and src_object == getattr(o2, da))):
-                return True
+                if not src_object:
+                    break
+
+            return self.same_object(src_object, o2)
 
             # Otherwise try other paths
 
@@ -461,25 +477,31 @@ class XOSObserver:
         r = range(n)
         indexed_objects = zip(r, objects)
 
-        mG = self.model_dependency_graph[deletion]
-
         oG = DiGraph()
 
         for i in r:
             oG.add_node(i)
 
-        for v0, v1 in mG.edges():
-            try:
-                for i0 in range(n):
-                   for i1 in range(n):
-                       if i0 != i1:
-                            if not deletion and self.concrete_path_exists(
-                                    objects[i0], objects[i1]):
-                                oG.add_edge(i0, i1)
-                            elif deletion and self.concrete_path_exists(objects[i1], objects[i0]):
-                                oG.add_edge(i0, i1)
-            except KeyError:
-                pass
+        try:
+            for i0 in range(n):
+               for i1 in range(n):
+                   if i0 != i1:
+                       if deletion:
+                           path_args = (objects[i1], objects[i0])
+                       else:
+                           path_args = (objects[i0], objects[i1])
+
+                       is_connected, edge_type = self.concrete_path_exists(*path_args)
+                       if is_connected:
+                           try:
+                               edge_type = oG[i1][i0]['type']
+                               if edge_type == PROXY_EDGE:
+                                   oG.remove_edge(i1, i0)
+                                   oG.add_edge(i0, i1, {'type': edge_type})
+                           except KeyError:
+                               oG.add_edge(i0, i1, {'type': edge_type})
+        except KeyError:
+            pass
 
         components = weakly_connected_component_subgraphs(oG)
         cohort_indexes = [reversed(topological_sort(g)) for g in components]
@@ -527,7 +549,7 @@ class XOSObserver:
                 # Run legacy synchronizers, which do everything in call()
                 for step in steps_to_process:
                     try:
-                        step.call()
+                        step.call(deletion=deletion)
                     except Exception,e:
                         self.log.exception("Legacy step failed", step = step, e = e)
 
