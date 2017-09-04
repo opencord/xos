@@ -110,7 +110,7 @@ message ExampleService (Service){
 }
 ```
 
-###ServiceInstance Model (per-Tenant state)
+### ServiceInstance Model (per-Tenant state)
 
 Your ServiceInstance model will extend the core `TenantWithContainer` class,
 which is a Tenant that creates a VM instance:
