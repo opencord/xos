@@ -110,7 +110,7 @@ message ExampleService (Service){
 }
 ```
 
-###ServiceInstance Model (per-Tenant state)
+### ServiceInstance Model (per-Tenant state)
 
 Your ServiceInstance model will extend the core `TenantWithContainer` class,
 which is a Tenant that creates a VM instance:
@@ -153,7 +153,7 @@ The Synchronizer has two parts: A container that runs the
 synchronizer process, and an Ansible playbook that configures the
 underlying system. The following describes how to construct both.
 
-###Synchronizer Container
+### Synchronizer Container
 
 First, create a file named `exampleservice-synchronizer.py`:
 
@@ -315,7 +315,7 @@ LABEL org.label-schema.schema-version=$org_label_schema_schema_version \
 CMD bash -c "cd /opt/xos/synchronizers/exampleservice; ./run-from-api.sh"
 ```
 
-###Synchronizer Playbooks
+### Synchronizer Playbooks
 
 In the same `steps` directory, create an Ansible playbook named
 `exampleserviceinstance_playbook.yml` which is the “master playbook” for this set
