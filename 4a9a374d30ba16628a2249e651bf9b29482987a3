@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa5d592f_9eb58d33",
+        "filename": "xos/core/models/grpctest.xtarget",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-09-05T23:03:12Z",
+      "side": 1,
+      "message": "This file should be located in lib/xos-genx/xosgenx/targets",
+      "revId": "4a9a374d30ba16628a2249e651bf9b29482987a3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
