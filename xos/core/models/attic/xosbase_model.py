@@ -135,6 +135,9 @@ def save(self, *args, **kwargs):
 
     if (caller_kind!="synchronizer") or always_update_timestamp:
         self.updated = timezone.now()
+    elif (self.updated < self._initial["updated"]):
+        log.info("backward updated timestamp change on model %s from %s to %s ignored" % (self, self._initial["updated"], self.updated))
+        self.updated = self._initial["updated"]
 
     with transaction.atomic():
         self.verify_live_keys(update_fields = kwargs.get("update_fields"))
