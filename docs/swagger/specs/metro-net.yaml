@@ -1,0 +1,1344 @@
+swagger: "2.0"
+info:
+  title: "XOS REST APIs"
+  description: "XOS - REST API Docs"
+  version: "1.0.0"
+  contact:
+    email: "cord-dev@opencord.org"
+
+tags:
+- name: "metronetwork"
+  description: "metronetwork Models"
+  externalDocs:
+    description: "Find out more"
+    url: "https://guide.opencord.org/xos/core_models.html"
+
+paths:
+  /xosapi/v1/metronetwork/metronetworksystems/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List MetroNetworkSystems"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create MetroNetworkSystem"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "MetroNetworkSystem model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/MetroNetworkSystem"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/metronetworksystems/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get MetroNetworkSystem"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of MetroNetworkSystem to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get MetroNetworkSystem"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of MetroNetworkSystem to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete MetroNetworkSystem"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of MetroNetworkSystem to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/metronetwork/networkdevices/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List NetworkDevices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create NetworkDevice"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "NetworkDevice model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/NetworkDevice"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/networkdevices/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get NetworkDevice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkDevice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get NetworkDevice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkDevice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete NetworkDevice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkDevice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/metronetwork/networkedgeports/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List NetworkEdgePorts"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create NetworkEdgePort"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "NetworkEdgePort model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/NetworkEdgePort"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/networkedgeports/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get NetworkEdgePort"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkEdgePort to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get NetworkEdgePort"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkEdgePort to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete NetworkEdgePort"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkEdgePort to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/metronetwork/networkedgetoedgepointconnections/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List NetworkEdgeToEdgePointConnections"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create NetworkEdgeToEdgePointConnection"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "NetworkEdgeToEdgePointConnection model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/NetworkEdgeToEdgePointConnection"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/networkedgetoedgepointconnections/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get NetworkEdgeToEdgePointConnection"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkEdgeToEdgePointConnection to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get NetworkEdgeToEdgePointConnection"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkEdgeToEdgePointConnection to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete NetworkEdgeToEdgePointConnection"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkEdgeToEdgePointConnection to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/metronetwork/networkedgetomultipointconnections/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List NetworkEdgeToMultipointConnections"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create NetworkEdgeToMultipointConnection"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "NetworkEdgeToMultipointConnection model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/NetworkEdgeToMultipointConnection"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/networkedgetomultipointconnections/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get NetworkEdgeToMultipointConnection"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkEdgeToMultipointConnection to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get NetworkEdgeToMultipointConnection"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkEdgeToMultipointConnection to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete NetworkEdgeToMultipointConnection"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkEdgeToMultipointConnection to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/metronetwork/networkmultipointtomultipointconnections/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List NetworkMultipointToMultipointConnections"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create NetworkMultipointToMultipointConnection"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "NetworkMultipointToMultipointConnection model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/NetworkMultipointToMultipointConnection"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/networkmultipointtomultipointconnections/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get NetworkMultipointToMultipointConnection"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkMultipointToMultipointConnection to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get NetworkMultipointToMultipointConnection"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkMultipointToMultipointConnection to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete NetworkMultipointToMultipointConnection"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkMultipointToMultipointConnection to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/metronetwork/bandwidthprofiles/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List BandwidthProfiles"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create BandwidthProfile"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "BandwidthProfile model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/BandwidthProfile"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/bandwidthprofiles/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get BandwidthProfile"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of BandwidthProfile to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get BandwidthProfile"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of BandwidthProfile to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete BandwidthProfile"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of BandwidthProfile to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/metronetwork/remoteports/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List RemotePorts"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create RemotePort"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "RemotePort model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/RemotePort"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/remoteports/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get RemotePort"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of RemotePort to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get RemotePort"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of RemotePort to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete RemotePort"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of RemotePort to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/metronetwork/servicespokes/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List ServiceSpokes"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create ServiceSpoke"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ServiceSpoke model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceSpoke"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/servicespokes/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get ServiceSpoke"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceSpoke to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get ServiceSpoke"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceSpoke to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete ServiceSpoke"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceSpoke to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/metronetwork/vnodglobalservices/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List VnodGlobalServices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create VnodGlobalService"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VnodGlobalService model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VnodGlobalService"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/vnodglobalservices/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get VnodGlobalService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VnodGlobalService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get VnodGlobalService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VnodGlobalService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete VnodGlobalService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VnodGlobalService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/metronetwork/usernetworkinterfaces/:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "List UserNetworkInterfaces"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "metronetwork"
+      summary: "Create UserNetworkInterface"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "UserNetworkInterface model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/UserNetworkInterface"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/metronetwork/usernetworkinterfaces/{id}:
+    get:
+      tags:
+        - "metronetwork"
+      summary: "Get UserNetworkInterface"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of UserNetworkInterface to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "metronetwork"
+      summary: "Get UserNetworkInterface"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of UserNetworkInterface to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "metronetwork"
+      summary: "Delete UserNetworkInterface"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of UserNetworkInterface to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+
+definitions:
+    MetroNetworkSystem:
+      type: "object"
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        restUrl:
+          type: string
+        administrativeState:
+          type: string
+          enum:
+            - enabled
+            - disabled
+        operationalState:
+          type: string
+          enum:
+            - active
+            - inactive
+
+    NetworkDevice:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Device friendly name"
+
+        restCtrlUrl:
+          type: string
+        authType:
+          type: string
+          enum:
+            - basic
+            - key
+            - oauth
+        username:
+          type: string
+        password:
+          type: string
+        administrativeState:
+          type: string
+          enum:
+            - enabled
+            - disabled
+            - syncrequested
+            - syncinprogress
+
+    NetworkEdgePort:
+      type: "object"
+      properties:
+        element:
+          type: integer
+        pid:
+          type: string
+        bwpCfgCbs:
+          type: integer
+        bwpCfgEbs:
+          type: integer
+        bwpCfgCir:
+          type: integer
+        bwpCfgEir:
+          type: integer
+        name:
+          type: string
+        location:
+          type: string
+        latlng:
+          type: string
+
+    NetworkEdgeToEdgePointConnection:
+      type: "object"
+      properties:
+        sid:
+          type: string
+        type:
+          type: string
+          enum:
+            - direct
+            - tunnel
+            - optical
+            - virtual
+            - Point_To_Point
+        vlanid:
+          type: string
+        uni1:
+          type: integer
+        uni2:
+          type: integer
+        operstate:
+          type: string
+          enum:
+            - active
+            - inactive
+        adminstate:
+          type: string
+          enum:
+            - disabled
+            - activationrequested
+            - enabled
+            - invalid
+            - deactivationrequested
+
+    NetworkEdgeToMultipointConnection:
+      type: "object"
+      properties:
+        sid:
+          type: string
+        type:
+          type: string
+          enum:
+            - vlan
+            - ip
+            - ethernet
+            - Root_Multipoint
+        vlanid:
+          type: string
+        root:
+          type: integer
+        operstate:
+          type: string
+          enum:
+            - active
+            - inactive
+        adminstate:
+          type: string
+          enum:
+            - disabled
+            - activationrequested
+            - enabled
+            - invalid
+            - deactivationrequested
+        eps:
+          type: integer
+
+    NetworkMultipointToMultipointConnection:
+      type: "object"
+      properties:
+        sid:
+          type: string
+        type:
+          type: string
+          enum:
+            - vlan
+            - ip
+            - ethernet
+            - Multipoint_To_Multipoint
+        vlanid:
+          type: string
+        operstate:
+          type: string
+          enum:
+            - active
+            - inactive
+        adminstate:
+          type: string
+          enum:
+            - disabled
+            - activationrequested
+            - enabled
+            - invalid
+            - deactivationrequested
+        eps:
+          type: integer
+
+    BandwidthProfile:
+      type: "object"
+      properties:
+        bwpcfgcbs:
+          type: integer
+        bwpcfgebs:
+          type: integer
+        bwpcfgcir:
+          type: integer
+        bwpcfgeir:
+          type: integer
+        name:
+          type: string
+
+    RemotePort:
+      type: "object"
+      properties:
+        remoteportsite:
+          type: integer
+        edgeport:
+          type: integer
+        name:
+          type: string
+
+    ServiceSpoke:
+      type: "object"
+      properties:
+        vnodlocalsite:
+          type: integer
+        vnodlocalport:
+          type: integer
+        name:
+          type: string
+        remotesubscriber:
+          type: string
+        remotevnodid:
+          type: string
+        autoattached:
+          type: boolean
+        operstate:
+          type: string
+          enum:
+            - active
+            - inactive
+        adminstate:
+          type: string
+          enum:
+            - disabled
+            - configured
+            - impaired
+            - enabled
+
+    VnodGlobalService:
+      type: "object"
+      properties:
+        servicehandle:
+          type: string
+        vlanid:
+          type: string
+        type:
+          type: string
+          enum:
+            - eline
+            - elan
+            - etree
+        metronetworkroottomultipoint:
+          type: integer
+        metronetworkmultipoint:
+          type: integer
+        metronetworkpointtopoint:
+          type: integer
+        operstate:
+          type: string
+          enum:
+            - active
+            - inactive
+        adminstate:
+          type: string
+          enum:
+            - disabled
+            - activationrequested
+            - enabled
+            - invalid
+            - deactivationrequested
+        bandwidthProfile:
+          type: integer
+        spokes:
+          type: integer
+
+    UserNetworkInterface:
+      type: "object"
+      properties:
+        enabled:
+          type: integer
+        capacity:
+          type: integer
+        bw_used:
+          type: integer
+        vlanIds:
+          type: string
+        location:
+          type: string
+        latlng:
+          type: string
+        name:
+          type: string

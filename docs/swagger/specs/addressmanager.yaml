@@ -1,0 +1,223 @@
+swagger: "2.0"
+info:
+  title: "XOS REST APIs"
+  description: "XOS - REST API Docs"
+  version: "1.0.0"
+  contact:
+    email: "cord-dev@opencord.org"
+
+tags:
+- name: "addressmanager"
+  description: "addressmanager Models"
+  externalDocs:
+    description: "Find out more"
+    url: "https://guide.opencord.org/xos/core_models.html"
+
+paths:
+  /xosapi/v1/addressmanager/addressmanagerservices/:
+    get:
+      tags:
+        - "addressmanager"
+      summary: "List AddressManagerServices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "addressmanager"
+      summary: "Create AddressManagerService"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "AddressManagerService model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/AddressManagerService"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/addressmanager/addressmanagerservices/{id}:
+    get:
+      tags:
+        - "addressmanager"
+      summary: "Get AddressManagerService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of AddressManagerService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "addressmanager"
+      summary: "Get AddressManagerService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of AddressManagerService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "addressmanager"
+      summary: "Delete AddressManagerService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of AddressManagerService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/addressmanager/addressmanagerserviceinstances/:
+    get:
+      tags:
+        - "addressmanager"
+      summary: "List AddressManagerServiceInstances"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "addressmanager"
+      summary: "Create AddressManagerServiceInstance"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "AddressManagerServiceInstance model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/AddressManagerServiceInstance"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/addressmanager/addressmanagerserviceinstances/{id}:
+    get:
+      tags:
+        - "addressmanager"
+      summary: "Get AddressManagerServiceInstance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of AddressManagerServiceInstance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "addressmanager"
+      summary: "Get AddressManagerServiceInstance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of AddressManagerServiceInstance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "addressmanager"
+      summary: "Delete AddressManagerServiceInstance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of AddressManagerServiceInstance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+
+definitions:
+    AddressManagerService:
+      type: "object"
+      properties:
+
+    AddressManagerServiceInstance:
+      type: "object"
+      properties:
+        public_ip:
+          type: string
+        public_mac:
+          type: string
+        address_pool:
+          type: integer

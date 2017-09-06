@@ -1,0 +1,225 @@
+swagger: "2.0"
+info:
+  title: "XOS REST APIs"
+  description: "XOS - REST API Docs"
+  version: "1.0.0"
+  contact:
+    email: "cord-dev@opencord.org"
+
+tags:
+- name: "exampleservice"
+  description: "exampleservice Models"
+  externalDocs:
+    description: "Find out more"
+    url: "https://guide.opencord.org/xos/core_models.html"
+
+paths:
+  /xosapi/v1/exampleservice/exampleservices/:
+    get:
+      tags:
+        - "exampleservice"
+      summary: "List ExampleServices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "exampleservice"
+      summary: "Create ExampleService"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ExampleService model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ExampleService"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/exampleservice/exampleservices/{id}:
+    get:
+      tags:
+        - "exampleservice"
+      summary: "Get ExampleService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ExampleService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "exampleservice"
+      summary: "Get ExampleService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ExampleService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "exampleservice"
+      summary: "Delete ExampleService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ExampleService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/exampleserviceinstance/exampleserviceinstances/:
+    get:
+      tags:
+        - "exampleserviceinstance"
+      summary: "List ExampleServiceInstances"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "exampleserviceinstance"
+      summary: "Create ExampleServiceInstance"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ExampleServiceInstance model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ExampleServiceInstance"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/exampleserviceinstance/exampleserviceinstances/{id}:
+    get:
+      tags:
+        - "exampleserviceinstance"
+      summary: "Get ExampleServiceInstance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ExampleServiceInstance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "exampleserviceinstance"
+      summary: "Get ExampleServiceInstance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ExampleServiceInstance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "exampleserviceinstance"
+      summary: "Delete ExampleServiceInstance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ExampleServiceInstance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+
+definitions:
+    ExampleService:
+      type: "object"
+      properties:
+        service_message:
+          type: string
+          description: "Service Message to Display"
+
+
+    ExampleServiceInstance:
+      type: "object"
+      properties:
+        tenant_message:
+          type: string
+          description: "Tenant Message to Display"
+
