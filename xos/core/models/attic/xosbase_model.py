@@ -135,6 +135,14 @@ def save(self, *args, **kwargs):
 
     if (caller_kind!="synchronizer") or always_update_timestamp:
         self.updated = timezone.now()
+    else:
+        # We're not auto-setting timestamp, but let's check to make sure that the caller hasn't tried to set our
+        # timestamp backward...
+        if (self.updated != self._initial["updated"]) and ((not kwargs.get("update_fields")) or ("updated" in kwargs.get("update_fields"))):
+            log.info("Synchronizer tried to change `updated` timestamp on model %s from %s to %s. Ignored." % (self, self._initial["updated"], self.updated))
+            self.updated = self._initial["updated"]
+
+    log.info("save %s updated %s caller_kind %s now %s fields %s init %s" % (self, self.updated, caller_kind, timezone.now(), kwargs.get("update_fields"), self._initial["updated"]))
 
     with transaction.atomic():
         self.verify_live_keys(update_fields = kwargs.get("update_fields"))
