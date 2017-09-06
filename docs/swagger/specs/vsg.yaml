@@ -1,0 +1,233 @@
+swagger: "2.0"
+info:
+  title: "XOS REST APIs"
+  description: "XOS - REST API Docs"
+  version: "1.0.0"
+  contact:
+    email: "cord-dev@opencord.org"
+
+tags:
+- name: "vsg"
+  description: "vsg Models"
+  externalDocs:
+    description: "Find out more"
+    url: "https://guide.opencord.org/xos/core_models.html"
+
+paths:
+  /xosapi/v1/vsg/vsgservices/:
+    get:
+      tags:
+        - "vsg"
+      summary: "List VSGServices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "vsg"
+      summary: "Create VSGService"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VSGService model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VSGService"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/vsg/vsgservices/{id}:
+    get:
+      tags:
+        - "vsg"
+      summary: "Get VSGService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VSGService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "vsg"
+      summary: "Get VSGService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VSGService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "vsg"
+      summary: "Delete VSGService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VSGService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/vsg/vsgtenants/:
+    get:
+      tags:
+        - "vsg"
+      summary: "List VSGTenants"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "vsg"
+      summary: "Create VSGTenant"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VSGTenant model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VSGTenant"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/vsg/vsgtenants/{id}:
+    get:
+      tags:
+        - "vsg"
+      summary: "Get VSGTenant"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VSGTenant to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "vsg"
+      summary: "Get VSGTenant"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VSGTenant to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "vsg"
+      summary: "Delete VSGTenant"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VSGTenant to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+
+definitions:
+    VSGService:
+      type: "object"
+      properties:
+        url_filter_kind:
+          type: string
+          enum:
+            - None
+            - safebrowsing
+            - answerx
+        dns_servers:
+          type: string
+        node_label:
+          type: string
+        docker_image_name:
+          type: string
+        docker_insecure_registry:
+          type: boolean
+
+    VSGTenant:
+      type: "object"
+      properties:
+        last_ansible_hash:
+          type: string

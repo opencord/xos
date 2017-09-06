@@ -1,0 +1,6373 @@
+swagger: "2.0"
+info:
+  title: "XOS REST APIs"
+  description: "XOS - REST API Docs"
+  version: "1.0.0"
+  contact:
+    email: "cord-dev@opencord.org"
+
+tags:
+- name: "core"
+  description: "core Models"
+  externalDocs:
+    description: "Find out more"
+    url: "https://guide.opencord.org/xos/core_models.html"
+
+paths:
+  /xosapi/v1/core/xosbases/:
+    get:
+      tags:
+        - "core"
+      summary: "List XOSBases"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create XOSBase"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "XOSBase model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/XOSBase"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/xosbases/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get XOSBase"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of XOSBase to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get XOSBase"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of XOSBase to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete XOSBase"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of XOSBase to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/users/:
+    get:
+      tags:
+        - "core"
+      summary: "List Users"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create User"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "User model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/users/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get User"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of User to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get User"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of User to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete User"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of User to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/privileges/:
+    get:
+      tags:
+        - "core"
+      summary: "List Privileges"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Privilege"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Privilege model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Privilege"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/privileges/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Privilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Privilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Privilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Privilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Privilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Privilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/addresspools/:
+    get:
+      tags:
+        - "core"
+      summary: "List AddressPools"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create AddressPool"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "AddressPool model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/AddressPool"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/addresspools/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get AddressPool"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of AddressPool to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get AddressPool"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of AddressPool to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete AddressPool"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of AddressPool to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllers/:
+    get:
+      tags:
+        - "core"
+      summary: "List Controllers"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Controller"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Controller model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Controller"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllers/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Controller"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Controller to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Controller"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Controller to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Controller"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Controller to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllerdashboardviews/:
+    get:
+      tags:
+        - "core"
+      summary: "List ControllerDashboardViews"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ControllerDashboardView"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ControllerDashboardView model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ControllerDashboardView"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllerdashboardviews/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ControllerDashboardView"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerDashboardView to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ControllerDashboardView"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerDashboardView to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ControllerDashboardView"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerDashboardView to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllerimagess/:
+    get:
+      tags:
+        - "core"
+      summary: "List ControllerImagess"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ControllerImages"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ControllerImages model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ControllerImages"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllerimagess/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ControllerImages"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerImages to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ControllerImages"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerImages to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ControllerImages"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerImages to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllernetworks/:
+    get:
+      tags:
+        - "core"
+      summary: "List ControllerNetworks"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ControllerNetwork"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ControllerNetwork model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ControllerNetwork"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllernetworks/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ControllerNetwork"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerNetwork to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ControllerNetwork"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerNetwork to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ControllerNetwork"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerNetwork to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllerroles/:
+    get:
+      tags:
+        - "core"
+      summary: "List ControllerRoles"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ControllerRole"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ControllerRole model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ControllerRole"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllerroles/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ControllerRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ControllerRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ControllerRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllersites/:
+    get:
+      tags:
+        - "core"
+      summary: "List ControllerSites"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ControllerSite"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ControllerSite model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ControllerSite"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllersites/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ControllerSite"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSite to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ControllerSite"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSite to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ControllerSite"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSite to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllerprivileges/:
+    get:
+      tags:
+        - "core"
+      summary: "List ControllerPrivileges"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ControllerPrivilege"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ControllerPrivilege model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ControllerPrivilege"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllerprivileges/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ControllerPrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerPrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ControllerPrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerPrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ControllerPrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerPrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllersiteprivileges/:
+    get:
+      tags:
+        - "core"
+      summary: "List ControllerSitePrivileges"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ControllerSitePrivilege"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ControllerSitePrivilege model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ControllerSitePrivilege"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllersiteprivileges/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ControllerSitePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSitePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ControllerSitePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSitePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ControllerSitePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSitePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllerslices/:
+    get:
+      tags:
+        - "core"
+      summary: "List ControllerSlices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ControllerSlice"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ControllerSlice model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ControllerSlice"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllerslices/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ControllerSlice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSlice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ControllerSlice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSlice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ControllerSlice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSlice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllersliceprivileges/:
+    get:
+      tags:
+        - "core"
+      summary: "List ControllerSlicePrivileges"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ControllerSlicePrivilege"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ControllerSlicePrivilege model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ControllerSlicePrivilege"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllersliceprivileges/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ControllerSlicePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSlicePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ControllerSlicePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSlicePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ControllerSlicePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerSlicePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/controllerusers/:
+    get:
+      tags:
+        - "core"
+      summary: "List ControllerUsers"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ControllerUser"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ControllerUser model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ControllerUser"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/controllerusers/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ControllerUser"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerUser to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ControllerUser"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerUser to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ControllerUser"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ControllerUser to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/dashboardviews/:
+    get:
+      tags:
+        - "core"
+      summary: "List DashboardViews"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create DashboardView"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "DashboardView model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/DashboardView"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/dashboardviews/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get DashboardView"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of DashboardView to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get DashboardView"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of DashboardView to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete DashboardView"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of DashboardView to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/deployments/:
+    get:
+      tags:
+        - "core"
+      summary: "List Deployments"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Deployment"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Deployment model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Deployment"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/deployments/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Deployment"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Deployment to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Deployment"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Deployment to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Deployment"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Deployment to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/deploymentprivileges/:
+    get:
+      tags:
+        - "core"
+      summary: "List DeploymentPrivileges"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create DeploymentPrivilege"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "DeploymentPrivilege model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/DeploymentPrivilege"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/deploymentprivileges/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get DeploymentPrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of DeploymentPrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get DeploymentPrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of DeploymentPrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete DeploymentPrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of DeploymentPrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/deploymentroles/:
+    get:
+      tags:
+        - "core"
+      summary: "List DeploymentRoles"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create DeploymentRole"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "DeploymentRole model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/DeploymentRole"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/deploymentroles/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get DeploymentRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of DeploymentRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get DeploymentRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of DeploymentRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete DeploymentRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of DeploymentRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/diags/:
+    get:
+      tags:
+        - "core"
+      summary: "List Diags"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Diag"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Diag model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Diag"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/diags/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Diag"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Diag to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Diag"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Diag to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Diag"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Diag to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/flavors/:
+    get:
+      tags:
+        - "core"
+      summary: "List Flavors"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Flavor"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Flavor model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Flavor"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/flavors/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Flavor"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Flavor to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Flavor"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Flavor to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Flavor"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Flavor to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/images/:
+    get:
+      tags:
+        - "core"
+      summary: "List Images"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Image"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Image model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Image"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/images/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Image"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Image to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Image"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Image to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Image"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Image to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/imagedeploymentss/:
+    get:
+      tags:
+        - "core"
+      summary: "List ImageDeploymentss"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ImageDeployments"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ImageDeployments model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ImageDeployments"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/imagedeploymentss/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ImageDeployments"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ImageDeployments to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ImageDeployments"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ImageDeployments to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ImageDeployments"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ImageDeployments to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/instances/:
+    get:
+      tags:
+        - "core"
+      summary: "List Instances"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Instance"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Instance model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Instance"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/instances/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Instance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Instance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Instance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Instance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Instance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Instance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/networks/:
+    get:
+      tags:
+        - "core"
+      summary: "List Networks"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Network"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Network model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Network"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/networks/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Network"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Network to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Network"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Network to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Network"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Network to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/networkparameters/:
+    get:
+      tags:
+        - "core"
+      summary: "List NetworkParameters"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create NetworkParameter"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "NetworkParameter model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/NetworkParameter"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/networkparameters/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get NetworkParameter"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkParameter to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get NetworkParameter"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkParameter to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete NetworkParameter"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkParameter to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/networkparametertypes/:
+    get:
+      tags:
+        - "core"
+      summary: "List NetworkParameterTypes"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create NetworkParameterType"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "NetworkParameterType model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/NetworkParameterType"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/networkparametertypes/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get NetworkParameterType"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkParameterType to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get NetworkParameterType"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkParameterType to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete NetworkParameterType"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkParameterType to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/networkslices/:
+    get:
+      tags:
+        - "core"
+      summary: "List NetworkSlices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create NetworkSlice"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "NetworkSlice model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/NetworkSlice"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/networkslices/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get NetworkSlice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkSlice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get NetworkSlice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkSlice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete NetworkSlice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkSlice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/networktemplates/:
+    get:
+      tags:
+        - "core"
+      summary: "List NetworkTemplates"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create NetworkTemplate"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "NetworkTemplate model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/NetworkTemplate"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/networktemplates/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get NetworkTemplate"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkTemplate to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get NetworkTemplate"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkTemplate to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete NetworkTemplate"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NetworkTemplate to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/nodes/:
+    get:
+      tags:
+        - "core"
+      summary: "List Nodes"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Node"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Node model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Node"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/nodes/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Node"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Node to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Node"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Node to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Node"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Node to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/nodelabels/:
+    get:
+      tags:
+        - "core"
+      summary: "List NodeLabels"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create NodeLabel"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "NodeLabel model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/NodeLabel"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/nodelabels/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get NodeLabel"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NodeLabel to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get NodeLabel"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NodeLabel to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete NodeLabel"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of NodeLabel to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/ports/:
+    get:
+      tags:
+        - "core"
+      summary: "List Ports"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Port"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Port model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Port"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/ports/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Port"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Port to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Port"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Port to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Port"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Port to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/roles/:
+    get:
+      tags:
+        - "core"
+      summary: "List Roles"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Role"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Role model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Role"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/roles/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Role"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Role to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Role"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Role to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Role"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Role to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/services/:
+    get:
+      tags:
+        - "core"
+      summary: "List Services"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Service"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Service model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Service"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/services/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Service"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Service to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Service"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Service to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Service"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Service to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/serviceattributes/:
+    get:
+      tags:
+        - "core"
+      summary: "List ServiceAttributes"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ServiceAttribute"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ServiceAttribute model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceAttribute"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/serviceattributes/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ServiceAttribute"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceAttribute to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ServiceAttribute"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceAttribute to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ServiceAttribute"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceAttribute to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/servicedependencys/:
+    get:
+      tags:
+        - "core"
+      summary: "List ServiceDependencys"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ServiceDependency"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ServiceDependency model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceDependency"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/servicedependencys/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ServiceDependency"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceDependency to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ServiceDependency"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceDependency to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ServiceDependency"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceDependency to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/servicemonitoringagentinfoes/:
+    get:
+      tags:
+        - "core"
+      summary: "List ServiceMonitoringAgentInfoes"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ServiceMonitoringAgentInfo"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ServiceMonitoringAgentInfo model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceMonitoringAgentInfo"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/servicemonitoringagentinfoes/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ServiceMonitoringAgentInfo"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceMonitoringAgentInfo to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ServiceMonitoringAgentInfo"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceMonitoringAgentInfo to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ServiceMonitoringAgentInfo"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceMonitoringAgentInfo to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/serviceprivileges/:
+    get:
+      tags:
+        - "core"
+      summary: "List ServicePrivileges"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ServicePrivilege"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ServicePrivilege model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ServicePrivilege"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/serviceprivileges/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ServicePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServicePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ServicePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServicePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ServicePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServicePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/serviceroles/:
+    get:
+      tags:
+        - "core"
+      summary: "List ServiceRoles"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ServiceRole"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ServiceRole model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceRole"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/serviceroles/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ServiceRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ServiceRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ServiceRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/sites/:
+    get:
+      tags:
+        - "core"
+      summary: "List Sites"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Site"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Site model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Site"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/sites/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Site"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Site to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Site"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Site to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Site"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Site to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/sitedeployments/:
+    get:
+      tags:
+        - "core"
+      summary: "List SiteDeployments"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create SiteDeployment"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "SiteDeployment model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/SiteDeployment"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/sitedeployments/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get SiteDeployment"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SiteDeployment to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get SiteDeployment"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SiteDeployment to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete SiteDeployment"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SiteDeployment to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/siteprivileges/:
+    get:
+      tags:
+        - "core"
+      summary: "List SitePrivileges"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create SitePrivilege"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "SitePrivilege model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/SitePrivilege"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/siteprivileges/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get SitePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SitePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get SitePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SitePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete SitePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SitePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/siteroles/:
+    get:
+      tags:
+        - "core"
+      summary: "List SiteRoles"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create SiteRole"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "SiteRole model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/SiteRole"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/siteroles/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get SiteRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SiteRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get SiteRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SiteRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete SiteRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SiteRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/slices/:
+    get:
+      tags:
+        - "core"
+      summary: "List Slices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Slice"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Slice model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Slice"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/slices/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Slice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Slice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Slice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Slice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Slice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Slice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/sliceprivileges/:
+    get:
+      tags:
+        - "core"
+      summary: "List SlicePrivileges"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create SlicePrivilege"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "SlicePrivilege model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/SlicePrivilege"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/sliceprivileges/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get SlicePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SlicePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get SlicePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SlicePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete SlicePrivilege"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SlicePrivilege to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/sliceroles/:
+    get:
+      tags:
+        - "core"
+      summary: "List SliceRoles"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create SliceRole"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "SliceRole model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/SliceRole"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/sliceroles/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get SliceRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SliceRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get SliceRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SliceRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete SliceRole"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of SliceRole to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/tags/:
+    get:
+      tags:
+        - "core"
+      summary: "List Tags"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create Tag"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Tag model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/Tag"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/tags/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get Tag"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Tag to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get Tag"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Tag to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete Tag"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of Tag to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/interfacetypes/:
+    get:
+      tags:
+        - "core"
+      summary: "List InterfaceTypes"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create InterfaceType"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "InterfaceType model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/InterfaceType"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/interfacetypes/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get InterfaceType"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of InterfaceType to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get InterfaceType"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of InterfaceType to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete InterfaceType"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of InterfaceType to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/serviceinterfaces/:
+    get:
+      tags:
+        - "core"
+      summary: "List ServiceInterfaces"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ServiceInterface"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ServiceInterface model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceInterface"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/serviceinterfaces/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ServiceInterface"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInterface to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ServiceInterface"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInterface to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ServiceInterface"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInterface to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/serviceinstances/:
+    get:
+      tags:
+        - "core"
+      summary: "List ServiceInstances"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ServiceInstance"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ServiceInstance model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceInstance"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/serviceinstances/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ServiceInstance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInstance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ServiceInstance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInstance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ServiceInstance"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInstance to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/serviceinstancelinks/:
+    get:
+      tags:
+        - "core"
+      summary: "List ServiceInstanceLinks"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ServiceInstanceLink"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ServiceInstanceLink model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceInstanceLink"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/serviceinstancelinks/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ServiceInstanceLink"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInstanceLink to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ServiceInstanceLink"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInstanceLink to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ServiceInstanceLink"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInstanceLink to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/serviceinstanceattributes/:
+    get:
+      tags:
+        - "core"
+      summary: "List ServiceInstanceAttributes"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create ServiceInstanceAttribute"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ServiceInstanceAttribute model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/ServiceInstanceAttribute"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/serviceinstanceattributes/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get ServiceInstanceAttribute"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInstanceAttribute to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get ServiceInstanceAttribute"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInstanceAttribute to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete ServiceInstanceAttribute"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of ServiceInstanceAttribute to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/tenantwithcontainers/:
+    get:
+      tags:
+        - "core"
+      summary: "List TenantWithContainers"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create TenantWithContainer"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "TenantWithContainer model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/TenantWithContainer"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/tenantwithcontainers/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get TenantWithContainer"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of TenantWithContainer to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get TenantWithContainer"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of TenantWithContainer to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete TenantWithContainer"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of TenantWithContainer to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/xoses/:
+    get:
+      tags:
+        - "core"
+      summary: "List XOSes"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create XOS"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "XOS model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/XOS"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/xoses/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get XOS"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of XOS to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get XOS"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of XOS to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete XOS"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of XOS to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/core/xosguiextensions/:
+    get:
+      tags:
+        - "core"
+      summary: "List XOSGuiExtensions"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "core"
+      summary: "Create XOSGuiExtension"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "XOSGuiExtension model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/XOSGuiExtension"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/core/xosguiextensions/{id}:
+    get:
+      tags:
+        - "core"
+      summary: "Get XOSGuiExtension"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of XOSGuiExtension to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "core"
+      summary: "Get XOSGuiExtension"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of XOSGuiExtension to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "core"
+      summary: "Delete XOSGuiExtension"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of XOSGuiExtension to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+
+definitions:
+    XOSBase:
+      type: "object"
+      properties:
+        created:
+          type: string
+        updated:
+          type: string
+        enacted:
+          type: string
+        policed:
+          type: string
+        backend_register:
+          type: string
+        backend_need_delete:
+          type: boolean
+        backend_need_reap:
+          type: boolean
+        backend_status:
+          type: string
+        backend_code:
+          type: integer
+        deleted:
+          type: boolean
+        write_protect:
+          type: boolean
+        lazy_blocked:
+          type: boolean
+        no_sync:
+          type: boolean
+        no_policy:
+          type: boolean
+        policy_status:
+          type: string
+        policy_code:
+          type: integer
+        leaf_model_name:
+          type: string
+          description: "The most specialized model in this chain of inheritance, often defined by a service developer"
+
+
+    User:
+      type: "object"
+      properties:
+        email:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        last_login:
+          type: string
+        firstname:
+          type: string
+          description: "person's given name"
+
+        lastname:
+          type: string
+          description: "person's surname"
+
+        phone:
+          type: string
+          description: "phone number contact"
+
+        user_url:
+          type: string
+        site:
+          type: integer
+          description: "Site this user will be homed too"
+
+        public_key:
+          type: string
+          description: "Public key string"
+
+        is_active:
+          type: boolean
+        is_admin:
+          type: boolean
+        is_staff:
+          type: boolean
+        is_readonly:
+          type: boolean
+        is_registering:
+          type: boolean
+        is_appuser:
+          type: boolean
+        login_page:
+          type: string
+          description: "send this user to a specific page on login"
+
+        created:
+          type: string
+        updated:
+          type: string
+        enacted:
+          type: string
+        policed:
+          type: string
+        backend_status:
+          type: string
+        backend_need_delete:
+          type: boolean
+        backend_need_reap:
+          type: boolean
+        deleted:
+          type: boolean
+        write_protect:
+          type: boolean
+        lazy_blocked:
+          type: boolean
+        no_sync:
+          type: boolean
+        no_policy:
+          type: boolean
+        timezone:
+          type: string
+        dashboards:
+          type: integer
+        policy_status:
+          type: string
+
+    Privilege:
+      type: "object"
+      properties:
+        accessor_id:
+          type: integer
+        accessor_type:
+          type: string
+        controller_id:
+          type: integer
+        object_id:
+          type: integer
+        object_type:
+          type: string
+        permission:
+          type: string
+        granted:
+          type: string
+        expires:
+          type: string
+
+    AddressPool:
+      type: "object"
+      properties:
+        name:
+          type: string
+        addresses:
+          type: string
+        gateway_ip:
+          type: string
+        gateway_mac:
+          type: string
+        cidr:
+          type: string
+        inuse:
+          type: string
+        service:
+          type: integer
+
+    Controller:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Name of the Controller"
+
+        backend_type:
+          type: string
+          description: "Type of compute controller, e.g. EC2, OpenStack, or OpenStack version"
+
+        version:
+          type: string
+          description: "Controller version"
+
+        auth_url:
+          type: string
+          description: "Auth url for the compute controller"
+
+        admin_user:
+          type: string
+          description: "Username of an admin user at this controller"
+
+        admin_password:
+          type: string
+          description: "Password of theadmin user at this controller"
+
+        admin_tenant:
+          type: string
+          description: "Name of the tenant the admin user belongs to"
+
+        domain:
+          type: string
+          description: "Name of the domain this controller belongs to"
+
+        rabbit_host:
+          type: string
+          description: "IP address of rabbitmq server at this controller"
+
+        rabbit_user:
+          type: string
+          description: "Username of rabbitmq server at this controller"
+
+        rabbit_password:
+          type: string
+          description: "Password of rabbitmq server at this controller"
+
+        deployment:
+          type: integer
+
+    ControllerDashboardView:
+      type: "object"
+      properties:
+        controller:
+          type: integer
+        dashboardView:
+          type: integer
+        enabled:
+          type: boolean
+        url:
+          type: string
+          description: "URL of Dashboard"
+
+
+    ControllerImages:
+      type: "object"
+      properties:
+        image:
+          type: integer
+        controller:
+          type: integer
+        glance_image_id:
+          type: string
+          description: "Glance image id"
+
+
+    ControllerNetwork:
+      type: "object"
+      properties:
+        network:
+          type: integer
+        controller:
+          type: integer
+        subnet:
+          type: string
+        start_ip:
+          type: string
+        stop_ip:
+          type: string
+        net_id:
+          type: string
+          description: "Neutron network"
+
+        router_id:
+          type: string
+          description: "Neutron router id"
+
+        subnet_id:
+          type: string
+          description: "Neutron subnet id"
+
+        gateway:
+          type: string
+        segmentation_id:
+          type: string
+
+    ControllerRole:
+      type: "object"
+      properties:
+        role:
+          type: string
+          enum:
+            - admin
+
+    ControllerSite:
+      type: "object"
+      properties:
+        site:
+          type: integer
+        controller:
+          type: integer
+        tenant_id:
+          type: string
+          description: "Keystone tenant id"
+
+
+    ControllerPrivilege:
+      type: "object"
+      properties:
+        controller:
+          type: integer
+        privilege:
+          type: integer
+        role_id:
+          type: string
+          description: "Keystone id"
+
+
+    ControllerSitePrivilege:
+      type: "object"
+      properties:
+        controller:
+          type: integer
+        site_privilege:
+          type: integer
+        role_id:
+          type: string
+          description: "Keystone id"
+
+
+    ControllerSlice:
+      type: "object"
+      properties:
+        controller:
+          type: integer
+        slice:
+          type: integer
+        tenant_id:
+          type: string
+          description: "Keystone tenant id"
+
+
+    ControllerSlicePrivilege:
+      type: "object"
+      properties:
+        controller:
+          type: integer
+        slice_privilege:
+          type: integer
+        role_id:
+          type: string
+          description: "Keystone id"
+
+
+    ControllerUser:
+      type: "object"
+      properties:
+        user:
+          type: integer
+        controller:
+          type: integer
+        kuser_id:
+          type: string
+          description: "Keystone user id"
+
+
+    DashboardView:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Name of the View"
+
+        url:
+          type: string
+          description: "URL of Dashboard"
+
+        enabled:
+          type: boolean
+        icon:
+          type: string
+          description: "Icon for Dashboard"
+
+        icon_active:
+          type: string
+          description: "Icon for active Dashboard"
+
+        controllers:
+          type: integer
+        deployments:
+          type: integer
+          description: "Deployments that should be included in this view"
+
+
+    Deployment:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Name of the Deployment"
+
+        accessControl:
+          type: string
+          description: "Access control list that specifies which sites/users may use nodes in this deployment"
+
+
+    DeploymentPrivilege:
+      type: "object"
+      properties:
+        user:
+          type: integer
+        deployment:
+          type: integer
+        role:
+          type: integer
+
+    DeploymentRole:
+      type: "object"
+      properties:
+        role:
+          type: string
+          enum:
+            - admin
+
+    Diag:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Name of the synchronizer"
+
+
+    Flavor:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "name of this flavor, as displayed to users"
+
+        description:
+          type: string
+        flavor:
+          type: string
+          description: "flavor string used to configure deployments"
+
+
+    Image:
+      type: "object"
+      properties:
+        name:
+          type: string
+        kind:
+          type: string
+          enum:
+            - vm
+            - container
+        disk_format:
+          type: string
+        container_format:
+          type: string
+        path:
+          type: string
+          description: "Path to image on local disk"
+
+        tag:
+          type: string
+          description: "For Docker Images, tag of image"
+
+
+    ImageDeployments:
+      type: "object"
+      properties:
+        image:
+          type: integer
+        deployment:
+          type: integer
+
+    Instance:
+      type: "object"
+      properties:
+        instance_id:
+          type: string
+          description: "Nova instance id"
+
+        instance_uuid:
+          type: string
+          description: "Nova instance uuid"
+
+        name:
+          type: string
+          description: "Instance name"
+
+        instance_name:
+          type: string
+          description: "OpenStack generated name"
+
+        ip:
+          type: string
+          description: "Instance ip address"
+
+        image:
+          type: integer
+        creator:
+          type: integer
+        slice:
+          type: integer
+        deployment:
+          type: integer
+        node:
+          type: integer
+        numberCores:
+          type: integer
+          description: "Number of cores for instance"
+
+        flavor:
+          type: integer
+          description: "Flavor of this instance"
+
+        userData:
+          type: string
+          description: "user_data passed to instance during creation"
+
+        isolation:
+          type: string
+          enum:
+            - vm
+            - container
+            - container_vm
+        volumes:
+          type: string
+          description: "Comma-separated list of directories to expose to parent context"
+
+        parent:
+          type: integer
+          description: "Parent Instance for containers nested inside of VMs"
+
+
+    Network:
+      type: "object"
+      properties:
+        name:
+          type: string
+        template:
+          type: integer
+        subnet:
+          type: string
+        start_ip:
+          type: string
+        end_ip:
+          type: string
+        ports:
+          type: string
+        labels:
+          type: string
+        owner:
+          type: integer
+          description: "Slice that owns control of this Network"
+
+        permit_all_slices:
+          type: boolean
+        autoconnect:
+          type: boolean
+          description: "This network can be autoconnected to the slice that owns it"
+
+        permitted_slices:
+          type: integer
+        slices:
+          type: integer
+        instances:
+          type: integer
+
+    NetworkParameter:
+      type: "object"
+      properties:
+        parameter:
+          type: integer
+          description: "The type of the parameter"
+
+        value:
+          type: string
+          description: "The value of this parameter"
+
+        content_type:
+          type: string
+          description: "Content type id linked to this network parameter"
+
+        object_id:
+          type: integer
+          description: "Object linked to this NetworkParameter"
+
+
+    NetworkParameterType:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "The name of this parameter"
+
+        description:
+          type: string
+
+    NetworkSlice:
+      type: "object"
+      properties:
+        network:
+          type: integer
+        slice:
+          type: integer
+
+    NetworkTemplate:
+      type: "object"
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        visibility:
+          type: string
+          enum:
+            - public
+            - private
+        translation:
+          type: string
+          enum:
+            - none
+            - NAT
+        access:
+          type: string
+          enum:
+            - None
+            - indirect
+            - direct
+          description: "Advertise this network as a means for other slices to contact this slice"
+
+        shared_network_name:
+          type: string
+        shared_network_id:
+          type: string
+          description: "Quantum network"
+
+        topology_kind:
+          type: string
+          enum:
+            - bigswitch
+            - physical
+            - custom
+        controller_kind:
+          type: string
+          enum:
+            - None
+            - onos
+            - custom
+        vtn_kind:
+          type: string
+          enum:
+            - PRIVATE
+            - PUBLIC
+            - MANAGEMENT_LOCAL
+            - MANAGEMENT_HOST
+            - VSG
+            - ACCESS_AGENT
+
+    Node:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Name of the Node"
+
+        site_deployment:
+          type: integer
+
+    NodeLabel:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "label name"
+
+        node:
+          type: integer
+
+    Port:
+      type: "object"
+      properties:
+        network:
+          type: integer
+        instance:
+          type: integer
+        ip:
+          type: string
+          description: "Instance ip address"
+
+        port_id:
+          type: string
+          description: "Neutron port id"
+
+        mac:
+          type: string
+          description: "MAC address associated with this port"
+
+        xos_created:
+          type: boolean
+
+    Role:
+      type: "object"
+      properties:
+        role_type:
+          type: string
+        role:
+          type: string
+        description:
+          type: string
+
+    Service:
+      type: "object"
+      properties:
+        description:
+          type: string
+          description: "Description of Service"
+
+        enabled:
+          type: boolean
+        kind:
+          type: string
+          enum:
+            - generic
+            - data
+            - control
+          description: "Kind of service"
+
+        name:
+          type: string
+          description: "Service Name"
+
+        versionNumber:
+          type: string
+          description: "Version of Service Definition"
+
+        published:
+          type: boolean
+        view_url:
+          type: string
+        icon_url:
+          type: string
+        public_key:
+          type: string
+          description: "Public key string"
+
+        private_key_fn:
+          type: string
+        service_specific_id:
+          type: string
+        service_specific_attribute:
+          type: string
+
+    ServiceAttribute:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Attribute Name"
+
+        value:
+          type: string
+          description: "Attribute Value"
+
+        service:
+          type: integer
+          description: "The Service this attribute is associated with"
+
+
+    ServiceDependency:
+      type: "object"
+      properties:
+        provider_service:
+          type: integer
+          description: "The service that provides this dependency"
+
+        subscriber_service:
+          type: integer
+          description: "The services that subscribes to this dependency"
+
+        connect_method:
+          type: string
+          enum:
+            - none
+            - private
+            - public
+          description: "method to connect the two services"
+
+
+    ServiceMonitoringAgentInfo:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Monitoring Agent Name"
+
+        service:
+          type: integer
+          description: "The Service this attribute is associated with"
+
+        target_uri:
+          type: string
+          description: "Monitoring collector URI to be used by agents to publish the data"
+
+
+    ServicePrivilege:
+      type: "object"
+      properties:
+        user:
+          type: integer
+        service:
+          type: integer
+        role:
+          type: integer
+
+    ServiceRole:
+      type: "object"
+      properties:
+        role:
+          type: string
+          enum:
+            - admin
+
+    Site:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Name for this Site"
+
+        site_url:
+          type: string
+          description: "Site's Home URL Page"
+
+        enabled:
+          type: boolean
+          description: "Status for this Site"
+
+        hosts_nodes:
+          type: boolean
+          description: "Indicates whether or not the site host nodes"
+
+        hosts_users:
+          type: boolean
+          description: "Indicates whether or not the site manages user accounts"
+
+        longitude:
+          type: string
+        latitude:
+          type: string
+        login_base:
+          type: string
+          description: "Prefix for Slices associated with this Site"
+
+        is_public:
+          type: boolean
+          description: "Indicates the visibility of this site to other members"
+
+        abbreviated_name:
+          type: string
+        deployments:
+          type: integer
+          description: "Select which sites are allowed to host nodes in this deployment"
+
+
+    SiteDeployment:
+      type: "object"
+      properties:
+        site:
+          type: integer
+        deployment:
+          type: integer
+        controller:
+          type: integer
+        availability_zone:
+          type: string
+          description: "OpenStack availability zone"
+
+
+    SitePrivilege:
+      type: "object"
+      properties:
+        user:
+          type: integer
+        site:
+          type: integer
+        role:
+          type: integer
+
+    SiteRole:
+      type: "object"
+      properties:
+        role:
+          type: string
+          enum:
+            - admin
+            - pi
+            - tech
+            - billing
+
+    Slice:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "The Name of the Slice"
+
+        enabled:
+          type: boolean
+          description: "Status for this Slice"
+
+        description:
+          type: string
+          description: "High level description of the slice and expected activities"
+
+        slice_url:
+          type: string
+        site:
+          type: integer
+          description: "The Site this Slice belongs to"
+
+        max_instances:
+          type: integer
+        service:
+          type: integer
+        network:
+          type: string
+          enum:
+            - None
+            - host
+            - bridged
+            - noauto
+        exposed_ports:
+          type: string
+        creator:
+          type: integer
+        default_flavor:
+          type: integer
+        default_image:
+          type: integer
+        default_node:
+          type: integer
+        mount_data_sets:
+          type: string
+        default_isolation:
+          type: string
+          enum:
+            - vm
+            - container
+            - container_vm
+
+    SlicePrivilege:
+      type: "object"
+      properties:
+        user:
+          type: integer
+        slice:
+          type: integer
+        role:
+          type: integer
+
+    SliceRole:
+      type: "object"
+      properties:
+        role:
+          type: string
+          enum:
+            - admin
+            - default
+
+    Tag:
+      type: "object"
+      properties:
+        service:
+          type: integer
+          description: "The Service this Tag is associated with"
+
+        name:
+          type: string
+          description: "The name of this tag"
+
+        value:
+          type: string
+          description: "The value of this tag"
+
+        content_type:
+          type: string
+          description: "Content type id linked to this tag"
+
+        object_id:
+          type: integer
+          description: "Object linked to this tag"
+
+
+    InterfaceType:
+      type: "object"
+      properties:
+        name:
+          type: string
+        direction:
+          type: string
+          enum:
+            - in
+            - out
+
+    ServiceInterface:
+      type: "object"
+      properties:
+        service:
+          type: integer
+        interface_type:
+          type: integer
+
+    ServiceInstance:
+      type: "object"
+      properties:
+        name:
+          type: string
+        owner:
+          type: integer
+        service_specific_id:
+          type: string
+        service_specific_attribute:
+          type: string
+
+    ServiceInstanceLink:
+      type: "object"
+      properties:
+        provider_service_instance:
+          type: integer
+        provider_service_interface:
+          type: integer
+        subscriber_service_instance:
+          type: integer
+        subscriber_service:
+          type: integer
+        subscriber_network:
+          type: integer
+
+    ServiceInstanceAttribute:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Attribute Name"
+
+        value:
+          type: string
+          description: "Attribute Value"
+
+        service_instance:
+          type: integer
+          description: "The Tenant this attribute is associated with"
+
+
+    TenantWithContainer:
+      type: "object"
+      properties:
+        instance:
+          type: integer
+          description: "Instance used by this Tenant"
+
+        creator:
+          type: integer
+          description: "Creator of this Tenant"
+
+        external_hostname:
+          type: string
+          description: "External host name"
+
+        external_container:
+          type: string
+          description: "External host name"
+
+
+    XOS:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Name of XOS"
+
+
+    XOSGuiExtension:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "Name of the GUI Extensions"
+
+        files:
+          type: string
+          description: "List of comma separated file composing the view"
+

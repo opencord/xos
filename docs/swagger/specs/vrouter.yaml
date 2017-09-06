@@ -1,0 +1,799 @@
+swagger: "2.0"
+info:
+  title: "XOS REST APIs"
+  description: "XOS - REST API Docs"
+  version: "1.0.0"
+  contact:
+    email: "cord-dev@opencord.org"
+
+tags:
+- name: "vrouter"
+  description: "vrouter Models"
+  externalDocs:
+    description: "Find out more"
+    url: "https://guide.opencord.org/xos/core_models.html"
+
+paths:
+  /xosapi/v1/vrouter/vrouterservices/:
+    get:
+      tags:
+        - "vrouter"
+      summary: "List VRouterServices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "vrouter"
+      summary: "Create VRouterService"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VRouterService model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VRouterService"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/vrouter/vrouterservices/{id}:
+    get:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "vrouter"
+      summary: "Delete VRouterService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/vrouter/vrouterdevices/:
+    get:
+      tags:
+        - "vrouter"
+      summary: "List VRouterDevices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "vrouter"
+      summary: "Create VRouterDevice"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VRouterDevice model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VRouterDevice"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/vrouter/vrouterdevices/{id}:
+    get:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterDevice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterDevice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterDevice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterDevice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "vrouter"
+      summary: "Delete VRouterDevice"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterDevice to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/vrouter/vrouterports/:
+    get:
+      tags:
+        - "vrouter"
+      summary: "List VRouterPorts"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "vrouter"
+      summary: "Create VRouterPort"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VRouterPort model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VRouterPort"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/vrouter/vrouterports/{id}:
+    get:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterPort"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterPort to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterPort"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterPort to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "vrouter"
+      summary: "Delete VRouterPort"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterPort to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/vrouter/vrouterapps/:
+    get:
+      tags:
+        - "vrouter"
+      summary: "List VRouterApps"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "vrouter"
+      summary: "Create VRouterApp"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VRouterApp model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VRouterApp"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/vrouter/vrouterapps/{id}:
+    get:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterApp"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterApp to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterApp"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterApp to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "vrouter"
+      summary: "Delete VRouterApp"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterApp to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/vrouter/vrouterinterfaces/:
+    get:
+      tags:
+        - "vrouter"
+      summary: "List VRouterInterfaces"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "vrouter"
+      summary: "Create VRouterInterface"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VRouterInterface model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VRouterInterface"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/vrouter/vrouterinterfaces/{id}:
+    get:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterInterface"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterInterface to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterInterface"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterInterface to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "vrouter"
+      summary: "Delete VRouterInterface"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterInterface to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/vrouter/vrouterips/:
+    get:
+      tags:
+        - "vrouter"
+      summary: "List VRouterIps"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "vrouter"
+      summary: "Create VRouterIp"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VRouterIp model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VRouterIp"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/vrouter/vrouterips/{id}:
+    get:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterIp"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterIp to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterIp"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterIp to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "vrouter"
+      summary: "Delete VRouterIp"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterIp to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/vrouter/vroutertenants/:
+    get:
+      tags:
+        - "vrouter"
+      summary: "List VRouterTenants"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "vrouter"
+      summary: "Create VRouterTenant"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VRouterTenant model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VRouterTenant"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/vrouter/vroutertenants/{id}:
+    get:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterTenant"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterTenant to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "vrouter"
+      summary: "Get VRouterTenant"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterTenant to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "vrouter"
+      summary: "Delete VRouterTenant"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VRouterTenant to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+
+definitions:
+    VRouterService:
+      type: "object"
+      properties:
+        rest_hostname:
+          type: string
+        rest_port:
+          type: integer
+        rest_user:
+          type: string
+        rest_pass:
+          type: string
+
+    VRouterDevice:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "device friendly name"
+
+        openflow_id:
+          type: string
+          description: "device identifier in ONOS"
+
+        config_key:
+          type: string
+          description: "configuration key"
+
+        driver:
+          type: string
+          description: "driver type"
+
+        vrouter_service:
+          type: integer
+
+    VRouterPort:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "port friendly name"
+
+        openflow_id:
+          type: string
+          description: "port identifier in ONOS"
+
+        vrouter_device:
+          type: integer
+        vrouter_service:
+          type: integer
+
+    VRouterApp:
+      type: "object"
+      properties:
+        vrouter_service:
+          type: integer
+        name:
+          type: string
+          description: "application name"
+
+        control_plane_connect_point:
+          type: string
+          description: "port identifier in ONOS"
+
+        ospf_enabled:
+          type: boolean
+          description: "ospf enabled"
+
+
+    VRouterInterface:
+      type: "object"
+      properties:
+        vrouter_port:
+          type: integer
+        name:
+          type: string
+          description: "interface name"
+
+        mac:
+          type: string
+          description: "interface mac"
+
+        vlan:
+          type: string
+          description: "interface vlan id"
+
+
+    VRouterIp:
+      type: "object"
+      properties:
+        name:
+          type: string
+          description: "ip friendly name"
+
+        vrouter_interface:
+          type: integer
+        ip:
+          type: string
+          description: "interface ips"
+
+
+    VRouterTenant:
+      type: "object"
+      properties:
+        public_ip:
+          type: string
+        public_mac:
+          type: string
+        address_pool:
+          type: integer

@@ -1,0 +1,231 @@
+swagger: "2.0"
+info:
+  title: "XOS REST APIs"
+  description: "XOS - REST API Docs"
+  version: "1.0.0"
+  contact:
+    email: "cord-dev@opencord.org"
+
+tags:
+- name: "veg"
+  description: "veg Models"
+  externalDocs:
+    description: "Find out more"
+    url: "https://guide.opencord.org/xos/core_models.html"
+
+paths:
+  /xosapi/v1/veg/vegservices/:
+    get:
+      tags:
+        - "veg"
+      summary: "List VEGServices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "veg"
+      summary: "Create VEGService"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VEGService model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VEGService"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/veg/vegservices/{id}:
+    get:
+      tags:
+        - "veg"
+      summary: "Get VEGService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VEGService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "veg"
+      summary: "Get VEGService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VEGService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "veg"
+      summary: "Delete VEGService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VEGService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+  /xosapi/v1/veg/vegtenants/:
+    get:
+      tags:
+        - "veg"
+      summary: "List VEGTenants"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "veg"
+      summary: "Create VEGTenant"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VEGTenant model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VEGTenant"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/veg/vegtenants/{id}:
+    get:
+      tags:
+        - "veg"
+      summary: "Get VEGTenant"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VEGTenant to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "veg"
+      summary: "Get VEGTenant"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VEGTenant to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "veg"
+      summary: "Delete VEGTenant"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VEGTenant to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+
+definitions:
+    VEGService:
+      type: "object"
+      properties:
+        url_filter_kind:
+          type: string
+          enum:
+            - None
+            - safebrowsing
+            - answerx
+        dns_servers:
+          type: string
+        node_label:
+          type: string
+        docker_image_name:
+          type: string
+        docker_insecure_registry:
+          type: boolean
+
+    VEGTenant:
+      type: "object"
+      properties:

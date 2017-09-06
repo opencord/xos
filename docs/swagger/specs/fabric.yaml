@@ -1,0 +1,121 @@
+swagger: "2.0"
+info:
+  title: "XOS REST APIs"
+  description: "XOS - REST API Docs"
+  version: "1.0.0"
+  contact:
+    email: "cord-dev@opencord.org"
+
+tags:
+- name: "fabric"
+  description: "fabric Models"
+  externalDocs:
+    description: "Find out more"
+    url: "https://guide.opencord.org/xos/core_models.html"
+
+paths:
+  /xosapi/v1/fabric/fabricservices/:
+    get:
+      tags:
+        - "fabric"
+      summary: "List FabricServices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "fabric"
+      summary: "Create FabricService"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "FabricService model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/FabricService"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/fabric/fabricservices/{id}:
+    get:
+      tags:
+        - "fabric"
+      summary: "Get FabricService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of FabricService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "fabric"
+      summary: "Get FabricService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of FabricService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "fabric"
+      summary: "Delete FabricService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of FabricService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+
+definitions:
+    FabricService:
+      type: "object"
+      properties:
+        autoconfig:
+          type: boolean
+          description: "Autoconfigure the fabric"
+

@@ -1,0 +1,121 @@
+swagger: "2.0"
+info:
+  title: "XOS REST APIs"
+  description: "XOS - REST API Docs"
+  version: "1.0.0"
+  contact:
+    email: "cord-dev@opencord.org"
+
+tags:
+- name: "vee"
+  description: "vee Models"
+  externalDocs:
+    description: "Find out more"
+    url: "https://guide.opencord.org/xos/core_models.html"
+
+paths:
+  /xosapi/v1/vee/veeservices/:
+    get:
+      tags:
+        - "vee"
+      summary: "List VEEServices"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    post:
+      tags:
+        - "vee"
+      summary: "Create VEEService"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "VEEService model properties"
+        required: true
+        schema:
+          $ref: "#/definitions/VEEService"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+  /xosapi/v1/vee/veeservices/{id}:
+    get:
+      tags:
+        - "vee"
+      summary: "Get VEEService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VEEService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    put:
+      tags:
+        - "vee"
+      summary: "Get VEEService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VEEService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+    delete:
+      tags:
+        - "vee"
+      summary: "Delete VEEService"
+      parameters:
+        - in: "path"
+          name: "id"
+          description: "ID of VEEService to return"
+          required: true
+          type: "integer"
+          format: "int64"
+      responses:
+        200:
+          description: OK
+        401:
+          description: "Unauthorized"
+        403:
+          description: "Forbidden"
+        500:
+          description: "Internal Server Error"
+
+
+definitions:
+    VEEService:
+      type: "object"
+      properties:
+        autoconfig:
+          type: boolean
+          description: "Autoconfigure VEE Service"
+
