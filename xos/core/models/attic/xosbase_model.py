@@ -142,6 +142,8 @@ def save(self, *args, **kwargs):
             log.info("Synchronizer tried to change `updated` timestamp on model %s from %s to %s. Ignored." % (self, self._initial["updated"], self.updated))
             self.updated = self._initial["updated"]
 
+    #log.info("save %s updated %s caller_kind %s now %s fields %s init %s" % (self, self.updated, caller_kind, timezone.now(), kwargs.get("update_fields"), self._initial["updated"]))
+
     with transaction.atomic():
         self.verify_live_keys(update_fields = kwargs.get("update_fields"))
         super(XOSBase, self).save(*args, **kwargs)
