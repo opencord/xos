@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa5d592f_84dd3a17",
+        "filename": "xos/core/models/attic/xosbase_model.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000010
+      },
+      "writtenOn": "2017-09-07T17:30:29Z",
+      "side": 1,
+      "message": "Commented-out debug msg?  Seems like we can omit.",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 13
+      },
+      "revId": "c912d7ace1900cff17350160b87c4376d2726e79",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
