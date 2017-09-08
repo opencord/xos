@@ -22,6 +22,30 @@
       "revId": "c912d7ace1900cff17350160b87c4376d2726e79",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa5d592f_44fe226d",
+        "filename": "xos/core/models/attic/xosbase_model.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-09-08T17:57:03Z",
+      "side": 1,
+      "message": "yes, I\u0027ll get rid of it.",
+      "parentUuid": "fa5d592f_84dd3a17",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 13
+      },
+      "revId": "c912d7ace1900cff17350160b87c4376d2726e79",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
