@@ -93,6 +93,11 @@ docker_images:
     dockerfile: ""
     pull: True
     publish: False
+  - name: "varunbelur/elk"
+    path: ""
+    dockerfile: ""
+    pull: True
+    publish: False
 
 build_optional_images: False
 
