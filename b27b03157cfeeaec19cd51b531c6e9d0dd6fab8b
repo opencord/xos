@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_2d443973",
+        "filename": "scripts/setup_venv.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-09-14T20:55:15Z",
+      "side": 1,
+      "message": "Should we remove it?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 57
+      },
+      "revId": "b27b03157cfeeaec19cd51b531c6e9d0dd6fab8b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_0d49758b",
+        "filename": "scripts/setup_venv.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-09-14T20:55:15Z",
+      "side": 1,
+      "message": "Should we remove it?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 3
+      },
+      "revId": "b27b03157cfeeaec19cd51b531c6e9d0dd6fab8b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
