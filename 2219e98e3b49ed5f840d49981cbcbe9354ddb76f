@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_4de2cdd6",
+        "filename": "docs/dev/workflow_ciab.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000010
+      },
+      "writtenOn": "2017-09-14T17:37:59Z",
+      "side": 1,
+      "message": "~/cord/build ?",
+      "range": {
+        "startLine": 18,
+        "startChar": 7,
+        "endLine": 18,
+        "endChar": 18
+      },
+      "revId": "2219e98e3b49ed5f840d49981cbcbe9354ddb76f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_2de799e6",
+        "filename": "docs/dev/workflow_ciab.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000010
+      },
+      "writtenOn": "2017-09-14T17:37:59Z",
+      "side": 1,
+      "message": "zdw has a patch in flight that would replace this with \u0027make clean-openstack\u0027\n\nhttps://gerrit.opencord.org/#/c/5804/\n\nBut this looks correct for now.",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 55
+      },
+      "revId": "2219e98e3b49ed5f840d49981cbcbe9354ddb76f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_0decd5c6",
+        "filename": "docs/dev/workflow_ciab.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000010
+      },
+      "writtenOn": "2017-09-14T17:37:59Z",
+      "side": 1,
+      "message": "Would be nice to get rid of these red things",
+      "range": {
+        "startLine": 36,
+        "startChar": 7,
+        "endLine": 36,
+        "endChar": 12
+      },
+      "revId": "2219e98e3b49ed5f840d49981cbcbe9354ddb76f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_edd061f9",
+        "filename": "docs/dev/workflow_ciab.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000010
+      },
+      "writtenOn": "2017-09-14T17:37:59Z",
+      "side": 1,
+      "message": "Again,  probably ~/cord/build",
+      "range": {
+        "startLine": 41,
+        "startChar": 7,
+        "endLine": 41,
+        "endChar": 18
+      },
+      "revId": "2219e98e3b49ed5f840d49981cbcbe9354ddb76f",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
