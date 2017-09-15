@@ -422,7 +422,13 @@ class XOSObserver:
             self.log.exception('Compared objects could not be identified', e=e)
             raise e
         except StopIteration:
-            found = False
+            # This is a temporary workaround to establish dependencies between
+            # deleted proxy objects. A better solution would be for the ORM to
+            # return the set of deleted objects via foreign keys. At that point,
+            # the following line would change back to found = False 
+            # - Sapan
+
+            found = getattr(o2, 'deleted', False)
 
         return found, edge_type
 
