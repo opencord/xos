@@ -39,4 +39,14 @@ class ORMWrapperService(ORMWrapper):
                 nets.append(net)
         return nets
 
+    def get_service_instance_class_name(self):
+        # This assumes that a ServiceInstance is always named after its service. For example
+        # VSGService --> VSGServiceInstance. Services in which this is not the case should override this method.
+        # TODO: Specify via xproto ?
+        return self.leaf_model_name + "Instance"
+
+    def get_service_instance_class(self):
+        return getattr(self.stub, self.get_service_instance_class_name)
+
+
 register_convenience_wrapper("Service", ORMWrapperService)
