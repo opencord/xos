@@ -100,4 +100,5 @@ class ORMWrapperVSGTenant(ORMWrapper):
             raise Exception("no vm_vrouter_tenant tag for instance %s" % self.instance)
 
 
-register_convenience_wrapper("VSGTenant", ORMWrapperVSGTenant)
+register_convenience_wrapper("VSGTenant", ORMWrapperVSGTenant)   # DEPRECATED
+register_convenience_wrapper("VSGServiceInstance", ORMWrapperVSGTenant)
