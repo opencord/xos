@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_e1fe2a38",
+        "filename": "lib/xos-genx/xosgenx/targets/service.xtarget",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-09-20T20:59:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5c5d37_e1786a2d",
+      "range": {
+        "startLine": 63,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 32
+      },
+      "revId": "08af25a03ffb51c35d45cc8b395afee82ad8e8e8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_c1756633",
         "filename": "lib/xos-genx/xosgenx/targets/service.xtarget",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-09-20T15:12:09Z",
       "side": 1,
       "message": "Doesn\u0027t this have the potential for saving an object before the fields have been validated?",
+      "range": {
+        "startLine": 68,
+        "startChar": 10,
+        "endLine": 68,
+        "endChar": 66
+      },
+      "revId": "08af25a03ffb51c35d45cc8b395afee82ad8e8e8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_01025e3e",
+        "filename": "lib/xos-genx/xosgenx/targets/service.xtarget",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-09-20T20:59:13Z",
+      "side": 1,
+      "message": "This s absolutely right. Good catch!",
+      "parentUuid": "9a5c5d37_c1756633",
       "range": {
         "startLine": 68,
         "startChar": 10,
