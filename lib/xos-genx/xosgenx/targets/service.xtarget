@@ -65,14 +65,15 @@ class {{ m.name }}{{ legacy_tag }}{{ xproto_base_def(m.name, m.bases, legacy_tag
           self.leaf_model_name = "{{ m.name }}"
 
       try:
-          self.__xos_save_base(*args, **kwds)
+          base_save_in_attic = self.__xos_save_base(*args, **kwds)
       except AttributeError:
-          pass
+          base_save_in_attic = False
 
       {% for policy,error in xproto_validations(m.options) %}
       policy_{{policy}}_validator(self, None)
       {% endfor %}
-      super({{ m.name }}{{ legacy_tag }}, self).save(*args, **kwds)
+      if not base_save_in_attic:
+          super({{ m.name }}{{ legacy_tag }}, self).save(*args, **kwds)
   
   def can_access(self, ctx):
       {% if m.policy %}
