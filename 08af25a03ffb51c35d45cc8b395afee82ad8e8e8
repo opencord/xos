@@ -45,6 +45,29 @@
       "revId": "08af25a03ffb51c35d45cc8b395afee82ad8e8e8",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_e13bca36",
+        "filename": "xos/core/models/attic/serviceinstancelink_model.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-09-20T17:46:47Z",
+      "side": 1,
+      "message": "In some modules, __xos_save_base has an explicit `Return False` at the end of the function, but in others it does not.",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "08af25a03ffb51c35d45cc8b395afee82ad8e8e8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
