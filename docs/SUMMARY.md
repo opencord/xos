@@ -2,6 +2,7 @@
 
 * [Introduction](README.md)
     - [Contribute to the documentation](contribute_docs.md)
+    - Test
 * Modules
 	- [XOS Config](modules/xosconfig.md)
 * Developer How Tos
