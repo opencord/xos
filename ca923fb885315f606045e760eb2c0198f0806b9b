@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_7a7e58e6",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-02T03:17:46Z",
+      "side": 1,
+      "message": ". Any help/contribution is really appreciated.",
+      "range": {
+        "startLine": 5,
+        "startChar": 55,
+        "endLine": 5,
+        "endChar": 104
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_9a790cff",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-02T03:17:46Z",
+      "side": 1,
+      "message": "work in progress?",
+      "range": {
+        "startLine": 5,
+        "startChar": 32,
+        "endLine": 5,
+        "endChar": 55
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_1a263c17",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-02T03:17:46Z",
+      "side": 1,
+      "message": "persistS",
+      "range": {
+        "startLine": 16,
+        "startChar": 38,
+        "endLine": 16,
+        "endChar": 45
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_da1f84b6",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-02T03:17:46Z",
+      "side": 1,
+      "message": "propagateS",
+      "range": {
+        "startLine": 20,
+        "startChar": 40,
+        "endLine": 20,
+        "endChar": 49
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_fa224800",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-02T03:17:46Z",
+      "side": 1,
+      "message": "ListenS",
+      "range": {
+        "startLine": 20,
+        "startChar": 11,
+        "endLine": 20,
+        "endChar": 17
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_ba1cd0c2",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-02T03:17:46Z",
+      "side": 1,
+      "message": "Personal forms aren\u0027t suggested for documentation. But it\u0027s your personal choice. So in this case could become some infrastructure helpers are deployed ...",
+      "range": {
+        "startLine": 23,
+        "startChar": 22,
+        "endLine": 23,
+        "endChar": 24
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_3a1100ad",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-02T03:17:46Z",
+      "side": 1,
+      "message": "lower case?",
+      "range": {
+        "startLine": 25,
+        "startChar": 119,
+        "endLine": 25,
+        "endChar": 120
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_7a1778a4",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-02T03:17:46Z",
+      "side": 1,
+      "message": "containerS",
+      "range": {
+        "startLine": 25,
+        "startChar": 30,
+        "endLine": 25,
+        "endChar": 39
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_5a0cb494",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-02T03:17:46Z",
+      "side": 1,
+      "message": "happen",
+      "range": {
+        "startLine": 25,
+        "startChar": 40,
+        "endLine": 25,
+        "endChar": 47
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
