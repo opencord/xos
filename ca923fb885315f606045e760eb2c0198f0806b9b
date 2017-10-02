@@ -48,6 +48,52 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_dae424ae",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-10-02T17:09:08Z",
+      "side": 1,
+      "message": "\"is made up of\", or \"constitutes a set\"",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 30
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_bae1709c",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-10-02T17:09:08Z",
+      "side": 1,
+      "message": "I\u0027m not sure what the \"functionalities\" are from this statement.",
+      "range": {
+        "startLine": 9,
+        "startChar": 49,
+        "endLine": 9,
+        "endChar": 103
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_1a263c17",
         "filename": "docs/xos_internals.md",
         "patchSetId": 2
@@ -140,6 +186,52 @@
     },
     {
       "key": {
+        "uuid": "9a5c5d37_7af3f873",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-10-02T17:09:08Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 23,
+        "startChar": 31,
+        "endLine": 23,
+        "endChar": 36
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_9aeeac8a",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-10-02T17:09:08Z",
+      "side": 1,
+      "message": "\"Additionally,\"",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 21
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a5c5d37_3a1100ad",
         "filename": "docs/xos_internals.md",
         "patchSetId": 2
@@ -202,6 +294,29 @@
         "startChar": 40,
         "endLine": 25,
         "endChar": 47
+      },
+      "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_fad7e8bd",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-10-02T17:09:08Z",
+      "side": 1,
+      "message": "Is there any way to view images in Gerrit?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 46
       },
       "revId": "ca923fb885315f606045e760eb2c0198f0806b9b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
