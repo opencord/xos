@@ -151,8 +151,21 @@ class XOSGenerator:
                 current_buffer.append(l)
 
     @staticmethod
-    def _find_message_by_model_name(messages, model):
-        return next((x for x in messages if x['name'] == model), None)
+    def _find_bases(messages, bases):
+        # NOTES does this need to be recursive?
+        _bases = []
+        for base in bases:
+            base_model = next((x for x in messages if x['name'] == base['name']), None)
+            if base_model:
+                _bases.append(base_model)
+        return _bases
+
+    @staticmethod
+    def _find_message_by_model_name(messages, models, model_name):
+        model = next((x for x in messages if x['name'] == model_name), [])
+        bases = XOSGenerator._find_bases(messages, models[model_name]['bases'])
+        bases.append(model)
+        return bases
 
     @staticmethod
     def generate(args):
@@ -206,7 +219,7 @@ class XOSGenerator:
             for i, model in enumerate(v.models):
                 models = {}
                 models[model] = v.models[model]
-                messages = [XOSGenerator._find_message_by_model_name(v.messages, model)]
+                messages = XOSGenerator._find_message_by_model_name(v.messages, v.models, model)
 
                 rendered[model] = template.render(
                     {"proto":

@@ -123,6 +123,41 @@ class XProtoTargetTests(unittest.TestCase):
         output = XOSGenerator.generate(args)
         self.assertEqual("data,sheep,radii,slices,networks,omf_friendlies", output.lstrip().rstrip().rstrip(','))
 
+    def test_inherithed_fields(self):
+        """
+        [TOSCA_xtarget] Should generate a TOSCA recipe for a models that inherits from another model
+        """
+        xproto = \
+            """
+            option app_label = "core";
+
+            message Service (XosBase) {
+                 option verbose_name="Basic Service";
+                 required string name = 1;
+            }
+
+            message MyService (Service) {
+                 option verbose_name="Extending service";
+                 required string prop = 1;
+            }
+            """
+
+        target = XProtoTestHelpers.write_tmp_target(
+            """
+            {% for m in proto.messages -%}
+            {{ (m.fields + xproto_base_fields(m, proto.message_table)) }}
+            {%- endfor %}
+            """)
+        args = FakeArgs()
+        args.inputs = xproto
+        args.target = target
+        args.write_to_file = 'model'
+        args.dest_extension = "yaml"
+        args.output = OUTPUT_DIR
+        output = XOSGenerator.generate(args)
+        self.assertIn("'name': 'name'", output['MyService'])
+        self.assertIn("'name': 'prop'", output['MyService'])
+
 if __name__ == '__main__':
     unittest.main()
 
