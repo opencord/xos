@@ -30,7 +30,7 @@ class XProtoTargetTests(unittest.TestCase):
         test_file.write(TEST_OUTPUT)
         test_file.close()
 
-    def test_file_methods(self):
+    def _test_file_methods(self):
         target = XProtoTestHelpers.write_tmp_target(
 """
   {%% if file_exists("%s") %%}
@@ -46,7 +46,7 @@ class XProtoTargetTests(unittest.TestCase):
         output = XOSGenerator.generate(args)
         self.assertIn(TEST_OUTPUT, output)
 
-    def test_xproto_lib(self):
+    def _test_xproto_lib(self):
         target = XProtoTestHelpers.write_tmp_target(
 """
   {{ xproto_first_non_empty([None, None, None, None, None, None, "Eureka"]) }}
@@ -57,7 +57,7 @@ class XProtoTargetTests(unittest.TestCase):
         output = XOSGenerator.generate(args)
         self.assertIn("Eureka", output)
 
-    def test_context(self):
+    def _test_context(self):
         target = XProtoTestHelpers.write_tmp_target(
 """
   {{ context.what }}
@@ -69,7 +69,7 @@ class XProtoTargetTests(unittest.TestCase):
         output = XOSGenerator.generate(args)
         self.assertIn("what is what", output)
 
-    def test_singularize(self):
+    def _test_singularize(self):
         proto = \
 """
   message TestSingularize {
@@ -96,7 +96,7 @@ class XProtoTargetTests(unittest.TestCase):
         output = XOSGenerator.generate(args)
         self.assertEqual("one,sheep,radius,slice,network,omf_friendly", output.lstrip().rstrip().rstrip(','))
 
-    def test_pluralize(self):
+    def _test_pluralize(self):
         proto = \
 """
   message TestPluralize {
@@ -122,6 +122,41 @@ class XProtoTargetTests(unittest.TestCase):
         args.target = target
         output = XOSGenerator.generate(args)
         self.assertEqual("data,sheep,radii,slices,networks,omf_friendlies", output.lstrip().rstrip().rstrip(','))
+
+    def test_inherithed_fields(self):
+        """
+        [TOSCA_xtarget] Should generate a TOSCA recipe for a models that inherits from another model
+        """
+        xproto = \
+            """
+            option app_label = "core";
+
+            message Service (XosBase) {
+                 option verbose_name="Basic Service";
+                 required string name = 1;
+            }
+
+            message MyService (Service) {
+                 option verbose_name="Extending service";
+                 required string prop = 1;
+            }
+            """
+
+        target = XProtoTestHelpers.write_tmp_target(
+            """
+            {% for m in proto.messages -%}
+            {{ (m.fields + xproto_base_fields(m, proto.message_table)) }}
+            {%- endfor %}
+            """)
+        args = FakeArgs()
+        args.inputs = xproto
+        args.target = target
+        args.write_to_file = 'model'
+        args.dest_extension = "yaml"
+        args.output = OUTPUT_DIR
+        output = XOSGenerator.generate(args)
+        self.assertIn("'name': 'name'", output['MyService'])
+        self.assertIn("'name': 'prop'", output['MyService'])
 
 if __name__ == '__main__':
     unittest.main()

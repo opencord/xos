@@ -104,6 +104,7 @@ make -j4 build
 ```
 cd ~/cord/build
 make clean-profile
+make clean-genconfig
 make PODCONFIG=rcord-mock.yml config
 make -j4 build
 ```
