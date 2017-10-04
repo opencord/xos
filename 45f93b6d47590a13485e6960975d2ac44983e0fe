@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_bc4a8b81",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-04T22:35:41Z",
+      "side": 1,
+      "message": "I\u0027m not sure if up is needed",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 14
+      },
+      "revId": "45f93b6d47590a13485e6960975d2ac44983e0fe",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_dc7d3fb3",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-04T22:35:41Z",
+      "side": 1,
+      "message": "upper case except the s",
+      "range": {
+        "startLine": 11,
+        "startChar": 30,
+        "endLine": 11,
+        "endChar": 33
+      },
+      "revId": "45f93b6d47590a13485e6960975d2ac44983e0fe",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_fc80038d",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-04T22:35:41Z",
+      "side": 1,
+      "message": "the service discovery",
+      "range": {
+        "startLine": 25,
+        "startChar": 103,
+        "endLine": 25,
+        "endChar": 111
+      },
+      "revId": "45f93b6d47590a13485e6960975d2ac44983e0fe",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_1c74f7cd",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-04T22:35:41Z",
+      "side": 1,
+      "message": "infrastrucTure",
+      "range": {
+        "startLine": 25,
+        "startChar": 18,
+        "endLine": 25,
+        "endChar": 31
+      },
+      "revId": "45f93b6d47590a13485e6960975d2ac44983e0fe",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_3c77bbd6",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-04T22:35:41Z",
+      "side": 1,
+      "message": "I would remove all",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 4
+      },
+      "revId": "45f93b6d47590a13485e6960975d2ac44983e0fe",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_5c726fe6",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2017-10-04T22:35:41Z",
+      "side": 1,
+      "message": "happenS",
+      "range": {
+        "startLine": 27,
+        "startChar": 46,
+        "endLine": 27,
+        "endChar": 47
+      },
+      "revId": "45f93b6d47590a13485e6960975d2ac44983e0fe",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
