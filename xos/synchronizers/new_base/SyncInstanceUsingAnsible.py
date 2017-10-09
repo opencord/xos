@@ -306,7 +306,7 @@ class SyncInstanceUsingAnsible(SyncStep):
             self.handle_service_monitoringagentinfo_watch_notification(o)
         pass
 
-    def handle_service_composition_watch_notification(self, coarse_tenant):
+    def handle_service_composition_watch_notification(self, service_dependency):
         cls_obj = self.observes
         if (type(cls_obj) is list):
             cls_obj = cls_obj[0]
@@ -315,12 +315,12 @@ class SyncInstanceUsingAnsible(SyncStep):
         objs = cls_obj.objects.filter(kind=cls_obj.KIND)
 
         for obj in objs:
-            self.handle_service_composition_for_object(obj, coarse_tenant)
+            self.handle_service_composition_for_object(obj, service_dependency)
 
     def handle_service_monitoringagentinfo_watch_notification(self, monitoring_agent_info):
         pass
 
-    def handle_service_composition_for_object(self, obj, coarse_tenant):
+    def handle_service_composition_for_object(self, obj, service_dependency):
         try:
             instance = self.get_instance(obj)
             valid_instance = True
@@ -331,8 +331,8 @@ class SyncInstanceUsingAnsible(SyncStep):
             log.warn("handle_watched_object: No valid instance found for object", object =str(obj))
             return
 
-        provider_service = coarse_tenant.provider_service
-        subscriber_service = coarse_tenant.subscriber_service
+        provider_service = service_dependency.owner
+        subscriber_service = service_dependency.subscriber_service
 
         if model_accessor.is_instance(obj, "Service"):
             if obj.id == provider_service.id:
@@ -345,11 +345,11 @@ class SyncInstanceUsingAnsible(SyncStep):
                 log.info("handle_watched_object: Service object does not match with any of composed services", 
                 object = str(obj))
                 return
-        elif model_accessor.is_instance(obj, "Tenant"):
-            if obj.provider_service.id == provider_service.id:
+        elif model_accessor.is_instance(obj, "ServiceInstance"):
+            if obj.owner.id == provider_service.id:
                 matched_service = provider_service
                 other_service = subscriber_service
-            elif obj.provider_service.id == subscriber_service.id:
+            elif obj.owner.id == subscriber_service.id:
                 matched_service = subscriber_service
                 other_service = provider_service
             else:
@@ -380,4 +380,4 @@ class SyncInstanceUsingAnsible(SyncStep):
                 object = str(obj), subnet = target_subnet, ip = src_ip)
             SyncInstanceUsingAnsible.run_playbook(self, obj, fields, service_composition_template_name)
         else:
-            log.info("handle_watched_object: No intersection of composable networks between composed services", object = str(coarse_tenant))
+            log.info("handle_watched_object: No intersection of composable networks between composed services", object = str(service_dependency))

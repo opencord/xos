@@ -45,7 +45,7 @@ def image(self):
     # Implement the logic here to pick the image that should be used when
     # instantiating the VM that will hold the container.
 
-    slice = self.provider_service.slices.all()
+    slice = self.owner.slices.all()
     if not slice:
         raise XOSProgrammingError("provider service has no slice")
     slice = slice[0]
@@ -93,18 +93,18 @@ def manage_container(self):
         self.instance = None
 
     if self.instance is None:
-        if not self.provider_service.slices.count():
+        if not self.owner.slices.count():
             raise XOSConfigurationError("The service has no slices")
 
         new_instance_created = False
         instance = None
         if self.get_attribute("use_same_instance_for_multiple_tenants", default=False):
             # Find if any existing instances can be used for this tenant
-            slices = self.provider_service.slices.all()
+            slices = self.owner.slices.all()
             instance = self.pick_least_loaded_instance_in_slice(slices, self.image)
 
         if not instance:
-            slice = self.provider_service.slices.all()[0]
+            slice = self.owner.slices.all()[0]
 
             flavor = slice.default_flavor
             if not flavor:

@@ -147,11 +147,11 @@ def get_vtn_nets(self):
 
 def get_vtn_dependencies_nets(self):
     provider_nets = []
-    for tenant in self.subscribed_tenants.all():
-        if tenant.provider_service:
-            for net in tenant.provider_service.get_vtn_nets():
+    for service_instance in self.subscribed_tenants.all():
+        if service_instance.owner:
+            for net in service_instance.owner.get_vtn_nets():
                 if not net in provider_nets:
-                    net["bidirectional"] = tenant.connect_method!="private-unidirectional"
+                    net["bidirectional"] = service_instance.connect_method!="private-unidirectional"
                     provider_nets.append(net)
     return provider_nets
 
