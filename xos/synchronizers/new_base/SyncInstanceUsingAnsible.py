@@ -331,7 +331,7 @@ class SyncInstanceUsingAnsible(SyncStep):
             log.warn("handle_watched_object: No valid instance found for object", object =str(obj))
             return
 
-        provider_service = coarse_tenant.provider_service
+        provider_service = coarse_tenant.owner
         subscriber_service = coarse_tenant.subscriber_service
 
         if model_accessor.is_instance(obj, "Service"):
@@ -346,10 +346,10 @@ class SyncInstanceUsingAnsible(SyncStep):
                 object = str(obj))
                 return
         elif model_accessor.is_instance(obj, "Tenant"):
-            if obj.provider_service.id == provider_service.id:
+            if obj.owner.id == provider_service.id:
                 matched_service = provider_service
                 other_service = subscriber_service
-            elif obj.provider_service.id == subscriber_service.id:
+            elif obj.owner.id == subscriber_service.id:
                 matched_service = subscriber_service
                 other_service = provider_service
             else:
