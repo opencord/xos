@@ -18,6 +18,9 @@ from synchronizers.new_base.modelaccessor import *
 from synchronizers.new_base.policy import Policy
 from synchronizers.new_base.exceptions import *
 
+from xos.logger import Logger, logging
+logger = Logger(level=logging.DEBUG)
+
 class Scheduler(object):
     # XOS Scheduler Abstract Base Class
     # Used to implement schedulers that pick which node to put instances on
@@ -68,7 +71,7 @@ class LeastLoadedNodeScheduler(Scheduler):
         #   nodes the slice can instantiate on.
         return [nodes[0], None]
 
-class TenantWithContainerPolicy(Policy):
+class ServiceInstanceWithVMPolicy(Policy):
     model_name = None # This policy is abstract. Inherit this class into your own policy and override model_name
 
     def handle_create(self, tenant):
@@ -264,3 +267,7 @@ class TenantWithContainerPolicy(Policy):
                     if new_instance_created:
                         instance.delete()
                     raise
+
+class TenantWithContainerPolicy(ServiceInstanceWithVMPolicy):
+    def __init__(self):
+        logger.warn('TenantWithContainerPolicy has been deprecated, please use ServiceInstanceWithVM isntead')
