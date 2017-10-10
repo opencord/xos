@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_93d57245",
+        "filename": "lib/xos-genx/xosgenx/targets/synchronizer.xtarget",
+        "patchSetId": 2
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-10-10T19:41:29Z",
+      "side": 1,
+      "message": "Can\u0027t we abstract the policy method in a common class instead of generating them for every service? eg: get_service, find_instance_for_instance_tag, ...)",
+      "range": {
+        "startLine": 56,
+        "startChar": 6,
+        "endLine": 56,
+        "endChar": 51
+      },
+      "revId": "263928ff0197c987312598f44207b117c60b3449",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
