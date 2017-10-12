@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_a2b6e188",
+        "filename": "xos/synchronizers/new_base/model_policies/model_policy_tenantwithcontainer.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-10-12T20:15:31Z",
+      "side": 1,
+      "message": "from multistructlog import create_logger\nlog \u003d create_logger(Config().logging)",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 36
+      },
+      "revId": "7706cc7c587c6294ff59521c9ba1aee19c018cf2",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
