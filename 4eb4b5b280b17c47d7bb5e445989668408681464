@@ -22,6 +22,30 @@
       "revId": "4eb4b5b280b17c47d7bb5e445989668408681464",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_963b1beb",
+        "filename": "docs/dev/xproto.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-10-18T15:05:43Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a5c5d37_5677e3d4",
+      "range": {
+        "startLine": 189,
+        "startChar": 56,
+        "endLine": 189,
+        "endChar": 59
+      },
+      "revId": "4eb4b5b280b17c47d7bb5e445989668408681464",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
