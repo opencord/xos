@@ -241,5 +241,12 @@ class Config:
         service = Config.get_service_info(service_name)
         return 'http://%s:%s' % (service['url'], service['port'])
 
+def Config_uninitialize():
+    global INITIALIZED, CONFIG, GLOBAL_CONFIG
+  
+    INITIALIZED = False
+    CONFIG = {}
+    GLBOAL_CONFIG = {}
+
 if __name__ == '__main__':
     Config.init()
