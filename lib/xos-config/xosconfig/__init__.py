@@ -14,4 +14,4 @@
 # limitations under the License.
 
 
-from .config import Config
+from .config import Config, Config_uninitialize
