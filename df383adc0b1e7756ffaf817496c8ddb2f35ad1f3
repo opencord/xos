@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_dd264768",
+        "filename": "xos/xos_client/xosapi/convenience/vsgserviceinstance.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000010
+      },
+      "writtenOn": "2017-10-27T20:40:08Z",
+      "side": 1,
+      "message": "Maybe I\u0027m confused but should this be instance()?",
+      "range": {
+        "startLine": 36,
+        "startChar": 36,
+        "endLine": 36,
+        "endChar": 44
+      },
+      "revId": "df383adc0b1e7756ffaf817496c8ddb2f35ad1f3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
