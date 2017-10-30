@@ -22,6 +22,30 @@
       "revId": "df383adc0b1e7756ffaf817496c8ddb2f35ad1f3",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a5c5d37_3d2c43ab",
+        "filename": "xos/xos_client/xosapi/convenience/vsgserviceinstance.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-10-30T16:38:48Z",
+      "side": 1,
+      "message": "No, because `ingress_service_instance` is a property.",
+      "parentUuid": "9a5c5d37_dd264768",
+      "range": {
+        "startLine": 36,
+        "startChar": 36,
+        "endLine": 36,
+        "endChar": 44
+      },
+      "revId": "df383adc0b1e7756ffaf817496c8ddb2f35ad1f3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
