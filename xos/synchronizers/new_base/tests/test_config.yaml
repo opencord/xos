@@ -24,7 +24,7 @@ logging:
     console:
       class: logging.StreamHandler
   loggers:
-    '':
+    'multistructlog':
       handlers:
           - console
       level: DEBUG 
