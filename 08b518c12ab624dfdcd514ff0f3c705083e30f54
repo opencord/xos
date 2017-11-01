@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a5c5d37_4fc17c7f",
+        "filename": "docs/dev/unittest.md",
+        "patchSetId": 22
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2017-11-01T14:50:25Z",
+      "side": 1,
+      "message": "We should add this dependencies to pip_requirements.txt and add instructions on how to set it up. I\u0027ll be happy to work on improving it",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "08b518c12ab624dfdcd514ff0f3c705083e30f54",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
