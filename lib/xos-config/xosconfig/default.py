@@ -37,7 +37,7 @@ DEFAULT_VALUES = {
             }
         },
         'loggers': {
-            '': {
+            'multistructlog': {
                 'handlers': ['console', 'file'],
                 'level': 'DEBUG'
             }
