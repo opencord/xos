@@ -21,6 +21,8 @@ map:
     type: str
   logging: 
     type: any
+  blueprints:
+    type: any
   dependency_graph:
     type: str
   link_graph:
