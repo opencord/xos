@@ -248,6 +248,7 @@ class PlModelMixIn(object):
             r = redis.Redis("redis")
 
             model = self.serialize_for_redis()
+
             bases = inspect.getmro(self.__class__)
             class_names = ",".join([x.__name__ for x in bases])
 
@@ -268,10 +269,42 @@ class PlModelMixIn(object):
 
             payload = json.dumps(json_dict, default=date_handler)
             r.publish(self.__class__.__name__, payload)
+            self.log_notification(model)
         except ConnectionError:
             # Redis not running.
             log.error('Connection to Redis failed')
             pass
+
+    def log_notification(self, model):
+        
+        notif_code = None
+        notif_msg = None
+
+        if 'backend_code' in model:
+            notif_code = model['backend_code']
+        else:
+            notif_code = -1
+        
+        if notif_code == 0:
+            notif_msg = 'Syncrhonization started for:'
+        elif notif_code == 1:
+            notif_msg = 'Synchronization succeeded for:'
+        elif notif_code == 2:
+            notif_msg = 'Synchronization failed for:'
+        else:
+            notif_msg = 'Update from: '
+
+        modelName = None
+        
+        if 'name' in model:
+            modelName = model['name']
+        
+        if (modelName == None or len(modelName) <= 0):
+            modelName = 'ID ' + str(model['id']);
+
+        notif_msg = "%s %s %s" %(notif_msg, model['leaf_model_name'], modelName)
+
+        log.info(notif_msg, which_synchronizer=model['leaf_model_name']);
 
 # For cascading deletes, we need a Collector that doesn't do fastdelete,
 # so we get a full list of models.
