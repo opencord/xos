@@ -255,10 +255,35 @@ class PlModelMixIn(object):
             model['class_names'] = class_names
             payload = json.dumps({'pk': self.pk, 'changed_fields': self.changed_fields, 'object': model}, default=date_handler)
             r.publish(self.__class__.__name__, payload)
+            self.create_xos_notfication(model)
         except ConnectionError:
             # Redis not running.
             # TODO add log statement
             pass
+
+    def create_xos_notfication(self, model):
+        from core.models.xosnotification import XOSNotification
+        notif_code = model.backend_code if model.backend_code is not None else -1
+        notif_msg = None
+        if notif_code == 0:
+            notif_msg = 'Syncrhonization started for: '
+        elif notif_code == 1:
+            notif_msg = 'Synchronization succeeded for: '
+        elif notif_code == 2:
+            notif_msg = 'Synchronization failed for: '
+        else:
+            return
+
+        modelName = model.name
+        if (modelName == None or len(modelName) <= 0):
+            modelName = model.leaf_model_name[model.id]
+
+        notif_msg = notif_msg + modelName
+
+        created_model = XOSNotification(timestamp=datetime.datetime.now(), notification_code=notif_code, notification_msg=notif_msg, source_model_name=modelName, source_model_id = model.id)
+        created_model.save()
+
+        pass
 
 # For cascading deletes, we need a Collector that doesn't do fastdelete,
 # so we get a full list of models.

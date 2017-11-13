@@ -591,3 +591,11 @@ message XOSGuiExtension (XOSBase) {
      required string files = 2 [max_length = 1024, content_type = "stripped", blank = False, help_text = "List of comma separated file composing the view", null = False, db_index = False];
 }
 
+message XOSNotification (XOSBase) {
+     option gui_hidden="True";
+     required string timestamp = 1 [max_length = 32, content_type = "stripped", blank = False];
+     required int32 notification_code = 2 [default = -1];
+     required string notification_msg = 3 [max_length = 1024, content_type = "stripped"];
+     required string source_model_name = 4 [max_length = 256, content_type = "stripped"];
+     required int32 source_object_id = 5;
+}
