@@ -38,6 +38,8 @@ from redis import ConnectionError
 from xosconfig import Config
 from multistructlog import create_logger
 
+from core.models import XOSNotification
+
 log = create_logger(Config().get('logging'))
 
 XOS_GLOBAL_DEFAULT_SECURITY_POLICY = True
@@ -259,6 +261,29 @@ class PlModelMixIn(object):
             # Redis not running.
             # TODO add log statement
             pass
+
+    def create_xos_notfication(self, model):
+        notif_code = model.backend_code if model.backend_code is not None else -1
+        notif_msg = None
+        if notif_code == 0:
+            notif_msg = 'Syncrhonization started for: '
+        elif notif_code == 1:
+            notif_msg = 'Synchronization succeeded for: '
+        elif notif_code == 2:
+            notif_msg = 'Synchronization failed for: '
+        else:
+            return
+
+        modelName = model.name
+        if (modelName == None || len(modelName) <= 0):
+            modelName = model.leaf_model_name[model.id]
+
+        notif_msg = notif_msg + modelName
+
+        created_model = XOSNotification(timestamp=datetime.datetime.now(), notification_code=notif_code, notifcation_msg=notif_msg)
+        created_model.save()
+
+        pass
 
 # For cascading deletes, we need a Collector that doesn't do fastdelete,
 # so we get a full list of models.
