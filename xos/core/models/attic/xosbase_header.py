@@ -249,16 +249,58 @@ class PlModelMixIn(object):
             # NOTE the redis event has been extended with model properties to facilitate the support of real time notification in the UI
             # keep this monitored for performance reasons and eventually revert it back to fetch model properties via the REST API
             model = self.serialize_for_redis()
+            
+            if model['leaf_model_name'] == 'XOSNotification':
+                return
+
             bases = inspect.getmro(self.__class__)
             # bases = [x for x in bases if issubclass(x, XOSBase)]
             class_names = ",".join([x.__name__ for x in bases])
             model['class_names'] = class_names
             payload = json.dumps({'pk': self.pk, 'changed_fields': self.changed_fields, 'object': model}, default=date_handler)
             r.publish(self.__class__.__name__, payload)
+            self.create_xos_notfication(model)
         except ConnectionError:
             # Redis not running.
             # TODO add log statement
             pass
+
+    def create_xos_notfication(self, model):
+
+        if model['leaf_model_name'] == 'XOSNotification':
+            return
+
+        from core.models.xosnotification import XOSNotification
+        
+        notif_code = None
+        notif_msg = None
+
+        if 'backend_code' in model:
+            notif_code = model['backend_code']
+        else:
+            notif_code = -1
+        
+        if notif_code == 0:
+            notif_msg = 'Syncrhonization started for:'
+        elif notif_code == 1:
+            notif_msg = 'Synchronization succeeded for:'
+        elif notif_code == 2:
+            notif_msg = 'Synchronization failed for:'
+        else:
+            notif_msg = 'Update from: '
+
+        modelName = None
+        
+        if 'name' in model:
+            modelName = model['name']
+        
+        if (modelName == None or len(modelName) <= 0):
+            modelName = 'ID ' + str(model['id']);
+
+        notif_msg = "%s %s %s" %(notif_msg, model['leaf_model_name'], modelName)
+
+        created_model = XOSNotification(timestamp=model['updated'], notification_code=notif_code, notification_msg=notif_msg, source_model_name=modelName, source_object_id = model['id'])
+        created_model.save()
 
 # For cascading deletes, we need a Collector that doesn't do fastdelete,
 # so we get a full list of models.
