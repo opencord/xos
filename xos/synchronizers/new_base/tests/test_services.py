@@ -23,6 +23,10 @@ import networkx as nx
 
 import os, sys
 
+test_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+xos_dir = os.path.join(test_path, '..', '..', '..')
+
+"""
 sys.path.append("../..")
 sys.path.append("../../new_base")
 
@@ -34,13 +38,41 @@ import synchronizers.new_base.modelaccessor
 from steps.mock_modelaccessor import *
 import event_loop
 import backend
+"""
 
 class TestServices(unittest.TestCase):
     def setUp(self):
+        self.sys_path_save = sys.path
+        self.cwd_save = os.getcwd()
+        sys.path.append(xos_dir)
+        sys.path.append(os.path.join(xos_dir, 'synchronizers', 'new_base'))
+        sys.path.append(os.path.join(xos_dir, 'synchronizers', 'new_base', 'tests', 'steps'))
+
+        config = os.path.join(test_path, "test_config.yaml")
+        from xosconfig import Config
+        Config.clear()
+        Config.init(config, 'synchronizer-config-schema.yaml')
+
+        os.chdir(os.path.join(test_path, '..'))  # config references tests/model-deps
+
+        import event_loop
+        reload(event_loop)
+        import backend
+        reload(backend)
+        from modelaccessor import model_accessor
+
+        # import all class names to globals
+        for (k, v) in model_accessor.all_model_classes.items():
+            globals()[k] = v
+
         b = backend.Backend()
         steps_dir = Config.get("steps_dir")
         self.steps = b.load_sync_step_modules(steps_dir)
         self.synchronizer = event_loop.XOSObserver(self.steps)
+
+    def tearDown(self):
+        sys.path = self.sys_path_save
+        os.chdir(self.cwd_save)
 
     def test_service_models(self):
         a = ONOSApp()
