@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,19 +22,29 @@ import networkx as nx
 
 import os, sys
 
-sys.path.append("../..")
-sys.path.append("../../new_base")
-config =  os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "/test_config.yaml")
-from xosconfig import Config
-Config.init(config, 'synchronizer-config-schema.yaml')
-
-import synchronizers.new_base.modelaccessor
-from steps.mock_modelaccessor import *
-import event_loop
-import backend
+test_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+xos_dir = os.path.join(test_path, '..', '..', '..')
 
 class TestScheduling(unittest.TestCase):
     def setUp(self):
+        self.sys_path_save = sys.path
+        self.cwd_save = os.getcwd()
+        sys.path.append(xos_dir)
+        sys.path.append(os.path.join(xos_dir, 'synchronizers', 'new_base'))
+        sys.path.append(os.path.join(xos_dir, 'synchronizers', 'new_base', 'tests', 'steps'))
+
+        config = os.path.join(test_path, "test_config.yaml")
+        from xosconfig import Config
+        Config.clear()
+        Config.init(config, 'synchronizer-config-schema.yaml')
+
+        os.chdir(os.path.join(test_path, '..'))  # config references tests/model-deps
+
+        import event_loop
+        reload(event_loop)
+        import backend
+        reload(backend)
+
         # self.policy = TenantWithContainerPolicy()
         # self.user = User(email="testadmin@test.org")
         # self.tenant = Tenant(creator=self.user)
@@ -47,6 +56,10 @@ class TestScheduling(unittest.TestCase):
         steps_dir = Config.get("steps_dir")
         self.steps = b.load_sync_step_modules(steps_dir)
         self.synchronizer = event_loop.XOSObserver(self.steps)
+
+    def tearDown(self):
+        sys.path = self.sys_path_save
+        os.chdir(self.cwd_save)
 
     def test_load_steps(self):
         step_names = [s.__name__ for s in self.steps]
