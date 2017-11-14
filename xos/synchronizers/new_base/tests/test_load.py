@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,11 +22,17 @@ import networkx as nx
 
 import os, sys
 
-sys.path.append("../..")
-sys.path.append("../../new_base")
-config =  os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "/test_config.yaml")
+test_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+xos_dir = os.path.join(test_path, '..', '..', '..')
+sys.path.append(xos_dir)
+sys.path.append(os.path.join(xos_dir, 'synchronizers', 'new_base'))
+sys.path.append(os.path.join(xos_dir, 'synchronizers', 'new_base', 'tests', 'steps'))
+
+config =  os.path.join(test_path, "test_config.yaml")
 from xosconfig import Config
 Config.init(config, 'synchronizer-config-schema.yaml')
+
+os.chdir(os.path.join(test_path, '..')) # config references tests/model-deps
 
 import synchronizers.new_base.modelaccessor
 from steps.mock_modelaccessor import *
