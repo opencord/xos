@@ -233,7 +233,22 @@ def config_accessor():
     accessor_kind = Config.get("accessor.kind")
 
     if accessor_kind == "testframework":
-        pass
+        global model_accessor
+        from tests.steps.mock_modelaccessor import model_accessor as mock_model_accessor
+        model_accessor = mock_model_accessor
+
+        # mock_model_accessor doesn't have an all_model_classes field, so make one.
+        import tests.steps.mock_modelaccessor as mma
+        all_model_classes={}
+        for k in dir(mma):
+            v = getattr(mma, k)
+            if hasattr(v, "leaf_model_name"):
+                all_model_classes[k] = v
+
+        model_accessor.all_model_classes = all_model_classes
+
+        import_models_to_globals()
+        #pass
     elif accessor_kind == "grpcapi":
         config_accessor_grpcapi()
     else:
