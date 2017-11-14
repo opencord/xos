@@ -23,6 +23,10 @@ import networkx as nx
 
 import os, sys
 
+test_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+xos_dir = os.path.join(test_path, '..', '..', '..')
+
+"""
 sys.path.append("../..")
 sys.path.append("../../new_base")
 config =  os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "/test_config.yaml")
@@ -38,6 +42,7 @@ import json
 
 import steps.sync_instances
 import steps.sync_controller_slices
+"""
 
 ANSIBLE_FILE='/tmp/payload_test'
 
@@ -51,6 +56,30 @@ def get_ansible_output():
 
 class TestRun(unittest.TestCase):
     def setUp(self):
+        self.sys_path_save = sys.path
+        self.cwd_save = os.getcwd()
+        sys.path.append(xos_dir)
+        sys.path.append(os.path.join(xos_dir, 'synchronizers', 'new_base'))
+        sys.path.append(os.path.join(xos_dir, 'synchronizers', 'new_base', 'tests', 'steps'))
+
+        config = os.path.join(test_path, "test_config.yaml")
+        from xosconfig import Config
+        Config.clear()
+        Config.init(config, 'synchronizer-config-schema.yaml')
+
+        os.chdir(os.path.join(test_path, '..'))  # config references tests/model-deps
+
+        from tests.steps.mock_modelaccessor import model_accessor as mock_model_accessor
+
+        import event_loop
+        reload(event_loop)
+        import backend
+        reload(backend)
+        import syncstep
+        reload(syncstep)
+
+        syncstep.model_accessor = mock_model_accessor
+
         b = backend.Backend()
         steps_dir = Config.get("steps_dir")
         self.steps = b.load_sync_step_modules(steps_dir)
@@ -63,6 +92,10 @@ class TestRun(unittest.TestCase):
             os.remove('/tmp/delete_ports')
         except OSError:
             pass
+
+    def tearDown(self):
+        sys.path = self.sys_path_save
+        os.chdir(self.cwd_save)
 
     @mock.patch("steps.sync_instances.syncstep.run_template",side_effect=run_fake_ansible_template)
     @mock.patch("event_loop.model_accessor")
