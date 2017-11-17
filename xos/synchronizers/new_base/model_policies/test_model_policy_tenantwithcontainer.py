@@ -22,9 +22,10 @@ import pdb
 import os, sys
 from xosconfig import Config
 
-TEST_PATH=os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
-sys.path.append(os.path.join(TEST_PATH, "../../.."))
-sys.path.append(os.path.join(TEST_PATH, "../../new_base/model_policies"))
+test_path=os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+xos_dir=os.path.join(test_path, "../../..")
+sys.path.append(os.path.join(test_path, "../../.."))
+sys.path.append(os.path.join(test_path, "../../new_base/model_policies"))
 
 class MockObject:
     objects = None
@@ -75,6 +76,10 @@ class TestModelPolicyTenantWithContainer(unittest.TestCase):
         config = basic_conf = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "/test_config.yaml")
         Config.clear() # in case left unclean by a previous test case
         Config.init(config, 'synchronizer-config-schema.yaml')
+
+        from synchronizers.new_base.mock_modelaccessor_build import build_mock_modelaccessor
+        build_mock_modelaccessor(xos_dir, services_dir=None, xprotos=[])
+
         import synchronizers.new_base.modelaccessor
         import model_policy_tenantwithcontainer
         from model_policy_tenantwithcontainer import TenantWithContainerPolicy, LeastLoadedNodeScheduler
