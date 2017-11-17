@@ -38,6 +38,7 @@ class TestModelPolicyTenantWithContainer(unittest.TestCase):
         config = basic_conf = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "/test_config.yaml")
         Config.clear() # in case left unclean by a previous test case
         Config.init(config, 'synchronizer-config-schema.yaml')
+
         import model_policy_tenantwithcontainer
         from model_policy_tenantwithcontainer import TenantWithContainerPolicy, LeastLoadedNodeScheduler
 
