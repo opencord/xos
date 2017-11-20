@@ -242,18 +242,27 @@ class PlModelMixIn(object):
 
         return fields
 
-    def push_redis_event(self):
+    def push_redis_event(self, deleted=False):
         # Transmit update via Redis
         try:
             r = redis.Redis("redis")
-            # NOTE the redis event has been extended with model properties to facilitate the support of real time notification in the UI
-            # keep this monitored for performance reasons and eventually revert it back to fetch model properties via the REST API
+
             model = self.serialize_for_redis()
             bases = inspect.getmro(self.__class__)
-            # bases = [x for x in bases if issubclass(x, XOSBase)]
             class_names = ",".join([x.__name__ for x in bases])
+
             model['class_names'] = class_names
-            payload = json.dumps({'pk': self.pk, 'changed_fields': self.changed_fields, 'object': model}, default=date_handler)
+
+            json_dict = {
+                'pk': self.pk,
+                'changed_fields': self.changed_fields,
+                'object': model
+            }
+
+            if deleted:
+                json_dict['deleted'] = True
+
+            payload = json.dumps(json_dict, default=date_handler)
             r.publish(self.__class__.__name__, payload)
         except ConnectionError:
             # Redis not running.
