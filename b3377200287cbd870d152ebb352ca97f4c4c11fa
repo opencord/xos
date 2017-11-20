@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7e77373e_8b421bbc",
+        "filename": "docs/example_service.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 535,
+      "author": {
+        "id": 1000010
+      },
+      "writtenOn": "2017-11-20T21:36:05Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 535,
+        "startChar": 44,
+        "endLine": 535,
+        "endChar": 50
+      },
+      "revId": "b3377200287cbd870d152ebb352ca97f4c4c11fa",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
