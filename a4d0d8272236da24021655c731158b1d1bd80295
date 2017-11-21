@@ -22,6 +22,29 @@
       "revId": "a4d0d8272236da24021655c731158b1d1bd80295",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "faf8e1e6_58aa9956",
+        "filename": "xos/synchronizers/new_base/event_loop.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-11-21T19:40:37Z",
+      "side": 1,
+      "message": "I wish we had a separate code for deferred exceptions. IIRC 0 also means \"not started syncing yet\". I agree with Zack that we should document these codes, preferably also storing them as constants in a file so we can reference them indirectly. I think it\u0027s fine to do that in a future patch.",
+      "range": {
+        "startLine": 245,
+        "startChar": 12,
+        "endLine": 245,
+        "endChar": 20
+      },
+      "revId": "a4d0d8272236da24021655c731158b1d1bd80295",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
