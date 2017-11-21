@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6447d936_c4ae8beb",
+        "filename": "xos/synchronizers/new_base/event_loop.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-11-21T19:23:19Z",
+      "side": 1,
+      "message": "Are these codes defined anywhere else?",
+      "range": {
+        "startLine": 245,
+        "startChar": 12,
+        "endLine": 245,
+        "endChar": 20
+      },
+      "revId": "a4d0d8272236da24021655c731158b1d1bd80295",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
