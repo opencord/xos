@@ -21,6 +21,9 @@ map:
     type: str
   logging: 
     type: any
+  wrappers:
+    type: seq
+    - type: string
   blueprints:
     type: seq
     sequence:
