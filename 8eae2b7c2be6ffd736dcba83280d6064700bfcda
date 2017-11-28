@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d40770b7_657cccba",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 5
+      },
+      "lineNbr": 597,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-11-28T17:45:44Z",
+      "side": 1,
+      "message": "It would be nice to have custom xproto validation for things like this.",
+      "range": {
+        "startLine": 597,
+        "startChar": 4,
+        "endLine": 597,
+        "endChar": 31
+      },
+      "revId": "8eae2b7c2be6ffd736dcba83280d6064700bfcda",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
