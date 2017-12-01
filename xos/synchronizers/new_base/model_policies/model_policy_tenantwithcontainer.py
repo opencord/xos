@@ -260,8 +260,8 @@ class TenantWithContainerPolicy(Policy):
                 if slice.default_isolation == "container_vm":
                     raise Exception("Not implemented")
                 else:
-                    scheduler = getattr(tenant, scheduler, LeastLoadedNodeScheduler)
-                    tenant_node_label = getattr(tenant, node_label, None)
+                    scheduler = getattr(self, "scheduler", LeastLoadedNodeScheduler)
+                    tenant_node_label = getattr(tenant, "node_label", None)
                     (node, parent) = scheduler(slice, label = tenant_node_label).pick()
 
                 assert(slice is not None)
