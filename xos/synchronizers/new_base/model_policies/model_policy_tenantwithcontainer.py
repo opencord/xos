@@ -34,6 +34,23 @@ class Scheduler(object):
         raise Exception("Abstract Base")
 
 
+class LeastLoadedNodeSchedulerWithConstraint(Scheduler):
+    def pick(self):
+        set_label = False
+        if self.label:
+            nodes = nodes.filter(nodelabels__name=self.label)
+            if not nodes:
+                set_label = True
+
+        node, val = super(LeastLoadedNodeSchedulerWithConstraint, self).pick()
+        
+        if set_label and node:
+            nl = NodeLabel(node = node, name = self.label)
+            nl.save()
+
+        return [nodes[0], None]
+
+
 class LeastLoadedNodeScheduler(Scheduler):
     # This scheduler always return the node with the fewest number of
     # instances.
@@ -243,7 +260,9 @@ class TenantWithContainerPolicy(Policy):
                 if slice.default_isolation == "container_vm":
                     raise Exception("Not implemented")
                 else:
-                    (node, parent) = LeastLoadedNodeScheduler(slice).pick()
+                    scheduler = getattr(tenant, scheduler, LeastLoadedNodeScheduler)
+                    tenant_node_label = getattr(tenant, node_label, None)
+                    (node, parent) = scheduler(slice, label = tenant_node_label).pick()
 
                 assert(slice is not None)
                 assert(node is not None)
