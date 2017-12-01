@@ -33,7 +33,6 @@ class Scheduler(object):
 
         raise Exception("Abstract Base")
 
-
 class LeastLoadedNodeScheduler(Scheduler):
     # This scheduler always return the node with the fewest number of
     # instances.
@@ -48,11 +47,11 @@ class LeastLoadedNodeScheduler(Scheduler):
 
         # if a label is set, then filter by label
         if self.label:
-            nodes = nodes.filter(nodelabels__name=self.label)
+            nodes = Node.objects.filter(nodelabels__name=self.label)
 
         # if slice.default_node is set, then filter by default_node
         if self.slice.default_node:
-            nodes = nodes.filter(name = self.slice.default_node)
+            nodes = Node.objects.filter(name = self.slice.default_node)
 
         # convert to list
         nodes = list(nodes)
@@ -67,6 +66,26 @@ class LeastLoadedNodeScheduler(Scheduler):
         # TODO: logic to filter nodes by which nodes are up, and which
         #   nodes the slice can instantiate on.
         return [nodes[0], None]
+
+
+
+class LeastLoadedNodeSchedulerWithConstraints(LeastLoadedNodeScheduler):
+    def pick(self):
+        set_label = False
+        if self.label:
+            nodes = Node.objects.filter(nodelabels__name=self.label)
+            if not nodes:
+                set_label = True
+
+        node, val = super(LeastLoadedNodeSchedulerWithConstraints, self).pick()
+        
+        if set_label and node:
+            nl = NodeLabel(name = self.label)
+            n1.node.add(node)
+            nl.save()
+
+        return [node, val]
+
 
 class TenantWithContainerPolicy(Policy):
     model_name = None # This policy is abstract. Inherit this class into your own policy and override model_name
@@ -228,7 +247,7 @@ class TenantWithContainerPolicy(Policy):
             if self.get_legacy_tenant_attribute(tenant, "use_same_instance_for_multiple_tenants", default=False):
                 # Find if any existing instances can be used for this tenant
                 slices = tenant.owner.slices.all()
-                instance = self.pick_least_loaded_instance_in_slice(slices, desired_image)
+                instance = self.pick_least_loaded_instance_in_slice(tenant, slices, desired_image)
 
             if not instance:
                 slice = tenant.owner.slices.first()
@@ -243,7 +262,9 @@ class TenantWithContainerPolicy(Policy):
                 if slice.default_isolation == "container_vm":
                     raise Exception("Not implemented")
                 else:
-                    (node, parent) = LeastLoadedNodeScheduler(slice).pick()
+                    scheduler = getattr(self, "scheduler", LeastLoadedNodeScheduler)
+                    tenant_node_label = getattr(tenant, "node_label", None)
+                    (node, parent) = scheduler(slice, label = tenant_node_label).pick()
 
                 assert(slice is not None)
                 assert(node is not None)
