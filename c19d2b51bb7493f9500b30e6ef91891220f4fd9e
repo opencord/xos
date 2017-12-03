@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad8cd658_9b878ff5",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 3
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-12-03T04:58:21Z",
+      "side": 1,
+      "message": "Are these supposed to be unique within the message?",
+      "range": {
+        "startLine": 76,
+        "startChar": 33,
+        "endLine": 76,
+        "endChar": 36
+      },
+      "revId": "c19d2b51bb7493f9500b30e6ef91891220f4fd9e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
