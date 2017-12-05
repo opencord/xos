@@ -101,8 +101,14 @@ class ORMWrapper(object):
            if name.endswith("_ids"):
                reverseForeignKey = field.GetOptions().Extensions._FindExtensionByName("xos.reverseForeignKey")
                fk = field.GetOptions().Extensions[reverseForeignKey]
-               if fk:
-                   reverse_fkmap[name[:-4]] = {"src_fieldName": name, "modelName": fk.modelName}
+               if fk and fk.modelName:
+                   reverse_fkmap[name[:-4]] = {"src_fieldName": name, "modelName": fk.modelName, "writeable": False}
+               else:
+                   manyToManyForeignKey = field.GetOptions().Extensions._FindExtensionByName("xos.manyToManyForeignKey")
+                   fk = field.GetOptions().Extensions[manyToManyForeignKey]
+                   if fk and fk.modelName:
+                       reverse_fkmap[name[:-4]] = {"src_fieldName": name, "modelName": fk.modelName, "writeable": True}
+
 
         return reverse_fkmap
 
