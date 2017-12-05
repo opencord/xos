@@ -251,6 +251,26 @@ class XOSAPIHelperMixin(object):
                     continue
                 getattr(p_obj, related_name + "_ids").append(rel_obj.id)
 
+        # Go through any many-to-many relations. This is almost the same as the related_objects loop above, but slightly
+        # different due to how django handles m2m.
+
+        for m2m in obj._meta.many_to_many:
+            related_name = m2m.name
+            if not related_name:
+                continue
+            if "+" in related_name:   # duplicated logic from related_objects; not sure if necessary
+                continue
+
+            rel_objs = getattr(obj, related_name)
+
+            if not hasattr(rel_objs, "all"):
+                continue
+
+            for rel_obj in rel_objs.all():
+                if not hasattr(p_obj, related_name + "_ids"):
+                    continue
+                getattr(p_obj, related_name + "_ids").append(rel_obj.id)
+
         # Generate a list of class names for the object. This includes its
         # ancestors. Anything that is a descendant of XOSBase or User
         # counts.
@@ -308,6 +328,45 @@ class XOSAPIHelperMixin(object):
                 fset[name] = True
 
         return args
+
+    def handle_m2m(self, djangoClass, message):
+        # fix for possible django bug?
+        # Unless we refresh the object, django will ignore every other m2m save
+
+        #djangoClass = djangoClass.__class__.objects.get(id=djangoClass.id)
+        djangoClass.refresh_from_db()
+
+        fmap={}
+        for m2m in djangoClass._meta.many_to_many:
+            related_name = m2m.name
+            if not related_name:
+                continue
+            if "+" in related_name:   # duplicated logic from related_objects; not sure if necessary
+                continue
+
+            fmap[m2m.name + "_ids"] = m2m
+
+        something_changed = False
+        for (fieldDesc, val) in message.ListFields():
+            if fieldDesc.name in fmap:
+                m2m = getattr(djangoClass,fmap[fieldDesc.name].name)
+
+                # remove items that are in the django object, but not in the proto object
+                for item in list(m2m.all()):
+                    if (not item.id in val):
+                        m2m.remove(item.id)
+                        something_changed = True
+
+                # add items are are in the proto object, but not in the django object
+                django_ids = [x.id for x in m2m.all()]
+
+                for item in val:
+                    if item not in django_ids:
+                        m2m.add(item)
+                        something_changed = True
+
+        if something_changed:
+            djangoClass.save()
 
     def querysetToProto(self, djangoClass, queryset):
         objs = queryset
@@ -393,6 +452,9 @@ class XOSAPIHelperMixin(object):
         self.xos_security_gate(new_obj, user, write_access=True)
 
         new_obj.save()
+
+        self.handle_m2m(new_obj, request)
+
         return self.objToProto(new_obj)
 
     def update(self, djangoClass, user, id, message, context):
@@ -415,6 +477,9 @@ class XOSAPIHelperMixin(object):
                 save_kwargs["always_update_timestamp"] = True
 
         obj.save(**save_kwargs)
+
+        self.handle_m2m(obj, message)
+
         return self.objToProto(obj)
 
     def delete(self, djangoClass, user, id):
