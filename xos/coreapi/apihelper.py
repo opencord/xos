@@ -251,6 +251,26 @@ class XOSAPIHelperMixin(object):
                     continue
                 getattr(p_obj, related_name + "_ids").append(rel_obj.id)
 
+        # Go through any many-to-many relations. This is almost the same as the related_objects loop above, but slightly
+        # different due to how django handles m2m.
+
+        for m2m in obj._meta.many_to_many:
+            related_name = m2m.name
+            if not related_name:
+                continue
+            if "+" in related_name:   # duplicated logic from related_objects; not sure if necessary
+                continue
+
+            rel_objs = getattr(obj, related_name)
+
+            if not hasattr(rel_objs, "all"):
+                continue
+
+            for rel_obj in rel_objs.all():
+                if not hasattr(p_obj, related_name + "_ids"):
+                    continue
+                getattr(p_obj, related_name + "_ids").append(rel_obj.id)
+
         # Generate a list of class names for the object. This includes its
         # ancestors. Anything that is a descendant of XOSBase or User
         # counts.
