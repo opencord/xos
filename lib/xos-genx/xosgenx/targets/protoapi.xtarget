@@ -22,7 +22,11 @@ message {{ object.name }} {
     {%- set id_field = {'type':'int32', 'name':'id', 'options':{}} -%}
   {%- for field in (xproto_base_fields(object, proto.message_table) + object.fields + [id_field]) | sort(attribute='name')%}
     oneof {{ field.name }}_present {
+      {%- if field.options.type == "link" and field.options.link_type == "manytomany" %}
+      repeated int32 {{ field.name }}_ids = {{ loop.index }} [(manyToManyForeignKey).modelName = "{{ field.options.model }}"];
+      {%- else %}
       {{ xproto_api_type(field) }} {{ field.name }}{% if field.link -%}_id{% endif %} = {{ loop.index }}{{ xproto_api_opts(field) }};
+      {%- endif %}
     }
   {%- endfor -%}
 
