@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from xosgenx.jinja2_extensions import xproto_field_graph_components
+
 def xproto_tosca_required(null, blank, default=None):
 
     if null == 'True' or blank == 'True' or default != 'False':
@@ -32,14 +34,23 @@ def xproto_tosca_field_type(type):
         return type
 
 def xproto_fields_to_tosca_keys(fields):
-	keys = []
-	# look for explicit keys
-	for f in fields:
-		if 'tosca_key' in f['options'] and f['options']['tosca_key'] and 'link' not in f:
-			keys.append(f['name'])
-		if 'tosca_key' in f['options'] and f['options']['tosca_key'] and ('link' in f and f['link']):
-			keys.append("%s_id" % f['name'])
-	# if not keys are specified and there is a name field, use that as key.
-	if len(keys) == 0 and 'name' in map(lambda f: f['name'], fields):
-		keys.append('name')
-	return keys
+    keys = []
+
+    # look for one_of keys
+    _one_of = xproto_field_graph_components(fields, 'tosca_key_one_of')
+    one_of = [list(i) for i in _one_of]
+
+    # look for explicit keys
+    for f in fields:
+        if 'tosca_key' in f['options'] and f['options']['tosca_key'] and 'link' not in f:
+            keys.append(f['name'])
+        if 'tosca_key' in f['options'] and f['options']['tosca_key'] and ('link' in f and f['link']):
+            keys.append("%s_id" % f['name'])
+    # if not keys are specified and there is a name field, use that as key.
+    if len(keys) == 0 and 'name' in map(lambda f: f['name'], fields):
+        keys.append('name')
+
+    for of in one_of:
+        keys.append(of)
+
+    return keys
