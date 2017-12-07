@@ -20,6 +20,7 @@ from core.models import Node, NodeLabel, Site, Deployment, SiteDeployment
 class XOSNode(XOSResource):
     provides = "tosca.nodes.Node"
     xos_model = Node
+    copyin_props = ["bridgeId", "dataPlaneIntf", "dataPlaneIp", "hostManagementIface"]
 
     def get_xos_args(self):
         args = {"name": self.obj_name}
