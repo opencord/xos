@@ -143,7 +143,7 @@ class TestORM(unittest.TestCase):
         self.assertNotEqual(slice.site, None)
         self.assertEqual(slice.site.id, site.id)
 
-    def test_foreign_key_set(self):
+    def test_foreign_key_set_with_invalidate(self):
         orm = self.make_coreapi()
         site = orm.Site(name="mysite")
         site.save()
@@ -157,6 +157,24 @@ class TestORM(unittest.TestCase):
         self.assertTrue(slice.id > 0)
         self.assertNotEqual(slice.site, None)
         self.assertEqual(slice.site.id, site.id)
+        if not USE_FAKE_STUB:
+            self.assertTrue(slice.id in slice.site.slices_ids)
+
+    def test_foreign_key_set_without_invalidate(self):
+        orm = self.make_coreapi()
+        site = orm.Site(name="mysite")
+        site.save()
+        self.assertTrue(site.id > 0)
+        user = orm.User(email="fake_" + ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(10)), site_id=site.id)
+        user.save()
+        self.assertTrue(user.id > 0)
+        slice = orm.Slice(name="mysite_foo", site = site, creator_id=user.id)
+        slice.save()
+        self.assertTrue(slice.id > 0)
+        self.assertNotEqual(slice.site, None)
+        self.assertEqual(slice.site.id, site.id)
+        if not USE_FAKE_STUB:
+            self.assertTrue(slice.id in slice.site.slices_ids)
 
     def test_foreign_key_create_null(self):
         orm = self.make_coreapi()
