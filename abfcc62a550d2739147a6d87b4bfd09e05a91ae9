@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f6c73352_0983e672",
+        "filename": "xos/synchronizers/new_base/model_policies/model_policy_tenantwithcontainer.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-12-11T19:21:02Z",
+      "side": 1,
+      "message": "What is this used for, and why not use self.leaf_model_name?",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 82,
+        "endChar": 4
+      },
+      "revId": "abfcc62a550d2739147a6d87b4bfd09e05a91ae9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
