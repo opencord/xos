@@ -18,27 +18,24 @@ import os
 import sys
 import time
 
-import django
-xos_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + '/..')
-sys.path.append(xos_path)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
-
 from reaper import ReaperThread
 from grpc_server import XOSGrpcServer, restart_chameleon
 
 from xosconfig import Config
 from multistructlog import create_logger
 
+Config.init()
+
 log = create_logger(Config().get('logging'))
 
 if __name__ == '__main__':
-
-    django.setup()
+    server = XOSGrpcServer()
+    server.init_core()
+    server.init_django()
+    server.start()
 
     reaper = ReaperThread()
     reaper.start()
-
-    server = XOSGrpcServer().start()
 
     restart_chameleon()
 
