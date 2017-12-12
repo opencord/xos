@@ -30,6 +30,7 @@ import os
 import signal
 from xosconfig import Config
 from diag import update_diag
+from loadmodels import ModelLoadClient
 
 from xosconfig import Config
 from multistructlog import create_logger
@@ -162,6 +163,9 @@ def grpcapi_reconnect(client, reactor):
 
     from apiaccessor import CoreApiModelAccessor
     model_accessor = CoreApiModelAccessor(orm=client.xos_orm)
+
+    if Config.get("models_dir"):
+        ModelLoadClient(client).upload_models(Config.get("name"), Config.get("models_dir"))
 
     # If required_models is set, then check to make sure the required_models
     # are present. If not, then the synchronizer needs to go to sleep until
