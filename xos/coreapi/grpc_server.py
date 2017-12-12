@@ -51,10 +51,11 @@ if __name__ == "__main__":
     sys.path.append('/opt/xos')
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
 
-from protos import xos_pb2, schema_pb2, modeldefs_pb2, utility_pb2
+from protos import xos_pb2, schema_pb2, modeldefs_pb2, utility_pb2, dynamicload_pb2
 from xos_grpc_api import XosService
 from xos_modeldefs_api import ModelDefsService
 from xos_utility_api import UtilityService
+from xos_dynamicload_api import DynamicLoadService
 from google.protobuf.empty_pb2 import Empty
 
 
@@ -62,10 +63,6 @@ from google.protobuf.empty_pb2 import Empty
 SERVER_KEY="/opt/cord_profile/core_api_key.pem"
 SERVER_CERT="/opt/cord_profile/core_api_cert.pem"
 SERVER_CA="/usr/local/share/ca-certificates/local_certs.crt"
-
-#SERVER_KEY="certs/server.key"
-#SERVER_CERT="certs/server.crt"
-#SERVER_CA="certs/ca.crt"
 
 class SchemaService(schema_pb2.SchemaServiceServicer):
 
@@ -141,6 +138,7 @@ class XOSGrpcServer(object):
             (xos_pb2.add_xosServicer_to_server, XosService),
             (modeldefs_pb2.add_modeldefsServicer_to_server, ModelDefsService),
             (utility_pb2.add_utilityServicer_to_server, UtilityService),
+            (dynamicload_pb2.add_dynamicloadServicer_to_server, DynamicLoadService),
         ):
             service = service_class(self.thread_pool)
             self.register(activator_func, service)
