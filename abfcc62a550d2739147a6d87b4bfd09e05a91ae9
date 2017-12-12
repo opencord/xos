@@ -22,6 +22,30 @@
       "revId": "abfcc62a550d2739147a6d87b4bfd09e05a91ae9",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b82c2dbc_2ceef11e",
+        "filename": "xos/synchronizers/new_base/model_policies/model_policy_tenantwithcontainer.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2017-12-12T16:11:31Z",
+      "side": 1,
+      "message": "Never mind, looks like pre-existing text that was reformatted.",
+      "parentUuid": "f6c73352_0983e672",
+      "range": {
+        "startLine": 81,
+        "startChar": 22,
+        "endLine": 82,
+        "endChar": 4
+      },
+      "revId": "abfcc62a550d2739147a6d87b4bfd09e05a91ae9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
