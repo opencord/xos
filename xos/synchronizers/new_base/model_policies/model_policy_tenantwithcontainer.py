@@ -42,17 +42,23 @@ class LeastLoadedNodeScheduler(Scheduler):
         super(LeastLoadedNodeScheduler, self).__init__(slice)
         self.label = label
 
+    def has_label(self, node, name):
+        for nodelabel in node.nodelabels.all():
+            if nodelabel.name == name:
+                return True
+        return False
+
     def pick(self):
         # start with all nodes
         nodes = Node.objects.all()
 
         # if a label is set, then filter by label
         if self.label:
-            nodes = nodes.filter(nodelabels__name=self.label)
+            nodes = [x for x in nodes if self.has_label(x, self.label)]
 
         # if slice.default_node is set, then filter by default_node
         if self.slice.default_node:
-            nodes = nodes.filter(name = self.slice.default_node)
+            nodes = [x for x in nodes if x.name == self.slice.default_node]
 
         # convert to list
         nodes = list(nodes)
