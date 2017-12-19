@@ -41,6 +41,13 @@ class Scheduler(object):
 class LeastLoadedNodeScheduler(Scheduler):
     # This scheduler always return the node with the fewest number of
     # instances.
+
+    def has_label(self, node, name):
+        for nodelabel in node.nodelabels.all():
+            if nodelabel.name == name:
+                return True
+        return False
+
     def pick(self):
         set_label = False
 
