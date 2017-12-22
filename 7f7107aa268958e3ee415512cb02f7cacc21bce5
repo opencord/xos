@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d7a9be8_df39cade",
+        "filename": "containers/xos/filebeat.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-12-22T19:16:33Z",
+      "side": 1,
+      "message": "Do we need the full example file?  Could we just link to the documentation/example file for this?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 79
+      },
+      "revId": "7f7107aa268958e3ee415512cb02f7cacc21bce5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
