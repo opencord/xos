@@ -46,6 +46,30 @@
       "revId": "7f7107aa268958e3ee415512cb02f7cacc21bce5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e955e1e_aa222626",
+        "filename": "containers/xos/filebeat.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2017-12-22T20:24:51Z",
+      "side": 1,
+      "message": "Ah, makes sense if all this is in the stock file.",
+      "parentUuid": "0eda23ea_8ddca863",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 79
+      },
+      "revId": "7f7107aa268958e3ee415512cb02f7cacc21bce5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
