@@ -22,6 +22,30 @@
       "revId": "7f7107aa268958e3ee415512cb02f7cacc21bce5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0eda23ea_8ddca863",
+        "filename": "containers/xos/filebeat.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000035
+      },
+      "writtenOn": "2017-12-22T19:25:59Z",
+      "side": 1,
+      "message": "This is the default configuration file that comes in with the stock apt package for filebeat. I think it\u0027s a good idea to change it minimally, so that a diff between the stock file and ours only contains differences that are relevant. Alternatively, we could store a patch (which would reduce it to one line of change). But \"git diff\" won\u0027t work well.",
+      "parentUuid": "3d7a9be8_df39cade",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 79
+      },
+      "revId": "7f7107aa268958e3ee415512cb02f7cacc21bce5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
