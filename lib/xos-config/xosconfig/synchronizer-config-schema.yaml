@@ -49,6 +49,8 @@ map:
                   type: str
                 subnet:
                   type: str
+                owner:
+		  type: str
   dependency_graph:
     type: str
   link_graph:
