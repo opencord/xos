@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47f73306_09bb7157",
+        "filename": "xos/tosca/definitions/TOSCA_definition_1_0.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-01-11T22:59:47Z",
+      "side": 0,
+      "message": "Have you confirmed this file is not necessary?",
+      "range": {
+        "startLine": 2,
+        "startChar": 1,
+        "endLine": 2,
+        "endChar": 51
+      },
+      "revId": "68ab543f1764e9db342c6ddc2d4f42475d0af3c6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d37acfa0_5d571f45",
+        "filename": "xos/tosca/samples/vtn-service-chain.yaml",
+        "patchSetId": 5
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-01-11T22:59:47Z",
+      "side": 0,
+      "message": "It may be nice to convert this recipe to the new engine, as it has been used a few times as examples for those looking to setup a service chain.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 51
+      },
+      "revId": "68ab543f1764e9db342c6ddc2d4f42475d0af3c6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
