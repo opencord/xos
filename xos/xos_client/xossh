@@ -112,10 +112,15 @@ def listDirtyModels(*args, **kwargs):
 def listModelDefs():
     return current_client.modeldefs.ListModelDefs(Empty())
 
+def getLoadStatus():
+    request = Empty()
+    return current_client.dynamicload.GetLoadStatus(request)
+
 def listUtility():
     print 'setDirtyModels(class_name=None)'
     print 'listDirtyModels(class_name=None)'
     print 'listModelDefs()'
+    print 'getLoadStatus()'
 
 def examples():
     print 'Slice.objects.all() # list all slices'
