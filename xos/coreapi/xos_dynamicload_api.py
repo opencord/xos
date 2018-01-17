@@ -54,4 +54,23 @@ class DynamicLoadService(dynamicload_pb2.dynamicloadServicer):
             import traceback; traceback.print_exc()
             raise e
 
+    def GetLoadStatus(self, request, context):
+        try:
+            builder = DynamicBuilder()
+            manifests = builder.get_manifests(request)
+
+            response = dynamicload_pb2.LoadStatusReply()
+            response.model_status = self.server.model_status
+            response.model_output = self.server.model_output
+            for manifest in manifests:
+                item = response.service.add()
+                item.name = manifest["name"]
+                item.version = manifest["version"]
+                item.state = manifest["state"]
+
+            return response
+        except Exception, e:
+            import traceback; traceback.print_exc()
+            raise e
+
 
