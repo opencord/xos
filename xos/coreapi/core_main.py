@@ -14,6 +14,7 @@
 # limitations under the License.
 
 
+import argparse
 import os
 import sys
 import time
@@ -24,6 +25,19 @@ from xosconfig import Config
 from multistructlog import create_logger
 
 log = create_logger(Config().get('logging'))
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model_status", dest="model_status", type=int, default=0, help="status of model prep")
+    parser.add_argument("--model_output", dest="model_output", type=file, default=None, help="file containing output of model prep step")
+    args = parser.parse_args()
+
+    if args.model_output:
+        args.model_output = args.model_output.read()
+    else:
+        args.model_output = ""
+
+    return args
 
 def init_reaper():
     reaper = None
@@ -37,8 +51,10 @@ def init_reaper():
     return reaper
 
 if __name__ == '__main__':
-    server = XOSGrpcServer()
-    server.init_django()
+    args = parse_args()
+
+    server = XOSGrpcServer(model_status = args.model_status,
+                           model_output = args.model_output)
     server.start()
 
     reaper = init_reaper()
