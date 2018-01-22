@@ -140,7 +140,9 @@ def save(self, *args, **kwargs):
                 ignore_composite_key_check=False
 
     if (caller_kind!="synchronizer") or always_update_timestamp:
-        self.updated = timezone.now()
+        smallest_delta = datetime.timedelta.resolution
+        last_enacted = 0 if self.enacted is None else self.enacted
+        self.updated = max(timezone.now(), last_enacted + smallest_delta)
     else:
         # We're not auto-setting timestamp, but let's check to make sure that the caller hasn't tried to set our
         # timestamp backward...
