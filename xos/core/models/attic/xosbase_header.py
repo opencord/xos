@@ -16,6 +16,7 @@
 
 import datetime
 import time
+import calendar
 import json
 import pytz
 import inspect
@@ -44,11 +45,8 @@ log = create_logger(Config().get('logging'))
 XOS_GLOBAL_DEFAULT_SECURITY_POLICY = True
 
 def date_handler(obj):
-    if isinstance(obj, pytz.tzfile.DstTzInfo):
-        # json can't serialize DstTzInfo
-        return str(obj)
     elif hasattr(obj, 'timetuple'):
-        return time.mktime(obj.timetuple())
+        return calendar.timegm(obj.timetuple())
     else:
         return obj
 
