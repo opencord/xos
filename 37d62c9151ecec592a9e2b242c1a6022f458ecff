@@ -22,6 +22,30 @@
       "revId": "37d62c9151ecec592a9e2b242c1a6022f458ecff",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc368226_a42c47ec",
+        "filename": "xos/tools/xossh-local",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-01-24T19:26:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54ec6df5_7d6bab20",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 78
+      },
+      "revId": "37d62c9151ecec592a9e2b242c1a6022f458ecff",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
