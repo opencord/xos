@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54ec6df5_7d6bab20",
+        "filename": "xos/tools/xossh-local",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-01-24T19:18:03Z",
+      "side": 1,
+      "message": "This makes assumptions on the location of the current working dir. You might be able to do something like this:\nSCRIPT_DIRECTORY\u003d`dirname $0`\nCRED_FILENAME\u003d\"$SCRIPT_DIRECTORY/../../../../build/platform-install/credentials/xosadmin@opencord.org\"",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 78
+      },
+      "revId": "37d62c9151ecec592a9e2b242c1a6022f458ecff",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
