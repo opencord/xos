@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "17a98283_10cfc9b5",
+        "filename": "xos/synchronizers/new_base/backend.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-01-24T17:32:52Z",
+      "side": 1,
+      "message": "Is this a warning (indicating that something might be wrong), or info (purely descriptive)?",
+      "range": {
+        "startLine": 108,
+        "startChar": 21,
+        "endLine": 108,
+        "endChar": 28
+      },
+      "revId": "4f2dea4bb1ec7e75470abbe9ededca3d14f5fd96",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
