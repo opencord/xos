@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# This is a stub for launching xossh in the xosproject/xos-client container.
+# It's assumed that this script is being invoked on the head node. 
+
+docker run --rm -it --name xossh \
+	--link rcord_xos_core_1:xos-core --net xos \
+	-v `echo $(pwd)/../../../../../cord_profile/im_cert_chain.pem`:/usr/local/share/ca-certificates/local_certs.crt \
+	xosproject/xos-client:candidate \
+	 -u xosadmin@opencord.org \
+	 -p `cat ../../../../build/platform-install/credentials/xosadmin@opencord.org` \
+	 -S xos-core:50051
