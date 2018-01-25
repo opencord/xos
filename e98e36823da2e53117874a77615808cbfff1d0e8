@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2ec9c286_803e570a",
+        "filename": "xos/synchronizers/new_base/modelaccessor.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-01-25T18:48:58Z",
+      "side": 1,
+      "message": "Should this be logged as an exception?\n\nI see that is within the exception code, but the result is we get a traceback in the log, which might be scary to an operator.\n\nWe\u0027re just going to retry anyway, so it seems like having a traceback is unnecessary.",
+      "range": {
+        "startLine": 169,
+        "startChar": 11,
+        "endLine": 169,
+        "endChar": 25
+      },
+      "revId": "e98e36823da2e53117874a77615808cbfff1d0e8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
