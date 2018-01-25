@@ -159,13 +159,8 @@ def keep_trying(client, reactor):
 def grpcapi_reconnect(client, reactor):
     global model_accessor
 
-    # this will prevent updated timestamps from being automatically updated
-    client.xos_orm.caller_kind = "synchronizer"
-
-    client.xos_orm.restart_on_disconnect = True
-
-    from apiaccessor import CoreApiModelAccessor
-    model_accessor = CoreApiModelAccessor(orm=client.xos_orm)
+    # Make sure to try to load models before trying to initialize the ORM. It might be the ORM is broken because it
+    # is waiting on our models.
 
     if Config.get("models_dir"):
         try:
@@ -174,6 +169,21 @@ def grpcapi_reconnect(client, reactor):
             log.exception("failed to onboard models")
             reactor.callLater(10, functools.partial(grpcapi_reconnect, client, reactor))
             return
+
+    # If the ORM is broken, then try again later.
+
+    if not getattr(client, "xos_orm", None):
+        log.warning("No xos_orm. Will keep trying...")
+        reactor.callLater(1, functools.partial(keep_trying, client, reactor))
+        return
+
+    # this will prevent updated timestamps from being automatically updated
+    client.xos_orm.caller_kind = "synchronizer"
+
+    client.xos_orm.restart_on_disconnect = True
+
+    from apiaccessor import CoreApiModelAccessor
+    model_accessor = CoreApiModelAccessor(orm=client.xos_orm)
 
     # If required_models is set, then check to make sure the required_models
     # are present. If not, then the synchronizer needs to go to sleep until
