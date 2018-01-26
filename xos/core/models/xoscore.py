@@ -13,12 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from xos.exceptions import *
+from xoscore_decl import *
 
-def tologdict(self):
-    d=super(ControllerNetwork,self).tologdict()
-    try:
-        d['network_name']=self.network.name
-        d['controller_name']=self.controller.name
-    except:
-        pass
-    return d
+class XOSCore(XOSCore_decl):
+    class Meta:
+        proxy = True

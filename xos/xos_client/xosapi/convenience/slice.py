@@ -15,12 +15,18 @@
 
 
 import json
-from xosapi.orm import ORMWrapper, register_convenience_wrapper
+from xosapi.orm import ORMWrapper, ORMLocalObjectManager, register_convenience_wrapper
 
 class ORMWrapperSlice(ORMWrapper):
     # TODO: this looks to be incorrect
     @property
     def slicename(self):
         return "%s_%s" % (self.site.login_base, self.name)
+
+    # networks - emulates the ManyToMany from Slice to Network via NetworkSlice
+    @property
+    def networks(self):
+        idList = [x.network.id for x in self.networkslices.all()]
+        return ORMLocalObjectManager(self.stub, "Network", idList, False)
 
 register_convenience_wrapper("Slice", ORMWrapperSlice)
