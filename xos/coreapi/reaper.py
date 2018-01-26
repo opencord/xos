@@ -152,6 +152,7 @@ class ReaperThread(threading.Thread):
                         self.journal_object(d, "reaper.purge.exception")
                         log.error('REAPER: exception purging object', object = d)
                         traceback.print_exc()
+                        
             try:
                 reset_queries()
             except:
