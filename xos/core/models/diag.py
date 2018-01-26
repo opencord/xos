@@ -13,17 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-def __xos_save_base(self, *args, **kwds):
-    """ Hack to allow the creation of NodeLabel objects from outside core 
-        until the ORM is extended with support for ManyToMany relations.
-    """
+from xos.exceptions import *
+from diag_decl import *
 
-    if self.name and '###' in self.name:
-        from core.models import Node
-
-        self.name, node_id_str = self.name.split('###')
-        node_ids = map(int, node_id_str.split(','))
-
-        for node_id in node_ids:
-            node = Node.get(node_id)
-            self.node.add(node)
+class Diag(Diag_decl):
+    class Meta:
+        proxy = True

@@ -1,4 +1,5 @@
 option app_label = "core";
+option legacy="True";
 
 // use thi policy to allow access to admins only
 policy admin_policy < ctx.user.is_admin >
