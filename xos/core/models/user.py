@@ -25,6 +25,7 @@ from xosbase import XOSBase, PlModelMixIn
 from core.models.xosbase import StrippedCharField, XOSCollector
 from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
