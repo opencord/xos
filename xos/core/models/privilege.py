@@ -13,12 +13,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from xos.exceptions import *
+from privilege_decl import *
 
-def tologdict(self):
-    d=super(ControllerNetwork,self).tologdict()
-    try:
-        d['network_name']=self.network.name
-        d['controller_name']=self.controller.name
-    except:
-        pass
-    return d
+class Privilege(Privilege_decl):
+    class Meta:
+        proxy = True
