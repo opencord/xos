@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,17 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-def __xos_save_base(self, *args, **kwds):
-    """ Hack to allow the creation of NodeLabel objects from outside core 
-        until the ORM is extended with support for ManyToMany relations.
-    """
+from xos.exceptions import *
+from controller_decl import *
 
-    if self.name and '###' in self.name:
-        from core.models import Node
-
-        self.name, node_id_str = self.name.split('###')
-        node_ids = map(int, node_id_str.split(','))
-
-        for node_id in node_ids:
-            node = Node.get(node_id)
-            self.node.add(node)
+class Controller(Controller_decl):
+    class Meta:
+        proxy = True

@@ -13,12 +13,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from xos.exceptions import *
+from controllernetwork_decl import *
 
-def tologdict(self):
-    d=super(ControllerSlice,self).tologdict()
-    try:
-        d['slice_name']=self.slice.name
-        d['controller_name']=self.controller.name
-    except:
-        pass
-    return d
+class ControllerNetwork(ControllerNetwork_decl):
+    class Meta:
+        proxy = True
+
+    def tologdict(self):
+        d=super(ControllerNetwork,self).tologdict()
+        try:
+            d['network_name']=self.network.name
+            d['controller_name']=self.controller.name
+        except:
+            pass
+        return d
