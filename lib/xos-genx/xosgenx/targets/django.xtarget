@@ -1,6 +1,24 @@
+{% if options.legacy =='"True"' -%}
+{% set legacy_tag = '_decl' %}
+{% set legacy = True %}
+{% else %}
+{% set legacy_tag = '' %}
+{% set legacy = False %}
+{% endif %}
+
 {% for m in proto.messages %}{% if not m.options.skip_django -%}
+{% if legacy %}
+{# special case for XOSBase as it includes much django infrastructure #}
+{% if m.name=='XOSBase' %}
+from xosbase_header import *
+{% else %}
+from core.models.xosbase import *
+{% endif %}
+{% else %}
 {% if file_exists(xproto_base_name(m.name)|lower+'_header.py') -%}from {{xproto_base_name(m.name)|lower }}_header import *{%- else -%}from header import *{% endif %}
 {% if file_exists(xproto_base_name(m.name)|lower+'_top.py') -%}{{ include_file(xproto_base_name(m.name)|lower+'_top.py') }} {% endif %}
+{% endif %}
+
 {%- for l in m.links %}
 
 {% if l.peer.name != m.name %}
@@ -24,7 +42,7 @@ from {{b.name | lower}} import {{ b.name }}
 {{ xproto_fol_to_python_validator(policy, proto.policies[policy], m, error) }}
 {% endfor %}
 
-class {{ m.name }}{{ xproto_base_def(m.name, m.bases) }}:
+class {{ m.name }}{{ legacy_tag }}{{ xproto_base_def(m.name, m.bases) }}:
   plural_name = "{{ xproto_pluralize(m) }}"
 
 {#  {% if m.options.no_sync or m.options.no_policy %}#}
@@ -75,7 +93,7 @@ class {{ m.name }}{{ xproto_base_def(m.name, m.bases) }}:
       {% for policy,error in xproto_validations(m.options) %}
       policy_{{policy}}_validator(self, None)
       {% endfor %}
-      super({{ m.name }}, self).save(*args, **kwds)
+      super({{ m.name }}{{ legacy_tag }}, self).save(*args, **kwds)
 
   def can_access(self, ctx):
       {% if m.policy %}
