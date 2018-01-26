@@ -33,6 +33,10 @@ from xos.exceptions import *
 from importlib import import_module
 from django.conf import settings
 
+from xosconfig import Config
+from multistructlog import create_logger
+log = create_logger(Config().get('logging'))
+
 
 class XOSDefaultSecurityContext(object):
     grant_access = True
@@ -226,12 +230,26 @@ class XOSAPIHelperMixin(object):
             elif (ftype == "GenericIPAddressField"):
                 setattr(p_obj, field.name, str(getattr(obj, field.name)))
 
-        for field in obj._meta.related_objects:
-            related_name = field.related_name
-            if not related_name:
+        # Introspecting the django object for related objects is problematic due to _decl-style attics. The descendant
+        # class's _meta's related_objects doesn't include related objects from the base. For example, VSGServiceInstance
+        # was missing provided_links and subscribed_links, since those were declared in ServiceInstance. (This problem
+        # does not exist with older style attics)
+        #
+        # Instead, look through the protobuf object since we know it's right because we generated it from xproto. Look
+        # for any field that ended in "_ids", and use that to extract the appropriate field from the django
+        # object. This handles both ManyToOne reverse relations and ManyToMany.
+
+        for field_name in p_obj.DESCRIPTOR.fields_by_name.keys():
+            if not field_name.endswith("_ids"):
+                # only look for reverse relations
                 continue
-            if "+" in related_name:
+
+            related_name = field_name[:-4]
+            if not hasattr(obj, related_name):
+                # if field doesn't exist in the django object, then ignore it
+                log.warning("Protobuf field %s doesn't have a corresponding djanog field" % field_name)
                 continue
+
             try:
                 rel_objs = getattr(obj, related_name)
             except Exception as e:
@@ -247,29 +265,9 @@ class XOSAPIHelperMixin(object):
                 continue
 
             for rel_obj in rel_objs.all():
-                if not hasattr(p_obj, related_name + "_ids"):
+                if not hasattr(p_obj, field_name):
                     continue
-                getattr(p_obj, related_name + "_ids").append(rel_obj.id)
-
-        # Go through any many-to-many relations. This is almost the same as the related_objects loop above, but slightly
-        # different due to how django handles m2m.
-
-        for m2m in obj._meta.many_to_many:
-            related_name = m2m.name
-            if not related_name:
-                continue
-            if "+" in related_name:   # duplicated logic from related_objects; not sure if necessary
-                continue
-
-            rel_objs = getattr(obj, related_name)
-
-            if not hasattr(rel_objs, "all"):
-                continue
-
-            for rel_obj in rel_objs.all():
-                if not hasattr(p_obj, related_name + "_ids"):
-                    continue
-                getattr(p_obj, related_name + "_ids").append(rel_obj.id)
+                getattr(p_obj, field_name).append(rel_obj.id)
 
         # Generate a list of class names for the object. This includes its
         # ancestors. Anything that is a descendant of XOSBase or User
@@ -456,59 +454,71 @@ class XOSAPIHelperMixin(object):
         return self.objToProto(obj)
 
     def create(self, djangoClass, user, request):
-        args = self.protoToArgs(djangoClass, request)
-        new_obj = djangoClass(**args)
-        new_obj.caller = user
+        try:
+            args = self.protoToArgs(djangoClass, request)
+            new_obj = djangoClass(**args)
+            new_obj.caller = user
 
-        self.xos_security_gate(new_obj, user, write_access=True)
+            self.xos_security_gate(new_obj, user, write_access=True)
 
-        new_obj.save()
+            new_obj.save()
 
-        self.handle_m2m(new_obj, request, [])
+            self.handle_m2m(new_obj, request, [])
 
-        return self.objToProto(new_obj)
+            return self.objToProto(new_obj)
+        except:
+            log.exception("Exception in apihelper.create")
+            raise
 
     def update(self, djangoClass, user, id, message, context):
-        obj = self.get_live_or_deleted_object(djangoClass, id)
-        obj.caller = user
+        try:
+            obj = self.get_live_or_deleted_object(djangoClass, id)
+            obj.caller = user
 
-        self.xos_security_gate(obj, user, write_access=True)
+            self.xos_security_gate(obj, user, write_access=True)
 
-        args = self.protoToArgs(djangoClass, message)
-        for (k, v) in args.iteritems():
-            setattr(obj, k, v)
+            args = self.protoToArgs(djangoClass, message)
+            for (k, v) in args.iteritems():
+                setattr(obj, k, v)
 
-        m2m_field_names = [x.name+"_ids" for x in djangoClass._meta.many_to_many]
+            m2m_field_names = [x.name+"_ids" for x in djangoClass._meta.many_to_many]
 
-        update_fields = []
-        m2m_update_fields = []
-        save_kwargs = {}
-        for (k, v) in context.invocation_metadata():
-            if k == "update_fields":
-                for field_name in v.split(","):
-                    if field_name in m2m_field_names:
-                        m2m_update_fields.append(field_name)
-                    else:
-                        update_fields.append(field_name)
-                save_kwargs["update_fields"] = update_fields
-            elif k == "caller_kind":
-                save_kwargs["caller_kind"] = v
-            elif k == "always_update_timestamp":
-                save_kwargs["always_update_timestamp"] = True
+            update_fields = []
+            m2m_update_fields = []
+            save_kwargs = {}
+            for (k, v) in context.invocation_metadata():
+                if k == "update_fields":
+                    for field_name in v.split(","):
+                        if field_name in m2m_field_names:
+                            m2m_update_fields.append(field_name)
+                        else:
+                            update_fields.append(field_name)
+                    save_kwargs["update_fields"] = update_fields
+                elif k == "caller_kind":
+                    save_kwargs["caller_kind"] = v
+                elif k == "always_update_timestamp":
+                    save_kwargs["always_update_timestamp"] = True
 
-        obj.save(**save_kwargs)
+            obj.save(**save_kwargs)
 
-        self.handle_m2m(obj, message, m2m_update_fields)
+            self.handle_m2m(obj, message, m2m_update_fields)
 
-        return self.objToProto(obj)
+            return self.objToProto(obj)
+        except:
+            log.exception("Exception in apihelper.update")
+            raise
 
     def delete(self, djangoClass, user, id):
-        obj = djangoClass.objects.get(id=id)
+        try:
+            obj = djangoClass.objects.get(id=id)
 
-        self.xos_security_gate(obj, user, write_access=True)
+            self.xos_security_gate(obj, user, write_access=True)
 
-        obj.delete()
-        return Empty()
+            obj.delete()
+            return Empty()
+        except:
+            log.exception("Exception in apihelper.delete")
+            raise
 
     def query_element_to_q(self, element):
         value = element.sValue
@@ -538,49 +548,57 @@ class XOSAPIHelperMixin(object):
         return q
 
     def list(self, djangoClass, user):
-        queryset = djangoClass.objects.all()
-        filtered_queryset = (
-            elt for elt in queryset if self.xos_security_check(
-                elt, user, read_access=True))
+        try:
+            queryset = djangoClass.objects.all()
+            filtered_queryset = (
+                elt for elt in queryset if self.xos_security_check(
+                    elt, user, read_access=True))
 
-        # FIXME: Implement auditing here
-        # logging.info("User requested x objects, y objects were filtered out by policy z")
+            # FIXME: Implement auditing here
+            # logging.info("User requested x objects, y objects were filtered out by policy z")
 
-        return self.querysetToProto(djangoClass, filtered_queryset)
+            return self.querysetToProto(djangoClass, filtered_queryset)
+        except:
+            log.exception("Exception in apihelper.list")
+            raise
 
     def filter(self, djangoClass, user, request):
-        query = None
-        if request.kind == request.DEFAULT:
-            for element in request.elements:
-                if query:
-                    query = query & self.query_element_to_q(element)
-                else:
-                    query = self.query_element_to_q(element)
-            queryset = djangoClass.objects.filter(query)
-        elif request.kind == request.SYNCHRONIZER_DIRTY_OBJECTS:
-            query = (Q(enacted__lt=F('updated')) | Q(enacted=None)) & Q(
-                lazy_blocked=False) & Q(no_sync=False)
-            queryset = djangoClass.objects.filter(query)
-        elif request.kind == request.SYNCHRONIZER_DELETED_OBJECTS:
-            queryset = djangoClass.deleted_objects.all()
-        elif request.kind == request.SYNCHRONIZER_DIRTY_POLICIES:
-            query = (Q(policed__lt=F('updated')) | Q(
-                policed=None)) & Q(no_policy=False)
-            queryset = djangoClass.objects.filter(query)
-        elif request.kind == request.SYNCHRONIZER_DELETED_POLICIES:
-            query = Q(policed__lt=F('updated')) | Q(policed=None)
-            queryset = djangoClass.deleted_objects.filter(query)
-        elif request.kind == request.ALL:
-            queryset = djangoClass.objects.all()
+        try:
+            query = None
+            if request.kind == request.DEFAULT:
+                for element in request.elements:
+                    if query:
+                        query = query & self.query_element_to_q(element)
+                    else:
+                        query = self.query_element_to_q(element)
+                queryset = djangoClass.objects.filter(query)
+            elif request.kind == request.SYNCHRONIZER_DIRTY_OBJECTS:
+                query = (Q(enacted__lt=F('updated')) | Q(enacted=None)) & Q(
+                    lazy_blocked=False) & Q(no_sync=False)
+                queryset = djangoClass.objects.filter(query)
+            elif request.kind == request.SYNCHRONIZER_DELETED_OBJECTS:
+                queryset = djangoClass.deleted_objects.all()
+            elif request.kind == request.SYNCHRONIZER_DIRTY_POLICIES:
+                query = (Q(policed__lt=F('updated')) | Q(
+                    policed=None)) & Q(no_policy=False)
+                queryset = djangoClass.objects.filter(query)
+            elif request.kind == request.SYNCHRONIZER_DELETED_POLICIES:
+                query = Q(policed__lt=F('updated')) | Q(policed=None)
+                queryset = djangoClass.deleted_objects.filter(query)
+            elif request.kind == request.ALL:
+                queryset = djangoClass.objects.all()
 
-        filtered_queryset = (
-            elt for elt in queryset if self.xos_security_check(
-                elt, user, read_access=True))
+            filtered_queryset = (
+                elt for elt in queryset if self.xos_security_check(
+                    elt, user, read_access=True))
 
-        # FIXME: Implement auditing here
-        # logging.info("User requested x objects, y objects were filtered out by policy z")
+            # FIXME: Implement auditing here
+            # logging.info("User requested x objects, y objects were filtered out by policy z")
 
-        return self.querysetToProto(djangoClass, filtered_queryset)
+            return self.querysetToProto(djangoClass, filtered_queryset)
+        except:
+            log.exception("Exception in apihelper.filter")
+            raise
 
     def authenticate(self, context, required=False):
         for (k, v) in context.invocation_metadata():
