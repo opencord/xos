@@ -1,4 +1,5 @@
 option app_label = "core";
+option legacy="True";
 
 // use thi policy to allow access to admins only
 policy admin_policy < ctx.user.is_admin >
@@ -190,27 +191,10 @@ message ControllerNetwork::controller_network_policy (XOSBase) {
 }
 
 
-message ControllerRole (XOSBase) {
-     required string role = 1 [choices = "(('admin', 'Admin'),)", max_length = 30, content_type = "stripped", blank = False, null = False, db_index = False];
-}
-
-
 message ControllerSite (XOSBase) {
      required manytoone site->Site:controllersite = 1 [db_index = True, null = False, blank = False, unique_with="controller", tosca_key = True];
      optional manytoone controller->Controller:controllersite = 2 [db_index = True, null = True, blank = True, tosca_key = True];
      optional string tenant_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Keystone tenant id", null = True, db_index = True];
-}
-
-message ControllerPrivilege (XOSBase) {
-     required manytoone controller->Controller:controllerprivileges = 1 [db_index = True, null = False, blank = False];
-     required manytoone privilege->Privilege:controllerprivileges = 2 [db_index = True, null = False, blank = False];
-     optional string role_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Keystone id", null = True, db_index = True];
-}
-
-message ControllerSitePrivilege (XOSBase) {
-     required manytoone controller->Controller:controllersiteprivileges = 1 [db_index = True, null = False, blank = False, unique_with = "site_privilege"];
-     required manytoone site_privilege->SitePrivilege:controllersiteprivileges = 2 [db_index = True, null = False, blank = False, unique_with = "role_id"];
-     optional string role_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Keystone id", null = True, db_index = True];
 }
 
 policy controller_slice_policy <
@@ -223,12 +207,6 @@ message ControllerSlice::controller_slice_policy (XOSBase) {
      optional string tenant_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Keystone tenant id", null = True, db_index = False];
 }
 
-
-message ControllerSlicePrivilege (XOSBase) {
-     required manytoone controller->Controller:controllersliceprivileges = 1 [db_index = True, null = False, blank = False, unique_with = "slice_privilege"];
-     required manytoone slice_privilege->SlicePrivilege:controllersliceprivileges = 2 [db_index = True, null = False, blank = False];
-     optional string role_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Keystone id", null = True, db_index = True];
-}
 
 policy controller_user_policy <
          ctx.user.is_admin
@@ -249,18 +227,6 @@ policy deployment_policy <
 message Deployment::deployment_policy (XOSBase) {
      required string name = 1 [max_length = 200, content_type = "stripped", blank = False, help_text = "Name of the Deployment", null = False, db_index = False];
      required string accessControl = 2 [default = "allow all", max_length = 200, blank = False, help_text = "Access control list that specifies which sites/users may use nodes in this deployment", null = False, db_index = False, varchar = True];
-}
-
-
-message DeploymentPrivilege (XOSBase) {
-     required manytoone user->User:deploymentprivileges = 1 [db_index = True, null = False, blank = False, unique_with="deployment"];
-     required manytoone deployment->Deployment:deploymentprivileges = 2 [db_index = True, null = False, blank = False, unique_with="role"];
-     required manytoone role->DeploymentRole:deploymentprivileges = 3 [db_index = True, null = False, blank = False];
-}
-
-
-message DeploymentRole (XOSBase) {
-     required string role = 1 [choices = "(('admin', 'Admin'),)", max_length = 30, content_type = "stripped", blank = False, null = False, db_index = False, tosca_key=True];
 }
 
 
@@ -339,8 +305,8 @@ message Network::network_policy (XOSBase) {
      required bool permit_all_slices = 10 [default = False, null = False, db_index = False, blank = True];
      required bool autoconnect = 17 [help_text = "This network can be autoconnected to the slice that owns it", default = True, null = False, db_index = False, blank = True];
      required manytomany permitted_slices->Slice/Network_permitted_slices:availableNetworks = 18 [db_index = False, null = False, blank = True];
-     required manytomany slices->Slice/NetworkSlice:networks = 19 [db_index = False, null = False, blank = True];
-     required manytomany instances->Instance/Port:networks = 20 [db_index = False, null = False, blank = True];
+//     required manytomany slices->Slice/NetworkSlice:networks = 19 [db_index = False, null = False, blank = True];
+//     required manytomany instances->Instance/Port:networks = 20 [db_index = False, null = False, blank = True];
 }
 
 
@@ -453,19 +419,6 @@ message ServiceMonitoringAgentInfo (XOSBase) {
 }
 
 
-message ServicePrivilege (XOSBase) {
-     required manytoone user->User:serviceprivileges = 1 [db_index = True, null = False, blank = False, unique_with = "service"];
-     required manytoone service->Service:serviceprivileges = 2 [db_index = True, null = False, blank = False, unique_with = "role"];
-     required manytoone role->ServiceRole:serviceprivileges = 3 [db_index = True, null = False, blank = False];
-}
-
-
-message ServiceRole (XOSBase) {
-     required string role = 1 [choices = "(('admin', 'Admin'),)", max_length = 30, content_type = "stripped", blank = False, null = False, db_index = False];
-}
-
-
-
 message Site::site_policy (XOSBase) {
      required string name = 1 [max_length = 200, content_type = "stripped", blank = False, help_text = "Name for this Site", null = False, db_index = False];
      optional string site_url = 2 [max_length = 512, content_type = "url", blank = True, help_text = "Site's Home URL Page", null = True, db_index = False];
@@ -477,7 +430,7 @@ message Site::site_policy (XOSBase) {
      required string login_base = 8 [max_length = 50, content_type = "stripped", blank = False, help_text = "Prefix for Slices associated with this Site", null = False, db_index = False];
      required bool is_public = 9 [help_text = "Indicates the visibility of this site to other members", default = True, null = False, db_index = False, blank = True];
      required string abbreviated_name = 10 [db_index = False, max_length = 80, null = False, content_type = "stripped", blank = False];
-     required manytomany deployments->Deployment/SiteDeployment:sites = 11 [help_text = "Select which sites are allowed to host nodes in this deployment", null = False, db_index = False, blank = True];
+//     required manytomany deployments->Deployment/SiteDeployment:sites = 11 [help_text = "Select which sites are allowed to host nodes in this deployment", null = False, db_index = False, blank = True];
 }
 
 
@@ -488,17 +441,6 @@ message SiteDeployment (XOSBase) {
      optional string availability_zone = 4 [max_length = 200, content_type = "stripped", blank = True, help_text = "OpenStack availability zone", null = True, db_index = False];
 }
 
-
-message SitePrivilege (XOSBase) {
-     required manytoone user->User:siteprivileges = 1 [db_index = True, null = False, blank = False];
-     required manytoone site->Site:siteprivileges = 2 [db_index = True, null = False, blank = False, tosca_key=True];
-     required manytoone role->SiteRole:siteprivileges = 3 [db_index = True, null = False, blank = False, tosca_key=True];
-}
-
-
-message SiteRole (XOSBase) {
-     required string role = 1 [choices = "(('admin', 'Admin'), ('pi', 'PI'), ('tech', 'Tech'), ('billing', 'Billing'))", max_length = 30, content_type = "stripped", blank = False, null = False, db_index = False, tosca_key=True];
-}
 
 policy slice_name < obj.id | {{ obj.name.startswith(obj.site.login_base) }} >
 policy slice_name_length_and_no_spaces < {{ len(obj.site.login_base) + 1 < len(obj.name) and ' ' not in obj.name }} >
@@ -527,17 +469,6 @@ message Slice::slice_policy (XOSBase) {
      required string default_isolation = 17 [default = "vm", choices = "(('vm', 'Virtual Machine'), ('container', 'Container'), ('container_vm', 'Container In VM'))", max_length = 30, blank = False, null = False, db_index = False];
 }
 
-
-message SlicePrivilege (XOSBase) {
-     required manytoone user->User:sliceprivileges = 1 [db_index = True, null = False, blank = False, unique_with = "slice"];
-     required manytoone slice->Slice:sliceprivileges = 2 [db_index = True, null = False, blank = False, unique_with = "role"];
-     required manytoone role->SliceRole:sliceprivileges = 3 [db_index = True, null = False, blank = False];
-}
-
-
-message SliceRole (XOSBase) {
-     required string role = 1 [choices = "(('admin', 'Admin'), ('default', 'Default'))", max_length = 30, content_type = "stripped", blank = False, null = False, db_index = False, tosca_key=True];
-}
 
 policy tag_policy < ctx.user.is_admin >
 
@@ -590,9 +521,9 @@ message TenantWithContainer (ServiceInstance) {
      optional string node_label = 5 [max_length = 30, content_type = "stripped", blank = True, help_text = "Node constraint", null = True, db_index = False];
 }
 
-message XOS (XOSBase) {
-     option singular="XOS";
-     option plural="XOSes";
+message XOSCore (XOSBase) {
+     option singular="XOSCore";
+     option plural="XOSCores";
      required string name = 1 [default = "XOS", max_length = 200, content_type = "stripped", blank = False, help_text = "Name of XOS", null = False, db_index = False];
 }
 
