@@ -111,10 +111,9 @@ class XOSGenerator:
             print "Saved: %s" % file_name
 
     @staticmethod
-    def _write_file_per_model(rendered, dir, extension, quiet):
+    def _write_file_per_model(rendered, dir, suffix, quiet):
         for m in rendered:
-
-            file_name = "%s/%s.%s" % (dir, m.lower(), extension)
+            file_name = "%s/%s%s" % (dir, m.lower(), suffix)
             if not rendered[m]:
                 if quiet == False:
                     print "Not saving %s as it is empty" % file_name
@@ -187,7 +186,7 @@ class XOSGenerator:
         # Validating
         if args.write_to_file == 'single' and args.dest_file is None:
             raise Exception("[XosGenX] write_to_file option is specified as 'single' but no dest_file is provided")
-        if args.write_to_file == 'model' and args.dest_extension is None:
+        if args.write_to_file == 'model' and (args.dest_extension is None):
             raise Exception("[XosGenX] write_to_file option is specified as 'model' but no dest_extension is provided")
 
         if args.output is not None and not os.path.isabs(args.output):
@@ -257,7 +256,11 @@ class XOSGenerator:
                         "options": v.options
                     }
                 )
-            XOSGenerator._write_file_per_model(rendered, args.output, args.dest_extension, args.quiet)
+            if (str(v.options.get("legacy", "false")).strip('"').lower() == "true"):
+                suffix = "_decl." + args.dest_extension
+            else:
+                suffix = "." + args.dest_extension
+            XOSGenerator._write_file_per_model(rendered, args.output, suffix, args.quiet)
         else:
             rendered = template.render(
                 {"proto":

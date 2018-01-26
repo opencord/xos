@@ -23,4 +23,9 @@ class ORMWrapperSlice(ORMWrapper):
     def slicename(self):
         return "%s_%s" % (self.site.login_base, self.name)
 
+    # networks - emulates the ManyToMany from Slice to Network via NetworkSlice
+    @property
+    def networks(self):
+        return [x.network for x in self.networkslices.all()]
+
 register_convenience_wrapper("Slice", ORMWrapperSlice)
