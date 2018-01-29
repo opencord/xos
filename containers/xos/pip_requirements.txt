@@ -151,7 +151,7 @@ shade==1.9.0
 simplejson==3.8.2
 six==1.10.0
 stevedore==1.17.1
-structlog==17.2.0
+structlog==18.1.0
 supervisor==3.0b2
 texttable==0.8.7
 tosca-parser==0.8.1
