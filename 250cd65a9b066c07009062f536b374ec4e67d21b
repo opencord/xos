@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "809b1679_322bdd67",
+        "filename": "docs/example_service.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2018-01-31T22:16:07Z",
+      "side": 1,
+      "message": "I really wish we didn\u0027t have to mention Django -- it\u0027s an \"implementation artifact\".",
+      "revId": "250cd65a9b066c07009062f536b374ec4e67d21b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
