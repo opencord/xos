@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6f0ba157_b278140f",
+        "filename": "docs/example_service.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2018-01-31T23:11:17Z",
+      "side": 1,
+      "message": "Typo",
+      "range": {
+        "startLine": 40,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "c1c7949a0fe327fb11927adb7a714d6fdd09c51e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c3d140cd_3266671e",
+        "filename": "docs/example_service.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2018-01-31T23:11:17Z",
+      "side": 1,
+      "message": "Can we avoid the term \"Django\"; maybe something vague about \"implementation artifact\"...",
+      "range": {
+        "startLine": 110,
+        "startChar": 27,
+        "endLine": 110,
+        "endChar": 33
+      },
+      "revId": "c1c7949a0fe327fb11927adb7a714d6fdd09c51e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9e6f3c74_094e598a",
+        "filename": "docs/example_service.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 453,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2018-01-31T23:11:17Z",
+      "side": 1,
+      "message": "By convention, should be \"\u003e Note...\" (i.e., sidebar).",
+      "range": {
+        "startLine": 453,
+        "startChar": 0,
+        "endLine": 453,
+        "endChar": 5
+      },
+      "revId": "c1c7949a0fe327fb11927adb7a714d6fdd09c51e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
