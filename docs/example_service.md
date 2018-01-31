@@ -76,17 +76,32 @@ this, make a new root directory for your service, and within that directory,
 create an `xos` subdirectory. The `xos` subdirectory will hold files that XOS
 needs to on-board your service. 
 
-Your models live in a file named `exampleservice.xproto` in your service's `xos` directory. This
+Your models live in a file named `exampleservice.xproto` in your service's `xos/synchronizer/models` directory. This
 file encodes the models in the service in a format called
 [xproto](../xos/dev/xproto.md) which is a combination of Google Protocol
 Buffers and some XOS-specific annotations to facilitate the generation of
 service components, such as the GRPC and REST APIs, security policies, and
 database models among other things. It consists of two parts:
 
+* The XPROTO Header, which contains Service-wide options.
+
 * The Service model, which manages the service as a whole.
 
 * The ServiceInstance model, which manages tenant-specific
   (per-service-instance) state.
+
+### XPROTO Header (Service-wide options
+
+Some service-wide options are required at the top of your xproto file:
+
+```
+option name = "exampleservice";
+option app_label = "exampleservice";
+```
+
+`name` specifies a name for your service. This is used as a default in several places, for example it will be used in `app_label` if you don't specifically choose an `app_label`. Normally it suffices to set this the name of your service, lower case, with no spaces.
+
+`app_label` configures the django application that is attached to these models. Normally it suffices to set this the name of your service, lower case, with no spaces.
 
 ### Service Model (Service-wide state)
 
@@ -97,7 +112,6 @@ definitions.
 
 ```
 message ExampleService (Service){
-    option name = "exampleservice";
     option verbose_name = "Example Service";
     required string service_message = 1 [help_text = "Service Message to Display", max_length = 254, null = False, db_index = False, blank = False];
 }
@@ -110,7 +124,6 @@ which is a Tenant that creates a VM instance:
 
 ```
 message ExampleServiceInstance (TenantWithContainer){
-     option name = "exampleserviceinstance";
      option verbose_name = "Example Service Instance";
      required string tenant_message = 1 [help_text = "Tenant Message to Display", max_length = 254, null = False, db_index = False, blank = False];
 }
