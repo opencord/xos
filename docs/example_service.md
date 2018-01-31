@@ -36,7 +36,7 @@ your local development machine.
 
 | Component | Source Code (https://github.com/opencord/exampleservice/) |
 |----------|-----------------------------------------------------|
-| Data Model  | `xos/exampleservice.xproto` |
+| Data Model  | `xos/synchronizer/models/exampleservice.xproto` |
 | Synchronizer | `xos/synchronizer/steps/sync_exampletenant.py` `xos/synchronizer/steps/exampletenant_playbook.yaml` `xos/synchronizer/Dockerfile.synchronizer` |
 | On-Boarding Spec	| `xos/exampleservice-onboard.yaml`
 
@@ -69,6 +69,10 @@ node all running as VMs on a single host.  Before proceeding you should
 familiarize yourself with the CiaB environment and the [POD Development
 Loop](dev/workflow_pod.md#development-loop).
 
+## Create the synchronizer directory
+
+The synchronizer directory holds the model declarations and the synchronizer for the service. Usually this directory is `xos/synchronizer`. This tutorial will first walk through creating the models, and then discuss creating the synchronizer itself.
+
 ## Define a Model
 
 The first step is to create a set of models for the service. Before you do
@@ -76,28 +80,41 @@ this, make a new root directory for your service, and within that directory,
 create an `xos` subdirectory. The `xos` subdirectory will hold files that XOS
 needs to on-board your service. 
 
-Your models live in a file named `exampleservice.xproto` in your service's `xos` directory. This
+Your models live in a file named `exampleservice.xproto` in your service's `xos/synchronizer/models` directory. This
 file encodes the models in the service in a format called
 [xproto](../xos/dev/xproto.md) which is a combination of Google Protocol
 Buffers and some XOS-specific annotations to facilitate the generation of
 service components, such as the GRPC and REST APIs, security policies, and
 database models among other things. It consists of two parts:
 
+* The XPROTO Header, which contains Service-wide options.
+
 * The Service model, which manages the service as a whole.
 
 * The ServiceInstance model, which manages tenant-specific
   (per-service-instance) state.
 
+### XPROTO Header (Service-wide options
+
+Some service-wide options are required at the top of your xproto file:
+
+```
+option name = "exampleservice";
+option app_label = "exampleservice";
+```
+
+`name` specifies a name for your service. This is used as a default in several places, for example it will be used in `app_label` if you don't specifically choose an `app_label`. Normally it suffices to set this the name of your service, lower case, with no spaces.
+
+`app_label` configures the django application that is attached to these models. As with `name`, it suffices to set this the name of your service, lower case, with no spaces.
+
 ### Service Model (Service-wide state)
 
 A Service model extends (inherits from) the XOS base *Service* model.  At its
-head is a set of option declarations: the name of the service as a
-configuration string, and as a human readable one. Then follows a set of field
+head is a set of option declarations such as `verbose_name`, which specifies a human-readable name for the service model. Then follows a set of field
 definitions.
 
 ```
 message ExampleService (Service){
-    option name = "exampleservice";
     option verbose_name = "Example Service";
     required string service_message = 1 [help_text = "Service Message to Display", max_length = 254, null = False, db_index = False, blank = False];
 }
@@ -110,7 +127,6 @@ which is a Tenant that creates a VM instance:
 
 ```
 message ExampleServiceInstance (TenantWithContainer){
-     option name = "exampleserviceinstance";
      option verbose_name = "Example Service Instance";
      required string tenant_message = 1 [help_text = "Tenant Message to Display", max_length = 254, null = False, db_index = False, blank = False];
 }
@@ -140,9 +156,8 @@ your service.
 > Note: Earlier versions included a tool to track model dependencies, but today
 > it is sufficient to create a file named `model-deps` with the contents:` {}`.
 
-The Synchronizer has two parts: A container that runs the synchronizer process,
-and a playbook (typically Ansible) that configures the underlying system. The following
-describes how to construct both.
+The Synchronizer has two parts: The synchronizer python program,
+and a playbook (typically Ansible) that configures the underlying system. The following describes how to construct both.
 
 ### Synchronizer Container
 
@@ -186,6 +201,7 @@ dependency_graph: "/opt/xos/synchronizers/exampleservice/model-deps"
 steps_dir: "/opt/xos/synchronizers/exampleservice/steps"
 sys_dir: "/opt/xos/synchronizers/exampleservice/sys"
 model_policies_dir: "/opt/xos/synchronizers/exampleservice/model_policies"
+models_dir: "/opt/xos/synchronizers/exampleservice/models"
 ```
 > NOTE: Historically, synchronizers were named “observers”, so
 > `s/observer/synchronizer/` when you come upon this term in the XOS code and
@@ -207,7 +223,7 @@ sys.path.insert(0, parentdir)
 logger = Logger(level=logging.INFO)
 ```
 
-Bring in some basic prerequities. Also include the models created earlier, and
+Bring in some basic prerequisites. Also include the models created earlier, and
 `SyncInstanceUsingAnsible` which will run the Ansible playbook in the Instance
 VM.
 
@@ -391,8 +407,7 @@ convention, we use `<servicename>-onboard.yaml`, and place it in the `xos`
 directory of the service.
 
 The on-boarding recipe is a TOSCA specification that lists all of the resources
-for your synchronizer. It's basically a collection of everything that has been
-  created above. For example, here is the on-boarding recipe for
+for your synchronizer. For example, here is the on-boarding recipe for
   *ExampleService*:
 
 ```
@@ -411,20 +426,19 @@ topology_template:
           base_url: file:///opt/xos_services/exampleservice/xos/
           # The following will concatenate with base_url automatically, if
           # base_url is non-null.
-          xproto: ./
           private_key: file:///opt/xos/key_import/exampleservice_rsa
           public_key: file:///opt/xos/key_import/exampleservice_rsa.pub
 ```
 
-Note that this recipe (when executed) on-boards *ExampleService* in the
-sense that it registers the service with the system (i.e., loads its
-model into XOS), but it does not provision the service or create
-instances of the service. These latter steps can be done
+This is a legacy recipe that (when executed) on-boards *ExampleService* in the
+sense that it registers the service with the system, but it does not provision the service or create instances of the service. These latter steps can be done
 through CORD's GUI or REST API, or by submitting yet other TOSCA
 workflows to a running CORD POD (all based on end-points that are
 auto-generated from these on-boarded models). Additional information
 on how to provision and use the service is given in the last section
 of this tutorial.
+
+NOTE: This file may soon be removed. 
 
 ## Include the Service in a Profile
 
