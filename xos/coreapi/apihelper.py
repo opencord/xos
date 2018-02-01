@@ -63,6 +63,11 @@ def translate_exceptions(function):
         try:
             return function(*args, **kwargs)
         except Exception as e:
+
+            import traceback
+            print e
+            traceback.print_exc()
+
             if "context" in kwargs:
                 context = kwargs["context"]
             else:
