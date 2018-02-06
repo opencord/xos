@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "49473aa5_2b4746f3",
+        "filename": "docs/tutorials/local_synchronizer_dev_loop.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000005
+      },
+      "writtenOn": "2018-02-06T17:53:43Z",
+      "side": 1,
+      "message": "I would say \u0027speed up\u0027 instead of \u0027fasten\u0027 - fasten means something different",
+      "range": {
+        "startLine": 4,
+        "startChar": 164,
+        "endLine": 4,
+        "endChar": 170
+      },
+      "revId": "83d35cb75f493a53ec910e5eae1da7fbd9b8f322",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
