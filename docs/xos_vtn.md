@@ -78,111 +78,14 @@ Because VTN provides a CLI to purge its internal state, it uses the XOS-provided
 
 ## XOS Provided API
 
-### ServicePorts
+* `GET xosapi/v1/vtn/vtnservices` Get a list of VTN services
+* `PUT xosapi/v1/vtn/vtnservices/{service_id}` Update a VTN service
 
-* `GET api/service/vtn/servicePorts` List service ports including port details 
+To cause VTN to be resynchronized from XOS to the VTN app, the following steps are performed:
 
-* `GET api/service/vtn/servicePorts/{port_id}`  Show service port details
+1. `GET xosapi/v1/vtn/vtnservices/` This will provide a list of registered VTN services. There's usually only one, and it's `id` is typically set to `1`, but we recommend always getting the list of services rather than assuming an the id.
+2. `PUT xosapi/v1/vtn/vtnservices/{service_id}` with data `{"resync": true}`. `{service_id}` is the identifier you retrieved in step (1). 
 
-_Service Port Details_
-
-| Parameters | Type | Description |
-| --------- | ---- | --------- |
-| id |UUID | UUID of the port|
-| vlan_id (optional) | number | VLAN ID of the port interface|
-| floating_address_pairs (optional) | list | Additional public IP addresses allowed to the port interface |
-| ip_address | string | Additional public IP address |
-|mac_address | string | Additional MAC address mapped to the public IP address |
-
-Example json response:
-
-```
-{
-   "servicePorts": [
-       {
-           "id": "55d1b71f-efe2-455d-a78c-e48e9d3a4094"
-       },
-       {
-           "id": "7098f0a8-cdcb-4bce-9706-05aecacb784b",
-           "vlan_id": 222,
-           "floating_address_pairs": [
-               {
-                   "ip_address": "20.0.0.3",
-                   "mac_address" : "fa:16:3e:ca:05:9c"
-               }
-           ]
-       }
-   ]
- }
-```
-   
-### ServiceNetworks
-   
-* `GET api/service/vtn/serviceNetworks`  List service networks including the details 
-
-* `GET api/service/vtn/serviceNetworks/{network_id}`  Show service network details
-
-_Service Network Details_
-
-| Parameters | Type | Description |
-| --------- | ---- | --------- |
-| id | UUID | UUID of the network|
-| type | string | service network type | 
-| providerNetworks | list | List of provider network IDs |
-| tenantNetworks | list | List of tenant network IDs |
-| bidirectional | boolean | The dependency, which is bidirectional (true) or unidirectional (false) |
-
-_ServiceNetwork Types_
-* PRIVATE: virtual network for the instances in the same service 
-* PUBLIC: externally accessible network 
-* MANAGEMENT_LOCAL: instance management network which does not span compute nodes, only accessible from the host machine 
-* MANAGEMENT_HOST: real management network which spans compute and head nodes
-* VSG: access-side network
-* ACCESS_AGENT: network for access agent infrastructure service 
-
-Example json response:
-
-```
-{
-    "serviceNetworks": [
-        {
-            "id": "8ab38619-327e-47ce-9304-2c595c1b6708",
-            "type": "public",
-            "providerNetworks": [],
-            "tenantNetworks": []
-        },
-        {
-            "id": "a14d7a6b-dffb-4271-8a17-5d715b362d1e",
-            "type": "private",
-            "providerNetworks": [],
-            "tenantNetworks": [
-                {
-                    "id": "71cc8c93-f809-42ff-b1d6-0c8d92c6cd2b",
-                    "bidirectional": true
-                }
-            ]
-        }
-    ]
-}
-```
-
-Example json response: 
-
-```
-{
-    "service": {
-        "id": "a14d7a6b-dffb-4271-8a17-5d715b362d1e",
-        "type": "private",
-        "providerNetworks": [],
-        "tenantNetworks": [
-            {
-                "id": "71cc8c93-f809-42ff-b1d6-0c8d92c6cd2b",
-                "bidirectional": true
-            }
-        ]
-    }
-	}
-```
 	
 ## VTN Provided API
 	
