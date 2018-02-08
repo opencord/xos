@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e1ae04db_7c5d9534",
+        "filename": "docs/tutorials/local_synchronizer_dev_loop.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-02-08T19:06:08Z",
+      "side": 1,
+      "message": "important",
+      "range": {
+        "startLine": 46,
+        "startChar": 16,
+        "endLine": 46,
+        "endChar": 22
+      },
+      "revId": "4884f7b1e2dbfcf48bf46deea32089904e7d6c51",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb4b2a44_a27e4161",
+        "filename": "docs/tutorials/local_synchronizer_dev_loop.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-02-08T19:06:08Z",
+      "side": 1,
+      "message": "comma before since",
+      "range": {
+        "startLine": 59,
+        "startChar": 68,
+        "endLine": 59,
+        "endChar": 75
+      },
+      "revId": "4884f7b1e2dbfcf48bf46deea32089904e7d6c51",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
