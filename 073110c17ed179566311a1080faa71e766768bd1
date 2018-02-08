@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fd32715f_ef511abe",
+        "filename": "xos/coreapi/apihelper.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-02-08T19:07:35Z",
+      "side": 1,
+      "message": "you may alternatively be able to use traceback.print_exc(), or if logging is available, log.exception()",
+      "range": {
+        "startLine": 72,
+        "startChar": 12,
+        "endLine": 72,
+        "endChar": 39
+      },
+      "revId": "073110c17ed179566311a1080faa71e766768bd1",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
