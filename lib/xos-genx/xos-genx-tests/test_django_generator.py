@@ -16,7 +16,7 @@
 
 import unittest
 import os
-from xosgenx.generator import XOSGenerator
+from xosgenx.generator import XOSProcessor
 from helpers import FakeArgs
 
 VROUTER_XPROTO = os.path.abspath(os.path.dirname(os.path.realpath(__file__)) + "/xproto/vrouterport.xproto")
@@ -30,7 +30,7 @@ class XProtoProtobufGeneratorTest(unittest.TestCase):
         args = FakeArgs()
         args.files = [VROUTER_XPROTO]
         args.target = 'django.xtarget'
-        output = XOSGenerator.generate(args)
+        output = XOSProcessor.process(args)
 
         fields = filter(lambda s:'Field(' in s, output.splitlines())
         self.assertEqual(len(fields), 2)
