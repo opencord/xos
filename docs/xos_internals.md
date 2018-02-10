@@ -15,8 +15,6 @@ those containers:
 | xos-ws | Listens to `redis` events and propagates them over web-sockets for notifications| 3000|
 | xos-chameleon | Northbound REST interface, accessible at `/xosapi/v1/..` (`swagger` is published at `/apidocs/`| 3000|
 
-Additionally some infrastructure helpers such as `consul` and `registrator` are  deployed to facilitate service discovery.
-
 All the communication between containers happen over `gRPC` except for `xos-gui` 
 where it is a combination of REST and web-socket.
 
