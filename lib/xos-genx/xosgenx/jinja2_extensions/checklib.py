@@ -22,7 +22,10 @@ def xproto_check_synchronizer(m):
             for a in attributes:
                 target_names = [t.id for t in a.targets]
                 values = a.value.elts if isinstance(a.value, ast.List) else [a.value]
-                value_names = [v.id for v in values]
+                try:
+                    value_names = [v.id for v in values]
+                except: 
+                    value_names = []
 
                 if 'observes' in target_names and m['name'] in value_names:
                     found_sync_step_class = True
