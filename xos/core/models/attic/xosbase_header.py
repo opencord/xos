@@ -31,6 +31,7 @@ from django.utils import timezone
 from django.core.exceptions import PermissionDenied
 from cgi import escape as html_escape
 from django.db.models.deletion import Collector
+from django.db.models.query import QuerySet
 from django.db import router
 from django.contrib.contenttypes.models import ContentType
 
@@ -44,12 +45,14 @@ log = create_logger(Config().get('logging'))
 
 XOS_GLOBAL_DEFAULT_SECURITY_POLICY = True
 
-def date_handler(obj):
+def json_handler(obj):
     if isinstance(obj, pytz.tzfile.DstTzInfo):
         # json can't serialize DstTzInfo
         return str(obj)
     elif hasattr(obj, 'timetuple'):
         return calendar.timegm(obj.timetuple())
+    elif isinstance(obj, QuerySet):
+        return [x.id for x in object]
     else:
         return obj
 
@@ -271,7 +274,7 @@ class PlModelMixIn(object):
                 json_dict['deleted'] = True
                 json_dict['object'] = {'id': pk}
 
-            payload = json.dumps(json_dict, default=date_handler)
+            payload = json.dumps(json_dict, default=json_handler)
             r.publish(self.__class__.__name__, payload)
         except ConnectionError:
             # Redis not running.
