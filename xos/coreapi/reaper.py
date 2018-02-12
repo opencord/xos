@@ -34,6 +34,7 @@ if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
 
 from datetime import datetime
+import django
 from django.db import reset_queries
 from django.db.models import F, Q
 from django.db.models.signals import post_save
@@ -117,7 +118,7 @@ class ReaperThread(threading.Thread):
             # Reap non-sync'd models here
             # models_to_reap = [Slice,Network,NetworkSlice]
 
-            models_to_reap = django_models.get_models(include_auto_created=False)
+            models_to_reap = django.apps.apps.get_models(include_auto_created=False)
             for m in models_to_reap:
                 if not hasattr(m, "deleted_objects"):
                     continue
