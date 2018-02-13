@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6eecbfa5_4445a325",
+        "filename": "containers/xos/pip_requirements.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-13T16:50:49Z",
+      "side": 1,
+      "message": "Since we are not exposing REST APIs anymore, do we still need DjangoRestFramework?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 26
+      },
+      "revId": "7ffb4703f8aed9d4d70e9c3e550461680468b8b5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1f6516ce_ec5712fe",
+        "filename": "xos/coreapi/reaper.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-13T16:50:49Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we remove this condition?",
+      "range": {
+        "startLine": 153,
+        "startChar": 20,
+        "endLine": 153,
+        "endChar": 30
+      },
+      "revId": "7ffb4703f8aed9d4d70e9c3e550461680468b8b5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
