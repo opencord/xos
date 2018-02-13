@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a5ef953_fa512cd7",
+        "filename": "containers/xos/pip_requirements.txt",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-02-13T16:03:42Z",
+      "side": 1,
+      "message": "I think this will get you the first release, not the one with post-release patches, which is 1.11.10 : https://www.djangoproject.com/download/",
+      "range": {
+        "startLine": 4,
+        "startChar": 8,
+        "endLine": 4,
+        "endChar": 12
+      },
+      "revId": "79f64bd7022cf0cf3ee8269970646b2f89c31e6d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
