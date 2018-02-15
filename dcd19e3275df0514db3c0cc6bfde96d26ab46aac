@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "387008b4_9aa5f9b5",
+        "filename": "lib/xos-genx/xosgenx/generator.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T15:51:23Z",
+      "side": 1,
+      "message": "Yeah the main difference is in the dot, we just need to document somewhere the way it works (we probably need a general documentation for this)",
+      "parentUuid": "61eb239b_d768f323",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 60
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27adbcf3_ee50cf3e",
         "filename": "lib/xos-genx/xosgenx/targets/django.xtarget",
         "patchSetId": 33
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I can look into it. XOSBase does need to be treated specially in that 1) it\u0027s abstract, and 2) it requires headers that no other model requires. I\u0027ll see if I can abstract it behind an option.",
       "parentUuid": "27adbcf3_ee50cf3e",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 10
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "164e0abf_7c9b9572",
+        "filename": "lib/xos-genx/xosgenx/targets/django.xtarget",
+        "patchSetId": 33
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T15:51:23Z",
+      "side": 1,
+      "message": "Could importing this in the proxy model work?",
+      "parentUuid": "398f10d7_b9d09572",
       "range": {
         "startLine": 11,
         "startChar": 0,
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "ccdc4d62_6322a0a9",
+        "filename": "xos/core/models/nodelabel.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T15:51:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06debbda_496f75b5",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a3f83d6_0998dcec",
         "filename": "xos/core/models/service.py",
         "patchSetId": 33
@@ -178,6 +250,30 @@
       "side": 1,
       "message": "It might be better fitting with the TenantWithContainer model. I\u0027ll see how/why it ended up here.",
       "parentUuid": "6a3f83d6_0998dcec",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 40
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6ad201dd_c2800dbd",
+        "filename": "xos/core/models/service.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T15:51:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "eb91ceb1_82744b56",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -237,6 +333,30 @@
     },
     {
       "key": {
+        "uuid": "c91acebf_2b46cccf",
+        "filename": "xos/core/models/tenantwithcontainer.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T15:51:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ef020710_b4717f0e",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 25
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2cceffa_e1c06fa1",
         "filename": "xos/core/models/xoscore.py",
         "patchSetId": 33
@@ -272,6 +392,30 @@
       "side": 1,
       "message": "This is the model formerly known as \"XOS\", which had to be renamed due to a naming conflict. The purpose in CORD-3.0 was to hold settings global to XOS as a whole, not particular to any specific Deployment or Site. It\u0027s currently empty and could be deleted, though I feel there\u0027s some value in keeping it around should the need for global settings arise again.",
       "parentUuid": "d2cceffa_e1c06fa1",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "71059ffd_962da347",
+        "filename": "xos/core/models/xoscore.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T15:51:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b06150dd_539fbea3",
       "range": {
         "startLine": 19,
         "startChar": 6,
