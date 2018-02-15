@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "61eb239b_d768f323",
+        "filename": "lib/xos-genx/xosgenx/generator.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-02-15T04:52:37Z",
+      "side": 1,
+      "message": "It does still support the existing functionality. I changed \"extnesion\" to \"suffix\" so we could support \"_decl.py\" in addition to \".py\", not instead of.",
+      "parentUuid": "4a960d30_c87a0c9e",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 60
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "27adbcf3_ee50cf3e",
         "filename": "lib/xos-genx/xosgenx/targets/django.xtarget",
         "patchSetId": 33
@@ -36,6 +60,30 @@
       "writtenOn": "2018-02-15T02:20:05Z",
       "side": 1,
       "message": "I\u0027m not a big fan of special cases when we autogenerate things, can\u0027t we just put the django infrastructure in the model declaration?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 10
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "398f10d7_b9d09572",
+        "filename": "lib/xos-genx/xosgenx/targets/django.xtarget",
+        "patchSetId": 33
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-02-15T04:52:37Z",
+      "side": 1,
+      "message": "I can look into it. XOSBase does need to be treated specially in that 1) it\u0027s abstract, and 2) it requires headers that no other model requires. I\u0027ll see if I can abstract it behind an option.",
+      "parentUuid": "27adbcf3_ee50cf3e",
       "range": {
         "startLine": 11,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "06debbda_496f75b5",
+        "filename": "xos/core/models/nodelabel.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-02-15T04:52:37Z",
+      "side": 1,
+      "message": "It\u0027s currently used by the EPC service. The EPC service will need to be modified before we can remove this.",
+      "parentUuid": "305561aa_049e3448",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a3f83d6_0998dcec",
         "filename": "xos/core/models/service.py",
         "patchSetId": 33
@@ -82,6 +154,30 @@
       "writtenOn": "2018-02-15T02:20:05Z",
       "side": 1,
       "message": "This is a side note, not directly related to this patch.\n\nIs this logic really part of the service model? I don\u0027t think the service itself should know things about the deployment",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 40
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "eb91ceb1_82744b56",
+        "filename": "xos/core/models/service.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-02-15T04:52:37Z",
+      "side": 1,
+      "message": "It might be better fitting with the TenantWithContainer model. I\u0027ll see how/why it ended up here.",
+      "parentUuid": "6a3f83d6_0998dcec",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "ef020710_b4717f0e",
+        "filename": "xos/core/models/tenantwithcontainer.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-02-15T04:52:37Z",
+      "side": 1,
+      "message": "Agreed, though this is a separable issue involving updating many service repositories.",
+      "parentUuid": "14a7b1bd_1551a4bd",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 25
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d2cceffa_e1c06fa1",
         "filename": "xos/core/models/xoscore.py",
         "patchSetId": 33
@@ -128,6 +248,30 @@
       "writtenOn": "2018-02-15T02:20:05Z",
       "side": 1,
       "message": "What is this model used for?",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b06150dd_539fbea3",
+        "filename": "xos/core/models/xoscore.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-02-15T04:52:37Z",
+      "side": 1,
+      "message": "This is the model formerly known as \"XOS\", which had to be renamed due to a naming conflict. The purpose in CORD-3.0 was to hold settings global to XOS as a whole, not particular to any specific Deployment or Site. It\u0027s currently empty and could be deleted, though I feel there\u0027s some value in keeping it around should the need for global settings arise again.",
+      "parentUuid": "d2cceffa_e1c06fa1",
       "range": {
         "startLine": 19,
         "startChar": 6,
