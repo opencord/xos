@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4a960d30_c87a0c9e",
+        "filename": "lib/xos-genx/xosgenx/generator.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T02:20:05Z",
+      "side": 1,
+      "message": "I think we should still need to support the original functionality as this is not only related to attics. If this changed is because of corebuilder we may need to change the options there, not the library itself.",
+      "range": {
+        "startLine": 116,
+        "startChar": 12,
+        "endLine": 116,
+        "endChar": 60
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27adbcf3_ee50cf3e",
+        "filename": "lib/xos-genx/xosgenx/targets/django.xtarget",
+        "patchSetId": 33
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T02:20:05Z",
+      "side": 1,
+      "message": "I\u0027m not a big fan of special cases when we autogenerate things, can\u0027t we just put the django infrastructure in the model declaration?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 10
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "305561aa_049e3448",
+        "filename": "xos/core/models/nodelabel.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T02:20:05Z",
+      "side": 1,
+      "message": "Since the ORM now supports ManyToMany relations, do we still need this?",
+      "range": {
+        "startLine": 23,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 52
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6a3f83d6_0998dcec",
+        "filename": "xos/core/models/service.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T02:20:05Z",
+      "side": 1,
+      "message": "This is a side note, not directly related to this patch.\n\nIs this logic really part of the service model? I don\u0027t think the service itself should know things about the deployment",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 133,
+        "endChar": 40
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "14a7b1bd_1551a4bd",
+        "filename": "xos/core/models/tenantwithcontainer.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T02:20:05Z",
+      "side": 1,
+      "message": "Another side note, we should really rename this model as we don\u0027t have Tenants anymore and Container here actually refer to a VM",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 25
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d2cceffa_e1c06fa1",
+        "filename": "xos/core/models/xoscore.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-02-15T02:20:05Z",
+      "side": 1,
+      "message": "What is this model used for?",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "dcd19e3275df0514db3c0cc6bfde96d26ab46aac",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
