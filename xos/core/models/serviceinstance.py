@@ -63,3 +63,18 @@ class ServiceInstance(ServiceInstance_decl):
             return None
         return sorted(st, key=attrgetter('id'))[0]
 
+    def save(self, *args, **kwargs):
+        if not self.owner:
+            if hasattr(self, "OWNER_CLASS_NAME"):
+                owner_class = self.get_model_class_by_name(self.OWNER_CLASS_NAME)
+                if not owner_class:
+                    raise XOSValidationError("Cannot find owner class %s" % self.OWNER_CLASS_NAME)
+                owners = owner_class.objects.all()
+                if not owners:
+                    raise XOSValidationError("Cannot find eligible owner of class %s" % self.OWNER_CLASS_NAME)
+
+                self.owner = owners[0]
+
+        super(ServiceInstance, self).save(*args, **kwargs)
+
+
