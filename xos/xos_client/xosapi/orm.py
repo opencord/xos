@@ -512,6 +512,10 @@ class ORMStub(object):
             empty = Empty
         self._empty = empty
 
+        grpc_classes_by_name = {}
+        for (k,v) in self._sym_db._classes.items():
+            grpc_classes_by_name[k.full_name] = v
+
         for name in dir(stub):
            if name.startswith("Get"):
                model_name = name[3:]
@@ -519,7 +523,7 @@ class ORMStub(object):
 
                self.all_model_names.append(model_name)
 
-               grpc_class = self._sym_db._classes["%s.%s" % (package_name, model_name)]
+               grpc_class = grpc_classes_by_name["%s.%s" % (package_name, model_name)]
                self.all_grpc_classes[model_name] = grpc_class
 
                ct = grpc_class.DESCRIPTOR.GetOptions().Extensions._FindExtensionByName("xos.contentTypeId")
