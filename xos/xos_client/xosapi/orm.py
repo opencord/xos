@@ -489,9 +489,10 @@ class ORMModelClass(object):
         return self.objects.new(*args, **kwargs)
 
 class ORMStub(object):
-    def __init__(self, stub, package_name, invoker=None, caller_kind="grpcapi", sym_db = None, empty = None,
+    def __init__(self, stub, protos, package_name, invoker=None, caller_kind="grpcapi", sym_db = None, empty = None,
                  enable_backoff=True, restart_on_disconnect=False):
         self.grpc_stub = stub
+        self.protos = protos
         self.all_model_names = []
         self.all_grpc_classes = {}
         self.content_type_map = {}
@@ -512,6 +513,10 @@ class ORMStub(object):
             empty = Empty
         self._empty = empty
 
+        grpc_classes_by_name = {}
+        for (k,v) in self._sym_db._classes.items():
+            grpc_classes_by_name[k.full_name] = v
+
         for name in dir(stub):
            if name.startswith("Get"):
                model_name = name[3:]
@@ -519,8 +524,10 @@ class ORMStub(object):
 
                self.all_model_names.append(model_name)
 
-               grpc_class = self._sym_db._classes["%s.%s" % (package_name, model_name)]
-               self.all_grpc_classes[model_name] = grpc_class
+               #grpc_class = grpc_classes_by_name["%s.%s" % (package_name, model_name)]
+               #self.all_grpc_classes[model_name] = grpc_class
+
+               self.all_grpc_classes[model_name] = getattr(self.protos, model_name)
 
                ct = grpc_class.DESCRIPTOR.GetOptions().Extensions._FindExtensionByName("xos.contentTypeId")
                if ct:
@@ -583,13 +590,19 @@ class ORMStub(object):
 
 
     def make_ID(self, id):
-        return self._sym_db._classes["xos.ID"](id=id)
+        grpc_classes_by_name = {}
+        for (k,v) in self._sym_db._classes.items():
+            grpc_classes_by_name[k.full_name] = v
+        return grpc_classes_by_name["xos.ID"](id=id)
 
     def make_empty(self):
         return self._empty()
 
     def make_Query(self):
-        return self._sym_db._classes["xos.Query"]()
+        grpc_classes_by_name = {}
+        for (k,v) in self._sym_db._classes.items():
+            grpc_classes_by_name[k.full_name] = v
+        return grpc_classes_by_name["xos.Query"]()
 
     def listObjects(self):
         return self.all_model_names
