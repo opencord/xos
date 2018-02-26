@@ -52,8 +52,8 @@ futurist==0.18.0
 google-api-python-client==1.5.3
 greenlet==0.4.10
 sphinx_rtd_theme==0.1.9
-grpcio==1.0.4
-grpcio-tools==1.0.4
+grpcio==1.9.1
+grpcio-tools==1.9.1
 html5lib==0.999
 httplib2==0.9.2
 idna==2.1
