@@ -44,7 +44,7 @@ class UsernamePasswordCallCredentials(grpc.AuthMetadataPlugin):
         self._password = password
   def __call__(self, context, callback):
         basic_auth = "Basic %s" % base64.b64encode("%s:%s" % (self._username, self._password))
-        metadata = (('Authorization', basic_auth),)
+        metadata = (('authorization', basic_auth),)
         callback(metadata, None)
 
 class SessionIdCallCredentials(grpc.AuthMetadataPlugin):
