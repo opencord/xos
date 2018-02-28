@@ -207,6 +207,9 @@ class XOSCoreBuilder(object):
         copyin_resources = ("xproto", "models", "admin", "admin_template", "django_library", "tosca_custom_types", "tosca_resource",
                             "rest_service", "rest_tenant", "private_key", "public_key", "vendor_js")
 
+        if (service.name == "core"):
+            raise Exception("Corebuilder does not support building core models, only service models")
+
         for k in copyin_resources:
             v = self.get_property_default(nodetemplate, k, None)
             if not v:
