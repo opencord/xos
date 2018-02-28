@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "583aac00_51fa4b37",
+        "filename": "xos/tools/xossh-local",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-02-28T23:00:10Z",
+      "side": 1,
+      "message": "temporary debugging code?",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 14
+      },
+      "revId": "2cf1084305ac294f1fe39bbb0ea076f8d2b8505a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
