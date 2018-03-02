@@ -49,6 +49,8 @@ class ORMWrapperVOLTServiceInstance(ORMWrapper):
 
     @property
     def s_tag(self):
-        return self.subscriber.s_tag
+        olt_device = self.stub.OLTDevice.objects.find(device_id = self.subscriber.olt_device)
+        olt_port = self.stub.VOLTDevicePort.objects.find(port_id = self.subscriber.olt_port, volt_device=olt_device)
+        return olt_port.s_tag
 
 register_convenience_wrapper("VOLTServiceInstance", ORMWrapperVOLTServiceInstance)
