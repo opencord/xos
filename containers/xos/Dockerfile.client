@@ -20,6 +20,9 @@ FROM xosproject/xos-libraries:candidate
 # Install XOS client
 ADD xos/xos_client /tmp/xos_client
 
+# Install the VERSION file
+ADD VERSION tmp/xos_client
+
 # Install chameleon
 ADD containers/xos/tmp.chameleon /tmp/xos_client/xosapi/chameleon
 
