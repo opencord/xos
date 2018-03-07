@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 # Copyright 2017-present Open Networking Foundation
 #
@@ -13,13 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-#! /usr/bin/env python
-
 import os
 import sys
 import site
 from distutils.core import setup
+
+
+try:
+    from xosutil.autoversion_setup import setup_with_auto_version as setup
+except ImportError:
+    # xosutil is not installed. Expect this to happen when we build an egg, in which case xosgenx.version will
+    # automatically have the right version.
+    from setuptools import setup
+
+from xosapi.version import __version__
 
 CHAMELEON_DIR='xosapi/chameleon'
 
