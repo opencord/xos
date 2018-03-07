@@ -21,6 +21,15 @@ import sys
 import site
 from distutils.core import setup
 
+try:
+    from xosutil.autodiscover_version import autodiscover_version_of_caller
+    autodiscover_version_of_caller(save_to="xosapi/version.py")
+except ImportError:
+    # xosutil is not installed
+    pass
+
+from xosapi.version import __version__
+
 CHAMELEON_DIR='xosapi/chameleon'
 
 if not os.path.exists(CHAMELEON_DIR):

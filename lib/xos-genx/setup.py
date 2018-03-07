@@ -18,8 +18,17 @@
 
 from setuptools import setup
 
+try:
+    from xosutil.setup import setup_with_version as setup
+except TypeError: # ImportError:
+    # xosutil is not installed. Expect this to happen when we build an egg, in which case xosgenx.version will
+    # automatically have the right version.
+    from setuptools import setup
+
+from xosgenx.version import __version__
+
 setup(name='XosGenX',
-      version='1.0',
+      version=__version__,
       description='XOS Generative Toolchain',
       author='Sapan Bhatia, Matteo Scandolo',
       author_email='sapan@opennetworking.org, teo@opennetworking.org',
