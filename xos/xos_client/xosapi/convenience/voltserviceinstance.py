@@ -50,8 +50,8 @@ class ORMWrapperVOLTServiceInstance(ORMWrapper):
 
     @property
     def s_tag(self):
-        olt_device = self.stub.VOLTDevice.objects.get(device_id = self.subscriber.olt_device)
-        olt_port = self.stub.VOLTDevicePort.objects.get(port_id = self.subscriber.olt_port, volt_device_id=olt_device.id)
+        olt_device = self.stub.VOLTDevice.objects.get(name = self.subscriber.olt_device)
+        olt_port = self.stub.VOLTDevicePort.objects.get(name = self.subscriber.olt_port, volt_device_id=olt_device.id)
         if olt_port:
             return olt_port.s_tag
         return None
