@@ -13,13 +13,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 #!/usr/bin/env python
 
 from setuptools import setup
 
+try:
+    from xosutil.autodiscover_version import autodiscover_version_of_caller
+    autodiscover_version_of_caller(save_to="xosconfig/version.py")
+except ImportError:
+    # xosutil is not installed
+    pass
+
+from xosconfig.version import __version__
+
 setup(name='XosConfig',
-      version='1.0',
+      version=__version__,
       description='XOS Config Library',
       author='Matteo Scandolo',
       author_email='teo@onlab.us',
