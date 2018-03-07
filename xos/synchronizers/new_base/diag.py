@@ -52,7 +52,7 @@ def update_diag(diag_class, loop_end=None, loop_start=None, syncrecord_start=Non
         if backend_status:
             diag.backend_status = backend_status
         diag.backend_register = json.dumps(br)
-        diag.save()
+        diag.save(caller_kind = "synchronizer")
     except:
         log.exception("Exception in update_diag")
         traceback.print_exc()
