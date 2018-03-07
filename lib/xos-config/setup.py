@@ -16,10 +16,14 @@
 
 #!/usr/bin/env python
 
+import os
+
+from xosconfig.version import __version__
+
 from setuptools import setup
 
 setup(name='XosConfig',
-      version='1.0',
+      version=__version__,
       description='XOS Config Library',
       author='Matteo Scandolo',
       author_email='teo@onlab.us',
