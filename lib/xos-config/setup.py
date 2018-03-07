@@ -16,10 +16,21 @@
 
 #!/usr/bin/env python
 
+import os
+
+# Look for a VERSION number in the same directory as setup.py. If that's
+# not found, then assume we're in the xos build tree and look for it in
+# the root of the repository.
+setup_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+version_file = os.path.join(setup_path, "VERSION")
+if not os.path.exists(version_file):
+    version_file = os.path.join(setup_path, "../../VERSION")
+version = open(version_file, "rt").readline().strip()
+
 from setuptools import setup
 
 setup(name='XosConfig',
-      version='1.0',
+      version=version,
       description='XOS Config Library',
       author='Matteo Scandolo',
       author_email='teo@onlab.us',
