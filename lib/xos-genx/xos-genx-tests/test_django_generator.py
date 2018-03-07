@@ -73,6 +73,28 @@ class XProtoProtobufGeneratorTest(unittest.TestCase):
         self.assertEqual(len(blank_true), 1)
         self.assertEqual(len(blank_false), 1)
 
+    def test_feedback_state(self):
+        """
+        [XOS-GenX] Generate DJANGO models, verify feedback_state fields
+        """
+        xproto = \
+            """
+            option app_label = "test";
+
+            message Foo {
+                required string name = 1 [null = False, blank = False, feedback_state = True];
+            }
+            """
+
+        args = FakeArgs()
+        args.inputs = xproto
+        args.target = 'django.xtarget'
+        output = XOSProcessor.process(args)
+
+        print output
+
+        self.assertIn("feedback_state_fields = ['name']", output)
+
 if __name__ == '__main__':
     unittest.main()
 
