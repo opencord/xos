@@ -18,6 +18,15 @@
 
 from setuptools import setup
 
+try:
+    from xosutil.autodiscover_version import autodiscover_version_of_caller
+    autodiscover_version_of_caller(save_to="xosgenx/version.py")
+except ImportError:
+    # xosutil is not installed
+    pass
+
+from xosgenx.version import __version__
+
 setup(name='XosGenX',
       version='1.0',
       description='XOS Generative Toolchain',
