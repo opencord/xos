@@ -51,13 +51,6 @@ client:
 	rm -rf tmp.chameleon
 	docker tag xosproject/xos-client:latest xosproject/xos-client:candidate
 
-corebuilder:
-	sudo docker build  --no-cache=${NO_DOCKER_CACHE} --rm \
-        --build-arg XOS_GIT_COMMIT_HASH="${XOS_GIT_COMMIT_HASH}" \
-        --build-arg XOS_GIT_COMMIT_DATE="${XOS_GIT_COMMIT_DATE}" \
-        -f Dockerfile.corebuilder -t xosproject/xos-corebuilder ${BUILD_ARGS} ../..
-	docker tag xosproject/xos-corebuilder:latest xosproject/xos-corebuilder:candidate
-
 ui:
 	sudo docker build  --no-cache=${NO_DOCKER_CACHE} --rm \
 	--build-arg XOS_GIT_COMMIT_HASH="${XOS_GIT_COMMIT_HASH}" \
