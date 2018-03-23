@@ -25,7 +25,8 @@ ENV PYTHONPATH=/chameleon
 COPY tmp.chameleon /chameleon/chameleon
 
 # Build the protos
-RUN chdir chameleon/chameleon/protos && VOLTHA_BASE=anything make
+RUN pip install docker==3.1.4 \
+ && chdir chameleon/chameleon/protos && VOLTHA_BASE=anything make
 
 # Label image
 ARG org_label_schema_schema_version=1.0
