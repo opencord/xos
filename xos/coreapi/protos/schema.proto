@@ -30,7 +30,7 @@ service SchemaService {
 
     // Return active grpc schemas
     rpc GetSchema(google.protobuf.Empty) returns (Schemas) {
-        option (google.api.http) = {
+        option (third_party.google.api.http) = {
             get: "/schema"
         };
     }
