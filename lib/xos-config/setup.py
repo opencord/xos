@@ -32,4 +32,8 @@ setup(name='XosConfig',
       author_email='teo@onlab.us',
       packages=['xosconfig'],
       include_package_data=True
+      # TODO add all deps to the install_requires section
+      install_requires=[
+          'pykwalify>=1.6.0'
+          ]
      )
