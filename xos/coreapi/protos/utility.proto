@@ -3,7 +3,7 @@ syntax = "proto3";
 package xos;
 
 import "google/protobuf/empty.proto";
-import "google/api/annotations.proto";
+import "thirdparty/google/api/annotations.proto";
 import "common.proto";
 import "xosoptions.proto";
 

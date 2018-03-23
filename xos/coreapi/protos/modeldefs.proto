@@ -3,7 +3,7 @@ syntax = "proto3";
 package xos;
 
 import "google/protobuf/empty.proto";
-import "google/api/annotations.proto";
+import "third_party/google/api/annotations.proto";
 
 // This API is used by the UI to validate fields.
 
