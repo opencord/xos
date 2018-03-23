@@ -14,16 +14,16 @@
 
 syntax = "proto3";
 
-package google.api;
+package third_party.google.api;
 
-import "google/api/http.proto";
+import "third_party/google/api/http.proto";
 import "google/protobuf/descriptor.proto";
 
 option java_multiple_files = true;
 option java_outer_classname = "AnnotationsProto";
 option java_package = "com.google.api";
 
-extend google.protobuf.MethodOptions {
+extend .google.protobuf.MethodOptions {
   // See `HttpRule`.
   HttpRule http = 72295728;
 }
