@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da822861_2fe78cc4",
+        "filename": "containers/xos/pip_requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-03-26T23:48:58Z",
+      "side": 1,
+      "message": "We should removed docker, I don\u0027t think it\u0027s used anymore",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 13
+      },
+      "revId": "377d19861fa17152df8c842708688a4b369e7cdc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
