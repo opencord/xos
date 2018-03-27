@@ -46,6 +46,30 @@
       "revId": "377d19861fa17152df8c842708688a4b369e7cdc",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f24c7a3_e6227b4e",
+        "filename": "containers/xos/pip_requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-03-27T00:12:33Z",
+      "side": 1,
+      "message": "Yep here: https://github.com/opencord/chameleon/blob/master/utils/dockerhelpers.py\n\nAlthough I\u0027m not sure what the benefit is of having a container know it\u0027s own name - logging maybe?",
+      "parentUuid": "9102bdf3_ee87f86e",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 13
+      },
+      "revId": "377d19861fa17152df8c842708688a4b369e7cdc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
