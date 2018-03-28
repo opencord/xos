@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 # Copyright 2017-present Open Networking Foundation
 #
@@ -13,9 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-#!/usr/bin/env python
-
 import os
 import sys
 import pdb
@@ -26,8 +24,8 @@ from ansible import constants
 constants = reload(constants)
 
 from tempfile import NamedTemporaryFile
-from ansible.inventory import Inventory
-from ansible.vars import VariableManager
+from ansible.inventory.manager import InventoryManager
+from ansible.vars.manager import VariableManager
 from ansible.parsing.dataloader import DataLoader
 from ansible.executor import playbook_executor
 from ansible.utils.display import Display
@@ -302,17 +300,15 @@ class Runner(object):
         except KeyError:
             pass
 
-        # All the variables from all the various places
-        self.variable_manager = VariableManager()
-        self.variable_manager.extra_vars = {} # self.run_data
-
         # Set inventory, using most of above objects
         if (host_file):
-            self.inventory = Inventory(loader=self.loader, variable_manager=self.variable_manager, host_list = host_file)
+            self.inventory = InventoryManager(loader=self.loader, sources = host_file)
         else:
-            self.inventory = Inventory(loader=self.loader, variable_manager=self.variable_manager)
+            self.inventory = InventoryManager(loader=self.loader)
 
-        self.variable_manager.set_inventory(self.inventory)
+        # All the variables from all the various places
+        self.variable_manager = VariableManager(loader=self.loader, inventory=self.inventory)
+        self.variable_manager.extra_vars = {} # self.run_data
 
         # Setup playbook executor, but don't run until run() called
         self.pbex = playbook_executor.PlaybookExecutor(
