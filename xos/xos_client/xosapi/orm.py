@@ -609,6 +609,7 @@ import convenience.network
 import convenience.cordsubscriberroot
 import convenience.voltserviceinstance
 import convenience.vsgserviceinstance
+import convenience.serviceinstance
 import convenience.vrouterservice
 import convenience.vroutertenant
 import convenience.vrouterapp
