@@ -20,6 +20,7 @@ class ORMWrapperVOLTServiceInstance(ORMWrapper):
 
     @property
     def vsg(self):
+        self.logger.warning('VOLTServiceInstance.vsg is DEPRECATED, use get_westbound_service_instance_properties instead')
         links = self.stub.ServiceInstanceLink.objects.filter(subscriber_service_instance_id = self.id)
         for link in links:
             # cast from ServiceInstance to VSGTenant
@@ -36,6 +37,8 @@ class ORMWrapperVOLTServiceInstance(ORMWrapper):
 
     @property
     def subscriber(self):
+        self.logger.warning(
+            'VOLTServiceInstance.subscriber is DEPRECATED, use get_westbound_service_instance_properties instead')
         # NOTE this assume that each VOLT has just 1 subscriber, is that right?
         links = self.stub.ServiceInstanceLink.objects.filter(provider_service_instance_id = self.id)
         for link in links:
@@ -46,15 +49,19 @@ class ORMWrapperVOLTServiceInstance(ORMWrapper):
 
     @property
     def c_tag(self):
+        self.logger.warning(
+            'VOLTServiceInstance.c_tag is DEPRECATED, use get_westbound_service_instance_properties instead')
         return self.subscriber.c_tag
 
     @property
     def s_tag(self):
+        self.logger.warning(
+            'VOLTServiceInstance.s_tag is DEPRECATED, use get_westbound_service_instance_properties instead')
         if not self.subscriber:
             raise Exception("vOLT %s has no subscriber" % self.name)
 
-        olt_device = self.stub.OLTDevice.objects.get(name = self.subscriber.olt_device)
-        olt_port = self.stub.PONPort.objects.get(name = self.subscriber.olt_port, volt_device_id=olt_device.id)
+        olt_device = self.stub.OLTDevice.objects.get(name=self.subscriber.olt_device)
+        olt_port = self.stub.PONPort.objects.get(name=self.subscriber.olt_port, volt_device_id=olt_device.id)
 
         if olt_port:
             return olt_port.s_tag
