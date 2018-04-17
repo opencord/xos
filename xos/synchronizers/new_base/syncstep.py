@@ -141,9 +141,11 @@ class SyncStep(object):
 
         tenant_fields['delete'] = True
         res = run_template(self.playbook, tenant_fields, path=path)
-        try:
+
+        if hasattr(self, "map_delete_outputs"):
             self.map_delete_outputs(o, res)
-        except AttributeError:
-            pass
+        else:
+            if res[0]["rc"] != 0:
+                raise Exception("Nonzero rc from Ansible during delete_record")
 
         self.log.debug("Finished default delete record", **o.tologdict())
