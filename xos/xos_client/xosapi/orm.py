@@ -462,6 +462,8 @@ class ORMObjectManager(object):
         else:
             # the slightly more difficult case, filter and return the first item
             objs = self.filter(**kwargs)
+            if not objs:
+                return None
             return objs[0]
 
     def new(self, **kwargs):
