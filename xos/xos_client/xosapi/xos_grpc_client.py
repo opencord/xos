@@ -22,6 +22,7 @@ import orm
 import os
 import pdb
 import sys
+import logging as log
 from google.protobuf.empty_pb2 import Empty
 from grpc import metadata_call_credentials, ChannelCredentials, composite_channel_credentials, ssl_channel_credentials
 
@@ -61,9 +62,14 @@ class XOSClient(chameleon_client.GrpcClient):
 
     def set_reconnect_callback(self, reconnect_callback):
         self.reconnect_callback2 = reconnect_callback
+
         return self
 
     def reconnected(self):
+
+        # Load convenience methods after reconnect
+        orm.load_convenience_methods()
+
         for api in ['modeldefs', 'utility', 'xos', 'dynamicload']:
             pb2_file_name = os.path.join(self.work_dir, api + "_pb2.py")
             pb2_grpc_file_name = os.path.join(self.work_dir, api + "_pb2_grpc.py")
@@ -108,6 +114,8 @@ class SecureClient(XOSClient):
             call_creds = metadata_call_credentials(UsernamePasswordCallCredentials(username, password))
         chan_creds = ssl_channel_credentials(server_ca)
         chan_creds = composite_channel_credentials(chan_creds, call_creds)
+
+        log.info('--------------------- Creating SecureClient')
 
         super(SecureClient,self).__init__(consul_endpoint, work_dir, endpoint, self.reconnected, chan_creds)
 
