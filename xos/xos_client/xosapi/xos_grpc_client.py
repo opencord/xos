@@ -22,6 +22,7 @@ import orm
 import os
 import pdb
 import sys
+import logging as log
 from google.protobuf.empty_pb2 import Empty
 from grpc import metadata_call_credentials, ChannelCredentials, composite_channel_credentials, ssl_channel_credentials
 
@@ -33,6 +34,7 @@ sys.path = [currentdir] + sys.path
 import chameleon.grpc_client.grpc_client as chameleon_client
 
 from twisted.internet import reactor
+from google.protobuf.empty_pb2 import Empty
 
 
 SERVER_CA="/usr/local/share/ca-certificates/local_certs.crt"
@@ -61,9 +63,30 @@ class XOSClient(chameleon_client.GrpcClient):
 
     def set_reconnect_callback(self, reconnect_callback):
         self.reconnect_callback2 = reconnect_callback
+
         return self
 
+    def load_convenience_methods(self):
+
+        convenience_methods_dir = "/usr/local/lib/python2.7/dist-packages/xosapi/convenience/"
+
+        try:
+            cms = self.dynamicload.GetConvenienceMethods(Empty())
+        except grpc._channel._Rendezvous, e:
+            code = e.code()
+            if code == grpc.StatusCode.UNAVAILABLE:
+                # NOTE if the core is not available, restart the synchronizer
+                os.execv(sys.executable, ['python'] + sys.argv)
+        print "Loading convenience methods: %s" % [m.filename for m in cms.convenience_methods]
+
+        for cm in cms.convenience_methods:
+            print "Saving %s" % cm.filename
+            save_path = os.path.join(convenience_methods_dir, cm.filename)
+            file(save_path, "w").write(cm.contents)
+
+
     def reconnected(self):
+
         for api in ['modeldefs', 'utility', 'xos', 'dynamicload']:
             pb2_file_name = os.path.join(self.work_dir, api + "_pb2.py")
             pb2_grpc_file_name = os.path.join(self.work_dir, api + "_pb2_grpc.py")
@@ -88,6 +111,12 @@ class XOSClient(chameleon_client.GrpcClient):
 
         if hasattr(self, "xos"):
             self.xos_orm = orm.ORMStub(self.xos, self.xos_pb2, "xos")
+
+        # ask the core for the convenience methods
+        self.load_convenience_methods()
+
+        # Load convenience methods after reconnect
+        orm.import_convenience_methods()
 
         if self.reconnect_callback2:
             self.reconnect_callback2()

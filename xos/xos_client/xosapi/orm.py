@@ -39,6 +39,8 @@ import functools
 import os
 import sys
 import time
+import imp
+import logging as log
 
 convenience_wrappers = {}
 
@@ -602,25 +604,40 @@ def make_ORMWrapper(wrapped_class, *args, **kwargs):
 
     return cls(wrapped_class, *args, **kwargs)
 
-import convenience.addresspool
-import convenience.privilege
-import convenience.instance
-import convenience.network
-import convenience.cordsubscriberroot
-import convenience.voltserviceinstance
-import convenience.vsgserviceinstance
-import convenience.serviceinstance
-import convenience.vrouterservice
-import convenience.vroutertenant
-import convenience.vrouterapp
-import convenience.service
-import convenience.onosapp
-import convenience.controller
-import convenience.user
-import convenience.slice
-import convenience.port
-import convenience.tag
-import convenience.vtrtenant
-import convenience.addressmanagerservice
-import convenience.addressmanagerserviceinstance
+def import_convenience_methods():
+
+    log.info("Loading convenience methods")
+
+    cwd = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
+    api_convenience_dir = os.path.join(cwd, "convenience")
+    for file in os.listdir(api_convenience_dir):
+        if file.endswith(".py") and not "test" in file:
+            pathname = os.path.join(api_convenience_dir, file)
+            try:
+                log.debug("Loading: %s" % file)
+                imp.load_source(file[:-3], pathname)
+            except Exception, e:
+                log.error("Cannot import api convenience method for: %s, %s", (file[:-3], pathname))
+
+
+# import convenience.addresspool
+# import convenience.privilege
+# import convenience.instance
+# import convenience.network
+# import convenience.cordsubscriberroot
+# import convenience.vsgserviceinstance
+# import convenience.serviceinstance
+# import convenience.vrouterservice
+# import convenience.vroutertenant
+# import convenience.vrouterapp
+# import convenience.service
+# import convenience.onosapp
+# import convenience.controller
+# import convenience.user
+# import convenience.slice
+# import convenience.port
+# import convenience.tag
+# import convenience.vtrtenant
+# import convenience.addressmanagerservice
+# import convenience.addressmanagerserviceinstance
 
