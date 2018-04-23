@@ -525,7 +525,14 @@ class ORMStub(object):
                        self.reverse_content_type_map[model_name] = ct
 
     def genericForeignKeyResolve(self, content_type_id, id):
+        if content_type_id.endswith("_decl"):
+            content_type_id = content_type_id[:-5]
+            
+        if content_type_id not in self.content_type_map:
+            raise Exception("Content_type %s not found in self.content_type_map" % content_type_id)
+
         model_name = self.content_type_map[content_type_id]
+
         model = getattr(self, model_name)
         return model.objects.get(id=id)
 
