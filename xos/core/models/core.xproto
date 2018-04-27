@@ -472,7 +472,7 @@ message Slice::slice_policy (XOSBase) {
      option validators = "slice_name_length_and_no_spaces:Slice name too short or contains spaces, slice_has_creator:Slice has no creator";
      option plural = "Slices";
 
-     required string name = 1 [max_length = 80, content_type = "stripped", blank = False, help_text = "The Name of the Slice", null = False, db_index = False];
+     required string name = 1 [max_length = 80, content_type = "stripped", blank = False, help_text = "The Name of the Slice", null = False, db_index = False, unique = True];
      required bool enabled = 2 [help_text = "Status for this Slice", default = True, null = False, db_index = False, blank = True];
      required string description = 4 [help_text = "High level description of the slice and expected activities", max_length = 1024, null = False, db_index = False, blank = True, varchar = True];
      required string slice_url = 5 [db_index = False, max_length = 512, null = False, content_type = "url", blank = True];
