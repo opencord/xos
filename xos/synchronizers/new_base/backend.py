@@ -23,6 +23,7 @@ import time
 from synchronizers.new_base.syncstep import SyncStep
 from synchronizers.new_base.event_loop import XOSObserver
 from synchronizers.new_base.model_policy_loop import XOSPolicyEngine
+from synchronizers.new_base.event_engine import XOSEventEngine
 from synchronizers.new_base.modelaccessor import *
 
 from xosconfig import Config
@@ -132,6 +133,14 @@ class Backend:
         else:
             self.log.info(""
                           "Skipping observer and watcher threads due to no steps dir.")
+
+        event_steps_dir = Config.get("event_steps_dir")
+        if event_steps_dir:
+            event_engine = XOSEventEngine()
+            event_engine.load_event_step_modules(event_steps_dir)
+            event_engine.start()
+        else:
+            self.log.info("Skipping event engine due to no event_steps dir.")
 
         # start model policies thread
         policies_dir = Config.get("model_policies_dir")
