@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "71e4bbea_4aee14d4",
+        "filename": "xos/synchronizers/new_base/event_engine.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-05-15T18:49:00Z",
+      "side": 1,
+      "message": "I think this message is a little confusing. We should check if \"event_bus.kind\" is defined, if it is not don\u0027t start the thread, if it is different from kafka tell the user that kafka is the only event bus we are supporting right now.\n\n(do we want to support redis too?)",
+      "range": {
+        "startLine": 46,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 71
+      },
+      "revId": "2decb17cbe2035f5dc7aade84821066f05619adf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ed1ae47_1b9cfe7f",
+        "filename": "xos/synchronizers/new_base/event_engine.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-05-15T18:49:00Z",
+      "side": 1,
+      "message": "Is it possible to print the step name in here? I guess it can be hard to identify which one failed validation if we have many",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 54,
+        "endChar": 79
+      },
+      "revId": "2decb17cbe2035f5dc7aade84821066f05619adf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "942e4061_bfb2db61",
+        "filename": "xos/synchronizers/new_base/event_engine.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-05-15T18:49:00Z",
+      "side": 1,
+      "message": "maybe add step\u003dself.step.name (or any identifier of which step failed)?",
+      "range": {
+        "startLine": 70,
+        "startChar": 24,
+        "endLine": 70,
+        "endChar": 73
+      },
+      "revId": "2decb17cbe2035f5dc7aade84821066f05619adf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e9288fb_8efc845f",
+        "filename": "xos/synchronizers/new_base/event_engine.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-05-15T18:49:00Z",
+      "side": 1,
+      "message": "Should we at least print the stacktrace?",
+      "range": {
+        "startLine": 73,
+        "startChar": 16,
+        "endLine": 73,
+        "endChar": 56
+      },
+      "revId": "2decb17cbe2035f5dc7aade84821066f05619adf",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
