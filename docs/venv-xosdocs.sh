@@ -35,3 +35,7 @@ fi
 pip install -e $BASEDIR/$VENVDIR/../../lib/xos-genx
 pip install plyxproto jinja2 pattern astunparse pyyaml colorama
 
+
+
+pykwalify==1.6.1
+multistructlog==1.5
