@@ -18,6 +18,9 @@ accessor:
   username: xosadmin@opencord.org
   password: "sample"
   kind: testframework
+event_bus:
+  endpoint: "fake"
+  kind: kafka
 logging:
   version: 1
   handlers:
@@ -27,7 +30,8 @@ logging:
     '':
       handlers:
           - console
-      level: DEBUG 
+      level: DEBUG
 dependency_graph: "tests/model-deps"
 steps_dir: "tests/steps"
 pull_steps_dir: "tests/pull_steps"
+event_steps_dir: "tests/event_steps"
