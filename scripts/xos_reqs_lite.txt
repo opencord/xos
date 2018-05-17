@@ -1,0 +1,10 @@
+astunparse
+colorama
+jinja2
+multistructlog==1.5
+nose2
+pattern
+plyxproto
+pykwalify==1.6.1
+pyyaml
+requests_mock
