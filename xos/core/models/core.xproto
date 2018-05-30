@@ -381,7 +381,7 @@ message NodeLabel (XOSBase) {
      required manytomany node->Node/NodeLabel_node:nodelabels = 2 [db_index = False, blank = True];
 }
 
-policy port_validator < (obj.instance.slice in obj.network.permitted_slices.all()) | (obj.instance.slice = obj.network.owner) | obj.network.permit_all_slices >
+policy port_validator < (obj.instance = None) | (obj.instance.slice in obj.network.permitted_slices.all()) | (obj.instance.slice = obj.network.owner) | obj.network.permit_all_slices >
 policy port_policy < *instance_policy(instance) & *network_policy(network) >
 
 message Port::port_policy (XOSBase) {
