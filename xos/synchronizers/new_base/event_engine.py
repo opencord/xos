@@ -43,6 +43,7 @@ class XOSKafkaThread(threading.Thread):
         return KafkaConsumer(bootstrap_servers=self.bootstrap_servers)
 
     def run(self):
+        from kafka.errors import NoBrokersAvailable
         if (not self.step.topics) and (not self.step.pattern):
             raise Exception("Neither topics nor pattern is defined for step %s" % self.step.__name__)
 
@@ -69,6 +70,9 @@ class XOSKafkaThread(threading.Thread):
                         self.step(log=log).process_event(msg)
                     except:
                         log.exception("Exception in event step", msg=msg, step=self.step.__name__)
+            except NoBrokersAvailable:
+                log.warning("No brokers available on %s" % self.bootstrap_servers)
+                time.sleep(20)
             except:
                 # Maybe Kafka has not started yet. Log the exception and try again in a second.
                 log.exception("Exception in kafka loop")
