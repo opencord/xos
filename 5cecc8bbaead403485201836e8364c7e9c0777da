@@ -22,6 +22,30 @@
       "revId": "5cecc8bbaead403485201836e8364c7e9c0777da",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "978963d4_0efff5fc",
+        "filename": "containers/xos/test_pip_requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-06-06T18:43:39Z",
+      "side": 1,
+      "message": "more than that I would say that this is not the correct format of a requirement.txt file: https://pip.readthedocs.io/en/1.1/requirements.html#the-requirements-file-format\n\ngenerating it should be as easy as \"pip freeze \u003e test_pip_requirements.txt\" on a system that has this requirements installed",
+      "parentUuid": "c09f4a11_49091add",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 29
+      },
+      "revId": "5cecc8bbaead403485201836e8364c7e9c0777da",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
