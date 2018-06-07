@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "638aa5ce_1c765a10",
+        "filename": "xos/synchronizers/new_base/dependency_walker_new.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-06-07T04:28:57Z",
+      "side": 1,
+      "message": "Could this catch errors other than \"File Not Found\", such as a permission error, that should be reported rather than silently assuming an empty file? If so, maybe use a test of os.path.exists() instead?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "02f443184be252b6bc22b6ba431f0a5ccb7f9ca3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
