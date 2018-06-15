@@ -27,4 +27,7 @@ class Port(Port_decl):
                 (not self.network.permit_all_slices):
                 raise XOSValidationError("Slice is not allowed to connect to network")
 
+        if self.instance and self.service_instance:
+            raise XOSValidationError("Only one of (instance, service_instance) may be set")
+
         super(Port, self).save(*args, **kwargs)
