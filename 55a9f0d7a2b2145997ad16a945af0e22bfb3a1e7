@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c1f72461_9217fa29",
+        "filename": "xos/core/models/port.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-06-18T17:49:22Z",
+      "side": 1,
+      "message": "What about adding some information about the model?\nSomething similar to \"Only one of (instance, service_instance) may be set for port %s\" % any_idenitfier\n\nIt can get tricky to contextualize that message and find the corresponding TOSCA lines without the model name and some identifier of the model instance",
+      "range": {
+        "startLine": 31,
+        "startChar": 38,
+        "endLine": 31,
+        "endChar": 89
+      },
+      "revId": "55a9f0d7a2b2145997ad16a945af0e22bfb3a1e7",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
