@@ -22,6 +22,30 @@
       "revId": "55a9f0d7a2b2145997ad16a945af0e22bfb3a1e7",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15d75ec5_1e1983de",
+        "filename": "xos/core/models/port.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-06-18T18:35:44Z",
+      "side": 1,
+      "message": "Will do.",
+      "parentUuid": "c1f72461_9217fa29",
+      "range": {
+        "startLine": 31,
+        "startChar": 38,
+        "endLine": 31,
+        "endChar": 89
+      },
+      "revId": "55a9f0d7a2b2145997ad16a945af0e22bfb3a1e7",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
