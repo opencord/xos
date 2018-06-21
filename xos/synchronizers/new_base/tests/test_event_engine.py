@@ -79,11 +79,11 @@ class TestEventEngine(unittest.TestCase):
         os.chdir(self.cwd_save)
 
     def test_load_event_step_modules(self):
-        self.event_engine.load_event_step_modules(self.event_steps_dir)
+        self.event_engine.load_pull_step_modules(self.event_steps_dir)
         self.assertEqual(len(self.event_engine.event_steps), 1)
 
     def test_start(self):
-        self.event_engine.load_event_step_modules(self.event_steps_dir)
+        self.event_engine.load_pull_step_modules(self.event_steps_dir)
 
         with patch.object(XOSKafkaThread, "create_kafka_consumer") as create_kafka_consumer, \
              patch.object(FakeKafkaConsumer, "subscribe") as fake_subscribe, \
@@ -103,7 +103,7 @@ class TestEventEngine(unittest.TestCase):
             process_event.assert_called_with("sampleevent")
 
     def test_start_with_pattern(self):
-        self.event_engine.load_event_step_modules(self.event_steps_dir)
+        self.event_engine.load_pull_step_modules(self.event_steps_dir)
 
         with patch.object(XOSKafkaThread, "create_kafka_consumer") as create_kafka_consumer, \
              patch.object(FakeKafkaConsumer, "subscribe") as fake_subscribe, \
@@ -129,7 +129,7 @@ class TestEventEngine(unittest.TestCase):
             process_event.assert_called_with("sampleevent")
 
     def _test_start_no_bus(self):
-        self.event_engine.load_event_step_modules(self.event_steps_dir)
+        self.event_engine.load_pull_step_modules(self.event_steps_dir)
         with patch.object(XOSKafkaThread, "create_kafka_consumer") as create_kafka_consumer, \
                 patch.object(event_engine_log, "warning") as log_warning:
 
@@ -143,7 +143,7 @@ class TestEventEngine(unittest.TestCase):
             not create any threads.
         """
 
-        self.event_engine.load_event_step_modules(self.event_steps_dir)
+        self.event_engine.load_pull_step_modules(self.event_steps_dir)
 
         with patch.object(XOSKafkaThread, "create_kafka_consumer") as create_kafka_consumer, \
                 patch.object(event_engine_log, "error") as log_error, \
@@ -162,7 +162,7 @@ class TestEventEngine(unittest.TestCase):
             with an exception before calling subscribe.
         """
 
-        self.event_engine.load_event_step_modules(self.event_steps_dir)
+        self.event_engine.load_pull_step_modules(self.event_steps_dir)
 
         with patch.object(XOSKafkaThread, "create_kafka_consumer") as create_kafka_consumer, \
              patch.object(FakeKafkaConsumer, "subscribe") as fake_subscribe, \
@@ -183,7 +183,7 @@ class TestEventEngine(unittest.TestCase):
             with an exception before calling subscribe.
         """
 
-        self.event_engine.load_event_step_modules(self.event_steps_dir)
+        self.event_engine.load_pull_step_modules(self.event_steps_dir)
 
         with patch.object(XOSKafkaThread, "create_kafka_consumer") as create_kafka_consumer, \
              patch.object(FakeKafkaConsumer, "subscribe") as fake_subscribe, \
@@ -204,7 +204,7 @@ class TestEventEngine(unittest.TestCase):
             not create any threads.
         """
 
-        self.event_engine.load_event_step_modules(self.event_steps_dir)
+        self.event_engine.load_pull_step_modules(self.event_steps_dir)
 
         config_get_orig = Config.get
         with patch.object(XOSKafkaThread, "create_kafka_consumer") as create_kafka_consumer, \
@@ -223,7 +223,7 @@ class TestEventEngine(unittest.TestCase):
             not create any threads.
         """
 
-        self.event_engine.load_event_step_modules(self.event_steps_dir)
+        self.event_engine.load_pull_step_modules(self.event_steps_dir)
 
         config_get_orig = Config.get
         with patch.object(XOSKafkaThread, "create_kafka_consumer") as create_kafka_consumer, \
