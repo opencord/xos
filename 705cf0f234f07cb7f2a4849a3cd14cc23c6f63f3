@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "200eb17c_5dd2628a",
+        "filename": "docs/install.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-06-28T17:50:38Z",
+      "side": 1,
+      "message": "Tiller is a container that gets deployed by the command \"helm init\", this command install Helm",
+      "range": {
+        "startLine": 38,
+        "startChar": 20,
+        "endLine": 38,
+        "endChar": 26
+      },
+      "revId": "705cf0f234f07cb7f2a4849a3cd14cc23c6f63f3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bd2bd1eb_7125c000",
+        "filename": "docs/k8s-laptop.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-06-28T17:50:38Z",
+      "side": 1,
+      "message": "Isn\u0027t this a duplication of install.md?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 25
+      },
+      "revId": "705cf0f234f07cb7f2a4849a3cd14cc23c6f63f3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05348807_ea9ee0dc",
+        "filename": "docs/use.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-06-28T17:50:38Z",
+      "side": 1,
+      "message": "Isn\u0027t this a duplication of intro.md?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "705cf0f234f07cb7f2a4849a3cd14cc23c6f63f3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
