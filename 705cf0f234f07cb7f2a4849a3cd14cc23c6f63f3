@@ -68,6 +68,30 @@
       "revId": "705cf0f234f07cb7f2a4849a3cd14cc23c6f63f3",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6c246ec9_ae1eb86c",
+        "filename": "docs/use.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000009
+      },
+      "writtenOn": "2018-06-28T22:01:17Z",
+      "side": 1,
+      "message": "Yes, there will be some duplication as I change the \"context\" from CORD to XOS. We\u0027ll need to figure out the right way to deal with this long-term.",
+      "parentUuid": "05348807_ea9ee0dc",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "705cf0f234f07cb7f2a4849a3cd14cc23c6f63f3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
