@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a19154dd_7c2d5b1e",
+        "filename": "docs/Makefile",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-06-29T00:20:54Z",
+      "side": 0,
+      "message": "I think this is still needed to generate swagger API docs for the guide site.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 0
+      },
+      "revId": "387353b02f5265d8a4cb64a858f1797ffc959d75",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
