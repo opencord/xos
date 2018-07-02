@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "44d38395_92fc18f0",
+        "filename": "docs/install.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-02T23:19:46Z",
+      "side": 1,
+      "message": "Having a top-level `xos` directory then the xos core code in ~/xos/orchestration/xos` seems a bit confusing, but I don\u0027t have an alternative suggestion.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 3
+      },
+      "revId": "ba92e075f1581a58dda3a0a79531d32dd56c6146",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1210ff62_3069a255",
+        "filename": "docs/repo.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-02T23:19:46Z",
+      "side": 1,
+      "message": "TOSCA",
+      "range": {
+        "startLine": 4,
+        "startChar": 49,
+        "endLine": 4,
+        "endChar": 55
+      },
+      "revId": "ba92e075f1581a58dda3a0a79531d32dd56c6146",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a94e51f_f48a7961",
+        "filename": "docs/tutorials/basic_synchronizer.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-02T23:19:46Z",
+      "side": 1,
+      "message": "similar",
+      "range": {
+        "startLine": 18,
+        "startChar": 45,
+        "endLine": 18,
+        "endChar": 51
+      },
+      "revId": "ba92e075f1581a58dda3a0a79531d32dd56c6146",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f38c913_f7126b8b",
+        "filename": "docs/tutorials/basic_synchronizer.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-02T23:19:46Z",
+      "side": 1,
+      "message": "models",
+      "range": {
+        "startLine": 170,
+        "startChar": 41,
+        "endLine": 170,
+        "endChar": 42
+      },
+      "revId": "ba92e075f1581a58dda3a0a79531d32dd56c6146",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1439ae40_a1352e31",
+        "filename": "docs/tutorials/basic_synchronizer.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-02T23:19:46Z",
+      "side": 1,
+      "message": "with",
+      "range": {
+        "startLine": 186,
+        "startChar": 32,
+        "endLine": 186,
+        "endChar": 37
+      },
+      "revId": "ba92e075f1581a58dda3a0a79531d32dd56c6146",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a618efdc_afdf7604",
+        "filename": "docs/tutorials/basic_synchronizer.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-02T23:19:46Z",
+      "side": 1,
+      "message": "recipes",
+      "range": {
+        "startLine": 290,
+        "startChar": 47,
+        "endLine": 290,
+        "endChar": 55
+      },
+      "revId": "ba92e075f1581a58dda3a0a79531d32dd56c6146",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63e27a20_f90d9e2e",
+        "filename": "docs/tutorials/basic_synchronizer.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-02T23:19:46Z",
+      "side": 1,
+      "message": "available",
+      "range": {
+        "startLine": 301,
+        "startChar": 47,
+        "endLine": 301,
+        "endChar": 55
+      },
+      "revId": "ba92e075f1581a58dda3a0a79531d32dd56c6146",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5eaaafc_e7a9f390",
+        "filename": "docs/tutorials/basic_synchronizer.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 442,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-02T23:19:46Z",
+      "side": 1,
+      "message": "Every time",
+      "range": {
+        "startLine": 442,
+        "startChar": 0,
+        "endLine": 442,
+        "endChar": 9
+      },
+      "revId": "ba92e075f1581a58dda3a0a79531d32dd56c6146",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2dcdb89_45824fe8",
+        "filename": "docs/tutorials/basic_synchronizer.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-02T23:19:46Z",
+      "side": 1,
+      "message": "until",
+      "range": {
+        "startLine": 446,
+        "startChar": 49,
+        "endLine": 446,
+        "endChar": 55
+      },
+      "revId": "ba92e075f1581a58dda3a0a79531d32dd56c6146",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0a38a7d_dc23ffd2",
+        "filename": "docs/tutorials/basic_synchronizer.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 465,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-02T23:19:46Z",
+      "side": 1,
+      "message": "demonstrate",
+      "range": {
+        "startLine": 465,
+        "startChar": 41,
+        "endLine": 465,
+        "endChar": 52
+      },
+      "revId": "ba92e075f1581a58dda3a0a79531d32dd56c6146",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
