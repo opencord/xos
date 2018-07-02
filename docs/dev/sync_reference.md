@@ -203,7 +203,7 @@ Event Steps are similar to pull steps in that they are often used to implement a
 >
 > ```yaml 
 > event_bus:
->   endpoint: cord-kafka-kafka 
+>   endpoint: cord-kafka
 >   kind: kafka 
 >```
 
@@ -259,7 +259,7 @@ Sending an event to Kafka can be done using a variety of Kafka clients for vario
 ```python 
 import json 
 from kafka import KafkaProducer 
-producer = KafkaProducer(bootstrap_servers="cord-kafka-kafka") 
+producer = KafkaProducer(bootstrap_servers="cord-kafka") 
 producer.send("MyTopic", json.dumps({"first_name": "John", "last_name": "Doe"})) 
 producer.flush() 
 ```
