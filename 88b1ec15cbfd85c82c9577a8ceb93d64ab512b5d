@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d21195b9_532d97cb",
+        "filename": "docs/xos_internals.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-07-06T20:59:02Z",
+      "side": 1,
+      "message": "functionality",
+      "range": {
+        "startLine": 4,
+        "startChar": 11,
+        "endLine": 4,
+        "endChar": 22
+      },
+      "revId": "88b1ec15cbfd85c82c9577a8ceb93d64ab512b5d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
