@@ -16,8 +16,7 @@ import sys
 import os
 
 COPYRIGHTS = {
-    "slash": """
-/*
+    "slash": """/*
  * Copyright 2017-present Open Networking Foundation
 
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -31,10 +30,8 @@ COPYRIGHTS = {
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
-""",
-    "hash": """
-# Copyright 2017-present Open Networking Foundation
+ */""",
+    "hash": """# Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -46,10 +43,8 @@ COPYRIGHTS = {
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License.
-""",
-    "html": """
-<!--
+# limitations under the License.""",
+    "html": """<!--
 Copyright 2017-present Open Networking Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -63,10 +58,8 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
--->
-""",
-    "jinja": """
-{#
+-->""",
+    "jinja": """{#
 Copyright 2017-present Open Networking Foundation
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -80,10 +73,8 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
-#}
-""",
-    "ini": """
-;Copyright 2017-present Open Networking Foundation
+#}""",
+    "ini": """;Copyright 2017-present Open Networking Foundation
 ;
 ;Licensed under the Apache License, Version 2.0 (the "License");
 ;you may not use this file except in compliance with the License.
@@ -95,8 +86,7 @@ limitations under the License.
 ;distributed under the License is distributed on an "AS IS" BASIS,
 ;WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ;See the License for the specific language governing permissions and
-;limitations under the License.
-""",
+;limitations under the License.""",
 }
 
 EXT_MAPPING = {
@@ -105,6 +95,9 @@ EXT_MAPPING = {
     ".scss": COPYRIGHTS["slash"],
     ".css": COPYRIGHTS["slash"],
     ".gradle": COPYRIGHTS["slash"],
+    ".go": COPYRIGHTS["slash"],
+    ".c": COPYRIGHTS["slash"],
+    ".h": COPYRIGHTS["slash"],
 
     "docker": COPYRIGHTS["hash"],
     ".py": COPYRIGHTS["hash"],
@@ -116,6 +109,7 @@ EXT_MAPPING = {
     ".sql": COPYRIGHTS["hash"],
 
     ".html": COPYRIGHTS["html"],
+    ".xml": COPYRIGHTS["html"],
     ".j2": COPYRIGHTS["jinja"],
     ".ini": COPYRIGHTS["ini"],
 }
@@ -133,12 +127,24 @@ def get_copyright(file):
 
 def add_copyright(file):
     with open(file, 'r') as original: data = original.read()
-    if not "Copyright 2017-present Open Networking Foundation" in data:
+    if not "Licensed under the Apache License, Version 2.0" in data:
         print "Adding copyright to: %s" % file
+
+        # don't push special first lines below copyright
+        specialline = ""
+        if data and "#!" in data.splitlines()[0]:
+            print "Has Shebang: %s" % data.splitlines()[0]
+            (specialline, data) = data.split("\n", 1)
+            specialline += "\n"
+
+        elif data and "---" in data.splitlines()[0]:
+            print "Has YAML start of document: %s" % data.splitlines()[0]
+            (specialline, data) = data.split("\n", 1)
+            specialline += "\n"
 
         copy = get_copyright(file)
         if copy:
-            with open(file, 'w') as modified: modified.write(copy + "\n\n" + data)
+            with open(file, 'w') as modified: modified.write(specialline + copy + "\n" + data)
     return
 
 def get_files_ignore_by_git(root):
@@ -191,6 +197,7 @@ def should_skip(entry):
     or ext == ".eot" \
     or ext == ".md" \
     or ext == ".png" \
+    or ext == ".pdf" \
     or ext == ".PNG" \
     or ext == ".jpg" \
     or ext == ".gif" \
