@@ -1,0 +1,6 @@
+build
+dist
+XosTest.egg-info
+.coverage
+coverage.xml
+cover
