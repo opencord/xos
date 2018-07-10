@@ -22,6 +22,30 @@
       "revId": "0e98d0f4b1251d95e80a0b82576779e89cc31ace",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "781fdc92_83b7a6e6",
+        "filename": "xos/synchronizers/new_base/apiaccessor.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-07-10T23:45:44Z",
+      "side": 1,
+      "message": "Sure, will do.",
+      "parentUuid": "ef3271be_4f68b589",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "0e98d0f4b1251d95e80a0b82576779e89cc31ace",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
