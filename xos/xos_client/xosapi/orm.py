@@ -616,6 +616,7 @@ def register_convenience_wrapper(class_name, wrapper):
     convenience_wrappers[class_name] = wrapper
 
 def make_ORMWrapper(wrapped_class, *args, **kwargs):
+
     if wrapped_class.__class__.__name__ in convenience_wrappers:
         cls = convenience_wrappers[wrapped_class.__class__.__name__]
     else:
