@@ -53,7 +53,11 @@ chmod 777 $BASEDIR/venv-xos/lib/python2.7/site-packages/xosapi/chameleon/protoc_
 cd $BASEDIR/lib/xos-genx; python setup.py install && \
 
 #install xos-util
-cd $BASEDIR/lib/xos-util; python setup.py install
+cd $BASEDIR/lib/xos-util; python setup.py install && \
+
+# install xos-test
+cd $BASEDIR/lib/xos-test; python setup.py install
+
  then
    echo "Requirements installed."
    echo "Virtualenv ready"
