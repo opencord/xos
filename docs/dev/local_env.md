@@ -9,7 +9,8 @@ We are providing an helper script to setup a python virtual environment and
 install all the required dependencies, to use it:
 
 ```bash
-source scripts/setup_venv.sh
+./scripts/setup_venv.sh
+source venv-xos/bin/activate
 ```
 
 At this point xos libraries are installed as python modules, so you can use any
