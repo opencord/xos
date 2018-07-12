@@ -24,7 +24,7 @@ cp -R ../../component/chameleon containers/xos/tmp.chameleon
 To run unit tests, go to the root of the xos repository and run the following:
 
 ```shell
-nose2 --verbose --exclude-ignored-files
+nose2 --verbose
 ```
 
 ## Writing new unit tests
@@ -36,7 +36,13 @@ them up.
 ## Ignoring unwanted unit tests
 
 Some tests are still being migrated to the unit testing framework and/or
-require features that may not be present in the virtual-env. Placing the string
-`# TEST_FRAMEWORK: IGNORE` anywhere in a python file will prevent it from being
-executed automatically by the test framework.
+require features that may not be present in the virtual-env. Placing the
+[__test__
+attribute](https://nose2.readthedocs.io/en/latest/plugins/dundertests.html) set to `False`:
+
+```python
+__test__ = False
+```
+
+in a class will exclude it from being evaluated by the test framework.
 
