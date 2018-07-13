@@ -111,7 +111,6 @@ class XOSPolicyEngine(object):
         # These are the models whose children get deleted when they are
         delete_policy_models = ['Slice','Instance','Network']
         sender_name = getattr(instance, "model_name", instance.__class__.__name__)
-        new_policed = model_accessor.now()
 
         #if (action != "deleted"):
         #    walk_inv_deps(self.update_dep, instance)
@@ -140,7 +139,7 @@ class XOSPolicyEngine(object):
 
         if not policies_failed:
             try:
-                instance.policed=new_policed
+                instance.policed = max(instance.updated, instance.changed_by_step)
                 instance.policy_status = "done"
                 instance.policy_code = 1
                 instance.save(update_fields=['policed', 'policy_status', 'policy_code'])

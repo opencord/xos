@@ -129,8 +129,9 @@ class XOSBase(XOSBase_decl):
             caller_kind = kwargs.pop("caller_kind")
 
         always_update_timestamp = False
-        if "always_update_timestamp" in kwargs:
-            always_update_timestamp = always_update_timestamp or kwargs.pop("always_update_timestamp")
+        # NOTE(smbaker): always_update_timestamp is now unused
+        #if "always_update_timestamp" in kwargs:
+        #    always_update_timestamp = always_update_timestamp or kwargs.pop("always_update_timestamp")
 
         # validate that only synchronizers can write feedback state
 
@@ -164,7 +165,7 @@ class XOSBase(XOSBase_decl):
                     if getattr(self, field.name) == "":
                         raise XOSValidationError("Blank is not allowed on field %s" % field.name)
 
-        if (caller_kind!="synchronizer") or always_update_timestamp:
+        if (caller_kind == "synchronizer") or always_update_timestamp:
             self.updated = timezone.now()
         else:
             # We're not auto-setting timestamp, but let's check to make sure that the caller hasn't tried to set our
@@ -172,6 +173,12 @@ class XOSBase(XOSBase_decl):
             if (self.updated != self._initial["updated"]) and ((not kwargs.get("update_fields")) or ("updated" in kwargs.get("update_fields"))):
                 log.info("Synchronizer tried to change `updated` timestamp on model %s from %s to %s. Ignored." % (self, self._initial["updated"], self.updated))
                 self.updated = self._initial["updated"]
+
+        if this_is_a_sync_change and self.nontrivial_changes():
+            self.changed_by_step = timezone.now()
+
+        if this_is_a_policy_change and self.nontrivial_changes():
+            self.changed_by_policg = timezone.now()
 
         with transaction.atomic():
             self.verify_live_keys(update_fields = kwargs.get("update_fields"))

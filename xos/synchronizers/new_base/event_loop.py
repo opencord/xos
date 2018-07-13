@@ -210,8 +210,6 @@ class XOSObserver:
         if step is None:
             raise ExternalDependencyFailed
 
-        new_enacted = model_accessor.now()
-
         # Mark this as an object that will require delete. Do
         # this now rather than after the syncstep,
         if not (o.backend_need_delete):
@@ -230,7 +228,7 @@ class XOSObserver:
 
         model_accessor.update_diag(
             syncrecord_start=time.time(), backend_status="Synced Record", backend_code=1)
-        o.enacted = new_enacted
+        o.enacted = max(o.updated, o.changed_by_policy)
         scratchpad = {'next_run': 0, 'exponent': 0,
                       'last_success': time.time()}
         o.backend_register = json.dumps(scratchpad)
