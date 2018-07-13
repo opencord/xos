@@ -169,6 +169,18 @@ class User(AbstractBaseUser, PlModelMixIn):
     policy_status = models.CharField( default = "0 - Policy in process", max_length = 1024, null = True )
     policy_code = models.IntegerField( default = 0, null = True )
 
+    backend_need_delete_policy = BooleanField(
+        help_text="True if delete model_policy must be run before object can be reaped", default=False, null=False,
+        blank=True)
+    xos_managed = BooleanField(help_text="True if xos is responsible for creating/deleting this object", default=True,
+                               null=False, blank=True)
+    backend_handle = CharField(help_text="Handle used by the backend to track this object", max_length=1024, null=True,
+                               blank=True)
+    changed_by_step = DateTimeField(default=None, help_text="Time this model was changed by a sync step", null=True,
+                                    blank=True)
+    changed_by_policy = DateTimeField(default=None, help_text="Time this model was changed by a model policy",
+                                      null=True, blank=True)
+
     objects = UserManager()
     deleted_objects = DeletedUserManager()
 
