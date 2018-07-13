@@ -9,10 +9,10 @@ message XOSBase {
      option custom_header = "xosbase_header";
      option abstract = True;
 
-     required string created = 1 [content_type = "date", auto_now_add = True];
-     required string updated = 2 [default = "now()", content_type = "date"];
-     optional string enacted = 3 [null = True, content_type = "date", blank = True, default = None];
-     optional string policed = 4 [null = True, content_type = "date", blank = True, default = None];
+     required string created = 1 [content_type = "date", auto_now_add = True, help_text = "Time this model was created"];
+     required string updated = 2 [default = "now()", content_type = "date", help_text = "Time this model was changed by a non-synchronizer"];
+     optional string enacted = 3 [null = True, content_type = "date", blank = True, default = None, help_text = "When synced, set to the timestamp of the data that was synced"];
+     optional string policed = 4 [null = True, content_type = "date", blank = True, default = None, help_text = "When policed, set to the timestamp of the data that was policed"];
      optional string backend_register = 5 [default = "{}", max_length = 1024, feedback_state = True];
      required bool backend_need_delete = 6 [default = False, blank = True];
      required bool backend_need_reap = 7 [default = False, blank = True];
@@ -29,6 +29,8 @@ message XOSBase {
      required bool backend_need_delete_policy = 18 [default = False, help_text = "True if delete model_policy must be run before object can be reaped", blank = True];
      required bool xos_managed = 19 [default = True, help_text = "True if xos is responsible for creating/deleting this object", blank = True, gui_hidden = True];
      optional string backend_handle = 20 [max_length = 1024, feedback_state = True, blank=True, null=True, help_text = "Handle used by the backend to track this object", gui_hidden = True];
+     optional string changed_by_step = 21 [null = True, content_type = "date", blank = True, default = None, gui_hidden = True, help_text = "Time this model was changed by a sync step"];
+     optional string changed_by_policy = 22 [null = True, content_type = "date", blank = True, default = None, gui_hidden = True, help_text = "Time this model was changed by a model policy"];
 }
 
 // The calling user represents the user being accessed, or is a site admin.
