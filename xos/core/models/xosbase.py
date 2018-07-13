@@ -113,6 +113,15 @@ class XOSBase(XOSBase_decl):
             if getattr(f, "deleted", False):
                 raise Exception("Attempt to save object with deleted foreign key reference")
 
+    def has_important_changes(self):
+        for field_name in self.changed_fields:
+            if field_name in ["policed", "updated", "enacted", "changed_by_step", "changed_by_policy"]:
+                continue
+            if field_name.startswith("backend"):
+                continue
+            return True
+        return False
+
     def save(self, *args, **kwargs):
 
         # let the user specify silence as either a kwarg or an instance varible
@@ -129,8 +138,17 @@ class XOSBase(XOSBase_decl):
             caller_kind = kwargs.pop("caller_kind")
 
         always_update_timestamp = False
-        if "always_update_timestamp" in kwargs:
-            always_update_timestamp = always_update_timestamp or kwargs.pop("always_update_timestamp")
+        # NOTE(smbaker): always_update_timestamp is now unused
+        #if "always_update_timestamp" in kwargs:
+        #    always_update_timestamp = always_update_timestamp or kwargs.pop("always_update_timestamp")
+
+        is_sync_save = False
+        if "is_sync_save" in kwargs:
+            is_sync_save = kwargs.pop("is_sync_save")
+
+        is_policy_save = False
+        if "is_policy_save" in kwargs:
+            is_policy_save = kwargs.pop("is_policy_save")
 
         # validate that only synchronizers can write feedback state
 
@@ -164,7 +182,7 @@ class XOSBase(XOSBase_decl):
                     if getattr(self, field.name) == "":
                         raise XOSValidationError("Blank is not allowed on field %s" % field.name)
 
-        if (caller_kind!="synchronizer") or always_update_timestamp:
+        if (caller_kind == "synchronizer") or always_update_timestamp:
             self.updated = timezone.now()
         else:
             # We're not auto-setting timestamp, but let's check to make sure that the caller hasn't tried to set our
@@ -172,6 +190,12 @@ class XOSBase(XOSBase_decl):
             if (self.updated != self._initial["updated"]) and ((not kwargs.get("update_fields")) or ("updated" in kwargs.get("update_fields"))):
                 log.info("Synchronizer tried to change `updated` timestamp on model %s from %s to %s. Ignored." % (self, self._initial["updated"], self.updated))
                 self.updated = self._initial["updated"]
+
+        if is_sync_save and self.has_important_changes():
+            self.changed_by_step = timezone.now()
+
+        if is_policy_save and self.has_important_changes():
+            self.changed_by_policg = timezone.now()
 
         with transaction.atomic():
             self.verify_live_keys(update_fields = kwargs.get("update_fields"))

@@ -275,7 +275,7 @@ class ORMWrapper(object):
             self.cache.clear()
             self.reverse_cache.clear()
 
-    def save(self, update_fields=None, always_update_timestamp=False):
+    def save(self, update_fields=None, always_update_timestamp=False, is_sync_save=False, is_policy_save=False):
         if self.is_new:
            new_class = self.stub.invoke("Create%s" % self._wrapped_class.__class__.__name__, self._wrapped_class)
            self._wrapped_class = new_class
@@ -286,6 +286,10 @@ class ORMWrapper(object):
                metadata.append( ("update_fields", ",".join(update_fields)) )
            if always_update_timestamp:
                metadata.append( ("always_update_timestamp", "1") )
+           if is_policy_save:
+               metadata.append( ("is_policy_save", 1) )
+           if is_sync_save:
+               metadata.append( ("is_sync_save", 1) )
            self.stub.invoke("Update%s" % self._wrapped_class.__class__.__name__, self._wrapped_class, metadata=metadata)
         self.do_post_save_fixups()
 
