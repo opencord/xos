@@ -585,14 +585,14 @@ class XOSAPIHelperMixin(object):
                         query = self.query_element_to_q(element)
                 queryset = djangoClass.objects.filter(query)
             elif request.kind == request.SYNCHRONIZER_DIRTY_OBJECTS:
-                query = (Q(enacted__lt=F('updated')) | Q(enacted=None)) & Q(
-                    lazy_blocked=False) & Q(no_sync=False)
+                query = (Q(enacted=None) | Q(enacted__lt=F('updated')) | Q(enacted__lt=F('changed_by_policy'))) \
+                        & Q(lazy_blocked=False) & Q(no_sync=False)
                 queryset = djangoClass.objects.filter(query)
             elif request.kind == request.SYNCHRONIZER_DELETED_OBJECTS:
                 queryset = djangoClass.deleted_objects.all()
             elif request.kind == request.SYNCHRONIZER_DIRTY_POLICIES:
-                query = (Q(policed__lt=F('updated')) | Q(
-                    policed=None)) & Q(no_policy=False)
+                query = (Q(policed=None) | Q(policed__lt=F('updated')) | Q(policed__lt=F('changed_by_step'))) \
+                        & Q(no_policy=False)
                 queryset = djangoClass.objects.filter(query)
             elif request.kind == request.SYNCHRONIZER_DELETED_POLICIES:
                 query = Q(policed__lt=F('updated')) | Q(policed=None)
