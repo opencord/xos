@@ -210,8 +210,6 @@ class XOSObserver:
         if step is None:
             raise ExternalDependencyFailed
 
-        new_enacted = model_accessor.now()
-
         # Mark this as an object that will require delete. Do
         # this now rather than after the syncstep,
         if not (o.backend_need_delete):
@@ -230,7 +228,8 @@ class XOSObserver:
 
         model_accessor.update_diag(
             syncrecord_start=time.time(), backend_status="Synced Record", backend_code=1)
-        o.enacted = new_enacted
+
+        o.enacted = max(o.updated, o.changed_by_policy)
         scratchpad = {'next_run': 0, 'exponent': 0,
                       'last_success': time.time()}
         o.backend_register = json.dumps(scratchpad)
@@ -238,8 +237,9 @@ class XOSObserver:
         o.backend_code = 1
         model_accessor.journal_object(o, "syncstep.call.save_update")
         o.save(update_fields=['enacted', 'backend_status',
-                              'backend_register', 'backend_code'])
-        log.info("Saved sync object, new enacted", enacted=new_enacted)
+                              'backend_register', 'backend_code'],
+               is_sync_save=True)
+        log.info("Saved sync object", o=o)
 
     """ This function needs a cleanup. FIXME: Rethink backend_status, backend_register """
 
