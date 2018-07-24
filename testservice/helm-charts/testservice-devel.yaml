@@ -1,0 +1,2 @@
+imagePullPolicy: 'IfNotPresent'
+testservice_synchronizerImage: 'xosproject/testservice-synchronizer:candidate'
