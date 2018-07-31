@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aad905c5_9967bf70",
+        "filename": "docs/dev/sync_arch.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-07-31T12:54:41Z",
+      "side": 1,
+      "message": "when a model changes it\u0027s authoritative state",
+      "range": {
+        "startLine": 219,
+        "startChar": 269,
+        "endLine": 219,
+        "endChar": 282
+      },
+      "revId": "15fea938b3df0c28e9dd90fd90cf66042a470b9b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
