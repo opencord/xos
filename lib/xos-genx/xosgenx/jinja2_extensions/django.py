@@ -79,18 +79,20 @@ def xproto_django_link_type(f):
             return 'GenericRelation'
 
 def map_xproto_to_django(f):
-    allowed_keys=['help_text','default','max_length','modifier','blank','choices','db_index','null','editable','on_delete','verbose_name', 'auto_now_add', 'unique']
+    allowed_keys=['help_text','default','max_length','modifier','blank','choices','db_index','null','editable','on_delete','verbose_name', 'auto_now_add', 'unique', 'min_value', 'max_value']
 
     m = {'modifier':{'optional':True, 'required':False, '_target':'null'}}
     out = {}
 
     for k,v in f['options'].items():
-        if (k in allowed_keys):
+        if k in allowed_keys:
             try:
+                # NOTE this will be used to parse xproto optional/required field prefix and apply it to the null field
                 kv2 = m[k]
                 out[kv2['_target']] = kv2[v]
             except:
                 out[k] = v
+
     return out
 
 def xproto_django_link_options_str(field, dport=None):
@@ -121,17 +123,32 @@ def xproto_django_link_options_str(field, dport=None):
 
     return format_options_string(output_dict)
 
+def use_native_django_validators(k, v):
+
+    validators_map = {
+        'min_value': 'MinValueValidator',
+        'max_value': 'MaxValueValidator'
+    }
+
+    return "validators=[%s(%s)]" % (validators_map[k], v)
+
 def format_options_string(d):
+
+    known_validators = ['min_value', 'max_value']
+
     if (not d):
         return ''
     else:
 
         lst = []
         for k,v in d.items():
-            if (type(v)==str and k=='default' and v.endswith('()"')):
+            if k in known_validators:
+                lst.append(use_native_django_validators(k, v))
+            elif (type(v)==str and k=='default' and v.endswith('()"')):
                 lst.append('%s = %s'%(k,v[1:-3]))
             elif (type(v)==str and v.startswith('"')): 
                 try:
+                    # unquote the value if necessary
                     tup = eval(v[1:-1])
                     if (type(tup)==tuple):
                         lst.append('%s = %r'%(k,tup))
