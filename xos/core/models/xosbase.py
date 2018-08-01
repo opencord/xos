@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from django.core.validators import MaxValueValidator, MinValueValidator # used in other models
 from xos.exceptions import*
 from xosbase_decl import *
 
