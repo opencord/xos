@@ -305,6 +305,8 @@ class User(AbstractBaseUser, PlModelMixIn):
         if not self.username:
             self.username = self.email
 
+        self.full_clean()
+
         super(User, self).save(*args, **kwargs)
 
         self.push_redis_event()
