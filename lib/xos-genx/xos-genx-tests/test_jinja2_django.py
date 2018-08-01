@@ -44,6 +44,58 @@ class Jinja2BaseTests(unittest.TestCase):
         res = xproto_optioned_fields_to_list(fields, 'feedback_state', 'True')
         self.assertEqual(res, ["has_feedback_1", "has_feedback_2"])
 
+    def test_xproto_required_to_django(self):
+        field = {
+            'name': 'foo',
+            'options': {
+                'modifier': 'required'
+            }
+        }
+
+        res = map_xproto_to_django(field)
+        self.assertEqual(res, {'null': False})
+
+    def test_xproto_optional_to_django(self):
+        field = {
+            'name': 'foo',
+            'options': {
+                'modifier': 'optional'
+            }
+        }
+
+        res = map_xproto_to_django(field)
+        self.assertEqual(res, {'null': True})
+
+    def test_map_xproto_to_django(self):
+
+        options = {
+            'help_text': 'bar',
+            'default': 'default_value',
+            'null':  True,
+            'db_index': False,
+            'blank': False,
+            'min_value': 16,
+            'max_value': 16
+        }
+
+        field = {
+            'name': 'foo',
+            'options': options
+        }
+
+        res = map_xproto_to_django(field)
+        self.assertEqual(res, options)
+
+    def test_format_options_string(self):
+
+        options = {
+            'min_value': 16,
+            'max_value': 16
+        }
+
+        res = format_options_string(options)
+        self.assertEqual(res, "validators=[MaxValueValidator(16)], validators=[MinValueValidator(16)]")
+
 if __name__ == '__main__':
     unittest.main()
 
