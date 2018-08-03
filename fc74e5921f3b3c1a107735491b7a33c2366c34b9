@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4b7151ba_855ed651",
+        "filename": "docs/dev/xproto_to_protobuf.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-08-03T21:04:36Z",
+      "side": 1,
+      "message": "more",
+      "range": {
+        "startLine": 7,
+        "startChar": 61,
+        "endLine": 7,
+        "endChar": 65
+      },
+      "revId": "fc74e5921f3b3c1a107735491b7a33c2366c34b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "59e9a7f5_f2c11062",
+        "filename": "docs/dev/xproto_to_protobuf.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-08-03T21:04:36Z",
+      "side": 1,
+      "message": "NOTE: If you",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "fc74e5921f3b3c1a107735491b7a33c2366c34b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c66b84e5_4c0ff756",
+        "filename": "docs/dev/xproto_to_protobuf.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-08-03T21:04:36Z",
+      "side": 1,
+      "message": "Might clarify that you\u0027re passing two files into the `xosgenx` tool here. \n\nAlso, after generating the .proto file for a service, there are various import lines at the top of the file, so I had to copy these files next to the generated .proto file:\n\n    xos/coreapi/protos/annotations.proto\n    xos/coreapi/protos/common.proto\n    xos/coreapi/protos/xosoptions.proto\n    xos/coreapi/protos/http.proto\n\nBefore running tools like these to generate python code:\n\n    python -m grpc_tools.protoc -I . --python_out . \u003cservice\u003e.proto \n\nor golang code:\n\n    mkdir go\n    protoc -I . \u003cservice\u003e.proto --go_out\u003dplugins\u003dgrpc:go\n\n(I was working on this for the ACORDion service)",
+      "range": {
+        "startLine": 31,
+        "startChar": 90,
+        "endLine": 31,
+        "endChar": 182
+      },
+      "revId": "fc74e5921f3b3c1a107735491b7a33c2366c34b9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
