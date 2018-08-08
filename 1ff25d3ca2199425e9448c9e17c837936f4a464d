@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffe8dfcc_e881c89b",
+        "filename": "lib/xos-genx/xosgenx/jinja2_extensions/django.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-08-08T18:15:14Z",
+      "side": 1,
+      "message": "I still wonder if setting null\u003dFalse for all strings (regardless of optional or required) is the right thing to do.",
+      "range": {
+        "startLine": 84,
+        "startChar": 70,
+        "endLine": 84,
+        "endChar": 74
+      },
+      "revId": "1ff25d3ca2199425e9448c9e17c837936f4a464d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dcb724af_9cf9e593",
+        "filename": "lib/xos-genx/xosgenx/targets/django.xtarget",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-08-08T18:15:14Z",
+      "side": 1,
+      "message": "Do we also need to do this to core/models/user.py ?",
+      "range": {
+        "startLine": 102,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 23
+      },
+      "revId": "1ff25d3ca2199425e9448c9e17c837936f4a464d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
