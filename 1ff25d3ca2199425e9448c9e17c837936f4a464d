@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "956177fe_a368785e",
+        "filename": "lib/xos-genx/xosgenx/jinja2_extensions/django.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-08-08T20:50:33Z",
+      "side": 1,
+      "message": "I added a note for that in case we\u0027ll need it in the future",
+      "parentUuid": "ffe8dfcc_e881c89b",
+      "range": {
+        "startLine": 84,
+        "startChar": 70,
+        "endLine": 84,
+        "endChar": 74
+      },
+      "revId": "1ff25d3ca2199425e9448c9e17c837936f4a464d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dcb724af_9cf9e593",
         "filename": "lib/xos-genx/xosgenx/targets/django.xtarget",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2018-08-08T18:15:14Z",
       "side": 1,
       "message": "Do we also need to do this to core/models/user.py ?",
+      "range": {
+        "startLine": 102,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 23
+      },
+      "revId": "1ff25d3ca2199425e9448c9e17c837936f4a464d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cba780ae_f69aa73e",
+        "filename": "lib/xos-genx/xosgenx/targets/django.xtarget",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-08-08T20:50:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "dcb724af_9cf9e593",
       "range": {
         "startLine": 102,
         "startChar": 6,
