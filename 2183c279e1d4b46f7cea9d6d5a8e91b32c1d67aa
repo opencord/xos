@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec1b9d78_83e2d8ec",
+        "filename": "lib/xos-genx/xosgenx/jinja2_extensions/django.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1000162
+      },
+      "writtenOn": "2018-08-09T06:18:57Z",
+      "side": 1,
+      "message": "I believe this is causing the api failure. Create User is failing due to - {\"specific_error\": \"Exception calling application: {\u0027policed\u0027: [u\u0027This field cannot be blank.\u0027], \u0027email\u0027: [u\u0027Enter a valid email address.\u0027], \u0027enacted\u0027: [u\u0027This field cannot be blank.\u0027]}\", \"error\": \"Internal Server Error\"}\t\n\nAll of these fields do NOT have a \"default\" value. So i believe setting Null \u003d False is stating that this field cannot be null ?",
+      "revId": "2183c279e1d4b46f7cea9d6d5a8e91b32c1d67aa",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
