@@ -416,6 +416,36 @@ class TestORM(unittest.TestCase):
         self.assertEqual(onos_service_cast.leaf_model_name, "ONOSService")
         self.assertEqual(onos_service_cast.id, onos_service.id)
 
+    def test_field_null(self):
+        """ If a nullable field is left set to None, then make sure the ORM returns None """
+
+        orm = self.make_coreapi()
+        tm = orm.TestModel()
+        tm.save()
+
+        tm = orm.TestModel.objects.all()[0]
+        self.assertFalse(tm._wrapped_class.HasField("intfield"))
+        self.assertEqual(tm.intfield, None)
+
+    def test_field_non_null(self):
+        """ If a nullable field is set to a value, then make sure the ORM returns the value """
+
+        orm = self.make_coreapi()
+        tm = orm.TestModel(intfield=3)
+        tm.save()
+
+        tm = orm.TestModel.objects.all()[0]
+        self.assertEqual(tm.intfield, 3)
+
+    def test_field_set_null(self):
+        """ If a nullable field is left set to None, then make sure the ORM returns None """
+
+        orm = self.make_coreapi()
+        tm = orm.TestModel()
+        with self.assertRaises(Exception) as e:
+            tm.intfile = None
+        self.assertEqual(e.exception.message, "Setting a non-foreignkey field to None is not supported")
+
 def main():
     global USE_FAKE_STUB
     global xos_grpc_client
