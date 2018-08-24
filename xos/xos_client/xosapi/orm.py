@@ -644,10 +644,19 @@ def register_convenience_wrapper(class_name, wrapper):
     convenience_wrappers[class_name] = wrapper
 
 def make_ORMWrapper(wrapped_class, *args, **kwargs):
-    if wrapped_class.__class__.__name__ in convenience_wrappers:
-        cls = convenience_wrappers[wrapped_class.__class__.__name__]
-    else:
-        cls = ORMWrapper
+    cls = ORMWrapper
+
+    # Search the list of class names for this model to see if we have any applicable wrappers. The list is always
+    # sorted from most specific to least specific, so the first one we find will automatically be the most relevant
+    # one. If we don't find any, then default to ORMWrapper
+    for name in wrapped_class.class_names.split(","):
+        if name in convenience_wrappers:
+            cls = convenience_wrappers[name]
+
+    #if wrapped_class.__class__.__name__ in convenience_wrappers:
+    #    cls = convenience_wrappers[wrapped_class.__class__.__name__]
+    #else:
+    #    cls = ORMWrapper
 
     return cls(wrapped_class, *args, **kwargs)
 
