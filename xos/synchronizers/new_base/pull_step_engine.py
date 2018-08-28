@@ -23,6 +23,7 @@ from multistructlog import create_logger
 
 log = create_logger(Config().get('logging'))
 
+
 class XOSPullStepScheduler():
     """ XOSPullStepThread
 
@@ -53,7 +54,6 @@ class XOSPullStepScheduler():
             t.join()
 
         log.debug('Done with pull steps', steps=self.steps)
-
 
 
 class XOSPullStepEngine:

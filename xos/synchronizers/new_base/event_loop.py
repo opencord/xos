@@ -100,7 +100,7 @@ class XOSObserver:
 
         try:
             if Config.get("dependency_graph"):
-                self.log.info('Loading model dependency graph', path=Config.get("dependency_graph"))
+                self.log.debug('Loading model dependency graph', path=Config.get("dependency_graph"))
                 dep_graph_str = open(Config.get("dependency_graph")).read()
             else:
                 self.log.debug('Using defualt model dependency graph', graph={})
@@ -132,7 +132,7 @@ class XOSObserver:
                 True: model_dependency_graph_rev,
                 False: model_dependency_graph
             }
-            self.log.info(
+            self.log.debug(
                 "Loaded dependencies",
                 edges=model_dependency_graph.edges())
         except Exception as e:
