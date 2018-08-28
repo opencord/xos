@@ -22,6 +22,30 @@
       "revId": "f1b50988c2e4efd24a9a419b9861aab0c8c82ed6",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3d2b1512_ac549097",
+        "filename": "lib/kafkaloghandler/kafkaloghandler/kafkaloghandler.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-08-28T18:15:15Z",
+      "side": 1,
+      "message": "We can, but then the consumer has to grab the whole dictionary and parse it, and may only want one portion of it.\n\nIn our particular case, the structlog/multistructlog chain puts everything passed to `logger.\u003cloglevel\u003e()` calls in a dict named `msg` which Kibana wouldn\u0027t display correctly. \n\nThis behavior can be tweaked with `flatten` arg when creating the loghandler object - setting it to 0 will avoid flattening dicts.",
+      "parentUuid": "b6ea4b7d_26aa0ab8",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "f1b50988c2e4efd24a9a419b9861aab0c8c82ed6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
