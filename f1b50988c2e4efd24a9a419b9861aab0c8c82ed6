@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b6ea4b7d_26aa0ab8",
+        "filename": "lib/kafkaloghandler/kafkaloghandler/kafkaloghandler.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-08-28T17:36:45Z",
+      "side": 1,
+      "message": "why do we need to flatten dicts? can\u0027t we push JSON onto the kafka bus?",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 24
+      },
+      "revId": "f1b50988c2e4efd24a9a419b9861aab0c8c82ed6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
