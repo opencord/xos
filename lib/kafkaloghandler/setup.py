@@ -38,7 +38,7 @@ setup_with_auto_version(
     packages=['kafkaloghandler'],
     license='Apache v2',
     install_requires=[
-        'kafka>=1.3.5',
+        'confluent-kafka>=0.11.5',
         ],
     include_package_data=True,
     zip_safe=False,
