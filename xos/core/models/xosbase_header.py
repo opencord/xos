@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 
 import datetime
 import time
@@ -35,6 +33,8 @@ from django.db.models.deletion import Collector
 from django.db import router
 from django.contrib.contenttypes.models import ContentType
 from django.core.validators import MaxValueValidator, MinValueValidator
+
+import kafka
 
 import redis
 from redis import ConnectionError
@@ -260,8 +260,8 @@ class PlModelMixIn(object):
                 return
         raise Exception("Field value %s is not in %s" % (field, str(choices)))
 
-    def serialize_for_redis(self):
-        """ Serialize the object for posting to redis.
+    def serialize_for_messagebus(self):
+        """ Serialize the object for posting to messagebus.
 
             The API serializes ForeignKey fields by naming them <name>_id
             whereas model_to_dict leaves them with the original name. Modify
@@ -282,12 +282,18 @@ class PlModelMixIn(object):
 
         return fields
 
+
+    def push_messagebus_event(self, deleted=False, pk=None):
+        self.push_kafka_event(deleted, pk)
+        self.push_redis_event(deleted, pk)
+
+
     def push_redis_event(self, deleted=False, pk=None):
         # Transmit update via Redis
         try:
             r = redis.Redis("redis")
 
-            model = self.serialize_for_redis()
+            model = self.serialize_for_messagebus()
             bases = inspect.getmro(self.__class__)
             class_names = ",".join([x.__name__ for x in bases])
 
@@ -312,6 +318,46 @@ class PlModelMixIn(object):
             # Redis not running.
             log.error('Connection to Redis failed')
             pass
+
+    def push_kafka_event(self, deleted=False, pk=None):
+        # Transmit update via kafka
+        try:
+            # Create KafkaProducer that serializes to json
+            kp = kafka.KafkaProducer(
+                    bootstrap_servers=Config.get('kafka_bootstrap_servers'),
+                    value_serializer=lambda val: json.dumps(
+                        val,
+                        separators=(',', ':'),
+                        default=lambda o: repr(o),
+                        )
+                    )
+
+            model = self.serialize_for_messagebus()
+            bases = inspect.getmro(self.__class__)
+            class_names = ",".join([x.__name__ for x in bases])
+
+            model['class_names'] = class_names
+
+            if not pk:
+                pk = self.pk
+
+            json_dict = {
+                'pk': pk,
+                'changed_fields': self.changed_fields,
+                'object': model
+            }
+
+            if deleted:
+                json_dict['deleted'] = True
+                json_dict['object']['id'] = pk
+
+            topic = "xos.gui_events"
+            kp.send(topic, key=self.__class__.__name__, value=json_dict)
+
+        except kafka.errors.KafkaError, e:
+            log.error("Kafka Error: %s" % e)
+            pass
+
 
 class AttributeMixin(object):
     # helper for extracting things from a json-encoded
