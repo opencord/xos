@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 
 DEFAULT_VALUES = {
     'xos_dir': '/opt/xos',
@@ -49,7 +47,6 @@ DEFAULT_VALUES = {
         'kind': 'grpcapi',
     },
     'keep_temp_files': False,
-    'enable_watchers': False,
     'dependency_graph': None,
     'error_map_path': '/opt/xos/error_map.txt',
     'feefie': {
@@ -62,5 +59,6 @@ DEFAULT_VALUES = {
     },
     'node_key': '/opt/cord_profile/node_key',
     'config_dir': '/etc/xos/sync',
-    'backoff_disabled': True
+    'backoff_disabled': True,
+    'kafka_bootstrap_servers': ['cord-kafka:9092'],
 }
