@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "123ed640_c718b436",
+        "filename": "containers/xos/Dockerfile.client",
+        "patchSetId": 21
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-09-12T17:07:13Z",
+      "side": 1,
+      "message": "when did we decide to release image with this tag? It appears not to be published on docker-hub and anyway this means doing a release for each commit.",
+      "range": {
+        "startLine": 16,
+        "startChar": 30,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "eaa190d025531e1d83b9936f03dfcb2f984c8479",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
