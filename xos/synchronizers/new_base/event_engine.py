@@ -40,8 +40,11 @@ class XOSKafkaThread(threading.Thread):
         self.daemon = True
 
     def create_kafka_consumer(self):
+        # use the service name as the group id
         consumer_config = {
+            'group.id': Config().get('name'),
             'bootstrap.servers': ','.join(self.bootstrap_servers),
+            'default.topic.config': {'auto.offset.reset': 'smallest'},
         }
 
         return confluent_kafka.Consumer(**consumer_config)
@@ -57,6 +60,7 @@ class XOSKafkaThread(threading.Thread):
         while True:
             try:
                 self.consumer = self.create_kafka_consumer()
+
                 if self.step.topics:
                     self.consumer.subscribe(self.step.topics)
                 elif self.step.pattern:
