@@ -1,3 +1,4 @@
+
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,8 +41,11 @@ class XOSKafkaThread(threading.Thread):
         self.daemon = True
 
     def create_kafka_consumer(self):
+        # use the service name as the group id
         consumer_config = {
+            'group.id': Config().get('name'),
             'bootstrap.servers': ','.join(self.bootstrap_servers),
+            'default.topic.config': {'auto.offset.reset': 'smallest'},
         }
 
         return confluent_kafka.Consumer(**consumer_config)
@@ -54,33 +58,70 @@ class XOSKafkaThread(threading.Thread):
             raise Exception("Both topics and pattern are defined for step %s. Choose one." %
                             self.step.__name__)
 
+        log.info("Waiting for events",
+                 topic=self.step.topics,
+                 pattern=self.step.pattern,
+                 step=self.step.__name__)
+
         while True:
             try:
-                self.consumer = self.create_kafka_consumer()
-                if self.step.topics:
-                    self.consumer.subscribe(self.step.topics)
-                elif self.step.pattern:
-                    self.consumer.subscribe(self.step.pattern)
+                # setup consumer or loop on failure
+                if self.consumer is None:
+                    self.consumer = self.create_kafka_consumer()
 
-                log.info("Waiting for events",
-                         topic=self.step.topics,
-                         pattern=self.step.pattern,
-                         step=self.step.__name__)
+                    if self.step.topics:
+                        self.consumer.subscribe(self.step.topics)
 
-                for msg in self.consumer.poll():
-                    log.info("Processing event", msg=msg, step=self.step.__name__)
-                    try:
-                        self.step(log=log).process_event(msg)
-                    except:
-                        log.exception("Exception in event step", msg=msg, step=self.step.__name__)
+                    elif self.step.pattern:
+                        self.consumer.subscribe(self.step.pattern)
 
             except confluent_kafka.KafkaError._ALL_BROKERS_DOWN, e:
                 log.warning("No brokers available on %s, %s" % (self.bootstrap_servers, e))
                 time.sleep(20)
+                continue
+
             except confluent_kafka.KafkaError, e:
                 # Maybe Kafka has not started yet. Log the exception and try again in a second.
                 log.exception("Exception in kafka loop: %s" % e)
                 time.sleep(1)
+                continue
+
+            # wait until we get a message, if no message, loop again
+            msg = self.consumer.poll(timeout=1.0)
+
+            if msg is None:
+                continue
+
+            if msg.error():
+                if msg.error().code() == confluent_kafka.KafkaError._PARTITION_EOF:
+                    log.debug("Kafka - end of topic %s, partition: %s, offset: %d" %
+                              (msg.topic(), msg.partition(), msg.offset()))
+                else:
+                    log.exception("Error in kafka message: %s" % msg.error())
+
+            else:
+                # got a valid event
+                # create a dict from the C FFI message
+                msg_dict = {
+                    "timestamp": None,
+                    "topic": msg.topic(),
+                    "key": msg.key(),
+                    "value": msg.value(),
+                }
+
+                (ts_type, ts_val) = msg.timestamp()
+
+                if ts_type is not confluent_kafka.TIMESTAMP_NOT_AVAILABLE:
+                    msg_dict['timestamp']=ts_val
+
+                log.info("Processing event", msg=msg_dict, step=self.step.__name__)
+
+                try:
+                    self.step(log=log).process_event(msg_dict)
+
+                except:
+                    log.exception("Exception in event step", msg=msg_dict, step=self.step.__name__)
+
 
 class XOSEventEngine:
     """ XOSEventEngine
