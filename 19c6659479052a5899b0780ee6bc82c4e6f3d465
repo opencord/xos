@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "fd059f1e_81a2adc8",
+        "filename": "xos/core/models/user.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-09-27T21:24:23Z",
+      "side": 1,
+      "message": "various",
+      "range": {
+        "startLine": 268,
+        "startChar": 20,
+        "endLine": 268,
+        "endChar": 26
+      },
+      "revId": "19c6659479052a5899b0780ee6bc82c4e6f3d465",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8956ff59_9b5f2860",
         "filename": "xos/core/models/user.py",
         "patchSetId": 6
