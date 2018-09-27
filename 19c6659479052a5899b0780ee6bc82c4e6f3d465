@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "65501c46_40bd15b3",
+        "filename": "xos/core/models/user.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 267,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-09-27T21:21:52Z",
+      "side": 1,
+      "message": "timestamps",
+      "range": {
+        "startLine": 267,
+        "startChar": 104,
+        "endLine": 267,
+        "endChar": 115
+      },
+      "revId": "19c6659479052a5899b0780ee6bc82c4e6f3d465",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d1f1261_2e28c37e",
+        "filename": "xos/core/models/user.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-09-27T21:21:52Z",
+      "side": 1,
+      "message": "bookkeeping",
+      "range": {
+        "startLine": 268,
+        "startChar": 39,
+        "endLine": 268,
+        "endChar": 51
+      },
+      "revId": "19c6659479052a5899b0780ee6bc82c4e6f3d465",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8956ff59_9b5f2860",
+        "filename": "xos/core/models/user.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-09-27T21:21:52Z",
+      "side": 1,
+      "message": "fields",
+      "range": {
+        "startLine": 302,
+        "startChar": 79,
+        "endLine": 302,
+        "endChar": 84
+      },
+      "revId": "19c6659479052a5899b0780ee6bc82c4e6f3d465",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
