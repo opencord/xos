@@ -258,6 +258,20 @@ class User(AbstractBaseUser, PlModelMixIn):
                             model.enacted=None
                             model.policed=None
                             model.save(update_fields=['enacted','deleted','policed'], silent=silent)
+                            
+    def has_important_changes(self):
+        """ Determine whether the model has changes that should be reflected in one of the changed_by_* timestampes.
+            Ignores varous feedback and bookeeeping state set by synchronizers.
+        """
+        for field_name in self.changed_fields:
+            if field_name in ["policed", "updated", "enacted", "changed_by_step", "changed_by_policy"]:
+                continue
+            if field_name.startswith("backend_"):
+                continue
+            if field_name.startswith("policy_"):
+                continue
+            return True
+        return False
 
     def save(self, *args, **kwargs):
         if not self.leaf_model_name:
@@ -282,9 +296,19 @@ class User(AbstractBaseUser, PlModelMixIn):
         if "caller_kind" in kwargs:
             caller_kind = kwargs.pop("caller_kind")
 
+        # NOTE(smbaker): always_update_timestamp still has some relevance for event_steps and pull_steps that
+        # want to cause an update. For model_policies or sync_steps it should no longer be required.
         always_update_timestamp = False
         if "always_update_timestamp" in kwargs:
             always_update_timestamp = always_update_timestamp or kwargs.pop("always_update_timestamp")
+
+        is_sync_save = False
+        if "is_sync_save" in kwargs:
+            is_sync_save = kwargs.pop("is_sync_save")
+
+        is_policy_save = False
+        if "is_policy_save" in kwargs:
+            is_policy_save = kwargs.pop("is_policy_save")
 
         # SMBAKER: if an object is trying to delete itself, or if the observer
         # is updating an object's backend_* fields, then let it slip past the
@@ -298,6 +322,22 @@ class User(AbstractBaseUser, PlModelMixIn):
 
         if (caller_kind!="synchronizer") or always_update_timestamp:
             self.updated = timezone.now()
+        else:
+            # We're not auto-setting timestamp, but let's check to make sure that the caller hasn't tried to set our
+            # timestamp backward...
+            if (self.updated != self._initial["updated"]) and ((not update_fields) or ("updated" in update_fields)):
+                log.info("Synchronizer tried to change `updated` timestamp on model %s from %s to %s. Ignored." % (self, self._initial["updated"], self.updated))
+                self.updated = self._initial["updated"]
+
+        if is_sync_save and self.has_important_changes():
+            self.changed_by_step = timezone.now()
+            if update_fields:
+                update_fields.append("changed_by_step")
+
+        if is_policy_save and self.has_important_changes():
+            self.changed_by_policy = timezone.now()
+            if update_fields:
+                update_fields.append("changed_by_policy")
 
         if not self.username:
             self.username = self.email
