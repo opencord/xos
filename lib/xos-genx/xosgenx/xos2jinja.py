@@ -91,6 +91,13 @@ def compute_rlinks(messages, message_dict):
             rlink['dst_port'] = l['src_port']
             rlink['peer'] = {'name': m['name'], 'package': m['package'], 'fqn': m['fqn']}
             rlink['link_type'] = link_opposite[l['link_type']]
+            rlink["reverse_id"] = l['reverse_id']
+
+            if not l['reverse_id']:
+                print >> sys.stderr, "WARNING: Field %s in model %s has no reverse_id" % (l["src_port"], m["name"])
+
+            if l["reverse_id"] and ((int(l["reverse_id"]) < 1000) or (int(l["reverse_id"]) >= 1900)):
+                raise Exception("reverse id for field %s in model %s should be between 1000 and 1899" % (l["src_port"], m["name"]))
 
             try:
                 try:
@@ -240,6 +247,11 @@ class XOS2Jinja(Visitor):
                 s['peer'] = obj.name.pval
             except AttributeError:
                 s['peer'] = obj.name
+
+        try:
+            s['reverse_id'] = obj.reverse_id.pval
+        except AttributeError:
+            s['reverse_id'] = obj.reverse_id
 
         s['_type'] = 'link'
         s['options'] = {'modifier': 'optional'}
