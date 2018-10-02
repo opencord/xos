@@ -4,7 +4,7 @@ Jinja2==2.10
 MarkupSafe==1.0
 Paste==2.0.3
 PasteDeploy==1.5.2
-Pattern==2.6
+inflect==1.0.1
 PyNaCl==1.2.1
 PyYAML==3.12
 Routes==2.4.1
