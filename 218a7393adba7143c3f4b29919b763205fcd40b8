@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d389e64_11780d80",
+        "filename": "containers/xos/pip_requirements.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-10-03T00:55:21Z",
+      "side": 1,
+      "message": "See comment in this file above",
+      "range": {
+        "startLine": 92,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 15
+      },
+      "revId": "218a7393adba7143c3f4b29919b763205fcd40b8",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
