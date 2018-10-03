@@ -25,11 +25,11 @@ PIP_REQS=${PIP_REQS:-${XOS_DIR}/scripts/xos_dev_reqs.txt}
 VENVDIR="${WORKSPACE}/venv-xos"
 
 # create venv if it's not yet there
-if [ ! -x "${VENVDIR}/bin/activate" ]; then
-  echo "Setting up dev/test virtualenv in ${VENVDIR} for XOS"
-  virtualenv -q "${VENVDIR}" --no-site-packages
-  echo "Virtualenv created."
-fi
+#if [ ! -x "${VENVDIR}/bin/activate" ]; then
+#  echo "Setting up dev/test virtualenv in ${VENVDIR} for XOS"
+#  virtualenv -q --no-site-packages
+#  echo "Virtualenv created."
+#fi
 
 echo "Installing python requirements in virtualenv with pip"
 source "${VENVDIR}/bin/activate"
