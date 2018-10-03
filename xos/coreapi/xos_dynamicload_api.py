@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# FIXME instrument this code (we may need to move REQUEST_COUNT out of api_helper (as that loads django)
 
 import base64
 import fnmatch
