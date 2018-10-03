@@ -27,7 +27,7 @@ VENVDIR="${WORKSPACE}/venv-xos"
 # create venv if it's not yet there
 if [ ! -x "${VENVDIR}/bin/activate" ]; then
   echo "Setting up dev/test virtualenv in ${VENVDIR} for XOS"
-  virtualenv -q "${VENVDIR}" --no-site-packages
+  virtualenv -q --no-site-packages
   echo "Virtualenv created."
 fi
 
