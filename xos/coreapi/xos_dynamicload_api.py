@@ -13,7 +13,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 import base64
 import fnmatch
 import os
@@ -28,8 +27,8 @@ from importlib import import_module
 
 from xosutil.autodiscover_version import autodiscover_version_of_main
 from dynamicbuild import DynamicBuilder
-# NOTE/FIXME this file is loaded before Django, we can't import apihelper
-# from apihelper import XOSAPIHelperMixin, translate_exceptions
+from apistats import REQUEST_COUNT
+import grpc
 
 class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
     def __init__(self, thread_pool, server):
@@ -57,10 +56,11 @@ class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
 
             response = dynamicload_pb2.LoadModelsReply()
             response.status = response.SUCCESS
-
+            REQUEST_COUNT.labels('xos-core', "DynamicLoad", "LoadModels", grpc.StatusCode.OK).inc()
             return response
         except Exception, e:
             import traceback; traceback.print_exc()
+            REQUEST_COUNT.labels('xos-core', "DynamicLoad", "LoadModels", grpc.StatusCode.INTERNAL).inc()
             raise e
 
     def UnloadModels(self, request, context):
@@ -73,10 +73,11 @@ class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
 
             response = dynamicload_pb2.LoadModelsReply()
             response.status = response.SUCCESS
-
+            REQUEST_COUNT.labels('xos-core', "DynamicLoad", "UnloadModels", grpc.StatusCode.OK).inc()
             return response
         except Exception, e:
             import traceback; traceback.print_exc()
+            REQUEST_COUNT.labels('xos-core', "DynamicLoad", "UnloadModels", grpc.StatusCode.INTERNAL).inc()
             raise e
 
     def GetLoadStatus(self, request, context):
@@ -112,10 +113,11 @@ class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
                 item.state = "present"
             else:
                 item.state = "load"
-
+            REQUEST_COUNT.labels('xos-core', "DynamicLoad", "GetLoadStatus", grpc.StatusCode.OK).inc()
             return response
         except Exception, e:
             import traceback; traceback.print_exc()
+            REQUEST_COUNT.labels('xos-core', "DynamicLoad", "GetLoadStatus", grpc.StatusCode.INTERNAL).inc()
             raise e
 
     def GetConvenienceMethods(self, request, context):
@@ -131,10 +133,12 @@ class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
                     item = response.convenience_methods.add()
                     item.filename = cm["filename"]
                     item.contents = open(cm["path"]).read()
+            REQUEST_COUNT.labels('xos-core', "DynamicLoad", "GetConvenienceMethods", grpc.StatusCode.OK).inc()
             return response
 
         except Exception, e:
             import traceback; traceback.print_exc()
+            REQUEST_COUNT.labels('xos-core', "DynamicLoad", "GetConvenienceMethods", grpc.StatusCode.INTERNAL).inc()
             raise e
 
 
