@@ -242,12 +242,25 @@ class XOSProcessor:
 
         v = XOSProcessor._attach_parser(ast, args)
 
+        desired_models = {}
+        desired_messages = []
+        if args.include_models or args.include_apps:
+            for (k,value) in v.models.items():
+                if (k in args.include_models):
+                    desired_models[k] = value
+            for message in v.messages:
+                if message["name"] in args.include_models:
+                    desired_messages.append(message)
+        else:
+            desired_models = v.models
+            desired_messages = v.messages
+
         if args.output is not None and args.write_to_file == "model":
             rendered = {}
-            for i, model in enumerate(v.models):
+            for i, model in enumerate(desired_models):
                 models = {}
-                models[model] = v.models[model]
-                messages = [XOSProcessor._find_message_by_model_name(v.messages, model)]
+                models[model] = desired_models[model]
+                messages = [XOSProcessor._find_message_by_model_name(desired_messages, model)]
 
                 rendered[model] = template.render(
                     {"proto":
@@ -255,7 +268,7 @@ class XOSProcessor:
                             'message_table': models,
                             'messages': messages,
                             'policies': v.policies,
-                            'message_names': [m['name'] for m in messages]
+                            'message_names': [m['name'] for m in desired_messages]
                         },
                         "context": context,
                         "options": v.options
@@ -270,10 +283,10 @@ class XOSProcessor:
             rendered = template.render(
                 {"proto":
                     {
-                        'message_table': v.models,
-                        'messages': v.messages,
+                        'message_table': desired_models,
+                        'messages': desired_messages,
                         'policies': v.policies,
-                        'message_names': [m['name'] for m in v.messages]
+                        'message_names': [m['name'] for m in desired_messages]
                     },
                     "context": context,
                     "options": v.options
