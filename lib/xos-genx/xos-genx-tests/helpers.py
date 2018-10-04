@@ -24,6 +24,12 @@ TMP_TARGET_PATH = os.path.join(OUTPUT_DIR, 'tmp.xtarget')
 # Store in this class the args to pass at the generator
 class FakeArgs:
     verbosity=0
+    include_models=[]
+    include_apps=[]
+    pass
+
+# Passed around in various security / validation checks
+class FakeObject:
     pass
 
 class XProtoTestHelpers:

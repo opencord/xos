@@ -16,8 +16,8 @@
 
 import unittest
 import os
-from helpers import FakeArgs, OUTPUT_DIR
-from xosgenx.generator import XOSProcessor
+from helpers import OUTPUT_DIR
+from xosgenx.generator import XOSProcessor, XOSProcessorArgs
 
 TEST_EXPECTED_OUTPUT = """
     name: XOSModel
@@ -55,9 +55,8 @@ class XOSProcessorTest(unittest.TestCase):
         """
         [XOS-GenX] Generate output from base.xproto
         """
-        args = FakeArgs()
-        args.files = [TEST_XPROTO]
-        args.target = TEST_TARGET
+        args = XOSProcessorArgs(files = [TEST_XPROTO],
+                                target = TEST_TARGET)
         output = XOSProcessor.process(args)
         self.assertEqual(output, TEST_EXPECTED_OUTPUT)
 
@@ -65,9 +64,8 @@ class XOSProcessorTest(unittest.TestCase):
         """
         [XOS-GenX] Generate output from base.xproto
         """
-        args = FakeArgs()
-        args.inputs = open(TEST_XPROTO).read()
-        args.target = TEST_TARGET
+        args = XOSProcessorArgs(inputs = open(TEST_XPROTO).read(),
+                                target = TEST_TARGET)
         output = XOSProcessor.process(args)
         self.assertEqual(output, TEST_EXPECTED_OUTPUT)
 
@@ -75,13 +73,12 @@ class XOSProcessorTest(unittest.TestCase):
         """
         [XOS-GenX] Generate django output from test.xproto
         """
-        args = FakeArgs()
-        args.files = [TEST_XPROTO, VROUTER_XPROTO]
-        args.target = 'django.xtarget'
-        args.attic = TEST_ATTICS
-        args.output = OUTPUT_DIR
-        args.dest_extension = 'py'
-        args.write_to_file = 'model'
+        args = XOSProcessorArgs(files = [TEST_XPROTO, VROUTER_XPROTO],
+                                target = 'django.xtarget',
+                                attic = TEST_ATTICS,
+                                output = OUTPUT_DIR,
+                                dest_extension = 'py',
+                                write_to_file = 'model')
         output = XOSProcessor.process(args)
 
         # xosmodel has custom header attic
@@ -106,13 +103,12 @@ class XOSProcessorTest(unittest.TestCase):
         self.assertIn('class VRouterPort(XOSBase):', vrpf)
 
     def test_django_with_base(self):
-        args = FakeArgs()
-        args.files = [TEST_XPROTO, BASE_XPROTO]
-        args.target = 'django.xtarget'
-        args.attic = TEST_ATTICS
-        args.output = OUTPUT_DIR
-        args.dest_extension = 'py'
-        args.write_to_file = 'model'
+        args = XOSProcessorArgs(files = [TEST_XPROTO, BASE_XPROTO],
+                                target = 'django.xtarget',
+                                attic = TEST_ATTICS,
+                                output = OUTPUT_DIR,
+                                dest_extension = 'py',
+                                write_to_file = 'model')
         output = XOSProcessor.process(args)
 
         # verify files
@@ -132,12 +128,11 @@ class XOSProcessorTest(unittest.TestCase):
         """
         [XOS-GenX] read multiple models as input, print one file per model
         """
-        args = FakeArgs()
-        args.files = [TEST_XPROTO, VROUTER_XPROTO]
-        args.target = TEST_TARGET
-        args.output = OUTPUT_DIR
-        args.dest_extension = 'txt'
-        args.write_to_file = 'model'
+        args = XOSProcessorArgs(files = [TEST_XPROTO, VROUTER_XPROTO],
+                                target = TEST_TARGET,
+                                output = OUTPUT_DIR,
+                                dest_extension = 'txt',
+                                write_to_file = 'model')
         XOSProcessor.process(args)
 
         generated_files = [f for f in os.listdir(OUTPUT_DIR) if not f.startswith('.')]
@@ -153,11 +148,10 @@ class XOSProcessorTest(unittest.TestCase):
         """
         [XOS-GenX] read multiple models as input, print separate files based on +++
         """
-        args = FakeArgs()
-        args.files = [TEST_XPROTO, VROUTER_XPROTO]
-        args.target = SPLIT_TARGET
-        args.output = OUTPUT_DIR
-        args.write_to_file = 'target'
+        args = XOSProcessorArgs(files = [TEST_XPROTO, VROUTER_XPROTO],
+                                target = SPLIT_TARGET,
+                                output = OUTPUT_DIR,
+                                write_to_file = 'target')
         XOSProcessor.process(args)
 
         generated_files = [f for f in os.listdir(OUTPUT_DIR) if not f.startswith('.')]
@@ -170,12 +164,11 @@ class XOSProcessorTest(unittest.TestCase):
         self.assertIn("name: VRouterPort", vrouterport)
 
     def test_skip_django(self):
-        args = FakeArgs()
-        args.files = [SKIP_DJANGO_XPROTO]
-        args.target = 'django.xtarget'
-        args.output = OUTPUT_DIR
-        args.dest_extension = 'py'
-        args.write_to_file = 'model'
+        args = XOSProcessorArgs(files = [SKIP_DJANGO_XPROTO],
+                                target = 'django.xtarget',
+                                output = OUTPUT_DIR,
+                                dest_extension = 'py',
+                                write_to_file = 'model')
         output = XOSProcessor.process(args)
 
         # should not print a file if options.skip_django = True
@@ -183,11 +176,10 @@ class XOSProcessorTest(unittest.TestCase):
         self.assertFalse(os.path.isfile(file))
 
     def test_service_order(self):
-        args = FakeArgs()
-        args.files = [BASE_XPROTO, TEST_XPROTO, VROUTER_XPROTO]
-        args.target = 'service.xtarget'
-        args.output = OUTPUT_DIR
-        args.write_to_file = 'target'
+        args = XOSProcessorArgs(files = [BASE_XPROTO, TEST_XPROTO, VROUTER_XPROTO],
+                                target = 'service.xtarget',
+                                output = OUTPUT_DIR,
+                                write_to_file = 'target')
         output = XOSProcessor.process(args)
 
         model = OUTPUT_DIR + '/models.py'
