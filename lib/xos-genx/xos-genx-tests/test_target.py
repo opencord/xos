@@ -16,8 +16,8 @@
 
 import unittest
 import os
-from xosgenx.generator import XOSProcessor
-from helpers import FakeArgs, XProtoTestHelpers, OUTPUT_DIR
+from xosgenx.generator import XOSProcessor, XOSProcessorArgs
+from helpers import XProtoTestHelpers, OUTPUT_DIR
 
 TEST_FILE = "test_file"
 
@@ -39,7 +39,7 @@ class XProtoTargetTests(unittest.TestCase):
 """%(TEST_FILE, TEST_FILE)
         )
 
-        args = FakeArgs()
+        args = XOSProcessorArgs()
         args.inputs = ''
         args.target = target
         args.attic = OUTPUT_DIR
@@ -51,7 +51,7 @@ class XProtoTargetTests(unittest.TestCase):
 """
   {{ xproto_first_non_empty([None, None, None, None, None, None, "Eureka"]) }}
 """)
-        args = FakeArgs()
+        args = XOSProcessorArgs()
         args.inputs = ''
         args.target = target
         output = XOSProcessor.process(args)
@@ -62,7 +62,7 @@ class XProtoTargetTests(unittest.TestCase):
 """
   {{ context.what }}
 """)
-        args = FakeArgs()
+        args = XOSProcessorArgs()
         args.inputs = ''
         args.target = target
         args.kv='what:what is what'
@@ -77,7 +77,6 @@ class XProtoTargetTests(unittest.TestCase):
       required int many = 1 [singular = "one"];
       // The following fields have automatically computed singulars
       required int sheep = 2;
-      required int radii = 2;
       required int slices = 2;
       required int networks = 2;
       required int omf_friendlies = 2;
@@ -90,11 +89,11 @@ class XProtoTargetTests(unittest.TestCase):
 {{ xproto_singularize(m) }},
 {%- endfor %}
 """)
-        args = FakeArgs()
+        args = XOSProcessorArgs()
         args.inputs = proto
         args.target = target
         output = XOSProcessor.process(args)
-        self.assertEqual("one,sheep,radius,slice,network,omf_friendly", output.lstrip().rstrip().rstrip(','))
+        self.assertEqual("one,sheep,slice,network,omf_friendly", output.lstrip().rstrip().rstrip(','))
 
     def test_pluralize(self):
         proto = \
@@ -104,7 +103,6 @@ class XProtoTargetTests(unittest.TestCase):
       required int anecdote = 1 [plural = "data"];
       // The following fields have automatically computed plurals
       required int sheep = 2;
-      required int radius = 2;
       required int slice = 2;
       required int network = 2;
       required int omf_friendly = 2;
@@ -117,11 +115,11 @@ class XProtoTargetTests(unittest.TestCase):
 {{ xproto_pluralize(m) }},
 {%- endfor %}
 """)
-        args = FakeArgs()
+        args = XOSProcessorArgs()
         args.inputs = proto
         args.target = target
         output = XOSProcessor.process(args)
-        self.assertEqual("data,sheep,radii,slices,networks,omf_friendlies", output.lstrip().rstrip().rstrip(','))
+        self.assertEqual("data,sheep,slices,networks,omf_friendlies", output.lstrip().rstrip().rstrip(','))
 
 if __name__ == '__main__':
     unittest.main()

@@ -16,7 +16,7 @@
 
 import unittest
 from xosgenx.jinja2_extensions.base import *
-from helpers import FakeArgs, XProtoTestHelpers
+from helpers import XProtoTestHelpers
 
 class Jinja2BaseTests(unittest.TestCase):
     def test_xproto_is_true(self):
