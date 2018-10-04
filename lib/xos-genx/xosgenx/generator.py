@@ -225,7 +225,7 @@ class XOSProcessor:
             if start == 0:
                 beginning = ''
             else:
-                beginning = inputs[ptr:start-1] 
+                beginning = inputs[ptr:start-1]
 
             line_end_char = inputs[start+end:].find('\n')
             line_end = inputs[line_end_char]
@@ -242,6 +242,19 @@ class XOSProcessor:
 
         v = XOSProcessor._attach_parser(ast, args)
 
+        if args.include_models or args.include_apps:
+            for message in v.messages:
+                message["is_included"] = False
+                if message["name"] in args.include_models:
+                    message["is_included"] = True
+                else:
+                    app_label = message.get("options", {}).get("app_label").strip('"')
+                    if app_label in args.include_apps:
+                        message["is_included"] = True
+        else:
+            for message in v.messages:
+                message["is_included"] = True
+
         if args.output is not None and args.write_to_file == "model":
             rendered = {}
             for i, model in enumerate(v.models):
@@ -255,7 +268,7 @@ class XOSProcessor:
                             'message_table': models,
                             'messages': messages,
                             'policies': v.policies,
-                            'message_names': [m['name'] for m in messages]
+                            'message_names': [m['name'] for m in v.messages]
                         },
                         "context": context,
                         "options": v.options

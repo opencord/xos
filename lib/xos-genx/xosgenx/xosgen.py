@@ -28,6 +28,8 @@ parse.add_argument('--kvpairs', dest='kv', action='store',default=None, help='Ke
 parse.add_argument('--write-to-file', dest='write_to_file', choices = ['single', 'model', 'target'], action='store',default=None, help='Single output file (single) or output file per model (model) or let target decide (target)')
 parse.add_argument('--version', action='version', version=__version__)
 parse.add_argument("-v", "--verbosity", action="count", default=0, help="increase output verbosity")
+parse.add_argument("--include-models", dest="include_models", action="append", default=[], help="list of models to include")
+parse.add_argument("--include-apps", dest="include_apps", action="append", default=[], help="list of models to include")
 
 group = parse.add_mutually_exclusive_group()
 group.add_argument('--dest-file', dest='dest_file', action='store',default=None, help='Output file name (if write-to-file is set to single)')
