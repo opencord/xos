@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "979c0497_944010fc",
+        "filename": "lib/xos-genx/xosgenx/targets/grpc_api.xtarget",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-10-08T21:25:27Z",
+      "side": 1,
+      "message": "Should this be \"Get\" instead of \"List\" ?",
+      "range": {
+        "startLine": 40,
+        "startChar": 48,
+        "endLine": 40,
+        "endChar": 52
+      },
+      "revId": "d992ff4dfd7b53b919e91aeaaa361754e79063d6",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
