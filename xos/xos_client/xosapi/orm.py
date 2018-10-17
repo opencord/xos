@@ -69,6 +69,41 @@ class ORMWrapper(object):
         super(ORMWrapper, self).__setattr__("_fkmap", fkmap)
         reverse_fkmap=self.gen_reverse_fkmap()
         super(ORMWrapper, self).__setattr__("_reverse_fkmap", reverse_fkmap)
+        super(ORMWrapper, self).__setattr__("_initial", self._dict)
+
+    def fields_differ(self,f1,f2):
+        return (f1 != f2)
+
+    @property
+    def _dict(self):
+        d={}
+        for (fieldDesc, val) in self._wrapped_class.ListFields():
+            name = fieldDesc.name
+            d[name] = val
+        return d
+
+    @property
+    def diff(self):
+        d1 = self._initial
+        d2 = self._dict
+        diffs = [(k, (v, d2[k])) for k, v in d1.items() if self.fields_differ(v,d2[k])]
+        return dict(diffs)
+
+    @property
+    def has_changed(self):
+        return bool(self.diff)
+
+    @property
+    def changed_fields(self):
+        if self.is_new:
+            return self._dict.keys()
+        return self.diff.keys()
+
+    def has_field_changed(self, field_name):
+        return field_name in self.diff.keys()
+
+    def get_field_diff(self, field_name):
+        return self.diff.get(field_name, None)
 
     def create_attr(self, name, value=None):
         """ setattr(self, ...) will fail for attributes that don't exist in the
@@ -308,6 +343,9 @@ class ORMWrapper(object):
                metadata.append( ("is_sync_save", "1") )
            self.stub.invoke("Update%s" % self._wrapped_class.__class__.__name__, self._wrapped_class, metadata=metadata)
         self.do_post_save_fixups()
+
+        # Now that object has saved, reset our initial state for diff calculation
+        self._initial = self._dict
 
     def delete(self):
         id = self.stub.make_ID(id=self._wrapped_class.id)
