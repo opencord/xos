@@ -34,6 +34,7 @@ fi
 echo "Installing python requirements in virtualenv with pip"
 source "${VENVDIR}/bin/activate"
 pip install --upgrade pip
+pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple "multistructlog==1.6.0.dev3"
 pip install -r "$PIP_REQS"
 
 pushd "$XOS_DIR/lib/xos-util"
