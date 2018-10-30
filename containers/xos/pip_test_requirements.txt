@@ -1,0 +1,2 @@
+multistructlog==1.6.0.dev0
+kafkaloghandler==0.8.0.dev5
