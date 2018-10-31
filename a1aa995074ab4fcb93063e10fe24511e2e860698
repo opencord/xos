@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0897cb2a_f78f8354",
+        "filename": "docs/dev/grpc_api.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-10-31T22:53:16Z",
+      "side": 1,
+      "message": "This command fails on MacOS, what about:\n\"COMMON_PROTO_DIR\u003d`realpath ~/Sites/cord/orchestration/xos/xos/coreapi/protos`\"?",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 74
+      },
+      "revId": "a1aa995074ab4fcb93063e10fe24511e2e860698",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dc813b8c_0456f36e",
+        "filename": "docs/dev/grpc_api.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2018-10-31T22:53:16Z",
+      "side": 1,
+      "message": "On Mac it\u0027s -D or --decode, can we move to the more verbose form?",
+      "range": {
+        "startLine": 69,
+        "startChar": 7,
+        "endLine": 69,
+        "endChar": 9
+      },
+      "revId": "a1aa995074ab4fcb93063e10fe24511e2e860698",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
