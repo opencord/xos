@@ -38,7 +38,9 @@ RUN apt-get update && apt-get install -y \
 # `pipdeptree` to make sure dependencies aren't broken, then
 # `pip freeze > pip_requirements.txt` and manually clean up.
 COPY pip_requirements.txt /tmp/pip_requirements.txt
+COPY pip_test_requirements.txt /tmp/pip_test_requirements.txt
 RUN pip install --no-deps -U -I pip==9.0.3 setuptools==39.0.1 requests==2.18.4 \
+ && pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple -r /tmp/pip_test_requirements.txt \
  && pip install --no-deps -r /tmp/pip_requirements.txt \
  && pip freeze > /var/xos/pip_freeze_pip_up_`date -u +%Y%m%dT%H%M%S`
 
