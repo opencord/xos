@@ -50,6 +50,9 @@ class Backend:
                 sys_path_save = sys.path
                 sys.path.append(step_dir)
                 module = imp.load_source(fn[:-3],pathname)
+
+                self.log.debug("Loaded file: %s", pathname)
+
                 # reset the original path
                 sys.path = sys_path_save
 

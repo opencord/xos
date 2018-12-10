@@ -21,13 +21,12 @@ import sys
 import base64
 import time
 from xosconfig import Config
+from multistructlog import create_logger
+
 from synchronizers.new_base.syncstep import SyncStep, DeferredException
 from synchronizers.new_base.ansible_helper import run_template_ssh
 from synchronizers.new_base.modelaccessor import *
-from xosconfig import Config
-from multistructlog import create_logger
 
-log = create_logger(Config().get('logging'))
 
 
 class SyncInstanceUsingAnsible(SyncStep):
@@ -41,6 +40,7 @@ class SyncInstanceUsingAnsible(SyncStep):
 
     def __init__(self, **args):
         SyncStep.__init__(self, **args)
+        self.log = create_logger(Config().get('logging'))
 
     def skip_ansible_fields(self, o):
         # Return True if the instance processing and get_ansible_fields stuff
@@ -51,7 +51,7 @@ class SyncInstanceUsingAnsible(SyncStep):
     def defer_sync(self, o, reason):
         # zdw, 2017-02-18 - is raising the exception here necessary? - seems like
         # it's just logging the same thing twice
-        log.info("defer object", object = str(o), reason = reason, **o.tologdict())
+        self.log.info("defer object", object = str(o), reason = reason, **o.tologdict())
         raise DeferredException("defer object %s due to %s" % (str(o), reason))
 
     def get_extra_attributes(self, o):
@@ -81,7 +81,7 @@ class SyncInstanceUsingAnsible(SyncStep):
             template_name = self.template_name
         tStart = time.time()
         run_template_ssh(template_name, fields, object=o)
-        log.info("playbook execution time", time = int(time.time() - tStart), **o.tologdict())
+        self.log.info("playbook execution time", time = int(time.time() - tStart), **o.tologdict())
 
     def pre_sync_hook(self, o, fields):
         pass
@@ -188,7 +188,7 @@ class SyncInstanceUsingAnsible(SyncStep):
         return fields
 
     def sync_record(self, o):
-        log.info("sync'ing object", object = str(o), **o.tologdict())
+        self.log.info("sync'ing object", object = str(o), **o.tologdict())
 
         self.prepare_record(o)
 
