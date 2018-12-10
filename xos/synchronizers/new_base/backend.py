@@ -26,14 +26,16 @@ from synchronizers.new_base.pull_step_engine import XOSPullStepEngine
 from synchronizers.new_base.modelaccessor import *
 
 from xosconfig import Config
-from multistructlog import create_logger
-
-log = create_logger(Config().get('logging'))
 
 
 class Backend:
 
-    def __init__(self, log = log):
+    def __init__(self, log = None):
+
+        if not log:
+            print("No logger passed to backend, dying!")
+            sys.exit(1)
+
         self.log = log
         pass
 
@@ -50,6 +52,9 @@ class Backend:
                 sys_path_save = sys.path
                 sys.path.append(step_dir)
                 module = imp.load_source(fn[:-3],pathname)
+
+                self.log.debug("Loaded file: %s", pathname)
+
                 # reset the original path
                 sys.path = sys_path_save
 

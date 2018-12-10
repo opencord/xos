@@ -14,14 +14,13 @@
 # limitations under the License.
 
 import os
-from xosconfig import Config
-from multistructlog import create_logger
 
-log = create_logger(Config().get('logging'))
 
 class ModelLoadClient(object):
-    def __init__(self, api):
+    def __init__(self, api, log):
+
         self.api = api
+        self.log = log
 
     def upload_models(self, name, dir, version="unknown"):
         request = self.api.dynamicload_pb2.LoadModelsRequest(name=name, version=version)
@@ -40,7 +39,7 @@ class ModelLoadClient(object):
 
         attic_dir = os.path.join(dir, "attic")
         if os.path.exists(attic_dir):
-            log.warn("Attics are deprecated, please use the legacy=True option in xProto")
+            self.log.warn("Attics are deprecated, please use the legacy=True option in xProto")
             for fn in os.listdir(attic_dir):
                 if fn.endswith(".py"):
                     item = request.attics.add()

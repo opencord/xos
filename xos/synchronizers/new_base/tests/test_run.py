@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import json
 import unittest
 from mock import patch
 import mock
@@ -20,6 +21,8 @@ import pdb
 import networkx as nx
 
 import os, sys
+
+log = None
 
 test_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 xos_dir = os.path.join(test_path, '..', '..', '..')
@@ -35,7 +38,25 @@ def get_ansible_output():
     return json.loads(ansible_str)
 
 class TestRun(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+
+        global log
+
+        config = os.path.join(test_path, "test_config.yaml")
+        from xosconfig import Config
+        Config.clear()
+        Config.init(config, 'synchronizer-config-schema.yaml')
+
+        if not log:
+            from multistructlog import create_logger
+            log = create_logger(Config().get('logging'))
+
     def setUp(self):
+
+        global log
+
         self.sys_path_save = sys.path
         self.cwd_save = os.getcwd()
         sys.path.append(xos_dir)
@@ -62,10 +83,10 @@ class TestRun(unittest.TestCase):
         for (k, v) in model_accessor.all_model_classes.items():
             globals()[k] = v
 
-        b = backend.Backend()
+        b = backend.Backend(log)
         steps_dir = Config.get("steps_dir")
         self.steps = b.load_sync_step_modules(steps_dir)
-        self.synchronizer = event_loop.XOSObserver(self.steps)
+        self.synchronizer = event_loop.XOSObserver(self.steps, log)
         try:
             os.remove('/tmp/sync_ports')
         except OSError:

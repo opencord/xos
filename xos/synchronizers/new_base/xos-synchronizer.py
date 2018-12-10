@@ -46,9 +46,9 @@ def main():
 
     if (wait):
         time.sleep(60) # Safety factor, seeing that we stumbled waiting for the data model to come up.
-    
+
     log_closure = log.bind(synchronizer_name = Config().get('name'))
-    backend = Backend(log = log_closure)
+    backend = Backend(log)
     backend.run()
 
 if __name__ == '__main__':

@@ -30,11 +30,6 @@ import threading
 from multiprocessing import Process, Queue
 from xosconfig import Config
 
-from multistructlog import create_logger
-
-log = create_logger(Config().get('logging'))
-
-
 step_dir = Config.get("steps_dir")
 sys_dir = Config.get("sys_dir")
 
@@ -68,7 +63,7 @@ def get_playbook_fn(opts, path):
 
     return (opts, os.path.join(pathed_sys_dir,objname))
 
-def run_playbook(ansible_hosts, ansible_config, fqp, opts):
+def run_playbook(ansible_hosts, ansible_config, fqp, opts, log):
     args = {"ansible_hosts": ansible_hosts,
             "ansible_config": ansible_config,
             "fqp": fqp,
@@ -113,7 +108,7 @@ def run_playbook(ansible_hosts, ansible_config, fqp, opts):
 
     return (stats, aresults)
 
-def run_template(name, opts, path='', expected_num=None, ansible_config=None, ansible_hosts=None, run_ansible_script=None, object=None):
+def run_template(name, opts, log, path='', expected_num=None, ansible_config=None, ansible_hosts=None, run_ansible_script=None, object=None):
     template = os_template_env.get_template(name)
     buffer = template.render(opts)
 

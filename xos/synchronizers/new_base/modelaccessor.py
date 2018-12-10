@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 
 """ ModelAccessor
 
@@ -36,7 +34,6 @@ from xosconfig import Config
 from multistructlog import create_logger
 from xosutil.autodiscover_version import autodiscover_version_of_main
 
-log = create_logger(Config().get('logging'))
 
 orig_sigint = None
 model_accessor = None
@@ -44,6 +41,7 @@ model_accessor = None
 
 class ModelAccessor(object):
     def __init__(self):
+        config_accessor()
         self.all_model_classes = self.get_all_model_classes()
 
     def get_all_model_classes(self):
@@ -129,7 +127,7 @@ def import_models_to_globals():
         globals()["ModelLink"] = ModelLink
 
 
-def keep_trying(client, reactor):
+def keep_trying(client, reactor, log):
     # Keep checking the connection to wait for it to become unavailable.
     # Then reconnect. The strategy is to send NoOp operations, one per second, until eventually a NoOp throws an
     # exception. This will indicate the server has reset. When that happens, we force the client to reconnect, and
@@ -149,10 +147,10 @@ def keep_trying(client, reactor):
         os.execv(sys.executable, ['python'] + sys.argv)
         return
 
-    reactor.callLater(1, functools.partial(keep_trying, client, reactor))
+    reactor.callLater(1, functools.partial(keep_trying, client, reactor, log))
 
 
-def grpcapi_reconnect(client, reactor):
+def grpcapi_reconnect(client, reactor, log):
     global model_accessor
 
     # Make sure to try to load models before trying to initialize the ORM. It might be the ORM is broken because it
@@ -162,7 +160,7 @@ def grpcapi_reconnect(client, reactor):
         version = autodiscover_version_of_main(max_parent_depth=0) or "unknown"
         log.info("Service version is %s" % version)
         try:
-            ModelLoadClient(client).upload_models(Config.get("name"), Config.get("models_dir"), version=version)
+            ModelLoadClient(client, log).upload_models(Config.get("name"), Config.get("models_dir"), version=version)
         except Exception, e:  # TODO: narrow exception scope
             if (hasattr(e, "code") and callable(e.code) and hasattr(e.code(), "name") and (e.code().name) == "UNAVAILABLE"):
                 # We need to make sure we force a reconnection, as it's possible that we will end up downloading a
@@ -173,14 +171,14 @@ def grpcapi_reconnect(client, reactor):
                 return
             log.exception("failed to onboard models")
             # If it's some other error, then we don't need to force a reconnect. Just try the LoadModels() again.
-            reactor.callLater(10, functools.partial(grpcapi_reconnect, client, reactor))
+            reactor.callLater(10, functools.partial(grpcapi_reconnect, client, reactor, log))
             return
 
     # If the ORM is broken, then wait for the orm to become available.
 
     if not getattr(client, "xos_orm", None):
         log.warning("No xos_orm. Will keep trying...")
-        reactor.callLater(1, functools.partial(keep_trying, client, reactor))
+        reactor.callLater(1, functools.partial(keep_trying, client, reactor, log))
         return
 
     # this will prevent updated timestamps from being automatically updated
@@ -212,7 +210,7 @@ def grpcapi_reconnect(client, reactor):
             log.warning("required_models: missing",models = ", ".join(missing))
             # We're missing a required model. Give up and wait for the connection
             # to reconnect, and hope our missing model has shown up.
-            reactor.callLater(1, functools.partial(keep_trying, client, reactor))
+            reactor.callLater(1, functools.partial(keep_trying, client, reactor, log))
             return
 
     # import all models to global space
@@ -224,7 +222,7 @@ def grpcapi_reconnect(client, reactor):
     # Restore the sigint handler
     signal.signal(signal.SIGINT, orig_sigint)
 
-def config_accessor_grpcapi():
+def config_accessor_grpcapi(log):
     global orig_sigint
 
     log.info("Connecting to the gRPC API")
@@ -244,7 +242,7 @@ def config_accessor_grpcapi():
     from twisted.internet import reactor
 
     grpcapi_client = SecureClient(endpoint=grpcapi_endpoint, username=grpcapi_username, password=grpcapi_password)
-    grpcapi_client.set_reconnect_callback(functools.partial(grpcapi_reconnect, grpcapi_client, reactor))
+    grpcapi_client.set_reconnect_callback(functools.partial(grpcapi_reconnect, grpcapi_client, reactor, log))
     grpcapi_client.start()
 
     # Start reactor. This will cause the client to connect and then execute
@@ -259,7 +257,7 @@ def config_accessor_grpcapi():
 
     reactor.run()
 
-def config_accessor_mock():
+def config_accessor_mock(log):
     global model_accessor
     from mock_modelaccessor import model_accessor as mock_model_accessor
     model_accessor = mock_model_accessor
@@ -277,12 +275,14 @@ def config_accessor_mock():
     import_models_to_globals()
 
 def config_accessor():
+
+    log = create_logger(Config().get('logging'))
     accessor_kind = Config.get("accessor.kind")
 
     if accessor_kind == "testframework":
-        config_accessor_mock()
+        config_accessor_mock(log)
     elif accessor_kind == "grpcapi":
-        config_accessor_grpcapi()
+        config_accessor_grpcapi(log)
     else:
         raise Exception("Unknown accessor kind %s" % accessor_kind)
 

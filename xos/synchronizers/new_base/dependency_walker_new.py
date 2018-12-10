@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 
 # Copyright 2017-present Open Networking Foundation
 #
@@ -13,9 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
-#!/usr/bin/env python
-
 # TODO: Moved this into the synchronizer, as it appeared to require model
 #       access. Verify whether or not that's true and reconcile with
 #       generate/dependency_walker.py
@@ -29,11 +27,6 @@ import commands
 import threading
 from xosconfig import Config
 import json
-
-from xosconfig import Config
-from multistructlog import create_logger
-
-log = create_logger(Config().get('logging'))
 
 missing_links = {}
 
@@ -61,25 +54,25 @@ def plural(name):
         return name + 's'
 
 
-def walk_deps(fn, object):
+def walk_deps(fn, object, log):
     model = object.__class__.__name__
     try:
         deps = dependencies[model]
     except:
         deps = []
-    return __walk_deps(fn, object, deps)
+    return __walk_deps(fn, object, deps, log)
 
 
-def walk_inv_deps(fn, object):
+def walk_inv_deps(fn, object, log):
     model = object.__class__.__name__
     try:
         deps = inv_dependencies[model]
     except:
         deps = []
-    return __walk_deps(fn, object, deps)
+    return __walk_deps(fn, object, deps, log)
 
 
-def __walk_deps(fn, object, deps):
+def __walk_deps(fn, object, deps, log):
     model = object.__class__.__name__
     ret = []
     for dep in deps:

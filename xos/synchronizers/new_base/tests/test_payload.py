@@ -27,6 +27,8 @@ xos_dir = os.path.join(test_path, '..', '..', '..')
 
 ANSIBLE_FILE='/tmp/payload_test'
 
+log = None
+
 def run_fake_ansible_template(*args,**kwargs):
     opts = args[1]
     open(ANSIBLE_FILE,'w').write(json.dumps(opts))
@@ -42,7 +44,24 @@ def get_ansible_output():
     return json.loads(ansible_str)
 
 class TestPayload(unittest.TestCase):
+
+    @classmethod
+    def setUpClass(cls):
+
+        global log
+
+        config = os.path.join(test_path, "test_config.yaml")
+        from xosconfig import Config
+        Config.clear()
+        Config.init(config, 'synchronizer-config-schema.yaml')
+
+        if not log:
+            from multistructlog import create_logger
+            log = create_logger(Config().get('logging'))
+
+
     def setUp(self):
+
         global log, steps, event_loop
 
         self.sys_path_save = sys.path
@@ -72,14 +91,10 @@ class TestPayload(unittest.TestCase):
         # import all class names to globals
         for (k, v) in model_accessor.all_model_classes.items():
             globals()[k] = v
-
-        from multistructlog import create_logger
-        log = create_logger()
-
-        b = backend.Backend()
+        b = backend.Backend(log)
         steps_dir = Config.get("steps_dir")
         self.steps = b.load_sync_step_modules(steps_dir)
-        self.synchronizer = event_loop.XOSObserver(self.steps)
+        self.synchronizer = event_loop.XOSObserver(self.steps, log)
 
     def tearDown(self):
         sys.path = self.sys_path_save
@@ -213,22 +228,22 @@ class TestPayload(unittest.TestCase):
         self.synchronizer.external_dependencies = []
         cohorts = self.synchronizer.compute_dependent_cohorts(pending_objects, False)
         flat_objects = [item for cohort in cohorts for item in cohort]
-       
+
         self.assertEqual(set(flat_objects), set(pending_objects))
-    
+
     @mock.patch("steps.sync_instances.syncstep.run_template",side_effect=run_fake_ansible_template)
     @mock.patch("event_loop.model_accessor")
     def test_fetch_pending_with_external_dependencies(self, mock_run_template, mock_accessor, *_other_accessors):
         pending_objects, pending_steps = self.synchronizer.fetch_pending()
         pending_objects2 = list(pending_objects)
 
-        self.synchronizer = event_loop.XOSObserver(self.steps)
+        self.synchronizer = event_loop.XOSObserver(self.steps, log)
 
         any_cn = next(obj for obj in pending_objects if obj.leaf_model_name == 'ControllerNetwork')
         any_user = next(obj for obj in pending_objects2 if obj.leaf_model_name == 'User')
 
         cohorts = self.synchronizer.compute_dependent_cohorts(pending_objects, False)
-       
+
         flat_objects = [item for cohort in cohorts for item in cohort]
         self.assertEqual(set(flat_objects), set(pending_objects))
 
