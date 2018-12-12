@@ -22,6 +22,30 @@
       "revId": "157d417ceb8400517094723f74ac45115bdd56af",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "351209ef_5b6f45ea",
+        "filename": "xos/synchronizers/new_base/SyncInstanceUsingAnsible.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2018-12-12T17:11:59Z",
+      "side": 1,
+      "message": "Does `self` exist prior to __init__ being called?   It\u0027s not (currently) being created in the SyncStep.__init__() call right before.",
+      "parentUuid": "d5d35f12_dd0dc201",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 57
+      },
+      "revId": "157d417ceb8400517094723f74ac45115bdd56af",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
