@@ -46,6 +46,30 @@
       "revId": "157d417ceb8400517094723f74ac45115bdd56af",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "74088b9a_f85c52b2",
+        "filename": "xos/synchronizers/new_base/SyncInstanceUsingAnsible.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2018-12-12T17:30:40Z",
+      "side": 1,
+      "message": "You\u0027re right, __init__() is likely the first logical place to set `self.log`, but the requirement is self.log is set before any code in the syncstep class emits a log message. If they\u0027re only printed as a side_effect of `sync_record` and/or `delete_record` then the requirement is covered. If some code is printing a log message as a side_effect of `__init__` itself or some other function (`fetch_pending`?) then it would be a problem for it to be uninitialized at that time.\n\nThe safest approach may be for event_loop.py to pass a `log` object to __init__ when instantiating the step, and SyncStep.__init__ to set self.log from that. If each descendant class calls the base with **args, then the descendants are agnostic to how the logger was passed in. Seems like this would be better practice than what event_loop.py does now, which is to externally manipulate variables from outside the object.",
+      "parentUuid": "351209ef_5b6f45ea",
+      "range": {
+        "startLine": 43,
+        "startChar": 8,
+        "endLine": 43,
+        "endChar": 57
+      },
+      "revId": "157d417ceb8400517094723f74ac45115bdd56af",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
