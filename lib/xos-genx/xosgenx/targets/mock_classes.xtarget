@@ -76,6 +76,7 @@ class MockObjectStore(MockObjectList):
 
 class MockObject(object):
     objects = None
+    deleted_objects = None
     id = None
     deleted = False
 
@@ -217,6 +218,7 @@ class ObjectSet(object):
 class Mock{{ m.name }}Objects(MockObjectStore): pass
 class {{ m.name }}(MockObject):
     objects = get_MockObjectStore("{{ m.name }}")
+    deleted_objects = get_MockObjectStore("{{ m.name }}")
     {% for f in xproto_base_fields(m, proto.message_table) +  m.fields -%}
     {{ f.name }} = {{ xproto_first_non_empty([f.options.default, "None"]) }}
     {% if f.link -%}{{ f.name }}_id = None{% endif %}
