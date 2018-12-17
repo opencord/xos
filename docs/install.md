@@ -112,20 +112,57 @@ helm dep update xos-core
 helm install xos-core -n xos-core
 ```
 
+You also need to start the Kafka message bus to catch event
+notifications send by the various components:
+
+```shell 
+helm repo add incubator http://storage.googleapis.com/kubernetes-charts-incubator 
+helm install -f examples/kafka-single.yaml --version 0.8.8 -n cord-kafka incubator/kafka 
+```
+
 Use `kubectl get pods` to verify that all containers that implement XOS
-are successfully running. You should see output that looks something
-like this:
+(and Kafka) are successfully running. You should see output that looks
+something like this:
 
 ```shell
-NAME                                           READY     STATUS    RESTARTS   AGE
-xos-chameleon-6f49b67f68-pdf6n                 1/1       Running   0          2m
-xos-core-57fd788db-8b97d                       1/1       Running   0          2m
-xos-db-f9ddc6589-rtrml                         1/1       Running   0          2m
-xos-gui-7fcfcd4474-prhfb                       1/1       Running   0          2m
-xos-redis-74c5cdc969-ppd7z                     1/1       Running   0          2m
-xos-tosca-7c665f97b6-krp5k                     1/1       Running   0          2m
-xos-ws-55d676c696-pxsqk                        1/1       Running   0          2m
+NAME                             READY     STATUS    RESTARTS   AGE
+cord-kafka-0                     1/1       Running   0          3m  
+cord-kafka-zookeeper-0           1/1       Running   0          3m  
+xos-chameleon-58c5b847d6-48jvf   1/1       Running   0          11m
+xos-core-7dc45f677b-pzhm6        1/1       Running   0          11m
+xos-db-c49549b7f-mzs4n           1/1       Running   0          11m
+xos-gui-7c96669d8c-8zkhq         1/1       Running   0          11m
+xos-tosca-7f6cf85657-gzddq       1/1       Running   0          11m
+xos-ws-5f47ff7d94-xg9f5          1/1       Running   0          11m
 ```
+
+## Bring Up Monitoring and Logging
+
+Although not required, we recommend that you also bring up two
+auxilary services to capture and display monitoring and logging
+information. This is done by executing the following Helm charts.
+
+Monitoring (once running, access [Grafana](http://docs.grafana.org/)
+Dashboard at port 31300):
+
+
+```shell
+helm dep update nem-monitoring
+helm install -n nem-monitoring nem-monitoring
+```
+
+Logging (once running, access
+[Kabana](https://www.elastic.co/guide/en/kibana/current/index.html)
+Dashboard at port 30601):
+
+```shell
+helm dep up logging
+helm install -f examples/logging-single.yaml -n logging logging
+```
+
+> **Note:** The `-f examples/logging-single.yaml` option says to
+> not use persistent storage, which is fine for development or demo
+> purposes, but not for operational deployments.
 
 ## Bring Up a Service
 
@@ -152,15 +189,16 @@ As before, when all the containers are successfully up and running,
 
 ```shell
 NAME                                           READY     STATUS    RESTARTS   AGE
-base-kubernetes-kubernetes-55c55bd897-rn9ln    1/1       Running   0          2m
-base-kubernetes-tosca-loader-vs6pv             1/1       Running   1          2m
+base-kubernetes-kubernetes-55c55bd897-rn9ln    1/1       Running   0          3m
+base-kubernetes-tosca-loader-vs6pv             1/1       Running   1          3m
+cord-kafka-5d8f7845c	   	   		     1/1       Running   0          10m
+cord-kafka-zookeeper-6494fcb7f                 1/1       Running   0          10m
 demo-simpleexampleservice-787454b84b-ckpn2     1/1       Running   0          1m
 demo-simpleexampleservice-tosca-loader-4q7zg   1/1       Running   0          1m
 xos-chameleon-6f49b67f68-pdf6n                 1/1       Running   0          12m
 xos-core-57fd788db-8b97d                       1/1       Running   0          12m
 xos-db-f9ddc6589-rtrml                         1/1       Running   0          12m
 xos-gui-7fcfcd4474-prhfb                       1/1       Running   0          12m
-xos-redis-74c5cdc969-ppd7z                     1/1       Running   0          12m
 xos-tosca-7c665f97b6-krp5k                     1/1       Running   0          12m 
 xos-ws-55d676c696-pxsqk                        1/1       Running   0          12m 
 ```
