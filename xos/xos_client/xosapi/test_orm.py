@@ -21,7 +21,7 @@ import shutil
 import string
 import sys
 import unittest
-from mock import patch
+from mock import patch, ANY
 
 # by default, use fake stub rather than real core
 USE_FAKE_STUB=True
@@ -479,6 +479,13 @@ class TestORM(unittest.TestCase):
             self.assertEqual(q.elements[0].operator, q.elements[0].EQUAL)
             self.assertEqual(q.elements[0].sValue, "foo")
 
+    def test_ORMWrapper_dict(self):
+        orm = self.make_coreapi()
+
+        testModel = orm.TestModel(intfield=7, stringfield="foo")
+
+        self.assertDictEqual(testModel._dict, {"intfield": 7, "stringfield": "foo"})
+
     def test_ORMWrapper_new_diff(self):
         orm = self.make_coreapi()
         site = orm.Site(name="mysite")
@@ -536,6 +543,49 @@ class TestORM(unittest.TestCase):
         site.save()
 
         self.assertEqual(site.diff, {})
+
+    def test_ORMWrapper_recompute_initial(self):
+        """ For saved models, Recompute_initial should take recompute the set of initial values, removing all items
+            from the diff set.
+        """
+
+        orm = self.make_coreapi()
+
+        testModel = orm.TestModel()
+        testModel.save()
+
+        testModel.intfield = 9
+        self.assertEqual(testModel.changed_fields, ["intfield"])
+
+        testModel.recompute_initial()
+        self.assertEqual(testModel.changed_fields, [])
+
+    def test_ORMWrapper_create_attr(self):
+        orm = self.make_coreapi()
+
+        testModel = orm.TestModel()
+        testModel.create_attr("some_new_attribute", "foo")
+        self.assertEqual(testModel.some_new_attribute, "foo")
+
+    def test_ORMWrapper_save_changed_fields(self):
+        orm = self.make_coreapi()
+
+        testModel = orm.TestModel(intfield=7, stringfield="foo")
+        testModel.save()
+
+        testModel.intfield=9
+
+        with patch.object(orm.grpc_stub, "UpdateTestModel", wraps=orm.grpc_stub.UpdateTestModel) as update:
+            testModel.save_changed_fields()
+            update.assert_called_with(ANY, metadata=[("update_fields", "intfield"), ANY])
+
+    def test_ORMWrapper_get_generic_foreignkeys(self):
+        """ Currently this is a placeholder that returns an empty list """
+
+        orm = self.make_coreapi()
+
+        testModel = orm.TestModel()
+        self.assertEqual(testModel.get_generic_foreignkeys(), [])
 
     def test_deleted_objects_all(self):
         orm = self.make_coreapi()

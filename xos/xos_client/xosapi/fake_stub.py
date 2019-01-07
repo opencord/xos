@@ -315,6 +315,7 @@ class Tag(FakeObj):
 class TestModel(FakeObj):
     FIELDS = ( {"name": "id", "default": 0},
                {"name": "intfield", "default": 0},
+               {"name": "stringfield", "default": "somestring"},
                {"name": "class_names", "default": "TestModel"} )
 
     def __init__(self, **kwargs):
