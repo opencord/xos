@@ -762,24 +762,3 @@ def import_convenience_methods():
                 log.exception("Cannot import api convenience method for: %s, %s" % (file[:-3], pathname))
 
 
-# import convenience.addresspool
-# import convenience.privilege
-# import convenience.instance
-# import convenience.network
-# import convenience.cordsubscriberroot
-# import convenience.vsgserviceinstance
-# import convenience.serviceinstance
-# import convenience.vrouterservice
-# import convenience.vroutertenant
-# import convenience.vrouterapp
-# import convenience.service
-# import convenience.onosapp
-# import convenience.controller
-# import convenience.user
-# import convenience.slice
-# import convenience.port
-# import convenience.tag
-# import convenience.vtrtenant
-# import convenience.addressmanagerservice
-# import convenience.addressmanagerserviceinstance
-
