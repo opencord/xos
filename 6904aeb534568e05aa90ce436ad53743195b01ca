@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "697f09a7_a9891772",
+        "filename": "xos/xos_client/xosapi/test_orm.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2019-01-08T20:53:33Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be reverse_cache?",
+      "range": {
+        "startLine": 135,
+        "startChar": 35,
+        "endLine": 135,
+        "endChar": 40
+      },
+      "revId": "6904aeb534568e05aa90ce436ad53743195b01ca",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
