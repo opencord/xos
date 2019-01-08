@@ -22,6 +22,30 @@
       "revId": "6904aeb534568e05aa90ce436ad53743195b01ca",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b1d9d169_9f1669dc",
+        "filename": "xos/xos_client/xosapi/test_orm.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-01-08T21:33:03Z",
+      "side": 1,
+      "message": "yeah, will fix.",
+      "parentUuid": "697f09a7_a9891772",
+      "range": {
+        "startLine": 135,
+        "startChar": 35,
+        "endLine": 135,
+        "endChar": 40
+      },
+      "revId": "6904aeb534568e05aa90ce436ad53743195b01ca",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
