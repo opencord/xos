@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,20 +14,22 @@
 
 
 #!/usr/bin/env python
+from synchronizers.new_base.backend import Backend
+from multistructlog import create_logger
+from xosconfig import Config
+from synchronizers.new_base.modelaccessor import *
+import time
 import os
 import argparse
 import sys
 
-sys.path.append('/opt/xos')
+sys.path.append("/opt/xos")
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
-import time
-from synchronizers.new_base.modelaccessor import *
-from xosconfig import Config
-from multistructlog import create_logger
-from synchronizers.new_base.backend import Backend
 
-log = create_logger(Config().get('logging'))
+log = create_logger(Config().get("logging"))
+
+
 def main():
 
     models_active = False
@@ -38,18 +39,21 @@ def main():
             _ = Instance.objects.first()
             _ = NetworkTemplate.objects.first()
             models_active = True
-        except Exception,e:
-            log.info("Exception", e = e)
-            log.info('Waiting for data model to come up before starting...')
+        except Exception as e:
+            log.info("Exception", e=e)
+            log.info("Waiting for data model to come up before starting...")
             time.sleep(10)
             wait = True
 
-    if (wait):
-        time.sleep(60) # Safety factor, seeing that we stumbled waiting for the data model to come up.
+    if wait:
+        time.sleep(
+            60
+        )  # Safety factor, seeing that we stumbled waiting for the data model to come up.
 
-    log_closure = log.bind(synchronizer_name = Config().get('name'))
-    backend = Backend(log = log_closure)
+    log_closure = log.bind(synchronizer_name=Config().get("name"))
+    backend = Backend(log=log_closure)
     backend.run()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
