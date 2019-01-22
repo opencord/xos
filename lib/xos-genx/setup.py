@@ -25,18 +25,15 @@ except ImportError:
 
 from xosgenx.version import __version__
 
-setup(name='XosGenX',
-      version=__version__,
-      description='XOS Generative Toolchain',
-      author='Sapan Bhatia, Matteo Scandolo',
-      author_email='sapan@opennetworking.org, teo@opennetworking.org',
-      packages=['xosgenx'],
-      scripts=['bin/xosgenx'],
-      include_package_data=True,
-      # TODO add all deps to the install_requires section
-      install_requires=[
-          'inflect>=1.0.1',
-          'astunparse>=1.5.0'
-          ]
-     )
-
+setup(
+    name="XosGenX",
+    version=__version__,
+    description="XOS Generative Toolchain",
+    author="Sapan Bhatia, Matteo Scandolo",
+    author_email="sapan@opennetworking.org, teo@opennetworking.org",
+    packages=["xosgenx"],
+    scripts=["bin/xosgenx"],
+    include_package_data=True,
+    # TODO add all deps to the install_requires section
+    install_requires=["inflect>=1.0.1", "astunparse>=1.5.0"],
+)

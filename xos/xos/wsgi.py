@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,6 +40,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
+
 application = get_wsgi_application()
 
 # Apply WSGI middleware here.

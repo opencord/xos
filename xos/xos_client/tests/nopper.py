@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -20,14 +19,17 @@
     performance.
 """
 
+from __future__ import print_function
 import sys
 import time
+
 sys.path.append("..")
 
 from xosapi import xos_grpc_client
 
+
 def test_callback():
-    print "TEST: nop"
+    print("TEST: nop")
 
     c = xos_grpc_client.coreclient
 
@@ -36,15 +38,15 @@ def test_callback():
         count = 0
         while True:
             if type(xos_grpc_client.coreclient) == xos_grpc_client.SecureClient:
-               c.utility.AuthenticatedNoOp(xos_grpc_client.Empty())
+                c.utility.AuthenticatedNoOp(xos_grpc_client.Empty())
             else:
-               c.utility.NoOp(xos_grpc_client.Empty())
+                c.utility.NoOp(xos_grpc_client.Empty())
             count = count + 1
-            elap = time.time()-tStart
-            if (elap >= 10):
-                print "nops/second = %d" % int(count/elap)
+            elap = time.time() - tStart
+            if elap >= 10:
+                print("nops/second = %d" % int(count / elap))
                 tStart = time.time()
                 count = 0
 
-xos_grpc_client.start_api_parseargs(test_callback)
 
+xos_grpc_client.start_api_parseargs(test_callback)

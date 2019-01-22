@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,14 +13,17 @@
 # limitations under the License.
 
 
+from __future__ import print_function
 import sys
 import traceback
+
 sys.path.append("..")
 
 from xosapi import xos_grpc_client
 
+
 def test_callback():
-    print "TEST: orm_listall_crud"
+    print("TEST: orm_listall_crud")
 
     c = xos_grpc_client.coreclient
 
@@ -29,16 +31,16 @@ def test_callback():
         model_class = getattr(c.xos_orm, model_name)
 
         try:
-            print "   list all %s ..." % model_name,
+            print("   list all %s ..." % model_name, end=" ")
 
             objs = model_class.objects.all()
 
-            print "[%d] okay" % len(objs)
+            print("[%d] okay" % len(objs))
         except:
-            print "   fail!"
+            print("   fail!")
             traceback.print_exc()
 
-    print "    done"
+    print("    done")
+
 
 xos_grpc_client.start_api_parseargs(test_callback)
-

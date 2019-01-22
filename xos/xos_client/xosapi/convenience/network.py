@@ -1,4 +1,3 @@
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +16,7 @@
 import json
 from xosapi.orm import ORMWrapper, ORMLocalObjectManager, register_convenience_wrapper
 
+
 class ORMWrapperNetwork(ORMWrapper):
     # slices- emulates the ManyToMany from Slice to Network via NetworkSlice
     @property
@@ -29,5 +29,6 @@ class ORMWrapperNetwork(ORMWrapper):
     def instances(self):
         idList = [x.instance.id for x in self.links.all()]
         return ORMLocalObjectManager(self.stub, "Instance", idList, False)
+
 
 register_convenience_wrapper("Network", ORMWrapperNetwork)
