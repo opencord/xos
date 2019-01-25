@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5db72b3f_4de5a63a",
+        "filename": "xos/xos_client/xossh",
+        "patchSetId": 8
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-01-25T18:39:05Z",
+      "side": 1,
+      "message": "Exception here. Initialize Config and Logger directly instead?",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 52
+      },
+      "revId": "282dd26e054e319ce952ad8fa6a8860450fc8954",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
