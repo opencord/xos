@@ -12,10 +12,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# FIXME: make this file pass flake8
+# flake8: noqa
 
-from xossynchronizer.modelaccessor import *
+from __future__ import absolute_import
+
+import json
+
+from xossynchronizer.exceptions import SynchronizerConfigurationError, SynchronizerProgrammingError
 from xossynchronizer.model_policies.policy import Policy
-from xossynchronizer.exceptions import *
+from xossynchronizer.modelaccessor import *
 
 
 class Scheduler(object):

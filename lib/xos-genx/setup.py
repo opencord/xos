@@ -32,7 +32,7 @@ def parse_requirements(filename):
     # parse a requirements.txt file, allowing for blank lines and comments
     requirements = []
     for line in open(filename):
-        if line and line.startswith("#"):
+        if line and not line.startswith("#"):
             requirements.append(line)
     return requirements
 
