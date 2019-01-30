@@ -1,3 +1,2 @@
-build
-xosapi/chameleon
-xosapi.egg-info
+# setup.py copies this, don't commit it
+xosapi/VERSION
