@@ -14,6 +14,7 @@
 
 
 from base import xproto_string_type, unquote
+from collections import OrderedDict
 
 
 def xproto_type_to_ui_type(f):
@@ -39,12 +40,14 @@ def xproto_type_to_ui_type(f):
 
 
 def xproto_options_choices_to_dict(choices):
-    list = []
+    # Not sure why this was named "*_to_dict" but returns a list
+    c_list = []
 
     for c in eval(choices):
-        list.append({"id": c[0], "label": c[1]})
-    if len(list) > 0:
-        return list
+        c_choice = OrderedDict([("id", c[0]), ("label", c[1])])
+        c_list.append(c_choice)
+    if len(c_list) > 0:
+        return sorted(c_list)
     else:
         return None
 

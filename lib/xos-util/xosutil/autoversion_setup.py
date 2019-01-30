@@ -23,6 +23,7 @@
  automatically load the version number from the VERSION file, if one is detected.
 """
 
+from __future__ import absolute_import
 import os
 from setuptools import setup
 
@@ -30,7 +31,7 @@ from setuptools.command.sdist import sdist
 from setuptools.command.build_py import build_py
 
 import inspect
-from autodiscover_version import autodiscover_version
+from .autodiscover_version import autodiscover_version
 
 
 class SdistCommand(sdist):

@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 from __future__ import print_function
 import plyxproto.model as m
 from plyxproto.helpers import Visitor
@@ -24,6 +23,7 @@ import jinja2
 import os
 import copy
 import pdb
+from collections import OrderedDict
 
 
 class MissingPolicyException(Exception):
@@ -105,12 +105,12 @@ class XOS2Jinja(Visitor):
         super(XOS2Jinja, self).__init__()
 
         self.stack = Stack()
-        self.models = {}
-        self.options = {}
+        self.models = OrderedDict()
+        self.options = OrderedDict()
         self.package = None
-        self.message_options = {}
+        self.message_options = OrderedDict()
         self.count_stack = Stack()
-        self.policies = {}
+        self.policies = OrderedDict()
         self.content = ""
         self.offset = 0
         self.current_message_name = None
@@ -179,7 +179,7 @@ class XOS2Jinja(Visitor):
         return True
 
     def visit_LinkDefinition(self, obj):
-        s = {}
+        s = OrderedDict()
 
         try:
             s["link_type"] = obj.link_type.pval
@@ -220,7 +220,7 @@ class XOS2Jinja(Visitor):
             s["reverse_id"] = obj.reverse_id
 
         s["_type"] = "link"
-        s["options"] = {"modifier": "optional"}
+        s["options"] = OrderedDict({"modifier": "optional"})
 
         self.stack.push(s)
         return True
@@ -230,7 +230,7 @@ class XOS2Jinja(Visitor):
         return True
 
     def visit_FieldDefinition_post(self, obj):
-        s = {}
+        s = OrderedDict()
 
         if isinstance(obj.ftype, m.Name):
             s["type"] = obj.ftype.value
@@ -247,7 +247,7 @@ class XOS2Jinja(Visitor):
         s["modifier"] = obj.field_modifier.pval
         s["id"] = obj.fieldId.pval
 
-        opts = {"modifier": s["modifier"]}
+        opts = OrderedDict({"modifier": s["modifier"]})
         n = self.count_stack.pop()
         for i in range(0, n):
             k, v = self.stack.pop()
@@ -287,7 +287,7 @@ class XOS2Jinja(Visitor):
 
     def visit_MessageDefinition(self, obj):
         self.current_message_name = obj.name.value.pval
-        self.message_options = {}
+        self.message_options = OrderedDict()
         self.count_stack.push(count_fields(obj.body))
         return True
 
@@ -301,7 +301,7 @@ class XOS2Jinja(Visitor):
         except AttributeError:
             pass
 
-        last_field = {}
+        last_field = OrderedDict()
         for i in range(0, stack_num):
             f = self.stack.pop()
             if f["_type"] == "link":
@@ -340,7 +340,7 @@ class XOS2Jinja(Visitor):
         self.models[model_name] = model_def
 
         # Set message options
-        for k, v in self.options.iteritems():
+        for k, v in sorted(self.options.items(), key=lambda t: t[0]):  # sorted by key
             try:
                 if k not in self.message_options:
                     self.message_options[k] = v
@@ -397,7 +397,7 @@ class XOS2Jinja(Visitor):
         return True
 
     def compute_rlinks(self, messages, message_dict):
-        rev_links = {}
+        rev_links = OrderedDict()
 
         link_opposite = {
             "manytomany": "manytomany",

@@ -14,24 +14,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-try:
-    from xosutil.autoversion_setup import setup_with_auto_version as setup
-except ImportError:
-    # xosutil is not installed. Expect this to happen when we build an egg, in which case xosgenx.version will
-    # automatically have the right version.
-    from setuptools import setup
+from __future__ import absolute_import
+import os
+from setuptools import setup
+from shutil import copyfile
 
-from xosgenx.version import __version__
+def version():
+    # if not found, copy locally
+    if not os.path.exists("VERSION"):
+        copyfile("../../VERSION", "VERSION")
+    with open("VERSION") as f:
+        return f.read()
+
 
 setup(
     name="XosGenX",
-    version=__version__,
+    version=version(),
     description="XOS Generative Toolchain",
     author="Sapan Bhatia, Matteo Scandolo",
     author_email="sapan@opennetworking.org, teo@opennetworking.org",
     packages=["xosgenx"],
     scripts=["bin/xosgenx"],
+    install_requires=[
+        "inflect>=1.0.1",
+        "astunparse>=1.5.0",
+    ],
     include_package_data=True,
-    # TODO add all deps to the install_requires section
-    install_requires=["inflect>=1.0.1", "astunparse>=1.5.0"],
 )

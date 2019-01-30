@@ -22,6 +22,7 @@ from proto2xproto import Proto2XProto
 import jinja2_extensions
 import yaml
 from colorama import Fore
+from collections import OrderedDict
 
 loader = jinja2.PackageLoader(__name__, "templates")
 env = jinja2.Environment(loader=loader)
@@ -308,7 +309,7 @@ class XOSProcessor:
                 if message["name"] in args.include_models:
                     message["is_included"] = True
                 else:
-                    app_label = message.get("options", {}).get("app_label").strip('"')
+                    app_label = message.get("options", OrderedDict()).get("app_label").strip('"')
                     if app_label in args.include_apps:
                         message["is_included"] = True
         else:

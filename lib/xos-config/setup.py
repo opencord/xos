@@ -14,23 +14,28 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-try:
-    from xosutil.autoversion_setup import setup_with_auto_version as setup
-except ImportError:
-    # xosutil is not installed. Expect this to happen when we build an egg, in which case xosgenx.version will
-    # automatically have the right version.
-    from setuptools import setup
 
-from xosconfig.version import __version__
+from __future__ import absolute_import
+from setuptools import setup
+import os
+from shutil import copyfile
+
+
+def version():
+    # if not found, copy locally
+    if not os.path.exists("VERSION"):
+        copyfile("../../VERSION", "VERSION")
+    with open("VERSION") as f:
+        return f.read()
+
 
 setup(
     name="XosConfig",
-    version=__version__,
+    version=version(),
     description="XOS Config Library",
     author="Matteo Scandolo",
     author_email="teo@onlab.us",
     packages=["xosconfig"],
+    install_requires=["PyYAML>=3.12", "pykwalify>=1.6.0"],
     include_package_data=True,
-    # TODO add all deps to the install_requires section
-    install_requires=["pykwalify>=1.6.0"],
 )

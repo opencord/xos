@@ -44,7 +44,7 @@ def xproto_fields_to_tosca_keys(fields, m):
     one_of = [list(i) for i in _one_of]
 
     # look for explicit keys
-    for f in fields:
+    for f in sorted(fields):
         if (
             "tosca_key" in f["options"]
             and f["options"]["tosca_key"]
@@ -61,7 +61,7 @@ def xproto_fields_to_tosca_keys(fields, m):
     if len(keys) == 0 and "name" in map(lambda f: f["name"], fields):
         keys.append("name")
 
-    for of in one_of:
+    for of in sorted(one_of):
         # check if the field is a link, and in case add _id
         for index, f in enumerate(of):
             try:

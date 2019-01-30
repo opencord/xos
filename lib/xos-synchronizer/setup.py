@@ -14,13 +14,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
+from setuptools import setup
+import os
+from shutil import copyfile
 
-from xosutil.autoversion_setup import setup_with_auto_version
-from xosutil.version import __version__
 
-setup_with_auto_version(
+def version():
+    # if not found, copy locally
+    if not os.path.exists("VERSION"):
+        copyfile("../../VERSION", "VERSION")
+    with open("VERSION") as f:
+        return f.read()
+
+
+setup(
     name="XosSynchronizer",
-    version=__version__,
+    version=version(),
     description="XOS Synchronizer Framework",
     author="Scott Baker",
     author_email="scottb@opennetworking.org",
@@ -29,9 +39,16 @@ setup_with_auto_version(
         "xossynchronizer.steps",
         "xossynchronizer.event_steps",
         "xossynchronizer.pull_steps",
-        "xossynchronizer.model_policies"],
+        "xossynchronizer.model_policies"
+    ],
+    install_requires=[
+        "xosconfig>=2.1.35",
+        "confluent-kafka>=0.11.5",
+        "kafka>=0.11.5",
+        "Jinja2>=2.10",
+        "multistructlog>=2.1.0",
+        "mock>=2.0.0",
+        "networkx>=1.11",
+    ],
     include_package_data=True,
-    test_suite='nose2.collector.collector',
-    tests_require=['nose2'],
-    install_requires=["xosconfig>=2.1.35",],
 )
