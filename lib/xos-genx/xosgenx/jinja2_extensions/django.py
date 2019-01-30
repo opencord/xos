@@ -16,6 +16,7 @@
 from base import *
 import pdb
 import re
+from collections import OrderedDict
 
 
 def django_content_type_string(xptags):
@@ -113,9 +114,9 @@ def map_xproto_to_django(f):
             "modifier": {"optional": True, "required": False, "_targets": ["null", "blank"]}
         }
 
-    out = {}
+    out = OrderedDict()
 
-    for k, v in f["options"].items():
+    for k, v in sorted(f["options"].items(), key=lambda t: t[0]):  # sorted by key
         if k in allowed_keys:
             try:
                 # NOTE this will be used to parse xproto optional/required field prefix
@@ -180,7 +181,7 @@ def format_options_string(d):
     else:
 
         lst = []
-        for k, v in d.items():
+        for k, v in sorted(d.items(), key=lambda t: t[0]):  # sorted by key
             if k in known_validators:
                 validator_lst.append(use_native_django_validators(k, v))
             elif isinstance(v, str) and k == "default" and v.endswith('()"'):
@@ -252,7 +253,7 @@ def xproto_optioned_fields_to_list(fields, option, val):
     optioned_fields = []
     for f in fields:
         option_names = []
-        for k, v in f["options"].items():
+        for k, v in sorted(f["options"].items(), key=lambda t: t[0]):  # sorted by key
             option_names.append(k)
 
         if option in option_names and f["options"][option] == val:

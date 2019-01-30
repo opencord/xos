@@ -15,6 +15,7 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 from xosutil.autoversion_setup import setup_with_auto_version
 from xosutil.version import __version__
 

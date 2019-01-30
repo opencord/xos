@@ -58,8 +58,8 @@ message VRouterDevice (PlCoreBase){
         args.inputs = xproto
         args.target = target
         output = XOSProcessor.process(args)
-        self.assertIn("'src_port': 'device_ports'", output)
-        self.assertIn("'src_port': 'ports'", output)
+        self.assertIn("('src_port', 'device_ports')", output)
+        self.assertIn("('src_port', 'ports')", output)
 
 
 if __name__ == "__main__":

@@ -1,2 +1,3 @@
 include xosconfig/xos-config-schema.yaml
 include xosconfig/synchronizer-config-schema.yaml
+include VERSION

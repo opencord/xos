@@ -14,8 +14,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from xosutil.autoversion_setup import setup_with_auto_version
-from xosutil.version import __version__
+from setuptools import setup
+import os
+from shutil import copyfile
 
 
 def readme():
@@ -23,9 +24,17 @@ def readme():
         return f.read()
 
 
-setup_with_auto_version(
+def version():
+    # if not found, copy locally so it's built into the dist
+    if not os.path.exists("VERSION"):
+        copyfile('../../VERSION', "VERSION")
+    with open('VERSION') as f:
+        return f.read()
+
+
+setup(
     name="xoskafka",
-    version=__version__,
+    version=version(),
     description="Wrapper around kafka for XOS",
     long_description=readme(),
     classifiers=["License :: OSI Approved :: Apache Software License"],
