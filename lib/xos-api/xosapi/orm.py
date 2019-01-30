@@ -18,6 +18,7 @@ import sys
 import threading
 import time
 import imp
+import traceback
 from xosconfig import Config
 from multistructlog import create_logger
 
@@ -47,6 +48,17 @@ log = create_logger(Config().get("logging"))
 
 convenience_wrappers = {}
 
+# Find the topmost synchronizer-specific function in the call stack
+def get_synchronizer_function():
+    result = None
+    for file,line,func,stmt in traceback.extract_stack():
+        if file.startswith("/opt/xos/synchronizers"):
+            if not result:
+                result = "%s:%s()" % (file,func)
+            if not file.startswith("/opt/xos/synchronizers/new_base"):
+                result = "%s:%s()" % (file,func)
+                break
+    return result
 
 class ORMGenericContentNotFoundException(Exception):
     pass
@@ -410,12 +422,17 @@ class ORMWrapper(object):
         is_policy_save=False,
     ):
         if self.is_new:
+            log.debug("save(): is new", classname=classname, syncstep=get_synchronizer_function())
             new_class = self.stub.invoke(
                 "Create%s" % self._wrapped_class.__class__.__name__, self._wrapped_class
             )
             self._wrapped_class = new_class
             self.is_new = False
         else:
+           if self.has_changed:
+              log.debug("save(): updated", classname=classname, changed_fields=self.changed_fields, syncstep=get_synchronizer_function())
+           else:
+              log.debug("save(): no changes", classname=classname, syncstep=get_synchronizer_function())
             metadata = []
             if update_fields:
                 metadata.append(("update_fields", ",".join(update_fields)))
