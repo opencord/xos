@@ -13,14 +13,16 @@
 # limitations under the License.
 
 from __future__ import print_function
+
 import exceptions
 import os
 import random
 import string
 import sys
 import unittest
-from mock import patch
 from StringIO import StringIO
+
+from mock import patch
 
 # by default, use fake stub rather than real core
 USE_FAKE_STUB = True
@@ -1067,7 +1069,9 @@ def main():
             try:
                 sys.argv = sys.argv[
                     :1
-                ]  # unittest does not like xos_grpc_client's command line arguments (TODO: find a cooperative approach)
+                ]
+                # unittest does not like xos_grpc_client's command line
+                # arguments (TODO: find a cooperative approach)
                 unittest.main()
             except exceptions.SystemExit as e:
                 global exitStatus

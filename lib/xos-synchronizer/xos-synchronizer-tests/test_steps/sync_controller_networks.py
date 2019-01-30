@@ -13,12 +13,14 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 import os
 import base64
 import struct
 import socket
 from netaddr import IPAddress, IPNetwork
 from xossynchronizer.steps.syncstep import SyncStep
+
 
 class SyncControllerNetworks(SyncStep):
     requested_interval = 0

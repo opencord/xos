@@ -12,17 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 
-import hashlib
 import os
-import socket
-import sys
-import base64
 import time
-from xosconfig import Config
 
-from xossynchronizer.steps.syncstep import SyncStep, DeferredException
+from xosconfig import Config
 from xossynchronizer.ansible_helper import run_template_ssh
+from xossynchronizer.steps.syncstep import DeferredException, SyncStep
+import six
 
 
 class SyncInstanceUsingAnsible(SyncStep):
@@ -102,9 +100,7 @@ class SyncInstanceUsingAnsible(SyncStep):
     def get_key_name(self, instance):
         if instance.isolation == "vm":
             if (
-                instance.slice
-                and instance.slice.service
-                and instance.slice.service.private_key_fn
+                instance.slice and instance.slice.service and instance.slice.service.private_key_fn
             ):
                 key_name = instance.slice.service.private_key_fn
             else:
@@ -168,7 +164,7 @@ class SyncInstanceUsingAnsible(SyncStep):
         if not os.path.exists(key_name):
             raise Exception("Node key %s does not exist" % key_name)
 
-        key = file(key_name).read()
+        key = open(key_name).read()
 
         fields["private_key"] = key
 
@@ -227,7 +223,7 @@ class SyncInstanceUsingAnsible(SyncStep):
                 if not os.path.exists(key_name):
                     raise Exception("Node key %s does not exist" % key_name)
 
-                key = file(key_name).read()
+                key = open(key_name).read()
 
                 fields["private_key"] = key
                 # TO DO: Ceilometer stuff
@@ -263,7 +259,7 @@ class SyncInstanceUsingAnsible(SyncStep):
     def delete_record(self, o):
         try:
             # TODO: This may be broken, as get_controller() does not exist in convenience wrapper
-            controller = o.get_controller()
+            # controller = o.get_controller()
             controller_register = json.loads(
                 o.node.site_deployment.controller.backend_register
             )
@@ -285,7 +281,7 @@ class SyncInstanceUsingAnsible(SyncStep):
             # the instance is being deleted. There's nothing left for us to do.
             return
 
-        if isinstance(instance, basestring):
+        if isinstance(instance, six.string_types):
             # sync to some external host
 
             # XXX - this probably needs more work...

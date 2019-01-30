@@ -12,18 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import, print_function
 
-from __future__ import print_function
+import copy
+import sys
+from collections import OrderedDict
+
 import plyxproto.model as m
 from plyxproto.helpers import Visitor
-import argparse
-import plyxproto.parser as plyxproto
-import traceback
-import sys
-import jinja2
-import os
-import copy
-import pdb
+from six.moves import map, range
 
 
 class MissingPolicyException(Exception):
@@ -105,12 +102,12 @@ class XOS2Jinja(Visitor):
         super(XOS2Jinja, self).__init__()
 
         self.stack = Stack()
-        self.models = {}
-        self.options = {}
+        self.models = OrderedDict()
+        self.options = OrderedDict()
         self.package = None
-        self.message_options = {}
+        self.message_options = OrderedDict()
         self.count_stack = Stack()
-        self.policies = {}
+        self.policies = OrderedDict()
         self.content = ""
         self.offset = 0
         self.current_message_name = None
@@ -175,11 +172,15 @@ class XOS2Jinja(Visitor):
         return True
 
     def visit_FieldType(self, obj):
-        """Field type, if type is name, then it may need refactoring consistent with refactoring rules according to the table"""
+        """
+        Field type, if type is name, then it may need refactoring consistent
+        with refactoring rules according to the table
+        """
+
         return True
 
     def visit_LinkDefinition(self, obj):
-        s = {}
+        s = OrderedDict()
 
         try:
             s["link_type"] = obj.link_type.pval
@@ -220,7 +221,7 @@ class XOS2Jinja(Visitor):
             s["reverse_id"] = obj.reverse_id
 
         s["_type"] = "link"
-        s["options"] = {"modifier": "optional"}
+        s["options"] = OrderedDict({"modifier": "optional"})
 
         self.stack.push(s)
         return True
@@ -230,7 +231,7 @@ class XOS2Jinja(Visitor):
         return True
 
     def visit_FieldDefinition_post(self, obj):
-        s = {}
+        s = OrderedDict()
 
         if isinstance(obj.ftype, m.Name):
             s["type"] = obj.ftype.value
@@ -247,7 +248,7 @@ class XOS2Jinja(Visitor):
         s["modifier"] = obj.field_modifier.pval
         s["id"] = obj.fieldId.pval
 
-        opts = {"modifier": s["modifier"]}
+        opts = OrderedDict({"modifier": s["modifier"]})
         n = self.count_stack.pop()
         for i in range(0, n):
             k, v = self.stack.pop()
@@ -287,7 +288,7 @@ class XOS2Jinja(Visitor):
 
     def visit_MessageDefinition(self, obj):
         self.current_message_name = obj.name.value.pval
-        self.message_options = {}
+        self.message_options = OrderedDict()
         self.count_stack.push(count_fields(obj.body))
         return True
 
@@ -297,11 +298,11 @@ class XOS2Jinja(Visitor):
         links = []
         last_field = None
         try:
-            obj.bases = map(dotname_to_fqn, obj.bases)
+            obj.bases = list(map(dotname_to_fqn, obj.bases))
         except AttributeError:
             pass
 
-        last_field = {}
+        last_field = OrderedDict()
         for i in range(0, stack_num):
             f = self.stack.pop()
             if f["_type"] == "link":
@@ -340,7 +341,7 @@ class XOS2Jinja(Visitor):
         self.models[model_name] = model_def
 
         # Set message options
-        for k, v in self.options.iteritems():
+        for k, v in sorted(self.options.items(), key=lambda t: t[0]):  # sorted by key
             try:
                 if k not in self.message_options:
                     self.message_options[k] = v
@@ -397,7 +398,7 @@ class XOS2Jinja(Visitor):
         return True
 
     def compute_rlinks(self, messages, message_dict):
-        rev_links = {}
+        rev_links = OrderedDict()
 
         link_opposite = {
             "manytomany": "manytomany",
@@ -406,47 +407,47 @@ class XOS2Jinja(Visitor):
             "onetomany": "manytoone",
         }
 
-        for m in messages:
-            for l in m["links"]:
-                rlink = copy.deepcopy(l)
+        for msg in messages:
+            for lnk in msg["links"]:
+                rlink = copy.deepcopy(lnk)
 
                 rlink["_type"] = "rlink"  # An implicit link, not declared in the model
-                rlink["src_port"] = l["dst_port"]
-                rlink["dst_port"] = l["src_port"]
+                rlink["src_port"] = lnk["dst_port"]
+                rlink["dst_port"] = lnk["src_port"]
                 rlink["peer"] = {
-                    "name": m["name"],
-                    "package": m["package"],
-                    "fqn": m["fqn"],
+                    "name": msg["name"],
+                    "package": msg["package"],
+                    "fqn": msg["fqn"],
                 }
-                rlink["link_type"] = link_opposite[l["link_type"]]
-                rlink["reverse_id"] = l["reverse_id"]
+                rlink["link_type"] = link_opposite[lnk["link_type"]]
+                rlink["reverse_id"] = lnk["reverse_id"]
 
-                if (not l["reverse_id"]) and (self.args.verbosity >= 1):
+                if (not lnk["reverse_id"]) and (self.args.verbosity >= 1):
                     print(
                         "WARNING: Field %s in model %s has no reverse_id"
-                        % (l["src_port"], m["name"]),
+                        % (lnk["src_port"], msg["name"]),
                         file=sys.stderr,
                     )
 
-                if l["reverse_id"] and (
-                    (int(l["reverse_id"]) < 1000) or (int(l["reverse_id"]) >= 1900)
+                if lnk["reverse_id"] and (
+                    (int(lnk["reverse_id"]) < 1000) or (int(lnk["reverse_id"]) >= 1900)
                 ):
                     raise Exception(
                         "reverse id for field %s in model %s should be between 1000 and 1899"
-                        % (l["src_port"], m["name"])
+                        % (lnk["src_port"], msg["name"])
                     )
 
                 try:
                     try:
-                        rev_links[l["peer"]["fqn"]].append(rlink)
+                        rev_links[lnk["peer"]["fqn"]].append(rlink)
                     except TypeError:
                         pass
                 except KeyError:
-                    rev_links[l["peer"]["fqn"]] = [rlink]
+                    rev_links[lnk["peer"]["fqn"]] = [rlink]
 
-        for m in messages:
+        for msg in messages:
             try:
-                m["rlinks"] = rev_links[m["name"]]
-                message_dict[m["name"]]["rlinks"] = m["rlinks"]
+                msg["rlinks"] = rev_links[msg["name"]]
+                message_dict[msg["name"]]["rlinks"] = msg["rlinks"]
             except KeyError:
                 pass

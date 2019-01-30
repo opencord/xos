@@ -11,10 +11,11 @@
 # limitations under the License.
 
 
-from xosapi.orm import ORMWrapper, register_convenience_wrapper
+from __future__ import absolute_import
 
-from xosconfig import Config
 from multistructlog import create_logger
+from xosapi.orm import ORMWrapper, register_convenience_wrapper
+from xosconfig import Config
 
 log = create_logger(Config().get("logging"))
 

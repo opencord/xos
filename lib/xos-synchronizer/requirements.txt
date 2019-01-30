@@ -1,0 +1,5 @@
+Jinja2~=2.10
+confluent-kafka>=0.11.5
+multistructlog~=2.1.0
+networkx~=1.11
+xosconfig~=2.1.50

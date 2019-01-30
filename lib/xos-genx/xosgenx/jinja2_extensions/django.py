@@ -13,9 +13,11 @@
 # limitations under the License.
 
 
-from base import *
-import pdb
+from __future__ import absolute_import
+from .base import unquote
 import re
+from collections import OrderedDict
+from six.moves import map
 
 
 def django_content_type_string(xptags):
@@ -47,7 +49,7 @@ def django_string_type(xptags):
 
     if "content_type" in xptags:
         return django_content_type_string(xptags)
-    elif max_length < 1024 * 1024:
+    elif int(max_length) < 1024 * 1024:
         return "CharField"
     else:
         return "TextField"
@@ -103,19 +105,21 @@ def map_xproto_to_django(f):
 
     if f.get("link_type") == "manytomany":
         # map for fields that do not support null
-        m = {
-            "modifier": {"optional": True, "required": False, "_targets": ["blank"]}
-        }
+        m = {"modifier": {"optional": True, "required": False, "_targets": ["blank"]}}
     else:
         # map for fields that do support null
         # TODO evaluate if setting Null = False for all strings
         m = {
-            "modifier": {"optional": True, "required": False, "_targets": ["null", "blank"]}
+            "modifier": {
+                "optional": True,
+                "required": False,
+                "_targets": ["null", "blank"],
+            }
         }
 
-    out = {}
+    out = OrderedDict()
 
-    for k, v in f["options"].items():
+    for k, v in sorted(f["options"].items(), key=lambda t: t[0]):  # sorted by key
         if k in allowed_keys:
             try:
                 # NOTE this will be used to parse xproto optional/required field prefix
@@ -180,7 +184,7 @@ def format_options_string(d):
     else:
 
         lst = []
-        for k, v in d.items():
+        for k, v in sorted(d.items(), key=lambda t: t[0]):  # sorted by key
             if k in known_validators:
                 validator_lst.append(use_native_django_validators(k, v))
             elif isinstance(v, str) and k == "default" and v.endswith('()"'):
@@ -233,7 +237,7 @@ def xproto_camel_to_underscore(name):
 def xproto_validations(options):
     try:
         return [
-            map(str.strip, validation.split(":"))
+            list(map(str.strip, validation.split(":")))
             for validation in unquote(options["validators"]).split(",")
         ]
     except KeyError:
@@ -252,7 +256,7 @@ def xproto_optioned_fields_to_list(fields, option, val):
     optioned_fields = []
     for f in fields:
         option_names = []
-        for k, v in f["options"].items():
+        for k, v in sorted(f["options"].items(), key=lambda t: t[0]):  # sorted by key
             option_names.append(k)
 
         if option in option_names and f["options"][option] == val:

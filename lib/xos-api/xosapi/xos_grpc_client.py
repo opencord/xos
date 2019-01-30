@@ -12,33 +12,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from __future__ import print_function
+from __future__ import absolute_import, print_function
+
 import argparse
 import base64
 import functools
-import grpc
-import orm
+import inspect
 import os
 import sys
 
-from twisted.internet import reactor
 from google.protobuf.empty_pb2 import Empty
-from grpc import (
-    metadata_call_credentials,
-    composite_channel_credentials,
-    ssl_channel_credentials,
-)
 
-# fix up sys.path for chameleon
-import inspect
+import grpc
+from grpc import (composite_channel_credentials, metadata_call_credentials,
+                  ssl_channel_credentials)
+from multistructlog import create_logger
+from twisted.internet import reactor
+from xosconfig import Config
+
+from chameleon.grpc_client.grpc_client import chameleon_client
+import orm
 
 currentdir = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 sys.path = [currentdir] + sys.path
 
-from xosconfig import Config
-import chameleon.grpc_client.grpc_client as chameleon_client
-
-from multistructlog import create_logger
 log = create_logger(Config().get("logging"))
 
 SERVER_CA = "/usr/local/share/ca-certificates/local_certs.crt"

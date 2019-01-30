@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 """ ModelAccessor
 
     A class for abstracting access to models. Used to get any djangoisms out
@@ -23,17 +22,19 @@
     models into the calling module's scope.
 """
 
+from __future__ import absolute_import
+
 import functools
 import importlib
 import os
 import signal
 import sys
-import time
-from loadmodels import ModelLoadClient
 
-from xosconfig import Config
 from multistructlog import create_logger
+from xosconfig import Config
 from xosutil.autodiscover_version import autodiscover_version_of_main
+
+from .loadmodels import ModelLoadClient
 
 log = create_logger(Config().get("logging"))
 
@@ -205,7 +206,7 @@ def grpcapi_reconnect(client, reactor):
 
     client.xos_orm.restart_on_disconnect = True
 
-    from apiaccessor import CoreApiModelAccessor
+    from .apiaccessor import CoreApiModelAccessor
 
     model_accessor = CoreApiModelAccessor(orm=client.xos_orm)
 
@@ -287,7 +288,7 @@ def config_accessor_mock():
     global model_accessor
 
     # the mock model accessor always gets built to a temporary location
-    if not "/tmp/mock_modelaccessor" in sys.path:
+    if "/tmp/mock_modelaccessor" not in sys.path:
         sys.path.append("/tmp/mock_modelaccessor")
 
     from mock_modelaccessor import model_accessor as mock_model_accessor

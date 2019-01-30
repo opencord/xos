@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 import unittest
 from mock import patch
 import mock
@@ -25,6 +26,7 @@ from xosconfig import Config
 test_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 sync_lib_dir = os.path.join(test_path, "..", "xossynchronizer")
 xos_dir = os.path.join(test_path, "..", "..", "..", "xos")
+
 
 class TestModelPolicyTenantWithContainer(unittest.TestCase):
     def setUp(self):
@@ -39,11 +41,11 @@ class TestModelPolicyTenantWithContainer(unittest.TestCase):
         Config.clear()  # in case left unclean by a previous test case
         Config.init(config, "synchronizer-config-schema.yaml")
 
-        from xossynchronizer.mock_modelaccessor_build import (
-            build_mock_modelaccessor,
-        )
+        from xossynchronizer.mock_modelaccessor_build import build_mock_modelaccessor
 
-        build_mock_modelaccessor(sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[])
+        build_mock_modelaccessor(
+            sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[]
+        )
 
         import xossynchronizer.model_policies.model_policy_tenantwithcontainer
         from xossynchronizer.model_policies.model_policy_tenantwithcontainer import (
@@ -57,7 +59,9 @@ class TestModelPolicyTenantWithContainer(unittest.TestCase):
         for (
             k,
             v,
-        ) in xossynchronizer.model_policies.model_policy_tenantwithcontainer.model_accessor.all_model_classes.items():
+        ) in (
+            xossynchronizer.model_policies.model_policy_tenantwithcontainer.model_accessor.all_model_classes.items()
+        ):
             globals()[k] = v
 
         from xossynchronizer.modelaccessor import model_accessor

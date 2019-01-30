@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import unittest
 from mock import patch
 import mock
@@ -25,6 +26,7 @@ test_path = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 sync_lib_dir = os.path.join(test_path, "..", "xossynchronizer")
 xos_dir = os.path.join(test_path, "..", "..", "..", "xos")
 
+
 class TestScheduling(unittest.TestCase):
     def setUp(self):
         self.sys_path_save = sys.path
@@ -36,20 +38,22 @@ class TestScheduling(unittest.TestCase):
         Config.clear()
         Config.init(config, "synchronizer-config-schema.yaml")
 
-        from xossynchronizer.mock_modelaccessor_build import (
-            build_mock_modelaccessor,
-        )
+        from xossynchronizer.mock_modelaccessor_build import build_mock_modelaccessor
 
-        build_mock_modelaccessor(sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[])
+        build_mock_modelaccessor(
+            sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[]
+        )
 
         # The test config.yaml references files in `xos-synchronizer-tests/` so make sure we're in the parent
         # directory of the test directory.
         os.chdir(os.path.join(test_path, ".."))
 
         import xossynchronizer.event_loop
+
         reload(xossynchronizer.event_loop)
 
         import xossynchronizer.backend
+
         reload(xossynchronizer.backend)
 
         from xossynchronizer.modelaccessor import model_accessor
@@ -57,7 +61,9 @@ class TestScheduling(unittest.TestCase):
         b = xossynchronizer.backend.Backend(model_accessor=model_accessor)
         steps_dir = Config.get("steps_dir")
         self.steps = b.load_sync_step_modules(steps_dir)
-        self.synchronizer = xossynchronizer.event_loop.XOSObserver(self.steps, model_accessor)
+        self.synchronizer = xossynchronizer.event_loop.XOSObserver(
+            self.steps, model_accessor
+        )
 
     def tearDown(self):
         sys.path = self.sys_path_save
@@ -94,9 +100,7 @@ class TestScheduling(unittest.TestCase):
         self.assertIn(
             ("ControllerSlice", ["SyncControllerSlices"]), model_to_step.items()
         )
-        self.assertIn(
-            ("Port", ["SyncPort"]), model_to_step.items()
-        )
+        self.assertIn(("Port", ["SyncPort"]), model_to_step.items())
         self.assertIn(("SiteRole", ["SyncRoles"]), model_to_step.items())
 
         for k, v in model_to_step.items():
@@ -107,7 +111,7 @@ class TestScheduling(unittest.TestCase):
 
             observed_names = []
             for o in observes:
-                if isinstance(o,str):
+                if isinstance(o, str):
                     observed_names.append(o)
                 else:
                     observed_names.append(o.__name__)

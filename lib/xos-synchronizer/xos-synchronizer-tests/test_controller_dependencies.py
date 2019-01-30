@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import unittest
 from mock import patch
 import mock
@@ -27,7 +28,6 @@ xos_dir = os.path.join(test_path, "..", "..", "..", "xos")
 
 
 class TestControllerDependencies(unittest.TestCase):
-
     def setUp(self):
         global mock_enumerator, event_loop
 
@@ -40,19 +40,23 @@ class TestControllerDependencies(unittest.TestCase):
         Config.clear()
         Config.init(config, "synchronizer-config-schema.yaml")
 
-        from xossynchronizer.mock_modelaccessor_build import (
-            build_mock_modelaccessor,
+        from xossynchronizer.mock_modelaccessor_build import build_mock_modelaccessor
+
+        build_mock_modelaccessor(
+            sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[]
         )
 
-        build_mock_modelaccessor(sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[])
-
-        os.chdir(os.path.join(test_path, ".."))  # config references xos-synchronizer-tests/model-deps
+        os.chdir(
+            os.path.join(test_path, "..")
+        )  # config references xos-synchronizer-tests/model-deps
 
         import xossynchronizer.event_loop
+
         reload(xossynchronizer.event_loop)
         event_loop = xossynchronizer.event_loop
 
         import xossynchronizer.backend
+
         reload(xossynchronizer.backend)
 
         from xossynchronizer.modelaccessor import model_accessor
@@ -66,7 +70,9 @@ class TestControllerDependencies(unittest.TestCase):
         b = xossynchronizer.backend.Backend(model_accessor=model_accessor)
         steps_dir = Config.get("steps_dir")
         self.steps = b.load_sync_step_modules(steps_dir)
-        self.synchronizer = xossynchronizer.event_loop.XOSObserver(self.steps, model_accessor)
+        self.synchronizer = xossynchronizer.event_loop.XOSObserver(
+            self.steps, model_accessor
+        )
 
     def tearDown(self):
         sys.path = self.sys_path_save
@@ -120,7 +126,7 @@ class TestControllerDependencies(unittest.TestCase):
         self.assertIn(s, cohorts[0])
         self.assertIn(p, cohorts[0])
         # TODO(smbaker): This assert was found to be failing. Understand whether the library or the test is at fault.
-        #self.assertEqual([t, ct, s, p], cohorts[0])
+        # self.assertEqual([t, ct, s, p], cohorts[0])
 
         cohorts = self.synchronizer.compute_dependent_cohorts([p, s, t, ct], True)
         self.assertIn(t, cohorts[0])
@@ -128,7 +134,7 @@ class TestControllerDependencies(unittest.TestCase):
         self.assertIn(s, cohorts[0])
         self.assertIn(p, cohorts[0])
         # TODO(smbaker): This assert was found to be failing. Understand whether the library or the test is at fault.
-        #self.assertEqual([p, s, ct, t], cohorts[0])
+        # self.assertEqual([p, s, ct, t], cohorts[0])
 
     def test_multi_controller_schedule(self):
         csl = ControllerSlice()
@@ -153,7 +159,7 @@ class TestControllerDependencies(unittest.TestCase):
         self.assertIn(i, cohorts[0])
 
         # TODO(smbaker): This assert was found to be failing. Understand whether the library or the test is at fault.
-        #self.assertEqual([site, csi, slice, csl, i], cohorts[0])
+        # self.assertEqual([site, csi, slice, csl, i], cohorts[0])
 
     def test_multi_controller_path_negative(self):
         csl = ControllerSlice()

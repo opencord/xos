@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import unittest
 from mock import patch
 import mock
@@ -37,13 +38,15 @@ class TestServices(unittest.TestCase):
         Config.clear()
         Config.init(config, "synchronizer-config-schema.yaml")
 
-        from xossynchronizer.mock_modelaccessor_build import (
-            build_mock_modelaccessor,
+        from xossynchronizer.mock_modelaccessor_build import build_mock_modelaccessor
+
+        build_mock_modelaccessor(
+            sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[]
         )
 
-        build_mock_modelaccessor(sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[])
-
-        os.chdir(os.path.join(test_path, ".."))  # config references xos-synchronizer-tests/model-deps
+        os.chdir(
+            os.path.join(test_path, "..")
+        )  # config references xos-synchronizer-tests/model-deps
 
         import xossynchronizer.event_loop
 
@@ -60,7 +63,9 @@ class TestServices(unittest.TestCase):
         b = xossynchronizer.backend.Backend(model_accessor=model_accessor)
         steps_dir = Config.get("steps_dir")
         self.steps = b.load_sync_step_modules(steps_dir)
-        self.synchronizer = xossynchronizer.event_loop.XOSObserver(self.steps, model_accessor)
+        self.synchronizer = xossynchronizer.event_loop.XOSObserver(
+            self.steps, model_accessor
+        )
 
     def tearDown(self):
         sys.path = self.sys_path_save

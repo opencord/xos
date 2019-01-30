@@ -12,12 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
 import json
 import unittest
-from mock import patch
 import mock
-import pdb
-import networkx as nx
 
 import os
 import sys
@@ -78,13 +76,15 @@ class TestPayload(unittest.TestCase):
         Config.clear()
         Config.init(config, "synchronizer-config-schema.yaml")
 
-        from xossynchronizer.mock_modelaccessor_build import (
-            build_mock_modelaccessor,
+        from xossynchronizer.mock_modelaccessor_build import build_mock_modelaccessor
+
+        build_mock_modelaccessor(
+            sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[]
         )
 
-        build_mock_modelaccessor(sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[])
-
-        os.chdir(os.path.join(test_path, ".."))  # config references xos-synchronizer-tests/model-deps
+        os.chdir(
+            os.path.join(test_path, "..")
+        )  # config references xos-synchronizer-tests/model-deps
 
         import xossynchronizer.event_loop
 
@@ -99,10 +99,12 @@ class TestPayload(unittest.TestCase):
         # import all class names to globals
         for (k, v) in model_accessor.all_model_classes.items():
             globals()[k] = v
-        b = xossynchronizer.backend.Backend(model_accessor = model_accessor)
+        b = xossynchronizer.backend.Backend(model_accessor=model_accessor)
         steps_dir = Config.get("steps_dir")
         self.steps = b.load_sync_step_modules(steps_dir)
-        self.synchronizer = xossynchronizer.event_loop.XOSObserver(self.steps, model_accessor)
+        self.synchronizer = xossynchronizer.event_loop.XOSObserver(
+            self.steps, model_accessor
+        )
 
     def tearDown(self):
         sys.path = self.sys_path_save
@@ -117,7 +119,9 @@ class TestPayload(unittest.TestCase):
             o = Instance()
             o.name = "Sisi Pascal"
 
-            o.synchronizer_step = test_steps.sync_instances.SyncInstances(model_accessor = self.synchronizer.model_accessor)
+            o.synchronizer_step = test_steps.sync_instances.SyncInstances(
+                model_accessor=self.synchronizer.model_accessor
+            )
             self.synchronizer.delete_record(o, log)
 
             a = get_ansible_output()
@@ -133,7 +137,9 @@ class TestPayload(unittest.TestCase):
             o = Instance()
             o.name = "Sisi Pascal"
 
-            o.synchronizer_step = test_steps.sync_instances.SyncInstances(model_accessor = self.synchronizer.model_accessor)
+            o.synchronizer_step = test_steps.sync_instances.SyncInstances(
+                model_accessor=self.synchronizer.model_accessor
+            )
 
             with self.assertRaises(Exception) as e:
                 self.synchronizer.delete_record(o, log)
@@ -151,7 +157,9 @@ class TestPayload(unittest.TestCase):
             o = Instance()
             o.name = "Sisi Pascal"
 
-            o.synchronizer_step = test_steps.sync_instances.SyncInstances(model_accessor = self.synchronizer.model_accessor)
+            o.synchronizer_step = test_steps.sync_instances.SyncInstances(
+                model_accessor=self.synchronizer.model_accessor
+            )
             self.synchronizer.sync_record(o, log)
 
             a = get_ansible_output()
@@ -182,9 +190,11 @@ class TestPayload(unittest.TestCase):
             o.slice = s
 
             cohort = [cs, o]
-            o.synchronizer_step = test_steps.sync_instances.SyncInstances(model_accessor = self.synchronizer.model_accessor)
+            o.synchronizer_step = test_steps.sync_instances.SyncInstances(
+                model_accessor=self.synchronizer.model_accessor
+            )
             cs.synchronizer_step = test_steps.sync_controller_slices.SyncControllerSlices(
-                model_accessor = self.synchronizer.model_accessor
+                model_accessor=self.synchronizer.model_accessor
             )
 
             self.synchronizer.sync_cohort(cohort, False)
@@ -224,7 +234,9 @@ class TestPayload(unittest.TestCase):
             o.slice = s
 
             cohort = [cs, o]
-            o.synchronizer_step = test_steps.sync_instances.SyncInstances(model_accessor=self.synchronizer.model_accessor)
+            o.synchronizer_step = test_steps.sync_instances.SyncInstances(
+                model_accessor=self.synchronizer.model_accessor
+            )
             cs.synchronizer_step = test_steps.sync_controller_slices.SyncControllerSlices(
                 model_accessor=self.synchronizer.model_accessor
             )
@@ -255,9 +267,12 @@ class TestPayload(unittest.TestCase):
             o.slice = s
 
             cohort = [cs, o]
-            o.synchronizer_step = test_steps.sync_instances.SyncInstances(model_accessor=self.synchronizer.model_accessor)
+            o.synchronizer_step = test_steps.sync_instances.SyncInstances(
+                model_accessor=self.synchronizer.model_accessor
+            )
             cs.synchronizer_step = test_steps.sync_controller_slices.SyncControllerSlices(
-                model_accessor=self.synchronizer.model_accessor)
+                model_accessor=self.synchronizer.model_accessor
+            )
 
             self.synchronizer.sync_cohort(cohort, False)
             o.save.assert_called_with(
@@ -296,9 +311,7 @@ class TestPayload(unittest.TestCase):
         "test_steps.sync_instances.ansiblesyncstep.run_template",
         side_effect=run_fake_ansible_template,
     )
-    def test_fetch_pending_with_external_dependencies(
-        self, mock_run_template,
-    ):
+    def test_fetch_pending_with_external_dependencies(self, mock_run_template):
         pending_objects, pending_steps = self.synchronizer.fetch_pending()
         pending_objects2 = list(pending_objects)
 
@@ -333,7 +346,9 @@ class TestPayload(unittest.TestCase):
 
         cohort = [cs, o]
         o.synchronizer_step = None
-        o.synchronizer_step = test_steps.sync_instances.SyncInstances(model_accessor=self.synchronizer.model_accessor)
+        o.synchronizer_step = test_steps.sync_instances.SyncInstances(
+            model_accessor=self.synchronizer.model_accessor
+        )
 
         self.synchronizer.sync_cohort(cohort, False)
 

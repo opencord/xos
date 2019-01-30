@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # Copyright 2017-present Open Networking Foundation
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,17 +12,31 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from __future__ import absolute_import
+
 import os
+from shutil import copyfile
+
+from setuptools import setup
 from setuptools.command.install import install
 
-try:
-    from xosutil.autoversion_setup import setup_with_auto_version as setup
-except ImportError:
-    # xosutil is not installed. Expect this to happen when we build an egg, in which case xosgenx.version will
-    # automatically have the right version.
-    from setuptools import setup
 
-from xosapi.version import __version__
+def version():
+    # Copy VERSION file of parent to module directory if not found
+    if not os.path.exists("xosapi/VERSION"):
+        copyfile("../../VERSION", "xosapi/VERSION")
+    with open("xosapi/VERSION") as f:
+        return f.read().strip()
+
+
+def parse_requirements(filename):
+    # parse a requirements.txt file, allowing for blank lines and comments
+    requirements = []
+    for line in open(filename):
+        if line and line.startswith("#"):
+            requirements.append(line)
+    return requirements
+
 
 CHAMELEON_DIR = "xosapi/chameleon"
 
@@ -49,9 +61,11 @@ class InstallFixChameleonPermissions(install):
 
 setup_result = setup(
     name="xosapi",
-    version=__version__,
+    version=version(),
+    classifiers=["License :: OSI Approved :: Apache Software License"],
+    license="Apache v2",
     cmdclass={"install": InstallFixChameleonPermissions},
-    description="XOS api client",
+    description="XOS API client",
     package_dir={"xosapi.chameleon": CHAMELEON_DIR},
     packages=[
         "xosapi.chameleon.grpc_client",
@@ -62,6 +76,7 @@ setup_result = setup(
         "xosapi.convenience",
     ],
     py_modules=["xosapi.chameleon.__init__"],
+    install_requires=parse_requirements("requirements.txt"),
     include_package_data=True,
     package_data={
         "xosapi.chameleon.protos": ["*.proto"],

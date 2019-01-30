@@ -13,10 +13,12 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 import os
 import base64
 import json
 from xossynchronizer.steps.syncstep import SyncStep
+
 
 class SyncControllerSitePrivileges(SyncStep):
     requested_interval = 0

@@ -13,10 +13,12 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 import os
 import base64
 from xossynchronizer.steps.syncstep import DeferredException
 from xossynchronizer.steps.ansiblesyncstep import AnsibleSyncStep
+
 
 class SyncControllerSlices(AnsibleSyncStep):
     requested_interval = 0
