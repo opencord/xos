@@ -52,10 +52,12 @@ class TestScheduling(unittest.TestCase):
         import xossynchronizer.backend
         reload(xossynchronizer.backend)
 
-        b = xossynchronizer.backend.Backend()
+        from xossynchronizer.modelaccessor import model_accessor
+
+        b = xossynchronizer.backend.Backend(model_accessor=model_accessor)
         steps_dir = Config.get("steps_dir")
         self.steps = b.load_sync_step_modules(steps_dir)
-        self.synchronizer = xossynchronizer.event_loop.XOSObserver(self.steps)
+        self.synchronizer = xossynchronizer.event_loop.XOSObserver(self.steps, model_accessor)
 
     def tearDown(self):
         sys.path = self.sys_path_save

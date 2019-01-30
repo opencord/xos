@@ -16,7 +16,7 @@
 import os
 import base64
 import socket
-from xossynchronizer.steps import syncstep
+from xossynchronizer.steps import ansiblesyncstep
 from xossynchronizer.mock_modelaccessor import *
 
 RESTAPI_HOSTNAME = socket.gethostname()
@@ -28,7 +28,7 @@ def escape(s):
     return s
 
 
-class SyncInstances(syncstep.SyncStep):
+class SyncInstances(ansiblesyncstep.AnsibleSyncStep):
     provides = [Instance]
     requested_interval = 0
     observes = Instance
