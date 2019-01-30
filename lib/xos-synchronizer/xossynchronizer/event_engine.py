@@ -151,9 +151,10 @@ class XOSEventEngine(object):
                         will be called before start().
     """
 
-    def __init__(self, log):
+    def __init__(self, model_accessor, log):
         self.event_steps = []
         self.threads = []
+        self.model_accessor = model_accessor
         self.log = log
 
     def load_event_step_modules(self, event_step_dir):

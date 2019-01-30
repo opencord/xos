@@ -67,7 +67,8 @@ class XOSPullStepEngine:
                         will be called before start().
     """
 
-    def __init__(self):
+    def __init__(self, model_accessor):
+        self.model_accessor = model_accessor
         self.pull_steps = []
 
     def load_pull_step_modules(self, pull_step_dir):
