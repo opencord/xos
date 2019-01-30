@@ -171,8 +171,18 @@ def get_MockObjectStore(x):
     return store
 
 class ModelAccessor:
-    def check_db_connection_ok(self):
+    def check_db_connection_okay(self):
         return True
+
+    def connection_close(self):
+        pass
+
+    def journal_object(self, *args, **kwargs):
+        pass
+
+    def obj_exists(self, o):
+        # gRPC will default id to '0' for uninitialized objects
+        return (o.id is not None) and (o.id != 0)
 
     def fetch_pending(self, model, deleted = False):
         num = random.randint(1, 5)
