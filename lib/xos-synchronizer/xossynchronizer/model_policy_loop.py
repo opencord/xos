@@ -14,7 +14,6 @@
 
 
 from __future__ import print_function
-from xossynchronizer.modelaccessor import *
 from xossynchronizer.dependency_walker_new import *
 from xossynchronizer.policy import Policy
 
