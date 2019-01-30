@@ -13,6 +13,7 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 import os
 import base64
 import struct
@@ -21,6 +22,7 @@ from netaddr import IPAddress, IPNetwork
 from synchronizers.new_base.syncstep import *
 from synchronizers.new_base.ansible_helper import *
 from mock_modelaccessor import *
+
 
 
 class SyncControllerNetworks(SyncStep):
