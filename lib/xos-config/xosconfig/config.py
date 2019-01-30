@@ -13,10 +13,11 @@
 # limitations under the License.
 
 
+from __future__ import absolute_import
 import os
 import sys
 import yaml
-import default
+from . import default
 from pykwalify.core import Core as PyKwalify
 import pykwalify
 
