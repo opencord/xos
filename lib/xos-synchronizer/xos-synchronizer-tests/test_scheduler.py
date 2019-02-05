@@ -47,7 +47,7 @@ class TestScheduling(unittest.TestCase):
 
         build_mock_modelaccessor(sync_lib_dir, xos_dir, services_dir=None, service_xprotos=[])
 
-        os.chdir(os.path.join(test_path, ".."))  # config references tests/model-deps
+        os.chdir(os.path.join(test_path, ".."))  # config references xos-synchronizer-tests/model-deps
 
         import xossynchronizer.event_loop
 
