@@ -1,0 +1,262 @@
+# Copyright 2017-present Open Networking Foundation
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#!/usr/bin/python
+
+# TO RUN
+# source scripts/setup_venv.sh
+# pip install django django_extensions psycopg2 djangorestframework
+# python xos-migrate.py [-s <service-name>]
+# eg: python xos-migrate.py -s core -s fabric
+
+# TODO
+# - add support for services that are in the cord/orchestration/profiles folder
+# - use logger instead of print and support verbosity
+# - add support to specify a name to be given to the generated migration (--name parameter in django makemigrations)
+
+import os
+import argparse
+import yaml
+import shutil
+from xosgenx.generator import XOSProcessor, XOSProcessorArgs
+
+def get_abs_path(path):
+    if os.path.isabs(path):
+        return path
+    return os.path.dirname(os.path.realpath(__file__)) + "/" + path
+
+def print_banner():
+    print r"---------------------------------------------------------------"
+    print r"                                    _                  __      "
+    print r"   _  ______  _____      ____ ___  (_)___ __________ _/ /____  "
+    print r"  | |/_/ __ \/ ___/_____/ __ `__ \/ / __ `/ ___/ __ `/ __/ _ \ "
+    print r" _>  </ /_/ (__  )_____/ / / / / / / /_/ / /  / /_/ / /_/  __/ "
+    print r"/_/|_|\____/____/     /_/ /_/ /_/_/\__, /_/   \__,_/\__/\___/  "
+    print r"                                  /____/                       "
+    print r"---------------------------------------------------------------"
+    print "Storing logs in: %s" % os.environ["LOG_FILE"]
+    print "Config schema: %s" % os.environ['XOS_CONFIG_SCHEMA']
+    print "Config: %s" % os.environ['XOS_CONFIG_FILE']
+    print r"---------------------------------------------------------------"
+
+# CONSTANTS
+
+SERVICE_BASE_DIR = get_abs_path("../../xos_services/")
+SERVICE_DEST_DIR = get_abs_path("services")
+
+# TODO make configurable
+CORE_MODELS_DIR = get_abs_path("core/models/")
+CORE_MODELS_XPROTO = os.path.join(CORE_MODELS_DIR, "core.xproto")
+
+SERVICE_MODELS_DIR = os.path.join(SERVICE_BASE_DIR, "att-workflow-driver/xos/synchronizer/models/")
+SERVICE_MODELS_XPROTO = os.path.join(SERVICE_MODELS_DIR, "att-workflow-driver.xproto")
+
+def generate_core_models():
+    args = XOSProcessorArgs(
+        output=CORE_MODELS_DIR,
+        target= "django.xtarget",
+        dest_extension= "py",
+        write_to_file= "model",
+        files=[CORE_MODELS_XPROTO],
+    )
+    XOSProcessor.process(args)
+
+    security_args = XOSProcessorArgs(
+        output=CORE_MODELS_DIR,
+        target="django-security.xtarget",
+        dest_file="security.py",
+        write_to_file="single",
+        files=[CORE_MODELS_XPROTO],
+    )
+
+    XOSProcessor.process(security_args)
+
+    init_args = XOSProcessorArgs(
+        output = CORE_MODELS_DIR,
+        target = "init.xtarget",
+        dest_file = "__init__.py",
+        write_to_file = "single",
+        files = [CORE_MODELS_XPROTO],
+    )
+    XOSProcessor.process(init_args)
+
+def find_xproto_in_folder(path):
+    """
+    Recursively iterate a folder tree to look for any xProto file.
+    We use this function in case that the name of the xProto is different from the name of the folder (eg: olt-service)
+    :param path: the root folder to start the search
+    :return: [string]
+    """
+    xprotos = []
+    for fn in os.listdir(path):
+        # skip hidden files and folders. plus other useless things
+        if fn.startswith(".") or fn == "venv-xos" or fn == "htmlcov":
+            continue
+        full_path = os.path.join(path, fn)
+        if fn.endswith(".xproto"):
+            xprotos.append(full_path)
+        elif os.path.isdir(full_path):
+            xprotos = xprotos + find_xproto_in_folder(full_path)
+    return xprotos
+
+def find_decls_models(path):
+    """
+    Recursively iterate a folder tree to look for any models.py file.
+    This files contain the base model for _decl generated models.
+    :param path: the root folder to start the search
+    :return: [string]
+    """
+    decls = []
+    for fn in os.listdir(path):
+        # skip hidden files and folders. plus other useless things
+        if fn.startswith(".") or fn == "venv-xos" or fn == "htmlcov":
+            continue
+        full_path = os.path.join(path, fn)
+        if fn == "models.py":
+            decls.append(full_path)
+        elif os.path.isdir(full_path):
+            decls = decls + find_decls_models(full_path)
+    return decls
+
+def get_service_name_from_config(path):
+    """
+    Given a service folder look for the config.yaml file and find the name
+    :param path: the root folder to start the search
+    :return: string
+    """
+    config = os.path.join(path, "xos/synchronizer/config.yaml")
+    if not os.path.isfile(config):
+        raise Exception("Config file not found at: %s" % config)
+
+    cfg_file = open(config)
+    cfg = yaml.load(cfg_file)
+    return cfg['name']
+
+def generate_service_models(service_dir, service_name):
+    """
+    Generate the django code starting from xProto for a given service.
+    :param service_dir: string (path to the folder)
+    :param service_name: string (name of the service)
+    :return: void
+    """
+    xprotos = find_xproto_in_folder(service_dir)
+    decls = find_decls_models(service_dir)
+    print "Generating models for %s from files %s" % (service_name, ", ".join(xprotos))
+    out_dir = os.path.join(SERVICE_DEST_DIR, service_name)
+    if not os.path.isdir(out_dir):
+        os.mkdir(out_dir)
+
+    args = XOSProcessorArgs(
+        output=os.path.join(SERVICE_DEST_DIR, service_name),
+        files=xprotos,
+        target = "service.xtarget",
+        write_to_file = "target",
+    )
+    XOSProcessor.process(args)
+
+    security_args = XOSProcessorArgs(
+        output=out_dir,
+        target="django-security.xtarget",
+        dest_file="security.py",
+        write_to_file="single",
+        files=xprotos,
+    )
+
+    XOSProcessor.process(security_args)
+
+    init_py_filename = os.path.join(out_dir, "__init__.py")
+    if not os.path.exists(init_py_filename):
+        open(init_py_filename, "w").write("# created by dynamicbuild")
+
+    # copy over models.py files from the service
+    if len(decls) > 0:
+        for file in decls:
+            fn = os.path.basename(file)
+            src_fn = file
+            dest_fn = os.path.join(out_dir, fn)
+            print "Cpying models.py from %s to %s" % (src_fn, dest_fn)
+            shutil.copyfile(src_fn, dest_fn)
+
+    # TODO copy existing migrations from the service, otherwise they won't be incremental
+
+def copy_service_migrations(service_dir, service_name):
+    """
+    Once the migrations are generated, copy them in the correct location
+    :param service_dir: string (path to the folder)
+    :param service_name: string (name of the service)
+    :return: void
+    """
+    print "Copying %s migrations to %s" % (service_name, service_dir)
+    migration_dir = os.path.join(SERVICE_DEST_DIR, service_name, "migrations")
+    dest_dir = os.path.join(service_dir, "xos", "synchronizer", "migrations")
+    shutil.copytree(migration_dir, dest_dir)
+
+# SETTING ENV
+os.environ['LOG_FILE'] = get_abs_path("django.log")
+os.environ['XOS_CONFIG_SCHEMA'] = get_abs_path("migration_cfg_schema.yaml")
+os.environ['XOS_CONFIG_FILE'] = get_abs_path("migration_cfg.yaml")
+os.environ["MIGRATIONS"] = "true"
+os.environ["INSTALLED_APPS"] = "" # this is populated in case we generate migrations for services and it's used in settings.py
+
+# PARAMS
+parser = argparse.ArgumentParser(description="XOS Migrations")
+
+parser.add_argument(
+    '-s',
+    '--service',
+    action='append',
+    dest="service_names",
+    help='The name of the folder containing the service in cord/orchestration/xos_services'
+)
+
+if __name__ == "__main__":
+    args = parser.parse_args()
+
+    print_banner()
+
+    print "Services:",args.service_names
+
+    django_cli_args = ['xos-migrate.py', 'makemigrations']
+
+    # generate the code for each service and create a list of parameters to pass to django
+    app_list = []
+    for service in args.service_names:
+        if service == "core":
+            generate_core_models()
+            django_cli_args.append("core")
+        else:
+            service_dir = os.path.join(SERVICE_BASE_DIR, service)
+            service_name = get_service_name_from_config(service_dir)
+            generate_service_models(service_dir, service_name)
+            app_list.append("services.%s" % service_name)
+
+            django_cli_args.append(service_name)
+
+    os.environ["INSTALLED_APPS"] = ",".join(app_list)
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
+
+    from django.core.management import execute_from_command_line
+
+    execute_from_command_line(django_cli_args)
+
+    # copying migrations back to the service
+    for service in args.service_names:
+        if service == "core":
+            # we don't need to copy migrations for the core
+            continue
+        else:
+            service_dir = os.path.join(SERVICE_BASE_DIR, service)
+            service_name = get_service_name_from_config(service_dir)
+            copy_service_migrations(service_dir, service_name)
