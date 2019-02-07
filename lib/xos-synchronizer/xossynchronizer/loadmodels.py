@@ -57,4 +57,12 @@ class ModelLoadClient(object):
                     item.filename = fn
                     item.contents = open(os.path.join(api_convenience_dir, fn)).read()
 
+        migrations_dir = os.path.join(dir, "migrations")
+        if os.path.exists(migrations_dir):
+            for fn in os.listdir(migrations_dir):
+                if fn.endswith(".py") and "test" not in fn:
+                    item = request.migrations.add()
+                    item.filename = fn
+                    item.contents = open(os.path.join(migrations_dir, fn)).read()
+
         result = self.api.dynamicload.LoadModels(request)
