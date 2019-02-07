@@ -45,15 +45,22 @@ LOGIN_REDIRECT_URL = "/admin/loggedin/"
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": Config.get("database.name"),
-        "USER": Config.get("database.username"),
-        "PASSWORD": Config.get("database.password"),
-        "HOST": "xos-db",
-        "PORT": 5432,
+DB = {
+    "ENGINE": "django.db.backends.postgresql_psycopg2",
+    "NAME": Config.get("database.name"),
+    "USER": Config.get("database.username"),
+    "PASSWORD": Config.get("database.password"),
+    "HOST": "xos-db",
+    "PORT": 5432,
+}
+
+if os.environ["MIGRATIONS"] and os.environ["MIGRATIONS"] == "true":
+    DB = {
+        'ENGINE': 'django.db.backends.dummy',
     }
+
+DATABASES = {
+    'default': DB
 }
 
 AUTH_USER_MODEL = "core.User"
@@ -185,6 +192,9 @@ if os.path.exists("/opt/xos/xos/xosbuilder_app_list"):
 # the site admins on every HTTP 500 error when DEBUG=False.
 # See http://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
+LOG_FILE = "/var/log/django_debug.log"
+if os.environ["LOG_FILE"]:
+    LOG_FILE = os.environ["LOG_FILE"]
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -193,7 +203,7 @@ LOGGING = {
         "file": {
             "level": "DEBUG",
             "class": "logging.FileHandler",
-            "filename": "/var/log/django_debug.log",
+            "filename": LOG_FILE,
         },
         "mail_admins": {
             "level": "ERROR",
