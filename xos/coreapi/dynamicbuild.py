@@ -234,6 +234,24 @@ class DynamicBuilder(object):
                     {"filename": item.filename, "path": save_path}
                 )
 
+            if request.migrations:
+                # These can be saved directly to the service destination directory, since they are not processed by
+                # xosgenx.
+                migrations_dir = os.path.join(service_manifest["dest_dir"], "migrations")
+                service_manifest["migrations_dir"] = migrations_dir
+                service_manifest["migrations"] = []
+                if not os.path.exists(migrations_dir):
+                    os.makedirs(migrations_dir)
+                for item in request.migrations:
+                    file(os.path.join(migrations_dir, item.filename), "w").write(
+                        item.contents
+                    )
+                    service_manifest["migrations"].append({"filename": item.filename})
+
+                migrations_init_py_filename = os.path.join(migrations_dir, "__init__.py")
+                if not os.path.exists(migrations_init_py_filename):
+                    open(migrations_init_py_filename, "w").write("# created by dynamicbuild")
+
         return service_manifest
 
     def run_xosgenx_service(self, manifest):
