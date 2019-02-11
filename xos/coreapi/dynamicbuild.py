@@ -43,9 +43,13 @@ class DynamicBuilder(object):
         )
 
     def pre_validate_file(self, item):
-        # someone might be trying to trick us into writing files outside the designated directory
-        if "/" in item.filename:
-            raise Exception("illegal character in filename %s" % item.filename)
+        # various filename validations
+        # * Someone might be trying to trick us into writing files outside the designated directory, so reject "/"
+        # * I had a misbehaving robot test that inadvertently inserted a quote into a filename, so reject quotes
+        # * Spaces seem like a bad idea
+        for illegal_char in ["/", "\"", "'", " "]:
+            if illegal_char in item.filename:
+                raise Exception("illegal character in filename %s" % item.filename)
 
     def pre_validate_python(self, item):
         (handle, fn) = tempfile.mkstemp()
