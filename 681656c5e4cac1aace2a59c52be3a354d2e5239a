@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce15e46e_d1fd91ec",
+        "filename": "xos/xos-migrate.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2019-02-12T16:28:18Z",
+      "side": 1,
+      "message": "I\u0027ll give multistructlog a shot.",
+      "parentUuid": "d9af5bed_fec17ad1",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 53
+      },
+      "revId": "681656c5e4cac1aace2a59c52be3a354d2e5239a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "56d99f98_c899923e",
         "filename": "xos/xos-migrate.py",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-12T01:07:42Z",
       "side": 1,
       "message": "Will this environmental variable be set in a production environment, so logs would be sent to kafka during a migration?",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 66
+      },
+      "revId": "681656c5e4cac1aace2a59c52be3a354d2e5239a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "349b7e75_e8add564",
+        "filename": "xos/xos-migrate.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2019-02-12T16:28:18Z",
+      "side": 1,
+      "message": "This tool is not intended to be executed in a production environment, so there will be no kafka. That config file contains the minimal set of settings needed for the tool to run.\n\nIt is intended to be used by developers to generate migration files like these one: https://gerrit.opencord.org/#/c/12776/1/xos/synchronizer/migrations/0001_initial.py\n\nThe files are later loaded in the core (when you start/update a service) and the core executes them.",
+      "parentUuid": "56d99f98_c899923e",
       "range": {
         "startLine": 279,
         "startChar": 0,
