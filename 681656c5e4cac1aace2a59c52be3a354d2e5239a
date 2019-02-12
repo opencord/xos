@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9af5bed_fec17ad1",
+        "filename": "xos/xos-migrate.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-02-12T01:07:42Z",
+      "side": 1,
+      "message": "This looks like pre-multistructlog code - should it be changed to use that?",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 53
+      },
+      "revId": "681656c5e4cac1aace2a59c52be3a354d2e5239a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56d99f98_c899923e",
+        "filename": "xos/xos-migrate.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-02-12T01:07:42Z",
+      "side": 1,
+      "message": "Will this environmental variable be set in a production environment, so logs would be sent to kafka during a migration?",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 66
+      },
+      "revId": "681656c5e4cac1aace2a59c52be3a354d2e5239a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
