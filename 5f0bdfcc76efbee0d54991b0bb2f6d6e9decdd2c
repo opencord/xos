@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dcd081a7_c106654e",
+        "filename": "xos/coreapi/test_dynamicbuild.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-02-12T00:29:12Z",
+      "side": 1,
+      "message": "\".message\" is not present in python3.  I usually replace this with `str(e.exception)`",
+      "range": {
+        "startLine": 155,
+        "startChar": 24,
+        "endLine": 155,
+        "endChar": 31
+      },
+      "revId": "5f0bdfcc76efbee0d54991b0bb2f6d6e9decdd2c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
