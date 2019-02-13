@@ -29,8 +29,13 @@ DEFAULT_BASE_DIR = "/opt/xos"
 
 
 class DynamicBuilder(object):
-    NOTHING_TO_DO = 0
-    SOMETHING_CHANGED = 1
+    # These constants must agree with what is declared in dnyamicload.proto
+    SUCCESS = 0
+    SUCCESS_NOTHING_CHANGED = 1
+    ERROR = 101
+    ERROR_LIVE_MODELS = 102
+    ERROR_DELETION_IN_PROGRESS = 103
+    TRYAGAIN = 201
 
     def __init__(self, base_dir=DEFAULT_BASE_DIR):
         self.services_dir = os.path.join(base_dir, "dynamic_services")
@@ -71,10 +76,6 @@ class DynamicBuilder(object):
             self.pre_validate_file(item)
 
         for item in request.convenience_methods:
-            self.pre_validate_file(item)
-            self.pre_validate_python(item)
-
-        for item in request.migrations:
             self.pre_validate_file(item)
             self.pre_validate_python(item)
 
@@ -119,7 +120,7 @@ class DynamicBuilder(object):
                 "Models are already up-to-date; skipping dynamic load.",
                 name=request.name,
             )
-            return self.NOTHING_TO_DO
+            return self.SUCCESS_NOTHING_CHANGED
 
         self.pre_validate_models(request)
 
@@ -132,12 +133,26 @@ class DynamicBuilder(object):
 
         log.info("Finished LoadModels request", name=request.name)
 
-        return self.SOMETHING_CHANGED
+        return self.SUCCESS
 
-    def handle_unloadmodels_request(self, request):
+    def handle_unloadmodels_request(self, request, models):
         (manifest, manifest_fn) = self.load_manifest_from_request(request)
 
-        # TODO: Check version number to make sure this is not a downgrade ?
+        for (name,model) in models.items():
+            if model.objects.exists():
+                if request.cleanup_behavior == request.REQUIRE_CLEAN:
+                    return self.ERROR_LIVE_MODELS
+                elif request.cleanup_behavior == request.AUTOMATICALLY_CLEAN:
+                    # Deleting the model will add it to model.deleted_objects automatically, and it will be caught
+                    # by the next loop and return a TRYAGAIN as necessary.
+                    model.objects.all().delete()
+
+        for (name, model) in models.items():
+            if model.deleted_objects.exists():
+                if request.cleanup_behavior == request.REQUIRE_CLEAN:
+                    return self.ERROR_DELETION_IN_PROGRESS
+                elif request.cleanup_behavior == request.AUTOMATICALLY_CLEAN:
+                    return self.TRYAGAIN
 
         hash = self.generate_request_hash(request, state="unload")
         if hash == manifest.get("hash"):
@@ -147,7 +162,7 @@ class DynamicBuilder(object):
                 "Models are already up-to-date; skipping dynamic unload.",
                 name=request.name,
             )
-            return self.NOTHING_TO_DO
+            return self.SUCCESS_NOTHING_CHANGED
 
         manifest = self.save_models(request, state="unload", hash=hash)
 
@@ -158,7 +173,7 @@ class DynamicBuilder(object):
 
         log.info("Finished UnloadModels request", name=request.name)
 
-        return self.SOMETHING_CHANGED
+        return self.SUCCESS
 
     def generate_request_hash(self, request, state):
         # TODO: could we hash the request rather than individually hashing the subcomponents of the request?
@@ -239,24 +254,6 @@ class DynamicBuilder(object):
                 service_manifest["convenience_methods"].append(
                     {"filename": item.filename, "path": save_path}
                 )
-
-            if request.migrations:
-                # These can be saved directly to the service destination directory, since they are not processed by
-                # xosgenx.
-                migrations_dir = os.path.join(service_manifest["dest_dir"], "migrations")
-                service_manifest["migrations_dir"] = migrations_dir
-                service_manifest["migrations"] = []
-                if not os.path.exists(migrations_dir):
-                    os.makedirs(migrations_dir)
-                for item in request.migrations:
-                    file(os.path.join(migrations_dir, item.filename), "w").write(
-                        item.contents
-                    )
-                    service_manifest["migrations"].append({"filename": item.filename})
-
-                migrations_init_py_filename = os.path.join(migrations_dir, "__init__.py")
-                if not os.path.exists(migrations_init_py_filename):
-                    open(migrations_init_py_filename, "w").write("# created by dynamicbuild")
 
         return service_manifest
 
