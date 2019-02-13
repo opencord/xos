@@ -216,7 +216,7 @@ message EmbeddedImage (XOSBase){
             run_xosgenx_service.assert_called()
             remove_service.assert_not_called()
 
-            self.assertEqual(result, self.builder.SOMETHING_CHANGED)
+            self.assertEqual(result, self.builder.SUCCESS)
 
             self.assertTrue(os.path.exists(self.builder.manifest_dir))
             self.assertTrue(
@@ -268,7 +268,7 @@ message EmbeddedImage (XOSBase){
             run_xosgenx_service.assert_called()
             remove_service.assert_not_called()
 
-            self.assertEqual(result, self.builder.SOMETHING_CHANGED)
+            self.assertEqual(result, self.builder.SUCCESS)
 
             self.assertTrue(os.path.exists(self.builder.manifest_dir))
             self.assertTrue(
@@ -283,6 +283,8 @@ message EmbeddedImage (XOSBase){
             self.assertTrue(os.path.exists(os.path.join(service_dir, "__init__.py")))
             self.assertTrue(os.path.exists(os.path.join(service_dir, "models.py")))
             self.assertTrue(os.path.exists(os.path.join(service_dir, "security.py")))
+
+            import pdb; pdb.set_trace()
 
             self.assertTrue(os.path.exists(os.path.join(service_dir, "migrations", "migration1.py")))
             self.assertTrue(os.path.exists(os.path.join(service_dir, "migrations", "migration2.py")))
@@ -310,14 +312,15 @@ message EmbeddedImage (XOSBase){
             wraps=self.builder.remove_service,
         ) as remove_service:
             result = self.builder.handle_unloadmodels_request(
-                self.example_unload_request
+                self.example_unload_request,
+                {}
             )
 
             save_models.assert_called()
             run_xosgenx_service.assert_not_called()
             remove_service.assert_called()
 
-            self.assertEqual(result, self.builder.SOMETHING_CHANGED)
+            self.assertEqual(result, self.builder.SUCCESS)
 
             self.assertTrue(os.path.exists(self.builder.manifest_dir))
             self.assertTrue(
@@ -335,10 +338,10 @@ message EmbeddedImage (XOSBase){
 
     def test_handle_loadmodels_request_twice(self):
         result = self.builder.handle_loadmodels_request(self.example_request)
-        self.assertEqual(result, self.builder.SOMETHING_CHANGED)
+        self.assertEqual(result, self.builder.SUCCESS)
 
         result = self.builder.handle_loadmodels_request(self.example_request)
-        self.assertEqual(result, self.builder.NOTHING_TO_DO)
+        self.assertEqual(result, self.builder.SUCCESS_NOTHING_CHANGED)
 
     def test_save_models(self):
         manifest = self.builder.save_models(self.example_request, state="load")
