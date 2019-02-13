@@ -1,0 +1,2 @@
+{% for object in proto.messages|sort(attribute='name') %}{{ object.name }}
+{% endfor %}
