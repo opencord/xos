@@ -74,10 +74,6 @@ class DynamicBuilder(object):
             self.pre_validate_file(item)
             self.pre_validate_python(item)
 
-        for item in request.migrations:
-            self.pre_validate_file(item)
-            self.pre_validate_python(item)
-
     def get_manifests(self):
         if not os.path.exists(self.manifest_dir):
             return []
@@ -240,24 +236,6 @@ class DynamicBuilder(object):
                     {"filename": item.filename, "path": save_path}
                 )
 
-            if request.migrations:
-                # These can be saved directly to the service destination directory, since they are not processed by
-                # xosgenx.
-                migrations_dir = os.path.join(service_manifest["dest_dir"], "migrations")
-                service_manifest["migrations_dir"] = migrations_dir
-                service_manifest["migrations"] = []
-                if not os.path.exists(migrations_dir):
-                    os.makedirs(migrations_dir)
-                for item in request.migrations:
-                    file(os.path.join(migrations_dir, item.filename), "w").write(
-                        item.contents
-                    )
-                    service_manifest["migrations"].append({"filename": item.filename})
-
-                migrations_init_py_filename = os.path.join(migrations_dir, "__init__.py")
-                if not os.path.exists(migrations_init_py_filename):
-                    open(migrations_init_py_filename, "w").write("# created by dynamicbuild")
-
         return service_manifest
 
     def run_xosgenx_service(self, manifest):
@@ -267,6 +245,25 @@ class DynamicBuilder(object):
         xproto_filenames = [
             os.path.join(manifest["dir"], x["filename"]) for x in manifest["xprotos"]
         ]
+
+        # Generate model list
+        modellist_filename = os.path.join(manifest["dir"], "modellist.tmp")
+        try:
+            args = XOSProcessorArgs(
+                output=manifest["dir"],
+                files=xproto_filenames,
+                target="modellist.xtarget",
+                dest_file="modellist.tmp",
+                write_to_file = "single",
+            )
+            XOSProcessor.process(args)
+            modellist = open(modellist_filename, "r").readlines()
+            modellist = [x.strip() for x in modellist]
+            modellist = [x for x in modellist if x] # throw out the empty line at the end
+            manifest["models"] = modellist
+        finally:
+            if os.path.exists(modellist_filename):
+                os.remove(modellist_filename)
 
         # Generate models
         is_service = manifest["name"] != "core"
