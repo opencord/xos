@@ -26,6 +26,7 @@ class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
         self.thread_pool = thread_pool
         self.server = server
         self.django_apps = None
+        self.django_apps_by_name = {}
 
     def stop(self):
         pass
@@ -36,6 +37,22 @@ class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
             to run even if django is broken due to modeling issues.
         """
         self.django_apps = django_apps
+
+        # Build up some dictionaries used by the API handlers. We can build these once at initialization time because
+        # when apps are onboarded, the core is always restarted.
+
+        self.django_apps_by_name = {}
+        self.django_app_models = {}
+        if self.django_apps:
+            for app in self.django_apps.get_app_configs():
+                self.django_apps_by_name[app.name] = app
+
+                # Build up a dictionary of all non-decl models.
+                django_models = {}
+                for (k, v) in app.models:
+                    if not k.endswith("_decl"):
+                        django_models[k] = v
+                self.django_app_models[app.name] = django_models
 
     @track_request_time("DynamicLoad", "LoadModels")
     def LoadModels(self, request, context):
@@ -65,7 +82,7 @@ class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
     def UnloadModels(self, request, context):
         try:
             builder = DynamicBuilder()
-            result = builder.handle_unloadmodels_request(request)
+            result = builder.handle_unloadmodels_request(request, self.django_app_models[request.name])
 
             if result == builder.SOMETHING_CHANGED:
                 self.server.delayed_shutdown(5)
@@ -87,11 +104,6 @@ class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
 
     @track_request_time("DynamicLoad", "GetLoadStatus")
     def GetLoadStatus(self, request, context):
-        django_apps_by_name = {}
-        if self.django_apps:
-            for app in self.django_apps.get_app_configs():
-                django_apps_by_name[app.name] = app
-
         try:
             builder = DynamicBuilder()
             manifests = builder.get_manifests()
@@ -106,7 +118,7 @@ class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
                 item.state = manifest.get("state", "unspecified")
 
                 if item.state == "load":
-                    django_app = django_apps_by_name.get("services." + item.name)
+                    django_app = self.django_apps_by_name.get("services." + item.name)
                     if django_app:
                         item.state = "present"
                         # TODO: Might be useful to return a list of models as well
@@ -115,7 +127,7 @@ class DynamicLoadService(dynamicload_pb2_grpc.dynamicloadServicer):
             item = response.services.add()
             item.name = "core"
             item.version = autodiscover_version_of_main()
-            if "core" in django_apps_by_name:
+            if "core" in self.django_apps_by_name:
                 item.state = "present"
             else:
                 item.state = "load"
