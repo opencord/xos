@@ -161,6 +161,37 @@ def keep_trying(client, reactor):
 
     reactor.callLater(1, functools.partial(keep_trying, client, reactor))
 
+def unload_models(client, reactor, version):
+    # Keep trying to unload until we succeed. If the attempts lead to a TRYAGAIN, then we'll loop and
+    # try again. Connection errors will have the same behavior as a connection error for the LoadModels
+    # call.
+
+    try:
+        result = ModelLoadClient(client).unload_models(
+            Config.get("name"),
+            version=version,
+            cleanup_behavior=1)  # FIXME: hardcoded value for automatic delete
+
+        if result.status in [result.SUCCESS, result.SUCCESS_NOTHING_CHANGED]:
+            log.info("Models successfully unloaded. Synchronizer exiting")
+            sys.exit(0)
+
+        if result.status == result.TRYAGAIN:
+            # If we received a TRYAGIN, then launch a timer that will be responsible for trying again in the future.
+            # Note that the synchronizer will continue to service steps while this retry is in progress, as it is
+            # important that any delete steps be completed.
+
+            log.info("Try to unload again in 30 seconds")
+            reactor.callLater(30, functools.partial(unload_models, client, reactor, version))
+
+    except Exception as e:
+        # If an exception was thrown, then also try again later.
+
+        # If the synchronizer is operational, then assume the ORM's restart_on_disconnect will deal with the
+        # connection being lost.
+
+        log.exception("Error while unloading. Trying again in 30 seconds.")
+        reactor.callLater(30, functools.partial(unload_models, client, reactor, version))
 
 def grpcapi_reconnect(client, reactor):
     global model_accessor
@@ -172,9 +203,17 @@ def grpcapi_reconnect(client, reactor):
         version = autodiscover_version_of_main(max_parent_depth=0) or "unknown"
         log.info("Service version is %s" % version)
         try:
-            ModelLoadClient(client).upload_models(
-                Config.get("name"), Config.get("models_dir"), version=version
-            )
+            if Config.get("desired_state") == "load":
+                ModelLoadClient(client).upload_models(
+                    Config.get("name"), Config.get("models_dir"), version=version
+                )
+            elif Config.get("desired_state") == "unload":
+                unload_models(client, reactor, version)
+                # The unload_models might be in try-again state. If so, continue with normal behavior so any delete
+                # steps can run.
+            else:
+                log.error("Misconfigured", desired_state=Config.get("desired_state"))
+                sys.exit(-1)
         except Exception as e:  # TODO: narrow exception scope
             if (
                 hasattr(e, "code")
