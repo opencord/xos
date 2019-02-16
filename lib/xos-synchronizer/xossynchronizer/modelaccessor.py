@@ -28,7 +28,7 @@ import importlib
 import os
 import signal
 import sys
-import time
+from threading import Timer
 from loadmodels import ModelLoadClient
 
 from xosconfig import Config
@@ -161,6 +161,31 @@ def keep_trying(client, reactor):
 
     reactor.callLater(1, functools.partial(keep_trying, client, reactor))
 
+def unload_models(client, reactor, version):
+    # This function is called by a timer until it succeeds.
+    log.info("unload_models initiated by timer")
+
+    try:
+        result = ModelLoadClient(client).unload_models(
+            Config.get("name"),
+            version=version,
+            cleanup_behavior=1)  # FIXME: hardcoded value for automatic delete
+
+        log.info("Unload response", result=result)
+
+        if result.status in [result.SUCCESS, result.SUCCESS_NOTHING_CHANGED]:
+            log.info("Models successfully unloaded. Synchronizer exiting")
+            sys.exit(0)
+
+        if result.status == result.TRYAGAIN:
+            log.info("TRYAGAIN received. Expect to try again in 30 seconds.")
+
+    except Exception as e:
+        # If the synchronizer is operational, then assume the ORM's restart_on_disconnect will deal with the
+        # connection being lost.
+        log.exception("Error while unloading. Expect to try again in 30 seconds.")
+
+    Timer(30, functools.partial(unload_models, client, reactor, version)).start()
 
 def grpcapi_reconnect(client, reactor):
     global model_accessor
@@ -172,9 +197,28 @@ def grpcapi_reconnect(client, reactor):
         version = autodiscover_version_of_main(max_parent_depth=0) or "unknown"
         log.info("Service version is %s" % version)
         try:
-            ModelLoadClient(client).upload_models(
-                Config.get("name"), Config.get("models_dir"), version=version
-            )
+            if Config.get("desired_state") == "load":
+                ModelLoadClient(client).upload_models(
+                    Config.get("name"), Config.get("models_dir"), version=version
+                )
+            elif Config.get("desired_state") == "unload":
+                # Try for an easy unload. IF there's no dirty models, then unload will succeed without
+                # requiring us to setup the synchronizer.
+                log.info("Trying for an easy unload_models")
+                result = ModelLoadClient(client).unload_models(
+                    Config.get("name"),
+                    version=version,
+                    cleanup_behavior=1)  # FIXME: hardcoded value for automatic delete
+                if result.status in [result.SUCCESS, result.SUCCESS_NOTHING_CHANGED]:
+                    log.info("Models successfully unloaded. Synchronizer exiting")
+                    reactor.stop()
+                    sys.exit(0)
+
+                # We couldn't unload the easy way, so we'll have to do it the hard way. Fall through and
+                # setup the synchronizer.
+            else:
+                log.error("Misconfigured", desired_state=Config.get("desired_state"))
+                sys.exit(-1)
         except Exception as e:  # TODO: narrow exception scope
             if (
                 hasattr(e, "code")
@@ -241,6 +285,10 @@ def grpcapi_reconnect(client, reactor):
 
     # Restore the sigint handler
     signal.signal(signal.SIGINT, orig_sigint)
+
+    # Check to see if we still want to unload
+    if Config.get("desired_state") == "unload":
+        Timer(30, functools.partial(unload_models, client, reactor, version)).start()
 
 
 def config_accessor_grpcapi():
