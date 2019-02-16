@@ -13,7 +13,9 @@
 # limitations under the License.
 
 
-from base import xproto_string_type, unquote
+from __future__ import absolute_import
+from .base import xproto_string_type, unquote
+from collections import OrderedDict
 
 
 def xproto_type_to_ui_type(f):
@@ -39,14 +41,30 @@ def xproto_type_to_ui_type(f):
 
 
 def xproto_options_choices_to_dict(choices):
-    list = []
+    # Not sure why this was named "*_to_dict" but returns a list
+    c_list = []
 
     for c in eval(choices):
-        list.append({"id": c[0], "label": c[1]})
-    if len(list) > 0:
-        return list
+        c_choice = OrderedDict([("id", c[0]), ("label", c[1])])
+        c_list.append(c_choice)
+    if len(c_list) > 0:
+        return c_list
     else:
         return None
+
+
+def xproto_dict_to_string(d):
+    """
+    returns a string formatted like a dict, as OrderedDict
+    doesn't render the same way
+    """
+    ft = [] # formatted tuples
+    for k, v in d.items():
+        if v is not None:
+            ft.append("'%s': '%s'" % (k, v))
+        else:
+            ft.append("'%s': None" % k)
+    return "{%s}" % ", ".join(ft)
 
 
 def xproto_validators(f):

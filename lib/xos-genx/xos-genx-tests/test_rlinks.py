@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
+from __future__ import absolute_import
 import unittest
 from xosgenx.generator import XOSProcessor, XOSProcessorArgs
 from helpers import XProtoTestHelpers
@@ -58,8 +58,8 @@ message VRouterDevice (PlCoreBase){
         args.inputs = xproto
         args.target = target
         output = XOSProcessor.process(args)
-        self.assertIn("'src_port': 'device_ports'", output)
-        self.assertIn("'src_port': 'ports'", output)
+        self.assertIn("('src_port', 'device_ports')", output)
+        self.assertIn("('src_port', 'ports')", output)
 
 
 if __name__ == "__main__":
