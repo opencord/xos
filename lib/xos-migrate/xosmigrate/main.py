@@ -312,6 +312,8 @@ parser.add_argument(
 
 def run():
 
+    del os.environ["INSTALLED_APPS"]
+
     args = parser.parse_args()
 
     configure_logging(args.verbose)
@@ -336,9 +338,9 @@ def run():
     # generate the code for each service and create a list of parameters to pass to django
     app_list = []
     for service in args.service_names:
+        # NOTE we need core models to be there as all the services depend on them
+        generate_core_models(core_dir)
         if service == "core":
-
-            generate_core_models(core_dir)
             django_cli_args.append("core")
         else:
             service_dir = os.path.join(service_base_dir, service)
@@ -348,7 +350,8 @@ def run():
 
             django_cli_args.append(service_name)
 
-    os.environ["INSTALLED_APPS"] = ",".join(app_list)
+    if len(app_list) > 0:
+        os.environ["INSTALLED_APPS"] = ",".join(app_list)
 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "xos.settings")
 
