@@ -13,7 +13,12 @@
 # limitations under the License.
 
 # xosproject/chameleon
+<<<<<<< HEAD
 FROM xosproject/xos-base:2.1.57
+=======
+
+FROM xosproject/xos-base:2.2.0
+>>>>>>> [SEBA-494] Validating core version matched version requested by synchronizer
 
 # xos-base already has protoc and dependencies installed
 
