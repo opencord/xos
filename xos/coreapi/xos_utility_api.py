@@ -15,7 +15,8 @@
 import inspect
 from apistats import REQUEST_COUNT, track_request_time
 import grpc
-from apihelper import XOSAPIHelperMixin, translate_exceptions
+from authhelper import XOSAuthHelperMixin
+from decorators import translate_exceptions
 from xos.exceptions import XOSNotAuthenticated
 from core.models import ServiceInstance
 from django.db.models import F, Q
@@ -64,10 +65,10 @@ def get_xproto(folder):
     return matches
 
 
-class UtilityService(utility_pb2_grpc.utilityServicer, XOSAPIHelperMixin):
+class UtilityService(utility_pb2_grpc.utilityServicer, XOSAuthHelperMixin):
     def __init__(self, thread_pool):
         self.thread_pool = thread_pool
-        XOSAPIHelperMixin.__init__(self)
+        XOSAuthHelperMixin.__init__(self)
 
     def stop(self):
         pass
