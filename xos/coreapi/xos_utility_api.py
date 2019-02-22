@@ -15,7 +15,8 @@
 import inspect
 from apistats import REQUEST_COUNT, track_request_time
 import grpc
-from apihelper import XOSAPIHelperMixin, translate_exceptions
+from authhelper import XOSAuthHelperMixin
+from decorators import translate_exceptions
 from xos.exceptions import XOSNotAuthenticated
 from core.models import ServiceInstance
 from django.db.models import F, Q
@@ -64,10 +65,10 @@ def get_xproto(folder):
     return matches
 
 
-class UtilityService(utility_pb2_grpc.utilityServicer, XOSAPIHelperMixin):
+class UtilityService(utility_pb2_grpc.utilityServicer, XOSAuthHelperMixin):
     def __init__(self, thread_pool):
         self.thread_pool = thread_pool
-        XOSAPIHelperMixin.__init__(self)
+        XOSAuthHelperMixin.__init__(self)
 
     def stop(self):
         pass
@@ -108,61 +109,6 @@ class UtilityService(utility_pb2_grpc.utilityServicer, XOSAPIHelperMixin):
                     s.save()
         REQUEST_COUNT.labels("xos-core", "Utilities", "Login", grpc.StatusCode.OK).inc()
         return Empty()
-
-    # FIXME are we still using these?
-    @translate_exceptions("Utilities", "RunTosca")
-    @track_request_time("Utilities", "RunTosca")
-    def RunTosca(self, request, context):
-        user = self.authenticate(context, required=True)
-
-        sys_path_save = sys.path
-        try:
-            sys.path.append(toscadir)
-            from tosca.engine import XOSTosca
-
-            xt = XOSTosca(request.recipe, parent_dir=toscadir, log_to_console=False)
-            xt.execute(user)
-        except BaseException:
-            response = utility_pb2.ToscaResponse()
-            response.status = response.ERROR
-            response.messages = traceback.format_exc()
-            return response
-        finally:
-            sys.path = sys_path_save
-
-        response = utility_pb2.ToscaResponse()
-        response.status = response.SUCCESS
-        response.messages = "\n".join(xt.log_msgs)
-
-        return response
-
-    @translate_exceptions("Utilities", "DestryTosca")
-    @track_request_time("Utilities", "DestryTosca")
-    def DestroyTosca(self, request, context):
-        user = self.authenticate(context, required=True)
-
-        sys_path_save = sys.path
-        try:
-            sys.path.append(toscadir)
-            from tosca.engine import XOSTosca
-
-            xt = XOSTosca(request.recipe, parent_dir=toscadir, log_to_console=False)
-            xt.destroy(user)
-        except BaseException:
-            response = utility_pb2.ToscaResponse()
-            response.status = response.ERROR
-            response.messages = traceback.format_exc()
-            return response
-        finally:
-            sys.path = sys_path_save
-
-        response = utility_pb2.ToscaResponse()
-        response.status = response.SUCCESS
-        response.messages = "\n".join(xt.log_msgs)
-
-        return response
-
-    # end FIXME
 
     @translate_exceptions("Utilities", "NoOp")
     @track_request_time("Utilities", "NoOp")
