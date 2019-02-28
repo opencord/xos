@@ -102,7 +102,6 @@ policy grant_policy < ctx.user.is_admin
 message Privilege::grant_policy (XOSBase) {
      required int32 accessor_id = 1 [null = False, blank=False];
      required string accessor_type = 2 [null = False, max_length=1024, blank = False];
-     optional int32 controller_id = 3 [null = True, blank = True];
      required int32 object_id = 4 [null = False, blank=False];
      required string object_type = 5 [null = False, max_length=1024, blank = False];
      required string permission = 6 [null = False, default = "all", max_length=1024, tosca_key=True];
@@ -123,36 +122,6 @@ message AddressPool (XOSBase) {
 message ComputeServiceInstance (ServiceInstance) {
      required manytoone slice->Slice:computeserviceinstances = 1:1001 [db_index = True, null = False, blank = False, help_text = "Slice that controls this ServiceInstance"];
      required manytoone image->Image:computeserviceinstances = 2:1001 [db_index = True, null = False, blank = False, help_text = "Image used to instantiate this ServiceInstance"];
-}
-
-// Admins at a deployment have access to controllers at those deployments
-policy controller_policy 
-       < ctx.user.is_admin 
-           | exists Privilege: 
-                  Privilege.accessor_id = ctx.user.id 
-                  & Privilege.object_type = "Deployment" 
-                  & Privilege.permission = "role:admin" 
-                  & Privilege.object_id = obj.id >
-
-message Controller::controller_policy (XOSBase) {
-     required string name = 1 [max_length = 200, content_type = "stripped", blank = False, help_text = "Name of the Controller", null = False, db_index = False, unique = True];
-     required string backend_type = 2 [max_length = 200, content_type = "stripped", blank = False, help_text = "Type of compute controller, e.g. EC2, OpenStack, or OpenStack version", null = False, db_index = False];
-     required string version = 3 [max_length = 200, content_type = "stripped", blank = False, help_text = "Controller version", null = False, db_index = False];
-     optional string auth_url = 4 [max_length = 200, content_type = "stripped", blank = True, help_text = "Auth url for the compute controller", null = True, db_index = False];
-     optional string admin_user = 5 [max_length = 200, content_type = "stripped", blank = True, help_text = "Username of an admin user at this controller", null = True, db_index = False];
-     optional string admin_password = 6 [max_length = 200, content_type = "stripped", blank = True, help_text = "Password of theadmin user at this controller", null = True, db_index = False];
-     optional string admin_tenant = 7 [max_length = 200, content_type = "stripped", blank = True, help_text = "Name of the tenant the admin user belongs to", null = True, db_index = False];
-     optional string domain = 8 [max_length = 200, content_type = "stripped", blank = True, help_text = "Name of the domain this controller belongs to", null = True, db_index = False];
-     optional string rabbit_host = 9 [max_length = 200, content_type = "stripped", blank = True, help_text = "IP address of rabbitmq server at this controller", null = True, db_index = False];
-     optional string rabbit_user = 10 [max_length = 200, content_type = "stripped", blank = True, help_text = "Username of rabbitmq server at this controller", null = True, db_index = False];
-     optional string rabbit_password = 11 [max_length = 200, content_type = "stripped", blank = True, help_text = "Password of rabbitmq server at this controller", null = True, db_index = False];
-     required manytoone deployment->Deployment:controllerdeployments = 12:1001 [db_index = True, null = False, blank = False];
-}
-
-message ControllerImages (XOSBase) {
-     required manytoone image->Image:controllerimages = 1:1002 [db_index = True, null = False, blank = False, unique_with = "controller"];
-     required manytoone controller->Controller:controllerimages = 2:1001 [db_index = True, null = False, blank = False];
-     optional string glance_image_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Glance image id", null = True, db_index = False];
 }
 
 // Everyone has read access
@@ -190,77 +159,6 @@ policy slice_policy <
                  & Privilege.permission = "role:admin")
                 ) >
 
-policy controller_network_policy <
-         ctx.user.is_admin
-         | *slice_policy(network.owner) >
-
-
-message ControllerNetwork::controller_network_policy (XOSBase) {
-     required manytoone network->Network:controllernetworks = 1:1001 [db_index = True, null = False, blank = False, unique_with = "controller"];
-     required manytoone controller->Controller:controllernetworks = 2:1002 [db_index = True, null = False, blank = False];
-     required string subnet = 3 [db_index = False, max_length = 32, null = False, blank = True];
-     required string start_ip = 4 [db_index = False, max_length = 32, null = False, blank = True];
-     required string stop_ip = 5 [db_index = False, max_length = 32, null = False, blank = True];
-     optional string net_id = 6 [help_text = "Neutron network", max_length = 256, null = True, db_index = False, blank = True];
-     optional string router_id = 7 [help_text = "Neutron router id", max_length = 256, null = True, db_index = False, blank = True];
-     optional string subnet_id = 8 [help_text = "Neutron subnet id", max_length = 256, null = True, db_index = False, blank = True];
-     optional string gateway = 9 [db_index = False, max_length = 32, null = True, blank = True];
-     optional string segmentation_id = 10 [db_index = False, max_length = 32, null = True, blank = True];
-}
-
-message ControllerRole (XOSBase) {
-     required string role = 1 [choices = "(('admin', 'Admin'),)", max_length = 30, content_type = "stripped", blank = False, null = False, db_index = False];
-}
-
-message ControllerSite (XOSBase) {
-     required manytoone site->Site:controllersite = 1:1002 [db_index = True, null = False, blank = False, unique_with="controller", tosca_key = True];
-     optional manytoone controller->Controller:controllersite = 2:1003 [db_index = True, null = True, blank = True, tosca_key = True];
-     optional string tenant_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Keystone tenant id", null = True, db_index = True];
-}
-
-message ControllerSitePrivilege (XOSBase) {
-     required manytoone controller->Controller:controllersiteprivileges = 1:1004 [db_index = True, null = False, blank = False, unique_with = "site_privilege"];
-     required manytoone site_privilege->SitePrivilege:controllersiteprivileges = 2:1001 [db_index = True, null = False, blank = False, unique_with = "role_id"];
-     optional string role_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Keystone id", null = True, db_index = True];
-}
-
-policy controller_slice_policy <
-         ctx.user.is_admin
-         | *slice_policy(slice) >
-
-message ControllerSlice::controller_slice_policy (XOSBase) {
-     required manytoone controller->Controller:controllerslices = 1:1005 [db_index = True, null = False, blank = False, unique_with = "slice"];
-     required manytoone slice->Slice:controllerslices = 2:1002 [db_index = True, null = False, blank = False];
-     optional string tenant_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Keystone tenant id", null = True, db_index = False];
-}
-
-message ControllerSlicePrivilege (XOSBase) {
-     required manytoone controller->Controller:controllersliceprivileges = 1:1006 [db_index = True, null = False, blank = False, unique_with = "slice_privilege"];
-     required manytoone slice_privilege->SlicePrivilege:controllersliceprivileges = 2:1001 [db_index = True, null = False, blank = False];
-     optional string role_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Keystone id", null = True, db_index = True];
-}
-
-policy controller_user_policy <
-         ctx.user.is_admin
-         | (ctx.read_access & *user_policy(user)) >
-
-message ControllerUser::controller_user_policy (XOSBase) {
-     required manytoone user->User:controllerusers = 1:1001 [db_index = True, null = False, blank = False];
-     required manytoone controller->Controller:controllersusers = 2:1007 [db_index = True, null = False, blank = False, unique_with = "user"];
-     optional string kuser_id = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Keystone user id", null = True, db_index = False];
-}
-
-// Everyone has read access
-// For write access you need admin privileges at that deployment
-policy deployment_policy <
-         ctx.user.is_admin
-         | (ctx.write_access -> exists Privilege: Privilege.object_type = "Deployment" & Privilege.object_id = obj.id & Privilege.accessor_id = ctx.user.id & Privilege.permission = "role:admin") >
-
-message Deployment::deployment_policy (XOSBase) {
-     required string name = 1 [max_length = 200, content_type = "stripped", blank = False, help_text = "Name of the Deployment", null = False, db_index = False, unique = True];
-     required string accessControl = 2 [default = "allow all", max_length = 200, blank = False, help_text = "Access control list that specifies which sites/users may use nodes in this deployment", null = False, db_index = False, varchar = True];
-}
-
 
 message Flavor (XOSBase) {
      required string name = 1 [max_length = 32, content_type = "stripped", blank = False, help_text = "name of this flavor, as displayed to users", null = False, db_index = False, unique = True];
@@ -278,14 +176,6 @@ message Image (XOSBase) {
      optional string tag = 6 [max_length = 256, content_type = "stripped", blank = True, help_text = "For Docker Images, tag of image", null = True, db_index = False];
 }
 
-policy image_deployment_policy <
-        *deployment_policy(deployment) 
->
-
-message ImageDeployments (XOSBase) {
-     required manytoone image->Image:imagedeployments = 1:1003 [db_index = True, null = False, blank = False, unique_with = "deployment"];
-     required manytoone deployment->Deployment:imagedeployments = 2:1002 [db_index = True, null = False, blank = False];
-}
 
 policy instance_creator < obj.creator >
 policy instance_isolation < (obj.isolation = "container" | obj.isolation = "container_vm" ) -> (obj.image.kind = "container") >
@@ -306,7 +196,6 @@ message Instance::instance_policy (XOSBase) {
      required manytoone image->Image:instances = 6:1004 [db_index = True, null = False, blank = False];
      optional manytoone creator->User:instances = 7:1002 [db_index = True, null = True, blank = True];
      required manytoone slice->Slice:instances = 8:1003 [db_index = True, null = False, blank = False];
-     required manytoone deployment->Deployment:instance_deployment = 9:1003 [db_index = True, null = False, blank = False];
      required manytoone node->Node:instances = 10:1001 [db_index = True, null = False, blank = False];
      required int32 numberCores = 11 [help_text = "Number of cores for instance", default = 0, null = False, db_index = False, blank = False];
      required manytoone flavor->Flavor:instance = 12:1001 [help_text = "Flavor of this instance", null = False, db_index = True, blank = False];
@@ -369,15 +258,13 @@ message NetworkTemplate (XOSBase) {
      optional string vtn_kind = 11 [default = "PRIVATE", choices = "(('PRIVATE', 'Private'), ('PUBLIC', 'Public'), ('MANAGEMENT_LOCAL', 'Management Local'), ('MANAGEMENT_HOST', 'Management Host'), ('VSG', 'VSG'), ('ACCESS_AGENT', 'Access Agent'), ('FLAT', 'Flat'))", max_length = 30, blank = True, null = True, db_index = False];
 }
 
-policy node_policy < *site_policy(site_deployment.site) >
-
-message Node::node_policy (XOSBase) {
+message Node (XOSBase) {
      required string name = 1 [max_length = 200, content_type = "stripped", blank = False, help_text = "Name of the Node", null = False, db_index = False, unique = True];
-     required manytoone site_deployment->SiteDeployment:nodes = 2:1001 [db_index = True, null = False, blank = False];
      optional string bridgeId = 3 [max_length = 200, content_type = "stripped", blank = True, help_text = "Bridge Id", null = True, db_index = False];
      optional string dataPlaneIntf = 4 [max_length = 200, content_type = "stripped", blank = True, help_text = "Dataplane Interface", null = True, db_index = False];
      optional string dataPlaneIp = 5 [max_length = 200, content_type = "stripped", blank = True, help_text = "Dataplane Ip", null = True, db_index = False];
      optional string hostManagementIface = 6 [max_length = 200, content_type = "stripped", blank = True, help_text = "Host Management Interface", null = True, db_index = False];
+     required manytoone site->Site:nodes = 7:1001 [db_index = True, null = False, blank = False, default=get_first_site];
 }
 message NodeLabel (XOSBase) {
      required string name = 1 [max_length = 200, content_type = "stripped", blank = False, help_text = "label name", null = False, db_index = False, unique = True];
@@ -585,13 +472,6 @@ message Site::site_policy (XOSBase) {
      required string abbreviated_name = 10 [db_index = False, max_length = 80, null = False, content_type = "stripped", blank = False];
 }
 
-
-message SiteDeployment (XOSBase) {
-     required manytoone site->Site:sitedeployments = 1:1003 [db_index = True, null = False, blank = False, unique_with = "deployment", tosca_key=True];
-     required manytoone deployment->Deployment:sitedeployments = 2:1004 [db_index = True, null = False, blank = False, unique_with = "controller", tosca_key=True];
-     optional manytoone controller->Controller:sitedeployments = 3:1008 [db_index = True, null = True, blank = True];
-     optional string availability_zone = 4 [max_length = 200, content_type = "stripped", blank = True, help_text = "OpenStack availability zone", null = True, db_index = False];
-}
 
 message SitePrivilege (XOSBase) {
      required manytoone user->User:siteprivileges = 1:1003 [db_index = True, null = False, blank = False];
