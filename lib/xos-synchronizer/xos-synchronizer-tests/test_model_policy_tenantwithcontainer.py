@@ -83,8 +83,6 @@ class TestModelPolicyTenantWithContainer(unittest.TestCase):
         with patch.object(TenantWithContainer, "owner") as owner, patch.object(
             TenantWithContainer, "save"
         ) as tenant_save, patch.object(
-            Node, "site_deployment"
-        ) as site_deployment, patch.object(
             Instance, "save"
         ) as instance_save, patch.object(
             Instance, "delete"
@@ -99,13 +97,11 @@ class TestModelPolicyTenantWithContainer(unittest.TestCase):
                 name="mysite_test1", default_flavor=self.flavor, default_isolation="vm"
             )
             image = Image(name="trusty-server-multi-nic")
-            deployment = Deployment(name="testdeployment")
             owner.slices.count.return_value = 1
             owner.slices.all.return_value = [slice]
             owner.slices.first.return_value = slice
             get_image.return_value = image
             pick.return_value = (node, None)
-            site_deployment.deployment = deployment
             # done setup mocks
 
             # call manage_container
@@ -135,8 +131,6 @@ class TestModelPolicyTenantWithContainer(unittest.TestCase):
 
     def test_manage_container_no_m1_small(self):
         with patch.object(TenantWithContainer, "owner") as owner, patch.object(
-            Node, "site_deployment"
-        ) as site_deployment, patch.object(
             Flavor, "objects"
         ) as flavor_objects, patch.object(
             TenantWithContainerPolicy, "get_image"
@@ -149,13 +143,11 @@ class TestModelPolicyTenantWithContainer(unittest.TestCase):
                 name="mysite_test1", default_flavor=None, default_isolation="vm"
             )
             image = Image(name="trusty-server-multi-nic")
-            deployment = Deployment(name="testdeployment")
             owner.slices.count.return_value = 1
             owner.slices.all.return_value = [slice]
             owner.slices.first.return_value = slice
             get_image.return_value = image
             pick.return_value = (node, None)
-            site_deployment.deployment = deployment
             flavor_objects.filter.return_value = []
             # done setup mocks
 

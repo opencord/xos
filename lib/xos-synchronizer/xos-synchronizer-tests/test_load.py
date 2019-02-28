@@ -65,7 +65,7 @@ class TestScheduling(unittest.TestCase):
 
     def test_load_steps(self):
         step_names = [s.__name__ for s in self.steps]
-        self.assertIn("SyncControllerSlices", step_names)
+        self.assertIn("SyncPort", step_names)
 
     def test_load_deps(self):
         self.synchronizer.load_dependency_graph()
@@ -91,9 +91,6 @@ class TestScheduling(unittest.TestCase):
         self.synchronizer.load_sync_steps()
         model_to_step = self.synchronizer.model_to_step
         step_lookup = self.synchronizer.step_lookup
-        self.assertIn(
-            ("ControllerSlice", ["SyncControllerSlices"]), model_to_step.items()
-        )
         self.assertIn(
             ("Port", ["SyncPort"]), model_to_step.items()
         )
