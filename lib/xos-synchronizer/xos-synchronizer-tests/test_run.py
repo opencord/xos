@@ -94,16 +94,12 @@ class TestRun(unittest.TestCase):
         pending_objects, pending_steps = self.synchronizer.fetch_pending()
         pending_objects2 = list(pending_objects)
 
-        any_cs = next(
-            obj for obj in pending_objects if obj.leaf_model_name == "ControllerSlice"
-        )
         any_instance = next(
             obj for obj in pending_objects2 if obj.leaf_model_name == "Instance"
         )
 
         slice = Slice()
         any_instance.slice = slice
-        any_cs.slice = slice
 
         self.synchronizer.run_once()
 
