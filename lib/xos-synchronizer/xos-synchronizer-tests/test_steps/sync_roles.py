@@ -23,12 +23,13 @@ class SyncRoles(SyncStep):
     requested_interval = 0
 
     # This observes is intentionally a list of three classes, to test steps where observes is a list of classes.
-    observes = [SiteRole, SliceRole, ControllerRole]
+    observes = [SiteRole, SliceRole]
 
     def sync_record(self, role):
         if not role.enacted:
-            controllers = Controller.objects.all()
-            for controller in controllers:
-                driver = self.driver.admin_driver(controller=controller)
-                driver.create_role(role.role)
+            # This doesn't do anything anymore -- Controller was removed
+            #controllers = Controller.objects.all()
+            #for controller in controllers:
+            #    driver = self.driver.admin_driver(controller=controller)
+            #    driver.create_role(role.role)
             role.save()
