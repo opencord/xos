@@ -45,6 +45,30 @@
       "revId": "9a42f87f37b51eef614abd59a436249bfc4aa88b",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e0b86992_9b2ef157",
+        "filename": "xos/tools/xos-manage",
+        "patchSetId": 16
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-03-06T00:30:43Z",
+      "side": 1,
+      "message": "It can probably be discarded after verification. At the same time, we should also add checks to refuse a service from being onboarded / throw an error if it has models but no migration scripts.",
+      "parentUuid": "85dd14cc_aa0cb3b1",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 42
+      },
+      "revId": "9a42f87f37b51eef614abd59a436249bfc4aa88b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
