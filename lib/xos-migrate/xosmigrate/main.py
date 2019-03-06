@@ -289,7 +289,7 @@ required.add_argument(
     action="append",
     required=True,
     dest="service_names",
-    help="The name of the folder containing the service in cord/orchestration/xos_services"
+    help="The name of the folder containing the service in cord/orchestration/xos-services"
 )
 
 parser.add_argument(
@@ -332,7 +332,7 @@ def run():
     xos_path = get_abs_path(os.path.join(args.repo_root, "orchestration/xos/xos/"))
     django_path = get_abs_path(os.path.join(xos_path, "manage.py"))
     core_dir = get_abs_path(os.path.join(xos_path, "core/models/"))
-    service_base_dir = get_abs_path(os.path.join(xos_path, "../../xos_services/"))
+    service_base_dir = get_abs_path(os.path.join(xos_path, "../../xos-services/"))
     service_dest_dir = get_abs_path(os.path.join(xos_path, "services/"))
 
     # we need to append the xos folder to sys.path
