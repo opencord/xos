@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0e940686_f1239829",
+        "filename": "docs/dev/xosmigrate.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-03-06T23:23:49Z",
+      "side": 1,
+      "message": "I think it\u0027s also implied that you\u0027ve downloaded the whole repo tree, as several examples assume the organization within the repo tree. This was a simplifying assumption made so the we don\u0027t have to tell people to put several different paths on the command line. It doesn\u0027t necessarily have to be *the* CORD repo tree, but a tree that has `orchestration/xos` and `orchestration/xos_services/\u003cmyservicehere\u003e` is probably helpful.",
+      "range": {
+        "startLine": 8,
+        "startChar": 6,
+        "endLine": 8,
+        "endChar": 33
+      },
+      "revId": "83674b99489475a0f06ad64ca108fa4e1c824b8a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e2d9ac39_009c2886",
+        "filename": "docs/dev/xosmigrate.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-03-06T23:23:49Z",
+      "side": 1,
+      "message": "I think this is supposed to be \"do not\"",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 2
+      },
+      "revId": "83674b99489475a0f06ad64ca108fa4e1c824b8a",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
