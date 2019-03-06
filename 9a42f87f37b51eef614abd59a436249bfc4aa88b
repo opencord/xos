@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c3ab7583_1b8df316",
+        "filename": "lib/xos-config/setup.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2019-03-06T00:09:10Z",
+      "side": 1,
+      "message": "Small thing: should we change this line to a common support email? or do we want to list all of us?",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "9a42f87f37b51eef614abd59a436249bfc4aa88b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "85dd14cc_aa0cb3b1",
+        "filename": "xos/tools/xos-manage",
+        "patchSetId": 16
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2019-03-06T00:09:10Z",
+      "side": 1,
+      "message": "Unrelated to this patch, do we still need this? core migrations are now checked in",
+      "range": {
+        "startLine": 138,
+        "startChar": 4,
+        "endLine": 138,
+        "endChar": 42
+      },
+      "revId": "9a42f87f37b51eef614abd59a436249bfc4aa88b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
