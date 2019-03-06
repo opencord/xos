@@ -329,6 +329,7 @@ class XOS2Jinja(Visitor):
             "package": self.package,
             "fqn": model_name,
             "rlinks": [],
+            "linespan": obj.linespan,       # first and last line number
         }
         try:
             model_def["policy"] = obj.policy.pval
