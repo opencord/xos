@@ -268,6 +268,7 @@ class XOS2Jinja(Visitor):
         except BaseException:
             pass
         s["_type"] = "field"
+        s["_linespan"] = obj.linespan
 
         self.stack.push(s)
         return True
@@ -329,6 +330,7 @@ class XOS2Jinja(Visitor):
             "package": self.package,
             "fqn": model_name,
             "rlinks": [],
+            "_linespan": obj.linespan,       # first and last line number
         }
         try:
             model_def["policy"] = obj.policy.pval
