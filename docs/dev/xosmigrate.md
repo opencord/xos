@@ -40,7 +40,7 @@ optional arguments:
 required arguments:
   -s SERVICE_NAMES, --service SERVICE_NAMES
                         The name of the folder containing the service in
-                        cord/orchestration/xos_services
+                        cord/orchestration/xos-services
 ```
 
 Supposing that your code is living under `~/Sites/cord` and you want to generate migrations
