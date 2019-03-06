@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "aa9aa045_081a1f0d",
+        "filename": "lib/xos-config/setup.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-06T00:37:53Z",
+      "side": 1,
+      "message": "Agreed - we should change it to be a generic name (support@opencord.org) or the `cord-dev` listserv.   We should also specify an `url` inside setup() - a minor warning is printed about this.",
+      "parentUuid": "c3ab7583_1b8df316",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "9a42f87f37b51eef614abd59a436249bfc4aa88b",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "85dd14cc_aa0cb3b1",
         "filename": "xos/tools/xos-manage",
         "patchSetId": 16
