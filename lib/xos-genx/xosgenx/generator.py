@@ -19,6 +19,7 @@ import jinja2
 import os
 from xos2jinja import XOS2Jinja
 from proto2xproto import Proto2XProto
+from validator import XProtoValidator
 import jinja2_extensions
 import yaml
 from colorama import Fore
@@ -314,6 +315,11 @@ class XOSProcessor:
         else:
             for message in v.messages:
                 message["is_included"] = True
+
+        validator = XProtoValidator(v.models)
+        validator.validate()
+        validator.print_errors()
+        import pdb; pdb.set_trace()
 
         if args.output is not None and args.write_to_file == "model":
             rendered = {}
