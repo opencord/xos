@@ -15,12 +15,12 @@ GENERATED_DOCS =
 LINT_STYLE ?= mdl_relaxed.rb
 
 serve: setup
-	gitbook serve
+	gitbook serve --log=debug --debug
 
 build: setup
 	gitbook build
 
-setup: xos-gui xos-tosca kubernetes openstack onos simpleexampleservice exampleservice
+setup:
 	gitbook init
 	gitbook install
 
@@ -38,26 +38,26 @@ lint:
 	mdl -s $(LINT_STYLE) `find -L . ! -path "./_book/*" ! -path "./node_modules/*" -name "*.md"`
 
 # link directories that contain other documentation
-xos-gui:
-	ln -s ../../xos-gui/docs xos-gui
-
-xos-tosca:
-	ln -s ../../xos-tosca/docs xos-tosca
-
-kubernetes:
-	ln -s ../../xos-services/kubernetes-service/docs kubernetes
-
-openstack:
-	ln -s ../../xos-services/openstack/docs openstack
-
-onos:
-	ln -s ../../xos-services/onos-service/docs onos
-
-exampleservice:
-	ln -s ../../xos-services/exampleservice/docs exampleservice
-
-simpleexampleservice:
-	ln -s ../../xos-services/simpleexampleservice/docs simpleexampleservice
+#xos-gui:
+#	ln -s ../../xos-gui/docs xos-gui
+#
+#xos-tosca:
+#	ln -s ../../xos-tosca/docs xos-tosca
+#
+#kubernetes:
+#	ln -s ../../xos-services/kubernetes-service/docs kubernetes
+#
+#openstack:
+#	ln -s ../../xos-services/openstack/docs openstack
+#
+#onos:
+#	ln -s ../../xos-services/onos-service/docs onos
+#
+#exampleservice:
+#	ln -s ../../xos-services/exampleservice/docs exampleservice
+#
+#simpleexampleservice:
+#	ln -s ../../xos-services/simpleexampleservice/docs simpleexampleservice
 
 
 # HOW TO
@@ -91,4 +91,4 @@ clean: swagger_clean venv_clean
 	rm -rf $(GENERATED_DOCS)
 	rm -rf _book
 	rm -rf node_modules
-	rm -rf xos xos-gui xos-tosca kubernetes openstack onos simpleexampleservice exampleservice
+#	rm -rf xos xos-gui xos-tosca kubernetes openstack onos simpleexampleservice exampleservice
