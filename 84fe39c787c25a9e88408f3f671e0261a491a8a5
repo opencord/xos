@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "25ab7ad8_27ade123",
+        "filename": "lib/xos-migrate/xosmigrate/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-11T21:48:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c000f55d_8d50bb2d",
+      "range": {
+        "startLine": 310,
+        "startChar": 44,
+        "endLine": 310,
+        "endChar": 73
+      },
+      "revId": "84fe39c787c25a9e88408f3f671e0261a491a8a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "11ed3436_b5549e30",
         "filename": "lib/xos-migrate/xosmigrate/main.py",
         "patchSetId": 2
@@ -93,6 +117,30 @@
       "revId": "84fe39c787c25a9e88408f3f671e0261a491a8a5",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d084ce14_6c47a843",
+        "filename": "lib/xos-migrate/xosmigrate/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-11T21:48:08Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "aa671aa8_80fdbaee",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 21
+      },
+      "revId": "84fe39c787c25a9e88408f3f671e0261a491a8a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     },
     {
       "key": {
@@ -143,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "a6b9212f_39dfe7a8",
+        "filename": "lib/xos-migrate/xosmigrate/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-11T21:48:08Z",
+      "side": 1,
+      "message": "Same in 2.x: https://docs.python.org/2.7/reference/lexical_analysis.html#string-literal-concatenation",
+      "parentUuid": "700e2d07_48e6c1c6",
+      "range": {
+        "startLine": 317,
+        "startChar": 82,
+        "endLine": 317,
+        "endChar": 84
+      },
+      "revId": "84fe39c787c25a9e88408f3f671e0261a491a8a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1caa32ae_f6ec6649",
         "filename": "lib/xos-migrate/xosmigrate/main.py",
         "patchSetId": 2
@@ -178,6 +250,54 @@
       "side": 1,
       "message": "I\u0027m not sure I understood what do you mean. If the options are correct this error won\u0027t be triggered, it will be printed only if one of--xos-dir or --services-dir is set and the service is not core (in that case you\u0027ll need both)",
       "parentUuid": "1caa32ae_f6ec6649",
+      "range": {
+        "startLine": 355,
+        "startChar": 49,
+        "endLine": 356,
+        "endChar": 122
+      },
+      "revId": "84fe39c787c25a9e88408f3f671e0261a491a8a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c9b777fb_9eb73e8f",
+        "filename": "lib/xos-migrate/xosmigrate/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-11T21:48:08Z",
+      "side": 1,
+      "message": "Ah, I missed the \u0027!\u0027 on the first line.",
+      "parentUuid": "bf149e17_df80c7ab",
+      "range": {
+        "startLine": 355,
+        "startChar": 49,
+        "endLine": 356,
+        "endChar": 122
+      },
+      "revId": "84fe39c787c25a9e88408f3f671e0261a491a8a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18bf8374_657748eb",
+        "filename": "lib/xos-migrate/xosmigrate/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-11T21:48:08Z",
+      "side": 1,
+      "message": "Ah, I missed the `!` in the statement at the top.  You\u0027re right",
+      "parentUuid": "bf149e17_df80c7ab",
       "range": {
         "startLine": 355,
         "startChar": 49,
