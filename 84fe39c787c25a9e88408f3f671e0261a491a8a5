@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfb11a2c_fd9fdc22",
+        "filename": "lib/xos-migrate/xosmigrate/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 310,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-11T21:28:35Z",
+      "side": 1,
+      "message": "Is this still the case?",
+      "range": {
+        "startLine": 310,
+        "startChar": 44,
+        "endLine": 310,
+        "endChar": 73
+      },
+      "revId": "84fe39c787c25a9e88408f3f671e0261a491a8a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11ed3436_b5549e30",
+        "filename": "lib/xos-migrate/xosmigrate/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-11T21:28:35Z",
+      "side": 1,
+      "message": "Could this be put in the mutually_exclusive_group with --repo ?\n\nCould this option be changed so it could be listed multiple times on the command line, once per service repo, and imply the `-s` for each service?",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 21
+      },
+      "revId": "84fe39c787c25a9e88408f3f671e0261a491a8a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92787460_cf517fd5",
+        "filename": "lib/xos-migrate/xosmigrate/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-11T21:28:35Z",
+      "side": 1,
+      "message": "Not required: https://docs.python.org/3.7/reference/lexical_analysis.html#string-literal-concatenation",
+      "range": {
+        "startLine": 317,
+        "startChar": 82,
+        "endLine": 317,
+        "endChar": 84
+      },
+      "revId": "84fe39c787c25a9e88408f3f671e0261a491a8a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1caa32ae_f6ec6649",
+        "filename": "lib/xos-migrate/xosmigrate/main.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-11T21:28:35Z",
+      "side": 1,
+      "message": "If someone specifies something other than \u0027core\u0027 as a service name but has the other options set correct, this error doesn\u0027t tell them what was wrong.",
+      "range": {
+        "startLine": 355,
+        "startChar": 49,
+        "endLine": 356,
+        "endChar": 122
+      },
+      "revId": "84fe39c787c25a9e88408f3f671e0261a491a8a5",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
