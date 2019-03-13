@@ -13,8 +13,11 @@
 # limitations under the License.
 
 # xosproject/xos-libraries
+ARG TAG=master
+ARG REPOSITORY=
+ARG REGISTRY=
 
-FROM xosproject/xos-base:3.0.0
+FROM ${REGISTRY}${REPOSITORY}xos-base:${TAG}
 
 # Add libraries
 COPY lib /opt/xos/lib

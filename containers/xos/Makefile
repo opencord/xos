@@ -19,12 +19,17 @@
 # `REGISTRY=192.168.99.100:3000/ REPOSITORY=xosproject/ DOCKER_BUILD_ARGS="--no-cache" TAG=dev make build`
 
 ifeq ($(TAG),)
-TAG := candidate
+TAG := 3.0.1-dev
 endif
 
 ifeq ($(REPOSITORY),)
 REPOSITORY := xosproject/
 endif
+
+DOCKER_BUILD_ARGS = \
+	--build-arg TAG=$(TAG) \
+	--build-arg REGISTRY=$(REGISTRY) \
+	--build-arg REPOSITORY=$(REPOSITORY)
 
 summary:
 	@echo Building images with:
@@ -39,15 +44,15 @@ xos-base:
 	docker build $(DOCKER_BUILD_ARGS) -t ${REGISTRY}${REPOSITORY}xos-base:${TAG} -f Dockerfile.base .
 
 xos-libraries:
-	docker build --no-cache $(DOCKER_BUILD_ARGS) -t ${REGISTRY}${REPOSITORY}xos-libraries:${TAG} -f Dockerfile.libraries ../..
+	docker build $(DOCKER_BUILD_ARGS) -t ${REGISTRY}${REPOSITORY}xos-libraries:${TAG} -f Dockerfile.libraries ../..
 
 xos-client:
 	rm -rf tmp.chameleon
 	cp -R ../../../../component/chameleon tmp.chameleon
-	docker build --no-cache $(DOCKER_BUILD_ARGS) -t ${REGISTRY}${REPOSITORY}xos-client:${TAG} -f Dockerfile.client ../..
+	docker build $(DOCKER_BUILD_ARGS) -t ${REGISTRY}${REPOSITORY}xos-client:${TAG} -f Dockerfile.client ../..
 
 xos-core:
-	docker build --no-cache $(DOCKER_BUILD_ARGS) -t ${REGISTRY}${REPOSITORY}xos-core:${TAG} -f Dockerfile.xos-core ../..
+	docker build $(DOCKER_BUILD_ARGS) -t ${REGISTRY}${REPOSITORY}xos-core:${TAG} -f Dockerfile.xos-core ../..
 
 xos-synchronizer-base:
-	docker build --no-cache $(DOCKER_BUILD_ARGS) -t ${REGISTRY}${REPOSITORY}xos-synchronizer-base:${TAG} -f Dockerfile.synchronizer-base ../..
+	docker build $(DOCKER_BUILD_ARGS) -t ${REGISTRY}${REPOSITORY}xos-synchronizer-base:${TAG} -f Dockerfile.synchronizer-base ../..
