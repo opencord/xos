@@ -13,8 +13,11 @@
 # limitations under the License.
 
 # xosproject/xos-synchronizer-base
+ARG TAG=master
+ARG REPOSITORY=
+ARG REGISTRY=
 
-FROM xosproject/xos-client:3.0.0
+FROM ${REGISTRY}${REPOSITORY}xos-client:${TAG}
 
 COPY xos/xos/logger.py /opt/xos/xos/logger.py
 COPY xos/xos/__init__.py /opt/xos/xos/__init__.py
