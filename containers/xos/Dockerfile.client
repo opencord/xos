@@ -13,8 +13,11 @@
 # limitations under the License.
 
 # xosproject/xos-client
+ARG TAG=master
+ARG REPOSITORY=
+ARG REGISTRY=
 
-FROM xosproject/xos-libraries:3.0.0
+FROM ${REGISTRY}${REPOSITORY}xos-libraries:${TAG}
 
 # Install XOS client
 COPY lib/xos-api /tmp/xos-api

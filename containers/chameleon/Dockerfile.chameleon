@@ -13,8 +13,11 @@
 # limitations under the License.
 
 # xosproject/chameleon
+ARG TAG=master
+ARG REPOSITORY=
+ARG REGISTRY=
 
-FROM xosproject/xos-base:3.0.0
+FROM ${REGISTRY}${REPOSITORY}xos-base:${TAG}
 
 # xos-base already has protoc and dependencies installed
 

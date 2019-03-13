@@ -39,6 +39,11 @@ migration-test: venv-xos
 	source ./venv-xos/bin/activate ; set -u ;\
 	xos-migrate --xos-dir . -s core --check
 
+build:
+	# TODO move the build logic in this makefile
+	# example usage: REGISTRY=10.128.22.1:30500/ make build
+	pushd ./containers/xos/; make build; popd;
+
 clean:
 	find . -name '*.pyc' | xargs rm -f
 	find . -name '__pycache__' | xargs rm -rf
