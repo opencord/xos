@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # xosproject/chameleon
-FROM xosproject/xos-base:3.0.1
+FROM xosproject/xos-base:3.0.2
 
 # xos-base already has protoc and dependencies installed
 
@@ -23,7 +23,13 @@ ENV PYTHONPATH=/chameleon
 COPY tmp.chameleon /chameleon/chameleon
 
 # Build the protos
-RUN pip install docker==3.1.4 klein==17.10.0 fluent-logger==0.9.2 \
+RUN pip install \
+    docker==3.1.4 \
+    klein==17.10.0 \
+    fluent-logger==0.9.2 \
+    grpcio==1.19.0 \
+    grpcio-tools==1.19.0 \
+    PyYAML==5.1 \
  && chdir chameleon/chameleon/protos \
  && VOLTHA_BASE=anything make
 

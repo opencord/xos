@@ -13,17 +13,21 @@
 # limitations under the License.
 
 # xosproject/xos-libraries
-FROM xosproject/xos-base:3.0.1
+FROM xosproject/xos-base:3.0.2
 
 # Add libraries
 COPY lib /opt/xos/lib
 COPY VERSION /opt/xos
+COPY VERSION /opt/xos/lib/xos-api/xosapi/VERSION
+COPY VERSION /opt/xos/lib/xos-synchronizer/xossynchronizer/VERSION
 
 # Install python modules included with XOS
 RUN cd /opt/xos/lib/xos-util && python setup.py install \
  && cd /opt/xos/lib/xos-config && python setup.py install \
  && cd /opt/xos/lib/xos-genx && python setup.py install \
- && cd /opt/xos/lib/xos-kafka && python setup.py install
+ && cd /opt/xos/lib/xos-kafka && python setup.py install \
+ && cd /opt/xos/lib/xos-synchronizer && python setup.py install \
+ && cd /opt/xos/lib/xos-api && python setup.py install
 
 # Label image
 ARG org_label_schema_schema_version=1.0
