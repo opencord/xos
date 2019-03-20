@@ -11,4 +11,5 @@ prometheus_client~=0.6.0
 psycopg2-binary~=2.7.7
 pytz~=2018.9
 semver~=2.8.1
+requests-mock==1.5.0
 tosca-parser~=1.4.0
