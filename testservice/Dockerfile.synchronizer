@@ -16,10 +16,27 @@
 
 # xosproject/testservice
 
-FROM xosproject/xos-synchronizer-base:candidate
+FROM xosproject/alpine-grpc-base:0.9.0
 
 COPY xos/synchronizer /opt/xos/synchronizers/testservice
 COPY VERSION /opt/xos/synchronizers/testservice/
+
+# Add libraries
+COPY lib /opt/xos/lib
+COPY VERSION /opt/xos
+
+# Install non-xos pip packages
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt \
+ && pip freeze > /var/xos/pip_freeze_kubernetes_service_`date -u +%Y%m%dT%H%M%S`
+
+# Install xos packages using pip so their dependencies are installed
+RUN pip install -e /opt/xos/lib/xos-config \
+ && pip install -e /opt/xos/lib/xos-genx \
+ && pip install -e /opt/xos/lib/xos-kafka \
+ && pip install -e /opt/xos/lib/xos-api \   
+ && pip install -e /opt/xos/lib/xos-synchronizer \
+ && pip freeze > /var/xos/pip_freeze_libraries_`date -u +%Y%m%dT%H%M%S`
 
 ENTRYPOINT []
 
