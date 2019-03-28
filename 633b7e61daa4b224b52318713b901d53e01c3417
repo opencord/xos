@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5d012c39_0bb45fa7",
+        "filename": "testservice/tox.ini",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-03-28T12:28:17Z",
+      "side": 1,
+      "message": "I should have been more specific - use the whole list of py3* interpreters so any particular OS that only one of the 3 will run them, and the others will be ignored (skip_missing_interpreters below)",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 39
+      },
+      "revId": "633b7e61daa4b224b52318713b901d53e01c3417",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
