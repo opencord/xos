@@ -25,7 +25,7 @@ venv-xos:
 	./scripts/setup_venv.sh
 
 # tests
-test: lib-test xos-test migration-test
+test: lib-test xos-test migration-test core-xproto-test
 
 lib-test:
 	for lib in $(XOS_LIBRARIES); do pushd $$lib; tox; popd; done
@@ -38,6 +38,10 @@ xos-test: venv-xos
 migration-test: venv-xos
 	source ./venv-xos/bin/activate ; set -u ;\
 	xos-migrate --xos-dir . -s core --check
+
+core-xproto-test: venv-xos
+	source ./venv-xos/bin/activate ; set -u ;\
+	xosgenx xos/core/models/core.xproto --lint --strict
 
 clean:
 	find . -name '*.pyc' | xargs rm -f
