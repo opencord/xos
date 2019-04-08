@@ -32,7 +32,7 @@ COMMON_OPTIONS = ["help_text", "gui_hidden", "tosca_key", "tosca_key_one_of",
                   "feedback_state", "unique", "unique_with"]
 
 # Options that must be either "True" or "False"
-BOOLEAN_OPTIONS = ["blank", "db_index", "feedback_state", "gui_hidden", "null", "tosca_key", "unique", "varchar"]
+BOOLEAN_OPTIONS = ["blank", "db_index", "feedback_state", "gui_hidden", "null", "tosca_key", "unique", "text"]
 
 
 class XProtoValidator(object):
@@ -185,7 +185,7 @@ class XProtoValidator(object):
         self.check_modifier_consistent(model, field)
         self.allow_options(model, field,
                            ["blank", "choices", "content_type", "db_index", "default",
-                            "max_length", "modifier", "null", "varchar"])
+                            "max_length", "modifier", "null", "text"])
 
     def validate_field_bool(self, model, field):
         self.check_modifier_consistent(model, field)
