@@ -12,33 +12,50 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# xosproject/xos-libraries
-FROM xosproject/xos-base:3.2.1
+# xosproject/xos-core
+FROM xosproject/alpine-grpc-base:0.9.0
 
-# Add libraries
-COPY lib /opt/xos/lib
+# Install libraries and python requirements
+COPY requirements.txt /tmp/requirements.txt
+RUN apk add --no-cache postgresql-dev \
+ && pip install -r /tmp/requirements.txt \
+ && pip freeze > /var/xos/pip_freeze_xos-core_`date -u +%Y%m%dT%H%M%S` \
+ && mkdir -p /opt/xos
+
+# Install XOS
 COPY VERSION /opt/xos
+COPY xos /opt/xos
+COPY lib /opt/xos/lib
 
-# Install python using pip so their dependencies are installed
+# Install XOS libraries
 RUN pip install -e /opt/xos/lib/xos-util \
  && pip install -e /opt/xos/lib/xos-config \
  && pip install -e /opt/xos/lib/xos-genx \
  && pip install -e /opt/xos/lib/xos-kafka \
- && pip install -e /opt/xos/lib/xos-synchronizer \
- && pip install -e /opt/xos/lib/xos-api \
- && pip freeze > /var/xos/pip_freeze_libraries_`date -u +%Y%m%dT%H%M%S`
+ && pip freeze > /var/xos/pip_freeze_xos-core_libs_`date -u +%Y%m%dT%H%M%S` \
+ && mkdir -p /opt/cord_profile /opt/xos-services /opt/xos_libraries \
+ && xosgenx --output /opt/xos/core/models --target django.xtarget --dest-extension py \
+      --write-to-file model /opt/xos/core/models/core.xproto \
+ && xosgenx --output /opt/xos/core/models --target django-security.xtarget --dest-file security.py \
+      --write-to-file single /opt/xos/core/models/core.xproto \
+ && xosgenx --output /opt/xos/core/models --target init.xtarget --dest-file __init__.py \
+      --write-to-file single /opt/xos/core/models/core.xproto
+
+# Set environment variables
+ENV HOME /root
+
+# Define working directory
+WORKDIR /opt/xos
 
 # Label image
-ARG org_label_schema_schema_version=1.0
-ARG org_label_schema_name=xos-libraries
 ARG org_label_schema_version=unknown
 ARG org_label_schema_vcs_url=unknown
 ARG org_label_schema_vcs_ref=unknown
 ARG org_label_schema_build_date=unknown
 ARG org_opencord_vcs_commit_date=unknown
 
-LABEL org.label-schema.schema-version=$org_label_schema_schema_version \
-      org.label-schema.name=$org_label_schema_name \
+LABEL org.label-schema.schema-version=1.0 \
+      org.label-schema.name=xos-core \
       org.label-schema.version=$org_label_schema_version \
       org.label-schema.vcs-url=$org_label_schema_vcs_url \
       org.label-schema.vcs-ref=$org_label_schema_vcs_ref \
