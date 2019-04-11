@@ -114,25 +114,25 @@ class XOSProcessorTest(unittest.TestCase):
         output = XOSProcessor.process(args)
 
         # xosmodel has custom header attic
-        self.assertIn("from xosmodel_header import *", output["XOSModel"])
-        self.assertIn("class XOSModel(XOSBase):", output["XOSModel"])
+        self.assertIn("from core.models.xosbase import *", output["XOSModel"])
+        self.assertIn("class XOSModel_decl(XOSBase):", output["XOSModel"])
 
         # vrouter port use the default header
-        self.assertIn("header import *", output["VRouterPort"])
-        self.assertIn("class VRouterPort(XOSBase):", output["VRouterPort"])
+        self.assertIn("from core.models.xosbase import *", output["VRouterPort"])
+        self.assertIn("class VRouterPort_decl(XOSBase):", output["VRouterPort"])
 
         # verify files
         xosmodel = OUTPUT_DIR + "/xosmodel.py"
         self.assertTrue(os.path.isfile(xosmodel))
         xmf = open(xosmodel).read()
-        self.assertIn("from xosmodel_header import *", xmf)
-        self.assertIn("class XOSModel(XOSBase):", xmf)
+        self.assertIn("from core.models.xosbase import *", xmf)
+        self.assertIn("class XOSModel_decl(XOSBase):", xmf)
 
         vrouterport = OUTPUT_DIR + "/vrouterport.py"
         self.assertTrue(os.path.isfile(vrouterport))
         vrpf = open(vrouterport).read()
-        self.assertIn("header import *", vrpf)
-        self.assertIn("class VRouterPort(XOSBase):", vrpf)
+        self.assertIn("from core.models.xosbase import *", vrpf)
+        self.assertIn("class VRouterPort_decl(XOSBase):", vrpf)
 
     def test_django_with_base(self):
         args = XOSProcessorArgs(
@@ -149,14 +149,14 @@ class XOSProcessorTest(unittest.TestCase):
         xosmodel = OUTPUT_DIR + "/xosmodel.py"
         self.assertTrue(os.path.isfile(xosmodel))
         xmf = open(xosmodel).read()
-        self.assertIn("from xosmodel_header import *", xmf)
-        self.assertIn("class XOSModel(XOSBase):", xmf)
+        self.assertIn("from core.models.xosbase import *", xmf)
+        self.assertIn("class XOSModel_decl(XOSBase):", xmf)
 
         xosbase = OUTPUT_DIR + "/xosbase.py"
         self.assertTrue(os.path.isfile(xosbase))
         xbf = open(xosbase).read()
-        self.assertIn("header import *", xbf)
-        self.assertIn("class XOSBase(models.Model, PlModelMixIn):", xbf)
+        self.assertIn("from core.models.xosbase import *", xbf)
+        self.assertIn("class XOSBase_decl(models.Model, PlModelMixIn):", xbf)
 
     def test_write_multiple_files(self):
         """
