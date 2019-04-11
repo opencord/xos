@@ -79,6 +79,20 @@ class Jinja2BaseTests(unittest.TestCase):
             xproto_singularize(_field("sheep", singular="turtle")), "turtle"
         )
 
+    def test_xproto_first_non_empty(self):
+        self.assertEqual(xproto_first_non_empty(["a"]), "a")
+        self.assertEqual(xproto_first_non_empty([None,"a"]), "a")
+        self.assertEqual(xproto_first_non_empty([None]), None)
+        self.assertEqual(xproto_first_non_empty([]), None)
+
+    def test_list_has_true(self):
+        self.assertTrue(xproto_list_has_true([True]))
+        self.assertTrue(xproto_list_has_true(["True"]))
+        self.assertTrue(xproto_list_has_true(['"True"']))
+        self.assertTrue(xproto_list_has_true([False, True]))
+        self.assertFalse(xproto_list_has_true([]))
+        self.assertFalse(xproto_list_has_true([False]))
+
 
 if __name__ == "__main__":
     unittest.main()

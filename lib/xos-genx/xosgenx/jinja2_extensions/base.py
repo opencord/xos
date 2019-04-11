@@ -481,3 +481,9 @@ def xproto_is_true(x):
     if x is True or (x == "True") or (x == '"True"'):
         return True
     return False
+
+
+def xproto_list_has_true(lst):
+    # Returns true if any element if the list is interpreted as true
+    x = xproto_first_non_empty(lst)
+    return xproto_is_true(x)
