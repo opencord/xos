@@ -1,18 +1,6 @@
-{% if options.legacy =='"True"' -%}
-{% set legacy_tag = '_decl' %}
-{% set legacy = True %}
 from core.models.xosbase import *
 from core.models import ServiceInstance
-{% else %}
-{% set legacy = False %}
-{% set legacy_tag = '' %}
-{% if file_exists('../header.py') or file_exists('header.py')-%}from header import *
-{% else %}
-from core.models.xosbase import *
-from core.models import ServiceInstance
-{% endif %}
-{% endif %}
-
+{% set ns=namespace(any_legacy_tag = '') %}
 {% for m in proto.messages %}
 {% if file_exists(m.name|lower+'_header.py') -%}from {{m.name|lower }}_header import *{% endif %}
 {% if file_exists(m.name|lower+'_top.py') -%}{{ include_file(m.name|lower+'_top.py') }} {% endif %}
@@ -38,6 +26,14 @@ from core.models import {{ b.name }}
 {% endfor %}
 
 {% for m in proto.messages %}
+{%- if xproto_first_non_empty([m.options.legacy, options.legacy]) == '"True"' -%}
+{% set legacy_tag = '_decl' %}
+{% set legacy = True %}
+{% set ns.any_legacy_tag = '_decl' %}
+{% else %}
+{% set legacy = False %}
+{% set legacy_tag = '' %}
+{% endif %}
 class {{ m.name }}{{ legacy_tag }}{{ xproto_base_def(m.name, m.bases, legacy_tag, proto.message_names) }}:
   plural_name = "{{ xproto_pluralize(m) }}"
 
@@ -108,4 +104,4 @@ class {{ m.name }}{{ legacy_tag }}{{ xproto_base_def(m.name, m.bases, legacy_tag
 
 {% if file_exists(m.name|lower+'_bottom.py') -%}{{ include_file(m.name|lower+'_bottom.py') }}{% endif %} 
 {% endfor %}
-+++ models{{ legacy_tag }}.py
++++ models{{ ns.any_legacy_tag }}.py
