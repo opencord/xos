@@ -1,21 +1,15 @@
-{%- if options.legacy =='"True"' -%}
+{% for m in proto.messages %}{% if not m.options.skip_django -%}
+{%- if xproto_first_non_empty([m.options.legacy, options.legacy]) == '"True"' -%}
 {%- set legacy_tag = '_decl' -%}
 {%- set legacy = True -%}
 {%- else -%}
 {%- set legacy_tag = '' -%}
 {%- set legacy = False -%}
 {%- endif -%}
-{% for m in proto.messages %}{% if not m.options.skip_django -%}
-{% if legacy %}
-{# handle models that use custom headers rather than deriving from xosbase #}
 {% if m.options.custom_header %}
 from {{ m.options.custom_header|replace('"','') }} import *
 {% else %}
 from core.models.xosbase import *
-{% endif %}
-{% else %}
-{% if file_exists(xproto_base_name(m.name)|lower+'_header.py') -%}from {{xproto_base_name(m.name)|lower }}_header import *{%- else -%}from header import *{% endif %}
-{% if file_exists(xproto_base_name(m.name)|lower+'_top.py') -%}{{ include_file(xproto_base_name(m.name)|lower+'_top.py') }} {% endif %}
 {% endif %}
 
 {%- for l in m.links %}
