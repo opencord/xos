@@ -22,6 +22,30 @@
       "revId": "d251f23e1758f11893f920d052a5981b55aff351",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "777d1a41_5af54d9a",
+        "filename": "lib/xos-genx/xos-genx-tests/test_jinja2_base.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-04-15T22:39:00Z",
+      "side": 1,
+      "message": "Hmm, I think you\u0027re right, and the behavior should probably be to return the first non-NULL value in the list. I\u0027ll go back and revise.",
+      "parentUuid": "f5b6709c_fe029258",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 55
+      },
+      "revId": "d251f23e1758f11893f920d052a5981b55aff351",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
     }
   ]
 }
