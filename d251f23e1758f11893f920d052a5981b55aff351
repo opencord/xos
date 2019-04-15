@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f5b6709c_fe029258",
+        "filename": "lib/xos-genx/xos-genx-tests/test_jinja2_base.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1000007
+      },
+      "writtenOn": "2019-04-15T22:19:41Z",
+      "side": 1,
+      "message": "Maybe it\u0027s not important, but what do we expect to get if a list is [False, \"Foo\", True]? Looking at the implementation I think it will return False.\n\nAlso I\u0027m not sure it will return True in case of list like: [\"False\", \"True\"]",
+      "range": {
+        "startLine": 88,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 55
+      },
+      "revId": "d251f23e1758f11893f920d052a5981b55aff351",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
