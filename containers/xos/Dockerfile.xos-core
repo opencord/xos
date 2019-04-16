@@ -19,6 +19,13 @@ FROM xosproject/xos-libraries:3.2.2
 ADD xos /opt/xos
 ADD lib /opt/xos/lib
 
+RUN apt-get update \
+ && apt-get install -y wget\
+ && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
+ && sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -sc)-pgdg main" > /etc/apt/sources.list.d/PostgreSQL.list' \
+ && apt-get update \
+ && apt-get install -y postgresql-client-10
+
 RUN mkdir -p /opt/cord_profile /opt/xos-services /opt/xos_libraries \
  && xosgenx --output /opt/xos/core/models --target django.xtarget --dest-extension py \
       --write-to-file model /opt/xos/core/models/core.xproto \
