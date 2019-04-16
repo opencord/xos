@@ -68,6 +68,19 @@ def init_reaper():
     return reaper
 
 
+def init_backupset_watcher():
+    backupset_watcher = None
+    try:
+        from backupsetwatcher import BackupSetWatcherThread
+
+        backupset_watcher = BackupSetWatcherThread()
+        backupset_Watcher.start()
+    except BaseException:
+        log.exception("Failed to initialize backupset watcher")
+
+    return backupset_watcher
+
+
 if __name__ == "__main__":
     args = parse_args()
 
@@ -82,9 +95,11 @@ if __name__ == "__main__":
 
     if server.django_initialized:
         reaper = init_reaper()
+        backupset_watcher = init_backupset_watcher()
     else:
-        log.warning("Skipping reaper as django is not initialized")
+        log.warning("Skipping reaper and backupset_watcher as django is not initialized")
         reaper = None
+        backupset_watcher = None
 
     log.info("XOS core entering wait loop")
     _ONE_DAY_IN_SECONDS = 60 * 60 * 24
@@ -99,3 +114,6 @@ if __name__ == "__main__":
 
     if reaper:
         reaper.stop()
+
+    if backupset_watcher:
+        backupset_watcher.stop()

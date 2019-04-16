@@ -120,6 +120,50 @@ message AddressPool (XOSBase) {
      optional manytoone service->Service:addresspools = 7:1001 [db_index = True, blank = True, help_text="Service this AddressPool belongs to"];
 }
 
+message BackupSet (XOSBase) {
+    required string component = 1 [
+        help_text = "component that this backupset applies to",
+        // XOS is currently the only allowed component
+        choices = "(('xos', 'XOS'))",
+        default = "xos",
+        max_length = 32, 
+        unique = True];
+    required string name = 2 [
+        help_text = "human-readable name of this backup set",
+        max_length = 256, 
+        unique_with = "component"];
+    required string operation = 3 [
+        help_text = "operation to perform",
+        choices = "(('create', 'create'), ('restore', 'restore'))",
+        max_length = 32];
+    required string access_method = 4 [
+        help_text = "how the backup set will be accessed",
+        // `mounteddir` will select a directory that is expected to be mounted outside of the XOS container.
+        // In the future, perhaps:
+        //    FTP - upload the backup somewhere
+        //    HTTP - POST the backup to a web URL
+        //    DOWNLOAD - store the file in an internal location, where it can be downloaded later
+        choices = "(('mounteddir', 'mounted directory'))",
+        default = "mounteddir",
+        max_length = 32];
+    // filename is optional for a backup. If no filename is given, the system will make one up.
+    // filename must be specified for a restore
+    optional string filename = 5 [
+        help_text = "filename of backup file, relative to access_method",
+        max_length = 1024];
+    optional string status = 6 [
+        help_text = "status of operation",
+        choices = "(('created', 'created'), ('restored', 'restored'), ('failed', 'failed'), ('inprogress', 'in progress'))",
+        max_length = 32];
+    // `effective_date` may be different from `XOSBase.enacted` if a synchronizer is performing
+    // an operation on an external component. `XOSBase.enacted` is always set to the time the
+    // model is saved, which could differ from the time the backup or restore completed by 
+    // a short time.
+    optional string effective_date = 7 [
+        help_text = "the time and date the operation was completed",
+        content_type = "date"];
+}
+
 message ComputeServiceInstance (ServiceInstance) {
      required manytoone slice->Slice:computeserviceinstances = 1:1001 [db_index = True, blank = False, help_text = "Slice that controls this ServiceInstance"];
      required manytoone image->Image:computeserviceinstances = 2:1001 [db_index = True, blank = False, help_text = "Image used to instantiate this ServiceInstance"];
