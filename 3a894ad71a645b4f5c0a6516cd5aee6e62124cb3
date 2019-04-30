@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f0989acd_85376e65",
+        "filename": "xos/coreapi/backupsetwatcher.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-04-30T04:26:41Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 133,
+        "startChar": 34,
+        "endLine": 133,
+        "endChar": 43
+      },
+      "revId": "3a894ad71a645b4f5c0a6516cd5aee6e62124cb3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "95b88e0d_5088b1bc",
+        "filename": "xos/coreapi/backupsetwatcher.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-04-30T04:26:41Z",
+      "side": 1,
+      "message": "Don\u0027t file URI\u0027s have 3 slashes?",
+      "range": {
+        "startLine": 271,
+        "startChar": 80,
+        "endLine": 271,
+        "endChar": 86
+      },
+      "revId": "3a894ad71a645b4f5c0a6516cd5aee6e62124cb3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "196f060a_84979738",
+        "filename": "xos/coreapi/core_main.py",
+        "patchSetId": 24
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-04-30T04:26:41Z",
+      "side": 1,
+      "message": "spelling",
+      "range": {
+        "startLine": 132,
+        "startChar": 33,
+        "endLine": 132,
+        "endChar": 38
+      },
+      "revId": "3a894ad71a645b4f5c0a6516cd5aee6e62124cb3",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
