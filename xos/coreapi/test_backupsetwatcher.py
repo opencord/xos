@@ -81,7 +81,8 @@ class TestBackupWatcher(fake_filesystem_unittest.TestCase):
 
     def test_process_response_create(self):
         file_details = {"checksum": "1234"}
-        response = {"file_details": file_details}
+        response = {"file_details": file_details,
+                    "effective_date": "today"}
 
         file = MagicMock()
         op = MagicMock(file=file)
@@ -95,8 +96,49 @@ class TestBackupWatcher(fake_filesystem_unittest.TestCase):
 
         self.assertEqual(op.status, "created")
         self.assertEqual(op.error_msg, "")
+        self.assertEqual(op.effective_date, "today")
         op.save.assert_called()
 
+    def test_process_response_restore_noexist(self):
+        file_details = {"id": 7,
+                        "name": "mybackup",
+                        "uri": "file:///mybackup",
+                        "checksum": "1234",
+                        "backend_filename": "/mybackup"}
+        response = {"file_details": file_details,
+                    "effective_date": "today"}
+
+        newfile = Mock()
+        self.backupsetwatcher.BackupFile.objects.filter.return_value = []
+        self.backupsetwatcher.BackupFile.return_value = newfile
+
+        newop = Mock()
+        self.backupsetwatcher.BackupOperation.objects.filter.return_value = []
+        self.backupsetwatcher.BackupOperation.return_value = newop
+
+        self.watcher.process_response_restore(id=1, operation="restore", status="restored", response=response)
+
+        self.assertEqual(newop.status, "restored")
+        self.assertEqual(newop.error_msg, "")
+        self.assertEqual(newop.effective_date, "today")
+        newop.save.assert_called()
+
+    def test_process_response_restore_exists(self):
+        file_details = {}
+        response = {"file_details": file_details,
+                    "effective_date": "today"}
+
+        file = MagicMock()
+        op = MagicMock(file=file)
+
+        self.backupsetwatcher.BackupOperation.objects.filter.return_value = [op]
+
+        self.watcher.process_response_restore(id=1, operation="restore", status="restored", response=response)
+
+        self.assertEqual(op.status, "restored")
+        self.assertEqual(op.error_msg, "")
+        self.assertEqual(op.effective_date, "today")
+        op.save.assert_called()
 
 def main():
     unittest.main()
