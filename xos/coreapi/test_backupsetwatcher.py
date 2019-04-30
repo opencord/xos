@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import functools
 import os
 import pdb
 import sys
@@ -21,6 +22,20 @@ from pyfakefs import fake_filesystem_unittest
 from io import open
 
 from xosconfig import Config
+
+
+def make_model(vars_dict, var_name, **kwargs):
+    """ Helper function to mock creating objects. Creates a MagicMock with the
+        kwargs, and also saves the variable into a dictionary where it can 
+        easily be inspected.
+    """
+    name = kwargs.pop("name", None)
+    newmodel = MagicMock(**kwargs)
+    if name:
+        # Can't pass "name" in as an arg to MagicMock
+        newmodel.name = name
+    vars_dict[var_name] = newmodel
+    return newmodel
 
 
 class MockServer(object):
@@ -81,7 +96,8 @@ class TestBackupWatcher(fake_filesystem_unittest.TestCase):
 
     def test_process_response_create(self):
         file_details = {"checksum": "1234"}
-        response = {"file_details": file_details}
+        response = {"file_details": file_details,
+                    "effective_date": "today"}
 
         file = MagicMock()
         op = MagicMock(file=file)
@@ -95,8 +111,58 @@ class TestBackupWatcher(fake_filesystem_unittest.TestCase):
 
         self.assertEqual(op.status, "created")
         self.assertEqual(op.error_msg, "")
+        self.assertEqual(op.effective_date, "today")
         op.save.assert_called()
 
+    def test_process_response_restore_noexist(self):
+        file_details = {"id": 7,
+                        "name": "mybackup",
+                        "uri": "file:///mybackup",
+                        "checksum": "1234",
+                        "backend_filename": "/mybackup"}
+        response = {"file_details": file_details,
+                    "effective_date": "today"}
+
+        mockvars = {}
+
+        self.backupsetwatcher.BackupFile.objects.filter.return_value = []
+        self.backupsetwatcher.BackupFile.side_effect = functools.partial(make_model, mockvars, "newfile")
+
+        self.backupsetwatcher.BackupOperation.objects.filter.return_value = []
+        self.backupsetwatcher.BackupOperation.side_effect = functools.partial(make_model, mockvars, "newop")
+
+        self.watcher.process_response_restore(id=1, operation="restore", status="restored", response=response)
+
+        newfile = mockvars["newfile"]
+        self.assertEqual(newfile.name, "mybackup")
+        self.assertEqual(newfile.uri, "file:///mybackup")
+        self.assertEqual(newfile.checksum, "1234")
+        self.assertEqual(newfile.backend_filename, "/mybackup")
+
+        newop = mockvars["newop"]
+        self.assertEqual(newop.operation, "restore")
+        self.assertEqual(newop.file, newfile)
+        self.assertEqual(newop.status, "restored")
+        self.assertEqual(newop.error_msg, "")
+        self.assertEqual(newop.effective_date, "today")
+        newop.save.assert_called()
+
+    def notest_process_response_restore_exists(self):
+        file_details = {}
+        response = {"file_details": file_details,
+                    "effective_date": "today"}
+
+        file = MagicMock()
+        op = MagicMock(file=file)
+
+        self.backupsetwatcher.BackupOperation.objects.filter.return_value = [op]
+
+        self.watcher.process_response_restore(id=1, operation="restore", status="restored", response=response)
+
+        self.assertEqual(op.status, "restored")
+        self.assertEqual(op.error_msg, "")
+        self.assertEqual(op.effective_date, "today")
+        op.save.assert_called()
 
 def main():
     unittest.main()
