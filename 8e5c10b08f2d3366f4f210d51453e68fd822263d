@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2810b02c_a8c103cb",
+        "filename": "lib/xos-genx/xosgenx/jinja2_extensions/gui.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-05-02T17:10:56Z",
+      "side": 1,
+      "message": "I would sort at this point.",
+      "range": {
+        "startLine": 101,
+        "startChar": 11,
+        "endLine": 101,
+        "endChar": 21
+      },
+      "revId": "8e5c10b08f2d3366f4f210d51453e68fd822263d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
