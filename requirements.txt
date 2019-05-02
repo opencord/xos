@@ -1,3 +1,4 @@
+grpcio-reflection==1.19.0
 Django~=1.11.20
 django-extensions~=2.1.6
 django-timezones~=0.2
