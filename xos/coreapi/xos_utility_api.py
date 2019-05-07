@@ -24,11 +24,9 @@ import django.apps
 from django.contrib.auth import authenticate as django_authenticate
 import fnmatch
 import os
-import sys
-import traceback
 from protos import utility_pb2, utility_pb2_grpc
 from google.protobuf.empty_pb2 import Empty
-
+from xosutil.autodiscover_version import autodiscover_version_of_main
 from importlib import import_module
 from django.conf import settings
 
@@ -269,3 +267,16 @@ class UtilityService(utility_pb2_grpc.utilityServicer, XOSAuthHelperMixin):
             "xos-core", "Utilities", "GetPopulatedServiceInstances", grpc.StatusCode.OK
         ).inc()
         return response
+
+    @translate_exceptions("Utilities", "GetXproto")
+    @track_request_time("Utilities", "GetXproto")
+    def GetVersion(self, request, context):
+        res = utility_pb2.VersionInfo()
+
+        # TODO: Report build date, git commit, and python version
+
+        res.version = autodiscover_version_of_main()
+        REQUEST_COUNT.labels(
+            "xos-core", "Utilities", "GetVersion", grpc.StatusCode.OK
+        ).inc()
+        return res

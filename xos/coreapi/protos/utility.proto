@@ -34,6 +34,10 @@ message XProtos {
     string xproto = 1;
 };
 
+message VersionInfo {
+    string version = 1;
+};
+
 message PopulatedServiceInstance {
     option (contentTypeId) = "core.serviceinstance";
     oneof id_present {
@@ -108,4 +112,12 @@ service utility {
             get: "/xosapi/v1/core/populatedserviceinstance/{id}"
         };
   }
+
+  rpc GetVersion(google.protobuf.Empty) returns (VersionInfo) {
+        option (googleapi.http) = {
+            get: "/xosapi/v1/version"
+        };
+  }
+
+
 };
