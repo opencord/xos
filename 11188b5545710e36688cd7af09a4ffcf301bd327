@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "69f343cd_f9984cb0",
+        "filename": "xos/coreapi/xos_utility_api.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 289,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-05-13T23:22:12Z",
+      "side": 1,
+      "message": "Why the current directory and not the /opt/xos/COMMIT file?",
+      "range": {
+        "startLine": 289,
+        "startChar": 71,
+        "endLine": 289,
+        "endChar": 74
+      },
+      "revId": "11188b5545710e36688cd7af09a4ffcf301bd327",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
