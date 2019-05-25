@@ -45,6 +45,8 @@ message ModelDef {
     string app = 4;
     string verbose_name = 5;
     string description = 6;
+    string sync_unimplemented = 7;
+    string policy_unimplemented = 8;
 };
 
 message ModelDefs {
