@@ -147,6 +147,8 @@ def keep_trying(client, reactor):
     # exception. This will indicate the server has reset. When that happens, we force the client to reconnect, and
     # it will download a new API from the server.
 
+    log.info("Keep trying")
+
     from xosapi.xos_grpc_client import Empty
 
     try:
@@ -215,6 +217,13 @@ def get_synchronizer_version():
                 return version
         return "unknown"
 
+class FakeCode(object):
+    def __init__(self, what):
+        self.name = what
+
+class UnavailableException(Exception):
+    def code(self):
+        return FakeCode("UNAVAILABLE")
 
 def grpcapi_reconnect(client, reactor):
     global model_accessor
@@ -227,9 +236,20 @@ def grpcapi_reconnect(client, reactor):
         log.info("Service version is %s" % version, core_version=Config.get("core_version"))
         try:
             if Config.get("desired_state") == "load":
+                log.info("Calling Loadmodels")
                 ModelLoadClient(client).upload_models(
                     Config.get("name"), Config.get("models_dir"), version=version
                 )
+                log.info("Back from Loadmodels")
+                # XXX smbaker
+                if not os.path.exists("/tmp/fail1"):
+                    log.info("FAIL1")
+                    open("/tmp/fail1", "w").write("fail1")
+                    raise Exception("Fail1")
+                if not os.path.exists("/tmp/fail2"):
+                    log.info("FAIL2")
+                    open("/tmp/fail2", "w").write("fail2")
+                    raise UnavailableException()
             elif Config.get("desired_state") == "unload":
                 # Try for an easy unload. If there's no dirty models, then unload will succeed without
                 # requiring us to setup the synchronizer.
