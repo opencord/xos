@@ -273,8 +273,8 @@ class UtilityService(utility_pb2_grpc.utilityServicer, XOSAuthHelperMixin):
         ).inc()
         return response
 
-    @translate_exceptions("Utilities", "GetXproto")
-    @track_request_time("Utilities", "GetXproto")
+    @translate_exceptions("Utilities", "GetVersion")
+    @track_request_time("Utilities", "GetVersion")
     def GetVersion(self, request, context):
         res = utility_pb2.VersionInfo()
 
@@ -297,10 +297,19 @@ class UtilityService(utility_pb2_grpc.utilityServicer, XOSAuthHelperMixin):
         res.os = os.uname()[0].lower()
         res.arch = os.uname()[4].lower()
 
-        # TODO(smbaker): res.builTime
-        # TODO(smbaker): res.gitCommit
-
         REQUEST_COUNT.labels(
             "xos-core", "Utilities", "GetVersion", grpc.StatusCode.OK
+        ).inc()
+        return res
+
+    @translate_exceptions("Utilities", "GetDatabaseInfo")
+    @track_request_time("Utilities", "GetDatabaseInfo")
+    def GetDatabaseInfo(self, request, context):
+        res = utility_pb2.DatabaseInfo()
+
+        # TODO(smbaker): Everything
+
+        REQUEST_COUNT.labels(
+            "xos-core", "Utilities", "GetDatabaseInfo", grpc.StatusCode.OK
         ).inc()
         return res
