@@ -21,6 +21,7 @@ from decorators import translate_exceptions, require_authentication
 from xos.exceptions import XOSNotAuthenticated
 from core.models import ServiceInstance
 from django.db.models import F, Q
+from django.db import connection
 import django.apps
 from django.contrib.auth import authenticate as django_authenticate
 import fnmatch
@@ -273,8 +274,8 @@ class UtilityService(utility_pb2_grpc.utilityServicer, XOSAuthHelperMixin):
         ).inc()
         return response
 
-    @translate_exceptions("Utilities", "GetXproto")
-    @track_request_time("Utilities", "GetXproto")
+    @translate_exceptions("Utilities", "GetVersion")
+    @track_request_time("Utilities", "GetVersion")
     def GetVersion(self, request, context):
         res = utility_pb2.VersionInfo()
 
@@ -297,10 +298,27 @@ class UtilityService(utility_pb2_grpc.utilityServicer, XOSAuthHelperMixin):
         res.os = os.uname()[0].lower()
         res.arch = os.uname()[4].lower()
 
-        # TODO(smbaker): res.builTime
-        # TODO(smbaker): res.gitCommit
-
         REQUEST_COUNT.labels(
             "xos-core", "Utilities", "GetVersion", grpc.StatusCode.OK
+        ).inc()
+        return res
+
+    @translate_exceptions("Utilities", "GetDatabaseInfo")
+    @track_request_time("Utilities", "GetDatabaseInfo")
+    def GetDatabaseInfo(self, request, context):
+        res = utility_pb2.DatabaseInfo()
+
+        res.name = settings.DB["NAME"]
+        res.endpoint = "%s:%s" % (settings.DB["HOST"], settings.DB["PORT"])
+
+        try:
+            res.version = connection.cursor().connection.server_version
+            res.status = res.OPERATIONAL
+        except Exception:
+            res.version = "Unknown"
+            res.status = res.ERROR
+
+        REQUEST_COUNT.labels(
+            "xos-core", "Utilities", "GetDatabaseInfo", grpc.StatusCode.OK
         ).inc()
         return res
