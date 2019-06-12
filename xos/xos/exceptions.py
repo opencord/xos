@@ -14,8 +14,6 @@
 
 
 import json
-from rest_framework.exceptions import APIException
-from rest_framework.exceptions import PermissionDenied as RestFrameworkPermissionDenied
 
 
 def _get_json_error_details(data):
@@ -28,6 +26,38 @@ def _get_json_error_details(data):
         ret = [item for item in data]
 
     return json.dumps(ret)
+
+
+class APIException(Exception):
+    """
+    Base class for REST framework exceptions.
+    Subclasses should provide `.status_code` and `.default_detail` properties.
+    """
+    status_code = 500
+    default_detail = {"error": "APIException",
+                      "specific_error": "nonspecific",
+                      "fields": []}
+    default_code = 'error'
+                            
+    def __init__(self, detail=None, code=None):
+        if detail is None:
+            detail = self.default_detail
+        if code is None:
+            code = self.default_code
+
+        self.detail = detail
+        self.code = code
+
+    def __str__(self):
+        return "%d: %s" % self.code, self.detail["error"]
+
+
+class PermissionDenied(APIException):
+    status_code = 403
+    default_detail = {"error": "PermissionDenied",
+                      "specific_error": "nonspecific",
+                      "fields": []}
+    default_code = 'permission_denied'
 
 
 class XOSProgrammingError(APIException):
@@ -44,7 +74,7 @@ class XOSProgrammingError(APIException):
         self.json_detail = _get_json_error_details(raw_detail)
 
 
-class XOSPermissionDenied(RestFrameworkPermissionDenied):
+class XOSPermissionDenied(PermissionDenied):
     def __init__(self, why="permission error", fields={}):
         raw_detail = {
             "error": "XOSPermissionDenied",
@@ -56,7 +86,7 @@ class XOSPermissionDenied(RestFrameworkPermissionDenied):
         self.json_detail = _get_json_error_details(raw_detail)
 
 
-class XOSNotAuthenticated(RestFrameworkPermissionDenied):
+class XOSNotAuthenticated(PermissionDenied):
     status_code = 401
 
     def __init__(self, why="you must be authenticated to use this api", fields={}):
@@ -70,7 +100,7 @@ class XOSNotAuthenticated(RestFrameworkPermissionDenied):
         self.json_detail = _get_json_error_details(raw_detail)
 
 
-class XOSNotFound(RestFrameworkPermissionDenied):
+class XOSNotFound(PermissionDenied):
     status_code = 404
 
     def __init__(self, why="object not found", fields={}):
