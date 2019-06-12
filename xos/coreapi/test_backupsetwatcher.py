@@ -20,7 +20,6 @@ import unittest
 from mock import MagicMock, Mock, patch
 from pyfakefs import fake_filesystem_unittest
 from io import open
-
 from xosconfig import Config
 
 
@@ -60,6 +59,9 @@ class TestBackupWatcher(fake_filesystem_unittest.TestCase):
         sys.modules["core"] = Mock()
         sys.modules["core.models"] = Mock(BackupOperation=self.mock_backup_operation,
                                           BackupFile=self.mock_backup_file)
+
+        import decorators
+        decorators.disable_check_db_connection_decorator = True
 
         import backupsetwatcher
         self.backupsetwatcher = backupsetwatcher
