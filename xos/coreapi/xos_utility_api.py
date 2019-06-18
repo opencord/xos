@@ -20,6 +20,7 @@ from authhelper import XOSAuthHelperMixin
 from decorators import translate_exceptions, require_authentication, check_db_connection
 from xos.exceptions import XOSNotAuthenticated
 from core.models import ServiceInstance
+from django import VERSION as DJANGO_VERSION
 from django.db.models import F, Q
 from django.db import connection
 import django.apps
@@ -31,6 +32,7 @@ from protos import utility_pb2, utility_pb2_grpc
 from google.protobuf.empty_pb2 import Empty
 from importlib import import_module
 from django.conf import settings
+from xos_version import get_version_dict
 from xosconfig import Config
 from multistructlog import create_logger
 
@@ -281,29 +283,21 @@ class UtilityService(utility_pb2_grpc.utilityServicer, XOSAuthHelperMixin):
         ).inc()
         return response
 
+
     @translate_exceptions("Utilities", "GetVersion")
     @track_request_time("Utilities", "GetVersion")
     def GetVersion(self, request, context):
+        version = get_version_dict()
+
         res = utility_pb2.VersionInfo()
 
-        try:
-            res.version = open("/opt/xos/VERSION").readline().strip()
-        except Exception:
-            log.exception("Exception while determining build version")
-            res.version = "unknown"
-
-        try:
-            res.gitCommit = open("/opt/xos/COMMIT").readline().strip()
-            res.buildTime = datetime.datetime.utcfromtimestamp(
-                os.stat("/opt/xos/COMMIT").st_ctime).strftime("%Y-%m-%dT%H:%M:%SZ")
-        except Exception:
-            log.exception("Exception while determining build information")
-            res.buildDate = "unknown"
-            res.gitCommit = "unknown"
-
-        res.pythonVersion = sys.version.split("\n")[0].strip()
-        res.os = os.uname()[0].lower()
-        res.arch = os.uname()[4].lower()
+        res.version = version["version"]
+        res.gitCommit = version["gitCommit"]
+        res.buildTime = version["buildTime"]
+        res.pythonVersion = version["pythonVersion"]
+        res.os = version["os"]
+        res.arch = version["arch"]
+        res.django = version["django"]
 
         REQUEST_COUNT.labels(
             "xos-core", "Utilities", "GetVersion", grpc.StatusCode.OK
