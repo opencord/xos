@@ -260,30 +260,9 @@ option policy_implemented = "True";
 Options are also supported on a per-field basis. The following lists the
 currently available field options.
 
-The null option specifies whether a field has to be set or not (equivalent to
-annotating the field as `required` or `optional`):
+#### blank
 
-```protobuf
-option null = True
-```
-
-Help text describes a field:
-
-```protobuf
-option help_text = “Descriptive text goes here”;
-```
-
-The default value of the field:
-
-```protobuf
-option default = “Default value of field”;
-```
-
-The maximum length of a field whose type is string:
-
-```protobuf
-option max_length = 128;
-```
+fields: *string, int32, float, foreignkey, manytomany*
 
 Whether a field can be empty:
 
@@ -291,25 +270,11 @@ Whether a field can be empty:
 option blank = False;
 ```
 
-A label to be used by the GUI display for this field:
+The `blank` option is generally impliede by whether a field has a `required` or `optional` modifier and it is not necessary to explicitly specify the `option`.
 
-```protobuf
-option verbose_name = “Verbose name goes here”;
-```
+#### bookkeeping_state
 
-A min/max value for the field
-
-```protobuf
-option min_value = 10;
-option max_value = 100;
-```
-
-Designates a field as `feedback_state`, by default preventing it from being updated using GUI
-or CLI tools.
-
-```protobuf
-option feedback_state = True;
-```
+fields: *all*
 
 Designates a field as `bookkeeping_state`, by default hiding it from GUI or CLI tools.
 
@@ -317,11 +282,9 @@ Designates a field as `bookkeeping_state`, by default hiding it from GUI or CLI 
 option bookkeeping_state = True;
 ```
 
-Do not display this field in the GUI (also available at the model level):
+#### choices
 
-```protobuf
-option gui_hidden = True;
-```
+fields: *string*
 
 The set of valid values for a field, where each inner-tuple specifies
 equivalence classes (e.g., vm is equivalent to Virtual Machine):
@@ -330,11 +293,9 @@ equivalence classes (e.g., vm is equivalent to Virtual Machine):
 option choices = "(('vm', 'Virtual Machine'), ('container', 'Container'))";
 ```
 
-Whether the field is an index field, that is, is used by database targets:
+#### content_type
 
-```protobuf
-option db_index = True;
-```
+fields: *string*
 
 How to interpret/parse string fields:
 
@@ -345,20 +306,108 @@ option content_type = “url”;
 option content_type = “ip”;
 ```
 
-Whether an assignment to a field is permitted, where the option setting is a
-named policy:
+#### db_index
+
+fields: *all*
+
+Whether the field is an index field by the XOS core. Index fields permit more efficient searching.
 
 ```protobuf
-option validators = “port_validator:Slice is not allowed to connect to network”;
+option db_index = True;
 ```
 
-How policies (e.g., `port_validator`) are specified is described below.
+#### default
 
-Whether a field should be shown in the GUI:
+fields: *all*
+
+The default value of the field:
+
+```protobuf
+option default = “Default value of field”;
+```
+
+#### feedback_state
+
+fields: *all*
+
+Designates a field as `feedback_state`, by default preventing it from being updated using GUI
+or CLI tools.
+
+```protobuf
+option feedback_state = True;
+```
+
+#### gui_hidden
+
+fields: *all*
+ 
+Do not display this field in the GUI (also available at the model level):
 
 ```protobuf
 option gui_hidden = True;
 ```
+
+#### help_text
+
+fields: *all*
+
+Help text describes a field:
+
+```protobuf
+option help_text = “Descriptive text goes here”;
+```
+
+#### max_length
+
+fields: *string*
+
+The maximum length of a field whose type is string:
+
+```protobuf
+option max_length = 128;
+```
+
+A string field must either specify a `max_length` or use `text=True` to indicate the string is of variable length.
+If a maximum length is near `256` or `1024` (for example, `254` or `1024`) then it is recommended to use the convention of `256` or `1024`
+
+#### max_value / min_value
+
+fields: *int32*
+
+A min/max value for the field
+
+```protobuf
+option min_value = 10;
+option max_value = 100;
+```
+
+#### null
+
+fields: *all*
+
+The null option specifies whether a field has to be set or not (equivalent to
+annotating the field as `required` or `optional`):
+
+```protobuf
+option null = True
+```
+
+The `null` option is generally impliede by whether a field has a `required` or `optional` modifier and it is not necessary to explicitly specify the `null` option. The only exception to this rule are the `manytomany` and `bool` fields. For `manytomany` fields, it is up to the developer
+to choose a setting for `null`. For boolean fields are always `null=False`. 
+
+#### text
+
+fields: *string*
+
+The text option is set to `true` to convey that a string has no maximum length. This option is mutually exclusive with `max_length`.
+
+```protobuf
+option text = True
+```
+
+#### tosca_key, tosca_key_one_of
+
+fields: *all*
 
 Identify a field that is used as key by the TOSCA engine. A model can have
 multiple keys in case we need a composite key:
@@ -386,8 +435,32 @@ message ServiceInstanceLink (XOSBase) {
 }
 ```
 
+
 the key is composed by `provider_service_instance` and one of
 `subscriber_service_instance`, `subscriber_service`, `subscriber_network`
+
+#### verbose_name
+
+fields: *all*
+
+A label to be used by the GUI display for this field:
+
+```protobuf
+option verbose_name = “Verbose name goes here”;
+```
+
+#### validators
+
+fields: *all*
+
+Whether an assignment to a field is permitted, where the option setting is a
+named policy:
+
+```protobuf
+option validators = “port_validator:Slice is not allowed to connect to network”;
+```
+
+How policies (e.g., `port_validator`) are specified is described below.
 
 ### Naming Conventions
 
