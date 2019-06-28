@@ -260,18 +260,15 @@ option policy_implemented = "True";
 Options are also supported on a per-field basis. The following lists the
 currently available field options.
 
-The null option specifies whether a field has to be set or not (equivalent to
-annotating the field as `required` or `optional`):
+### blank
+
+Whether a field can be empty:
 
 ```protobuf
-option null = True
+option blank = False;
 ```
 
-Help text describes a field:
-
-```protobuf
-option help_text = “Descriptive text goes here”;
-```
+### default
 
 The default value of the field:
 
@@ -279,17 +276,32 @@ The default value of the field:
 option default = “Default value of field”;
 ```
 
+### help_text
+
+Help text describes a field:
+
+```protobuf
+option help_text = “Descriptive text goes here”;
+```
+
+### max_length
+
 The maximum length of a field whose type is string:
 
 ```protobuf
 option max_length = 128;
 ```
 
-Whether a field can be empty:
+### null
+
+The null option specifies whether a field has to be set or not (equivalent to
+annotating the field as `required` or `optional`):
 
 ```protobuf
-option blank = False;
+option null = True
 ```
+
+
 
 A label to be used by the GUI display for this field:
 
