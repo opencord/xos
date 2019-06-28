@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "df1186e2_cc46d4c3",
+        "filename": "docs/dev/xproto.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 281,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-06-28T20:24:15Z",
+      "side": 1,
+      "message": "Maybe specify where it\u0027s shown to the user (in the GUI?)",
+      "range": {
+        "startLine": 281,
+        "startChar": 0,
+        "endLine": 281,
+        "endChar": 28
+      },
+      "revId": "41162cbf53a5b5a9621ce9b440d77fa6b85485d4",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
