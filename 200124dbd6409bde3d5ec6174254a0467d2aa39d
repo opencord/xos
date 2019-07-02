@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a41ad682_269f6de3",
+        "filename": "docs/dev/xproto.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-07-02T15:34:32Z",
+      "side": 1,
+      "message": "Is the list and explanations of the validations exhaustive?  I think that could be useful to a xproto writer.",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 0
+      },
+      "revId": "200124dbd6409bde3d5ec6174254a0467d2aa39d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1670e525_7a78dcd7",
+        "filename": "docs/dev/xproto.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-07-02T15:34:32Z",
+      "side": 1,
+      "message": "Might differentiate this from `content_type`, or link to that?   Is there documentation on to how to write a validator somewhere? \n\nDoes the validator or content_type run first?",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 13
+      },
+      "revId": "200124dbd6409bde3d5ec6174254a0467d2aa39d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
