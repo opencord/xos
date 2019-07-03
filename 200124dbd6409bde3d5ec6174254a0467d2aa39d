@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ce8546d4_8ae5a4cf",
+        "filename": "docs/dev/xproto.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-07-03T04:04:49Z",
+      "side": 1,
+      "message": "Yes, I think it\u0027s exhaustive. I\u0027ll expand the description to explain more of how it works.",
+      "parentUuid": "a41ad682_269f6de3",
+      "range": {
+        "startLine": 345,
+        "startChar": 0,
+        "endLine": 346,
+        "endChar": 0
+      },
+      "revId": "200124dbd6409bde3d5ec6174254a0467d2aa39d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1670e525_7a78dcd7",
         "filename": "docs/dev/xproto.md",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2019-07-02T15:34:32Z",
       "side": 1,
       "message": "Might differentiate this from `content_type`, or link to that?   Is there documentation on to how to write a validator somewhere? \n\nDoes the validator or content_type run first?",
+      "range": {
+        "startLine": 527,
+        "startChar": 0,
+        "endLine": 529,
+        "endChar": 13
+      },
+      "revId": "200124dbd6409bde3d5ec6174254a0467d2aa39d",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1de0d679_9b8e4783",
+        "filename": "docs/dev/xproto.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 529,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2019-07-03T04:04:49Z",
+      "side": 1,
+      "message": "I think this was erroneously placed. The validators are at the model option level, not at the field option level. Removing this.",
+      "parentUuid": "1670e525_7a78dcd7",
       "range": {
         "startLine": 527,
         "startChar": 0,
