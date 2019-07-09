@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54db94db_1067f7ac",
+        "filename": "docs/SUMMARY.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000011
+      },
+      "writtenOn": "2019-07-09T22:03:26Z",
+      "side": 1,
+      "message": "Curly brace?  Comma?",
+      "range": {
+        "startLine": 19,
+        "startChar": 6,
+        "endLine": 19,
+        "endChar": 41
+      },
+      "revId": "d58c887f7e86d85e9ad9bfd50c87b0399ffdb77e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
