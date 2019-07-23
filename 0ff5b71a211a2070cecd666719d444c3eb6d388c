@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddea1782_4eb9238f",
+        "filename": "docs/dev/xos-api.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000578
+      },
+      "writtenOn": "2019-07-23T18:28:26Z",
+      "side": 1,
+      "message": "protobufs",
+      "range": {
+        "startLine": 5,
+        "startChar": 9,
+        "endLine": 5,
+        "endChar": 18
+      },
+      "revId": "0ff5b71a211a2070cecd666719d444c3eb6d388c",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
