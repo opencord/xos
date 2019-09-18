@@ -4,7 +4,7 @@ The XOS gRPC API may be used directly for operating on objects in the XOS data m
 
 ### Prerequisites
 
-Several python packages need to be installed into your development environment. You may use our supplied [virtualenv](./unittest.html#setting-up-a-unit-testing-environment), or you can install the necessary packages directly into your development environment:
+Several python packages need to be installed into your development environment:
 
 ```shell
 # for running xosgenx
