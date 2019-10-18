@@ -22,6 +22,14 @@ VERSION                  ?= $(shell cat ./VERSION)
 CORE_NAME                ?= xos-core
 CLIENT_NAME              ?= xos-client
 
+EMPTY :=
+SPACE := $(EMPTY) $(EMPTY)
+COMMA := $(EMPTY),$(EMPTY)
+
+ARCH=$(subst aarch64,arm64,$(subst x86_64,amd64,$(patsubst i%86,386,$(shell uname -m))))
+LINUX_ARCH := amd64 arm64
+PLATFORMS := $(subst $(SPACE),$(COMMA),$(foreach arch,$(LINUX_ARCH),linux/$(arch)))
+
 ## Testing related
 XOS_LIBRARIES            := $(wildcard lib/*)
 
@@ -31,7 +39,9 @@ DOCKER_REPOSITORY        ?=
 DOCKER_BUILD_ARGS        ?=
 DOCKER_TAG               ?= ${VERSION}
 CORE_IMAGENAME           := ${DOCKER_REGISTRY}${DOCKER_REPOSITORY}${CORE_NAME}:${DOCKER_TAG}
+CORE_ARCH_IMAGENAME      := ${CORE_IMAGENAME}-${ARCH}
 CLIENT_IMAGENAME         := ${DOCKER_REGISTRY}${DOCKER_REPOSITORY}${CLIENT_NAME}:${DOCKER_TAG}
+CLIENT_ARCH_IMAGENAME    := ${CLIENT_IMAGENAME}-${ARCH}
 
 ## Docker labels. Only set ref and commit date if committed
 DOCKER_LABEL_VCS_URL     ?= $(shell git remote get-url $(shell git remote))
@@ -45,7 +55,7 @@ all: test
 ## Docker targets
 docker-build:
 	docker build $(DOCKER_BUILD_ARGS) \
-    -t ${CORE_IMAGENAME} \
+    -t ${CORE_ARCH_IMAGENAME} \
     --build-arg org_label_schema_version="${VERSION}" \
     --build-arg org_label_schema_vcs_url="${DOCKER_LABEL_VCS_URL}" \
     --build-arg org_label_schema_vcs_ref="${DOCKER_LABEL_VCS_REF}" \
@@ -53,7 +63,7 @@ docker-build:
     --build-arg org_opencord_vcs_commit_date="${DOCKER_LABEL_COMMIT_DATE}" \
     -f Dockerfile.core .
 	docker build $(DOCKER_BUILD_ARGS) \
-    -t ${CLIENT_IMAGENAME} \
+    -t ${CLIENT_ARCH_IMAGENAME} \
     --build-arg org_label_schema_version="${VERSION}" \
     --build-arg org_label_schema_vcs_url="${DOCKER_LABEL_VCS_URL}" \
     --build-arg org_label_schema_vcs_ref="${DOCKER_LABEL_VCS_REF}" \
@@ -62,8 +72,33 @@ docker-build:
     -f Dockerfile.client .
 
 docker-push:
+	docker push ${CORE_ARCH_IMAGENAME}
+	docker push ${CLIENT_ARCH_IMAGENAME}
+ifeq ($(ARCH),amd64)
+	docker tag ${CORE_ARCH_IMAGENAME} ${CORE_IMAGENAME}
+	docker tag ${CLIENT_ARCH_IMAGENAME} ${CLIENT_IMAGENAME}
 	docker push ${CORE_IMAGENAME}
 	docker push ${CLIENT_IMAGENAME}
+endif
+
+pre:
+	wget https://github.com/estesp/manifest-tool/releases/download/v0.9.0/manifest-tool-linux-${ARCH} \
+	  -O manifest-tool && \
+	 chmod +x ./manifest-tool
+
+push-manifest:
+	./manifest-tool push from-args --platforms ${PLATFORMS} \
+	  --template ${CORE_IMAGENAME}-ARCH \
+	  --target ${CORE_IMAGENAME}
+	./manifest-tool push from-args --platforms ${PLATFORMS} \
+	  --template ${CLIENT_IMAGENAME}-ARCH \
+	  --target ${CLIENT_IMAGENAME}
+
+push-all: pre
+	for arch in ${LINUX_ARCH}; do \
+		$(MAKE) docker-push ARCH="$$arch"; \
+	done
+	$(MAKE) push-manifest
 
 # Create a virtualenv and install all the libraries
 venv-xos:
