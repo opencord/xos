@@ -22,6 +22,30 @@
       "revId": "ac942065007e076c31b4c94b6d92bf505922577e",
       "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40bbe1f3_df2ae22a",
+        "filename": "lib/xos-api/xosapi/chameleon_client/protos/schema_pb2_grpc.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1000461
+      },
+      "writtenOn": "2020-02-14T22:57:25Z",
+      "side": 0,
+      "message": "I restored the Python3 compact line, but the file was generated without by the protobuf compiler (I\u0027m using python3.7)",
+      "parentUuid": "b4a59119_ef29b6f3",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 38
+      },
+      "revId": "ac942065007e076c31b4c94b6d92bf505922577e",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
     }
   ]
 }
