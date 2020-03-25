@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "281d51de_995bf24a",
+        "filename": "xos/core/models/core.xproto",
+        "patchSetId": 1
+      },
+      "lineNbr": 390,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-03-25T01:57:55Z",
+      "side": 1,
+      "message": "Since this is an optional field, might not need a default.",
+      "range": {
+        "startLine": 390,
+        "startChar": 9,
+        "endLine": 390,
+        "endChar": 33
+      },
+      "revId": "309ce35d34c6f1d21e9c6da9aaca02b4ae9089f9",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": false
+    }
+  ]
+}
