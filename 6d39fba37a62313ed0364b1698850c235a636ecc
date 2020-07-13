@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0ec46617_e6b772c9",
+        "filename": "lib/xos-synchronizer/xossynchronizer/model_policies/default_model_policy_service_instance.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1000016
+      },
+      "writtenOn": "2020-07-13T23:58:17Z",
+      "side": 1,
+      "message": "Compared this to rcord synchronizer model_policy as an example. This implements the same behavior, though the rcord synchronizer folds in automatic creation as well.",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 19
+      },
+      "revId": "6d39fba37a62313ed0364b1698850c235a636ecc",
+      "serverId": "2a2bfe1b-c5c2-48ed-9ac8-16438ab24388",
+      "unresolved": true
+    }
+  ]
+}
